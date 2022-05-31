@@ -1,0 +1,23 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AWSSSODirectoryReadOnly",
+        "Effect": "Allow",
+        "Action": [
+          "sso-directory:Search*",
+          "sso-directory:Describe*",
+          "sso-directory:List*",
+          "sso-directory:Get*",
+          "identitystore:Describe*",
+          "identitystore:List*"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "VersionId": "v3",
+  "IsDefaultVersion": true,
+  "CreateDate": "2022-03-25T20:57:20+00:00"
+}

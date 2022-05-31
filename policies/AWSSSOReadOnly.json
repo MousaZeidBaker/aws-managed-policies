@@ -1,0 +1,34 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AWSSSOReadOnly",
+        "Effect": "Allow",
+        "Action": [
+          "ds:DescribeDirectories",
+          "ds:DescribeTrusts",
+          "iam:ListPolicies",
+          "organizations:DescribeOrganization",
+          "organizations:DescribeAccount",
+          "organizations:ListParents",
+          "organizations:ListChildren",
+          "organizations:ListAccounts",
+          "organizations:ListRoots",
+          "organizations:ListAccountsForParent",
+          "organizations:ListOrganizationalUnitsForParent",
+          "sso:Describe*",
+          "sso:Get*",
+          "sso:List*",
+          "sso:Search*",
+          "sso-directory:DescribeDirectory",
+          "access-analyzer:ValidatePolicy"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "VersionId": "v7",
+  "IsDefaultVersion": true,
+  "CreateDate": "2022-04-28T18:46:11+00:00"
+}

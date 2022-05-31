@@ -1,0 +1,20 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "securityhub:Get*",
+          "securityhub:List*",
+          "securityhub:BatchGet*",
+          "securityhub:Describe*"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "VersionId": "v3",
+  "IsDefaultVersion": true,
+  "CreateDate": "2022-04-04T17:46:51+00:00"
+}

@@ -1,0 +1,35 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "events:DescribeRule",
+          "events:DescribeEventBus",
+          "events:DescribeEventSource",
+          "events:ListEventBuses",
+          "events:ListEventSources",
+          "events:ListRuleNamesByTarget",
+          "events:ListRules",
+          "events:ListTargetsByRule",
+          "events:TestEventPattern",
+          "events:DescribeArchive",
+          "events:ListArchives",
+          "events:DescribeReplay",
+          "events:ListReplays",
+          "events:DescribeConnection",
+          "events:ListConnections",
+          "events:DescribeApiDestination",
+          "events:ListApiDestinations",
+          "events:DescribeEndpoint",
+          "events:ListEndpoints"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "VersionId": "v4",
+  "IsDefaultVersion": true,
+  "CreateDate": "2022-04-08T20:42:18+00:00"
+}
