@@ -1,0 +1,74 @@
+name: Update Policies
+
+on:
+  push:
+    branches:
+      - 'master'
+  schedule:
+    - cron:  "0 6 * * 1" # at 06:00 on Monday every week
+  workflow_dispatch: # enables manual trigger
+
+jobs:
+  update-policies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update policies
+        env:
+          AWS_DEFAULT_REGION: "eu-north-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          jq --version
+
+          # list aws managed policies
+          POLICIES=$(aws iam list-policies --scope AWS | jq -r '.Policies')
+          nrOfItems=$(jq -r '. | length' <<< "$POLICIES")
+          # base64 encoded elements in order to iterate over them
+          POLICIES=$(jq -r '.[] | @base64' <<< "$POLICIES")
+
+          counter=0
+          for POLICY in $POLICIES;
+          do
+            counter=$(( counter + 1 ))
+            echo -ne "\rProcessing item $counter/$nrOfItems"
+
+            # decode element
+            POLICY=$(base64 --decode <<< "$POLICY")
+
+            # extract information
+            ARN=$(jq -r '.Arn' <<< "$POLICY")
+            VERSION=$(jq -r '.DefaultVersionId' <<< "$POLICY")
+            NAME=$(jq -r '.PolicyName' <<< "$POLICY")
+
+            # get policy document and store in file
+            aws iam get-policy-version --policy-arn "$ARN" --version-id "$VERSION" | jq -r '.PolicyVersion' > "policies/$NAME.json"
+          done
+
+          # merge all files
+          jq -n 'reduce inputs as $s (.; (.[input_filename | ltrimstr("policies/") | rtrimstr(".json")]) += $s)' policies/*.json > policies/policies.json
+
+      - name: Push changes
+        run: |
+          TIMESTAMP=$(date +%s)
+          git config user.name "GitHub Actions"
+          git config user.email "<>"
+
+          if [ "$(git status --porcelain)" ];
+          then
+            # something to commit, working tree NOT clean
+
+            # update 'last updated' timestamp in README
+            sed -i "4s|.*|\!\[\]\(https:\/\/shields.io\/date\/$TIMESTAMP.svg?label=last\%20updated\)|" README.md
+            git add policies
+          fi
+
+          # update 'last run' timestamp in README
+          sed -i "3s|.*|\!\[\]\(https:\/\/shields.io\/date\/$TIMESTAMP.svg?label=last\%20run\)|" README.md
+          git add README.md
+
+          DATE=$(date +%Y-%m-%d)
+          git commit -m "Update policies $DATE [skip ci]"
+          git push
