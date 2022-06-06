@@ -1540,6 +1540,106 @@
         },
         {
           "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": [
+            "arn:aws:iam::*:role/service-role/AWSApplicationMigrationLaunchInstanceWithSsmRole",
+            "arn:aws:iam::*:role/service-role/AWSApplicationMigrationLaunchInstanceWithDrsRole"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "ec2.amazonaws.com"
+            },
+            "Bool": {
+              "aws:ViaAWSService": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "drs:DescribeSourceServers"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:SendCommand"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:document/AWSDisasterRecovery-InstallDRAgentOnInstance",
+            "arn:aws:ssm:*:*:document/AWSMigration-ConvertCentOsToRockyLinuxDistribution",
+            "arn:aws:ssm:*:*:document/AWSMigration-ReplaceSuseSubscriptionWithAwsSubscription"
+          ],
+          "Condition": {
+            "Bool": {
+              "aws:ViaAWSService": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:SendCommand"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*"
+          ],
+          "Condition": {
+            "Bool": {
+              "aws:ViaAWSService": "true"
+            },
+            "Null": {
+              "aws:ResourceTag/AWSApplicationMigrationServiceManaged": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:ListCommandInvocations"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:DescribeInstanceInformation",
+            "ssm:GetCommandInvocation"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "Bool": {
+              "aws:ViaAWSService": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:DescribeDocument"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:document/AWSDisasterRecovery-InstallDRAgentOnInstance",
+            "arn:aws:ssm:*:*:document/AWSMigration-ConvertCentOsToRockyLinuxDistribution",
+            "arn:aws:ssm:*:*:document/AWSMigration-ReplaceSuseSubscriptionWithAwsSubscription"
+          ],
+          "Condition": {
+            "Bool": {
+              "aws:ViaAWSService": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetParameter",
+            "ssm:PutParameter"
+          ],
+          "Resource": "arn:aws:ssm:*:*:parameter/ManagedByAWSApplicationMigrationService-*"
+        },
+        {
+          "Effect": "Allow",
           "Action": [
             "servicequotas:GetServiceQuota"
           ],
@@ -1547,9 +1647,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-01T08:31:14+00:00"
+    "CreateDate": "2022-05-31T21:14:49+00:00"
   },
   "AWSApplicationMigrationMGHAccess": {
     "Document": {
@@ -2550,7 +2650,8 @@
             "ec2:DescribeSubnets",
             "ec2:DescribePlacementGroups",
             "ec2:DescribeInstances",
-            "ec2:DescribeInstanceTypes"
+            "ec2:DescribeInstanceTypes",
+            "ec2:DescribeVpcEndpoints"
           ],
           "Effect": "Allow",
           "Resource": "*"
@@ -2741,12 +2842,17 @@
             "backup-gateway:UpdateHypervisor"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "backup-gateway:GetGateway",
+          "Resource": "arn:aws:backup-gateway:*:*:gateway/*"
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-13T17:52:29+00:00"
+    "CreateDate": "2022-06-01T17:36:04+00:00"
   },
   "AWSBackupOperatorAccess": {
     "Document": {
@@ -2811,7 +2917,8 @@
             "ec2:DescribeSubnets",
             "ec2:DescribePlacementGroups",
             "ec2:DescribeInstances",
-            "ec2:DescribeInstanceTypes"
+            "ec2:DescribeInstanceTypes",
+            "ec2:DescribeVpcEndpoints"
           ],
           "Effect": "Allow",
           "Resource": "*"
@@ -2925,12 +3032,17 @@
             "backup-gateway:ListVirtualMachines"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "backup-gateway:GetGateway",
+          "Resource": "arn:aws:backup-gateway:*:*:gateway/*"
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-13T17:57:32+00:00"
+    "CreateDate": "2022-06-01T17:35:31+00:00"
   },
   "AWSBackupOrganizationAdminAccess": {
     "Document": {
@@ -17974,12 +18086,27 @@
             "arn:aws:glue:*:*:database/license_manager_resource_inventory_db",
             "arn:aws:glue:*:*:database/license_manager_resource_sync"
           ]
+        },
+        {
+          "Sid": "RGPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "resource-groups:PutGroupPolicy"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "ram.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-18T02:02:15+00:00"
+    "CreateDate": "2022-05-31T20:50:26+00:00"
   },
   "AWSLicenseManagerMemberAccountRolePolicy": {
     "Document": {
@@ -44731,8 +44858,7 @@
             "arn:aws:ec2:*:*:route-table/*",
             "arn:aws:ec2:*:*:security-group/*",
             "arn:aws:ec2:*:*:vpc/*",
-            "arn:aws:ec2:*:*:internet-gateway/*",
-            "arn:aws:ec2:*:*:elastic-ip/*"
+            "arn:aws:ec2:*:*:internet-gateway/*"
           ],
           "Condition": {
             "StringEquals": {
@@ -44748,7 +44874,8 @@
             "arn:aws:ec2:*:*:route-table/*",
             "arn:aws:ec2:*:*:security-group/*",
             "arn:aws:ec2:*:*:vpc/*",
-            "arn:aws:ec2:*:*:internet-gateway/*"
+            "arn:aws:ec2:*:*:internet-gateway/*",
+            "arn:aws:ec2:*:*:elastic-ip/*"
           ],
           "Condition": {
             "StringEquals": {
@@ -44792,9 +44919,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-25T05:09:53+00:00"
+    "CreateDate": "2022-06-01T00:34:09+00:00"
   },
   "AmazonRekognitionCustomLabelsFullAccess": {
     "Document": {
