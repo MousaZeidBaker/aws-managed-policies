@@ -1132,6 +1132,43 @@
     "IsDefaultVersion": true,
     "CreateDate": "2019-06-19T21:21:26+00:00"
   },
+  "AWSApplicationMigrationAgentInstallationPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "mgn:GetAgentInstallationAssetsForMgn",
+            "mgn:SendClientLogsForMgn",
+            "mgn:RegisterAgentForMgn",
+            "mgn:VerifyClientRoleForMgn"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "mgn:IssueClientCertificateForMgn"
+          ],
+          "Resource": "arn:aws:mgn:*:*:source-server/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "mgn:TagResource",
+          "Resource": "arn:aws:mgn:*:*:source-server/*",
+          "Condition": {
+            "StringEquals": {
+              "mgn:CreateAction": "RegisterAgentForMgn"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-06-19T07:51:04+00:00"
+  },
   "AWSApplicationMigrationAgentPolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -5635,6 +5672,26 @@
     "VersionId": "v3",
     "IsDefaultVersion": true,
     "CreateDate": "2021-02-22T19:01:00+00:00"
+  },
+  "AWSCloudTrail_ReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudtrail:Get*",
+            "cloudtrail:Describe*",
+            "cloudtrail:List*",
+            "cloudtrail:LookupEvents"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-06-14T17:19:05+00:00"
   },
   "AWSCloudWatchAlarms_ActionSSMIncidentsServiceRolePolicy": {
     "Document": {
@@ -23307,7 +23364,8 @@
             "servicecatalog:DeleteAttributeGroup",
             "servicecatalog:GetAttributeGroup",
             "servicecatalog:ListAttributeGroups",
-            "servicecatalog:SyncResource"
+            "servicecatalog:SyncResource",
+            "servicecatalog:ListAttributeGroupsForApplication"
           ],
           "Resource": "*"
         },
@@ -23322,9 +23380,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-24T17:06:03+00:00"
+    "CreateDate": "2022-06-15T22:01:01+00:00"
   },
   "AWSServiceCatalogAppRegistryReadOnlyAccess": {
     "Document": {
@@ -23340,15 +23398,16 @@
             "servicecatalog:ListAssociatedAttributeGroups",
             "servicecatalog:GetAttributeGroup",
             "servicecatalog:ListAttributeGroups",
-            "servicecatalog:ListTagsForResource"
+            "servicecatalog:ListTagsForResource",
+            "servicecatalog:ListAttributeGroupsForApplication"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-24T17:03:28+00:00"
+    "CreateDate": "2022-06-15T20:20:31+00:00"
   },
   "AWSServiceCatalogAppRegistryServiceRolePolicy": {
     "Document": {
@@ -23823,7 +23882,8 @@
             "arn:aws:ec2:*:*:network-interface/*",
             "arn:aws:ec2:*:*:security-group/*",
             "arn:aws:ec2:*:*:key-pair/*",
-            "arn:aws:ec2:*:*:launch-template/*"
+            "arn:aws:ec2:*:*:launch-template/*",
+            "arn:aws:license-manager:*:*:license-configuration:*"
           ]
         },
         {
@@ -24163,9 +24223,9 @@
         }
       ]
     },
-    "VersionId": "v16",
+    "VersionId": "v17",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-17T00:01:44+00:00"
+    "CreateDate": "2022-06-16T00:09:27+00:00"
   },
   "AWSServiceRoleForIoTSiteWise": {
     "Document": {
@@ -44432,6 +44492,7 @@
             "sqlworkbench:DeleteTab",
             "sqlworkbench:GenerateSession",
             "sqlworkbench:GetAccountInfo",
+            "sqlworkbench:GetAccountSettings",
             "sqlworkbench:GetUserInfo",
             "sqlworkbench:GetUserWorkspaceSettings",
             "sqlworkbench:PutUserWorkspaceSettings",
@@ -44504,9 +44565,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-23T17:04:20+00:00"
+    "CreateDate": "2022-06-15T09:48:24+00:00"
   },
   "AmazonRedshiftQueryEditorV2ReadSharing": {
     "Document": {
@@ -44557,6 +44618,7 @@
             "sqlworkbench:DeleteTab",
             "sqlworkbench:GenerateSession",
             "sqlworkbench:GetAccountInfo",
+            "sqlworkbench:GetAccountSettings",
             "sqlworkbench:GetUserInfo",
             "sqlworkbench:GetUserWorkspaceSettings",
             "sqlworkbench:PutUserWorkspaceSettings",
@@ -44676,9 +44738,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-23T17:03:58+00:00"
+    "CreateDate": "2022-06-15T10:16:40+00:00"
   },
   "AmazonRedshiftQueryEditorV2ReadWriteSharing": {
     "Document": {
@@ -44729,6 +44791,7 @@
             "sqlworkbench:DeleteTab",
             "sqlworkbench:GenerateSession",
             "sqlworkbench:GetAccountInfo",
+            "sqlworkbench:GetAccountSettings",
             "sqlworkbench:GetUserInfo",
             "sqlworkbench:GetUserWorkspaceSettings",
             "sqlworkbench:PutUserWorkspaceSettings",
@@ -44853,9 +44916,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-23T17:02:35+00:00"
+    "CreateDate": "2022-06-15T10:59:24+00:00"
   },
   "AmazonRedshiftReadOnlyAccess": {
     "Document": {
@@ -53238,7 +53301,8 @@
           "Action": [
             "organizations:DescribeOrganization",
             "organizations:ListAccounts",
-            "organizations:ListAWSServiceAccessForOrganization"
+            "organizations:ListAWSServiceAccessForOrganization",
+            "organizations:ListDelegatedAdministrators"
           ],
           "Resource": [
             "*"
@@ -53260,12 +53324,21 @@
             "autoscaling:DescribeAutoScalingGroups"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "Ec2Access",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeVolumes"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-29T16:04:07+00:00"
+    "CreateDate": "2022-06-13T19:05:04+00:00"
   },
   "ConfigConformsServiceRolePolicy": {
     "Document": {

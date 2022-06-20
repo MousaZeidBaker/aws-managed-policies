@@ -16,7 +16,8 @@
         "Action": [
           "organizations:DescribeOrganization",
           "organizations:ListAccounts",
-          "organizations:ListAWSServiceAccessForOrganization"
+          "organizations:ListAWSServiceAccessForOrganization",
+          "organizations:ListDelegatedAdministrators"
         ],
         "Resource": [
           "*"
@@ -38,10 +39,19 @@
           "autoscaling:DescribeAutoScalingGroups"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "Ec2Access",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DescribeInstances",
+          "ec2:DescribeVolumes"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-11-29T16:04:07+00:00"
+  "CreateDate": "2022-06-13T19:05:04+00:00"
 }
