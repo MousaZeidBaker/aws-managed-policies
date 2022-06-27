@@ -200,7 +200,27 @@
         ],
         "Resource": [
           "arn:aws:ec2:*:*:security-group/*"
-        ]
+        ],
+        "Condition": {
+          "StringEquals": {
+            "ec2:CreateAction": "CreateSecurityGroup"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DeleteTags",
+          "ec2:CreateTags"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:security-group/*"
+        ],
+        "Condition": {
+          "StringLike": {
+            "aws:ResourceTag/FMManaged": "*"
+          }
+        }
       },
       {
         "Effect": "Allow",
@@ -584,7 +604,7 @@
       }
     ]
   },
-  "VersionId": "v24",
+  "VersionId": "v25",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-03-28T21:09:12+00:00"
+  "CreateDate": "2022-06-24T20:29:28+00:00"
 }

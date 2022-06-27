@@ -9076,19 +9076,35 @@
         },
         {
           "Effect": "Allow",
-          "Action": "organizations:EnableAWSServiceAccess",
+          "Action": [
+            "organizations:EnableAWSServiceAccess",
+            "organizations:DisableAWSServiceAccess"
+          ],
           "Resource": "*",
           "Condition": {
             "StringLike": {
-              "organizations:ServicePrincipal": "config.amazonaws.com"
+              "organizations:ServicePrincipal": [
+                "config.amazonaws.com",
+                "cloudtrail.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "cloudtrail.amazonaws.com"
             }
           }
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-06-04T23:00:46+00:00"
+    "CreateDate": "2022-06-20T21:45:54+00:00"
   },
   "AWSCostAndUsageReportAutomationPolicy": {
     "Document": {
@@ -21871,6 +21887,16 @@
         },
         {
           "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/sync.proton.amazonaws.com/AWSServiceRoleForProtonSync",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "sync.proton.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
           "Action": [
             "codestar-connections:PassConnection"
           ],
@@ -21883,9 +21909,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-02-17T19:07:18+00:00"
+    "CreateDate": "2022-06-20T12:36:26+00:00"
   },
   "AWSProtonReadOnlyAccess": {
     "Document": {
@@ -25947,6 +25973,17 @@
             "inspector:listEventSubscriptions",
             "inspector:listRulesPackages",
             "inspector:listTagsForResource",
+            "inspector2:batchGetAccountStatus",
+            "inspector2:batchGetFreeTrialInfo",
+            "inspector2:describeOrganizationConfiguration",
+            "inspector2:getDelegatedAdminAccount",
+            "inspector2:getMember",
+            "inspector2:listCoverage",
+            "inspector2:listDelegatedAdminAccounts",
+            "inspector2:listFilters",
+            "inspector2:listFindings",
+            "inspector2:listMembers",
+            "inspector2:listUsageTotals",
             "iot:describeAuthorizer",
             "iot:describeCACertificate",
             "iot:describeCertificate",
@@ -26037,6 +26074,9 @@
             "iotwireless:listWirelessDevices",
             "iotwireless:listWirelessGateways",
             "iotwireless:listWirelessGatewayTaskDefinitions",
+            "ivs:listChannels",
+            "ivs:listStreams",
+            "ivs:listStreamSessions",
             "kafka:describeCluster",
             "kafka:getBootstrapBrokers",
             "kafka:listClusters",
@@ -26174,6 +26214,8 @@
             "logs:describeQueries",
             "logs:describeResourcePolicies",
             "logs:describeSubscriptionFilters",
+            "logs:getLogDelivery",
+            "logs:listLogDeliveries",
             "logs:testMetricFilter",
             "lookoutmetrics:describeAlert",
             "lookoutmetrics:describeAnomalyDetectionExecutions",
@@ -26863,7 +26905,6 @@
             "ssm:getPatchBaseline",
             "ssm:getPatchBaselineForPatchGroup",
             "ssm:getServiceSetting",
-            "ssm:labelParameterVersion",
             "ssm:listAssociations",
             "ssm:listAssociationVersions",
             "ssm:listCommandInvocations",
@@ -26991,19 +27032,6 @@
             "workdocs:checkAlias",
             "workdocs:describeAvailableDirectories",
             "workdocs:describeInstances",
-            "worklink:describeAuditStreamConfiguration",
-            "worklink:describeCompanyNetworkConfiguration",
-            "worklink:describeDevice",
-            "worklink:describeDevicePolicyConfiguration",
-            "worklink:describeDomain",
-            "worklink:describeFleetMetadata",
-            "worklink:describeIdentityProviderConfiguration",
-            "worklink:describeWebsiteCertificateAuthority",
-            "worklink:listDevices",
-            "worklink:listDomains",
-            "worklink:listFleets",
-            "worklink:listWebsiteAuthorizationProviders",
-            "worklink:listWebsiteCertificateAuthorities",
             "workmail:describeGroup",
             "workmail:describeOrganization",
             "workmail:describeResource",
@@ -27049,9 +27077,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v23",
+    "VersionId": "v24",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-27T22:37:55+00:00"
+    "CreateDate": "2022-06-24T16:27:09+00:00"
   },
   "AWSSystemsManagerAccountDiscoveryServicePolicy": {
     "Document": {
@@ -28118,7 +28146,8 @@
             "lambda:PutFunctionConcurrency",
             "lambda:TagResource",
             "lambda:UntagResource",
-            "lambda:UpdateFunctionCode"
+            "lambda:UpdateFunctionCode",
+            "lambda:UpdateFunctionConfiguration"
           ],
           "Resource": [
             "arn:aws:lambda:*:*:function:DeadlineResourceTracker*"
@@ -28151,9 +28180,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-12-23T01:01:48+00:00"
+    "CreateDate": "2022-06-22T18:08:40+00:00"
   },
   "AWSThinkboxDeadlineSpotEventPluginAdminPolicy": {
     "Document": {
@@ -28804,6 +28833,29 @@
     "VersionId": "v4",
     "IsDefaultVersion": true,
     "CreateDate": "2020-06-22T22:38:54+00:00"
+  },
+  "AWSWellArchitectedOrganizationsServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeAccount",
+            "organizations:DescribeOrganization",
+            "organizations:ListAccounts",
+            "organizations:ListAccountsForParent",
+            "organizations:ListChildren",
+            "organizations:ListParents",
+            "organizations:ListRoots"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-06-23T17:15:26+00:00"
   },
   "AWSXRayDaemonWriteAccess": {
     "Document": {
@@ -54662,7 +54714,27 @@
           ],
           "Resource": [
             "arn:aws:ec2:*:*:security-group/*"
-          ]
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateSecurityGroup"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteTags",
+            "ec2:CreateTags"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/FMManaged": "*"
+            }
+          }
         },
         {
           "Effect": "Allow",
@@ -55046,9 +55118,9 @@
         }
       ]
     },
-    "VersionId": "v24",
+    "VersionId": "v25",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-03-28T21:09:12+00:00"
+    "CreateDate": "2022-06-24T20:29:28+00:00"
   },
   "FSxDeleteServiceLinkedRoleAccess": {
     "Document": {

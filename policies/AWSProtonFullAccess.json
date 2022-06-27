@@ -38,6 +38,16 @@
       },
       {
         "Effect": "Allow",
+        "Action": "iam:CreateServiceLinkedRole",
+        "Resource": "arn:aws:iam::*:role/aws-service-role/sync.proton.amazonaws.com/AWSServiceRoleForProtonSync",
+        "Condition": {
+          "StringEquals": {
+            "iam:AWSServiceName": "sync.proton.amazonaws.com"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
         "Action": [
           "codestar-connections:PassConnection"
         ],
@@ -50,7 +60,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-02-17T19:07:18+00:00"
+  "CreateDate": "2022-06-20T12:36:26+00:00"
 }
