@@ -76,8 +76,7 @@
           "profile:ListProfileObjects"
         ],
         "Resource": [
-          "arn:aws:profile:*:*:domains/amazon-connect-*/object-types/CTR",
-          "arn:aws:profile:*:*:domains/amazon-connect-*/object-types/_asset"
+          "arn:aws:profile:*:*:domains/amazon-connect-*/object-types/*"
         ]
       },
       {
@@ -99,7 +98,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-12-09T22:12:26+00:00"
+  "CreateDate": "2022-06-27T19:35:06+00:00"
 }

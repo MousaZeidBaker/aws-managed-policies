@@ -12848,24 +12848,34 @@
         },
         {
           "Effect": "Allow",
-          "Action": [
-            "drs:TagResource",
-            "drs:IssueAgentCertificateForDrs"
-          ],
-          "Resource": "arn:aws:drs:*:*:source-server/*"
+          "Action": "drs:TagResource",
+          "Resource": "arn:aws:drs:*:*:source-server/*",
+          "Condition": {
+            "StringEquals": {
+              "drs:CreateAction": "CreateSourceServerForDrs"
+            }
+          }
         },
         {
           "Effect": "Allow",
-          "Action": [
-            "drs:TagResource"
-          ],
-          "Resource": "arn:aws:drs:*:*:recovery-instance/*"
+          "Action": "drs:TagResource",
+          "Resource": "arn:aws:drs:*:*:recovery-instance/*",
+          "Condition": {
+            "StringEquals": {
+              "drs:CreateAction": "CreateRecoveryInstanceForDrs"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "drs:IssueAgentCertificateForDrs",
+          "Resource": "arn:aws:drs:*:*:source-server/*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-17T10:37:54+00:00"
+    "CreateDate": "2022-07-03T09:11:23+00:00"
   },
   "AWSElasticDisasterRecoveryAgentPolicy": {
     "Document": {
@@ -13317,15 +13327,16 @@
             "drs:IssueAgentCertificateForDrs",
             "drs:AssociateFailbackClientToRecoveryInstanceForDrs",
             "drs:GetSuggestedFailbackClientDeviceMappingForDrs",
+            "drs:UpdateAgentReplicationInfoForDrs",
             "drs:UpdateFailbackClientDeviceMappingForDrs"
           ],
           "Resource": "arn:aws:drs:*:*:recovery-instance/*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-17T11:02:03+00:00"
+    "CreateDate": "2022-06-27T09:13:40+00:00"
   },
   "AWSElasticDisasterRecoveryFailbackPolicy": {
     "Document": {
@@ -22917,7 +22928,9 @@
             "iam:PutRolePolicy",
             "iam:UpdateRole",
             "iam:UpdateRoleDescription",
-            "iam:UpdateAssumeRolePolicy"
+            "iam:UpdateAssumeRolePolicy",
+            "iam:PutRolePermissionsBoundary",
+            "iam:DeleteRolePermissionsBoundary"
           ],
           "Resource": [
             "arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/*"
@@ -23042,9 +23055,9 @@
         }
       ]
     },
-    "VersionId": "v15",
+    "VersionId": "v16",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-12T21:14:40+00:00"
+    "CreateDate": "2022-06-28T20:08:47+00:00"
   },
   "AWSSavingsPlansFullAccess": {
     "Document": {
@@ -32670,8 +32683,7 @@
             "profile:ListProfileObjects"
           ],
           "Resource": [
-            "arn:aws:profile:*:*:domains/amazon-connect-*/object-types/CTR",
-            "arn:aws:profile:*:*:domains/amazon-connect-*/object-types/_asset"
+            "arn:aws:profile:*:*:domains/amazon-connect-*/object-types/*"
           ]
         },
         {
@@ -32693,9 +32705,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-12-09T22:12:26+00:00"
+    "CreateDate": "2022-06-27T19:35:06+00:00"
   },
   "AmazonConnectVoiceIDFullAccess": {
     "Document": {
@@ -40305,15 +40317,16 @@
             "lookoutequipment:ListModels",
             "lookoutequipment:ListInferenceSchedulers",
             "lookoutequipment:ListInferenceExecutions",
-            "lookoutequipment:ListTagsForResource"
+            "lookoutequipment:ListTagsForResource",
+            "lookoutequipment:ListSensorStatistics"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-05-05T16:47:55+00:00"
+    "CreateDate": "2022-06-30T18:33:42+00:00"
   },
   "AmazonLookoutMetricsFullAccess": {
     "Document": {
@@ -41300,7 +41313,7 @@
         {
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
-          "Resource": "arn:aws:iam::*:role/AWSServiceRoleForAmazonMacie",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/macie.amazonaws.com/AWSServiceRoleForAmazonMacie",
           "Condition": {
             "StringLike": {
               "iam:AWSServiceName": "macie.amazonaws.com"
@@ -41314,9 +41327,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-03-07T18:08:14+00:00"
+    "CreateDate": "2022-07-01T00:41:53+00:00"
   },
   "AmazonMacieHandshakeRole": {
     "Document": {
@@ -47464,6 +47477,17 @@
         {
           "Effect": "Allow",
           "Action": [
+            "glue:UpdateTable"
+          ],
+          "Resource": [
+            "arn:aws:glue:*:*:table/sagemaker_featurestore/*",
+            "arn:aws:glue:*:*:catalog",
+            "arn:aws:glue:*:*:database/sagemaker_featurestore"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "glue:DeleteTable"
           ],
           "Resource": [
@@ -47532,9 +47556,9 @@
         }
       ]
     },
-    "VersionId": "v22",
+    "VersionId": "v23",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-02T06:19:13+00:00"
+    "CreateDate": "2022-06-29T18:30:43+00:00"
   },
   "AmazonSageMakerGroundTruthExecution": {
     "Document": {
