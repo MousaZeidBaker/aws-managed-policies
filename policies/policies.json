@@ -2395,7 +2395,8 @@
             "ec2:DescribeNetworkAcls",
             "ec2:DescribeRouteTables",
             "ec2:DescribeSnapshots",
-            "ec2:DescribeVpcEndpoints"
+            "ec2:DescribeVpcEndpoints",
+            "ec2:DescribeVolumes"
           ],
           "Resource": "*",
           "Sid": "EC2Access"
@@ -2431,7 +2432,10 @@
           "Action": [
             "kms:ListKeys",
             "kms:DescribeKey",
-            "kms:ListGrants"
+            "kms:ListGrants",
+            "kms:GetKeyRotationStatus",
+            "kms:GetKeyPolicy",
+            "kms:ListKeyPolicies"
           ],
           "Resource": "*",
           "Sid": "KMSAccess"
@@ -2447,7 +2451,9 @@
         {
           "Effect": "Allow",
           "Action": [
-            "s3:GetLifecycleConfiguration"
+            "s3:GetLifecycleConfiguration",
+            "s3:GetEncryptionConfiguration",
+            "s3:ListAllMyBuckets"
           ],
           "Resource": "*",
           "Sid": "S3Access"
@@ -2483,6 +2489,31 @@
           ],
           "Resource": "*",
           "Sid": "Route53Access"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:DescribeTable",
+            "dynamodb:ListTables"
+          ],
+          "Resource": "*",
+          "Sid": "DynamoDBAccess"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeClusters"
+          ],
+          "Resource": "*",
+          "Sid": "RedshiftAccess"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "rds:DescribeDBInstances"
+          ],
+          "Resource": "*",
+          "Sid": "RDSAccess"
         },
         {
           "Effect": "Allow",
@@ -2546,9 +2577,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-20T16:26:09+00:00"
+    "CreateDate": "2022-07-07T22:26:07+00:00"
   },
   "AWSAutoScalingPlansEC2AutoScalingPolicy": {
     "Document": {
@@ -13510,7 +13541,9 @@
             "drs:UpdateAgentReplicationProcessStateForDrs",
             "drs:NotifyAgentReplicationProgressForDrs",
             "drs:NotifyAgentConnectedForDrs",
-            "drs:NotifyAgentDisconnectedForDrs"
+            "drs:NotifyAgentDisconnectedForDrs",
+            "drs:NotifyVolumeEventForDrs",
+            "drs:SendVolumeStatsForDrs"
           ],
           "Resource": "*"
         },
@@ -13558,9 +13591,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-17T13:34:00+00:00"
+    "CreateDate": "2022-07-10T12:34:15+00:00"
   },
   "AWSElasticDisasterRecoveryServiceRolePolicy": {
     "Document": {
@@ -13576,10 +13609,17 @@
         {
           "Effect": "Allow",
           "Action": [
-            "drs:CreateRecoveryInstanceForDrs",
             "drs:TagResource"
           ],
           "Resource": "arn:aws:drs:*:*:recovery-instance/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "drs:CreateRecoveryInstanceForDrs",
+            "drs:TagResource"
+          ],
+          "Resource": "arn:aws:drs:*:*:source-server/*"
         },
         {
           "Effect": "Allow",
@@ -13661,7 +13701,8 @@
         {
           "Effect": "Allow",
           "Action": [
-            "ec2:DeleteVolume"
+            "ec2:DeleteVolume",
+            "ec2:ModifyVolume"
           ],
           "Resource": "arn:aws:ec2:*:*:volume/*",
           "Condition": {
@@ -13873,12 +13914,17 @@
               "aws:RequestTag/AWSElasticDisasterRecoveryManaged": "false"
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "cloudwatch:GetMetricData",
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-17T10:56:17+00:00"
+    "CreateDate": "2022-07-10T12:44:41+00:00"
   },
   "AWSElasticDisasterRecoveryStagingAccountPolicy": {
     "Document": {
@@ -22710,6 +22756,39 @@
     "VersionId": "v2",
     "IsDefaultVersion": true,
     "CreateDate": "2021-09-16T21:06:10+00:00"
+  },
+  "AWSRolesAnywhereServicePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": [
+                "AWS/RolesAnywhere",
+                "AWS/Usage"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:GetCertificateAuthorityCertificate",
+            "acm-pca:DescribeCertificateAuthority"
+          ],
+          "Resource": "arn:aws:acm-pca:*:*:*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-07-05T15:26:11+00:00"
   },
   "AWSSSMOpsInsightsServiceRolePolicy": {
     "Document": {
@@ -33374,7 +33453,9 @@
             "rds:DescribeOptionGroups",
             "rds:DescribeDBClusterParameters",
             "rds:DescribeDBInstanceAutomatedBackups",
-            "rds:DescribeAccountAttributes"
+            "rds:DescribeAccountAttributes",
+            "logs:DescribeLogGroups",
+            "logs:DescribeLogStreams"
           ],
           "Resource": "*"
         },
@@ -33448,12 +33529,25 @@
               "events:ManagedBy": "devops-guru.amazonaws.com"
             }
           }
+        },
+        {
+          "Sid": "AllowTagBasedFilterLogEvents",
+          "Effect": "Allow",
+          "Action": [
+            "logs:FilterLogEvents"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/DevOps-Guru-Analysis": "true"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-07T19:30:10+00:00"
+    "CreateDate": "2022-07-08T18:03:05+00:00"
   },
   "AmazonDocDBConsoleFullAccess": {
     "Document": {
@@ -37706,15 +37800,16 @@
             "ecs:DescribeClusters",
             "ecs:DescribeTasks",
             "ecs:ListTasks",
-            "eks:DescribeNodegroup"
+            "eks:DescribeNodegroup",
+            "eks:DescribeCluster"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-07T11:13:04+00:00"
+    "CreateDate": "2022-07-06T11:03:20+00:00"
   },
   "AmazonFSxConsoleFullAccess": {
     "Document": {
@@ -39112,6 +39207,7 @@
           "Action": [
             "cloudwatch:DeleteAlarms",
             "cloudwatch:DescribeAlarms",
+            "cloudwatch:GetMetricData",
             "cloudwatch:PutMetricAlarm"
           ],
           "Resource": "*"
@@ -39128,9 +39224,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-06-01T19:31:39+00:00"
+    "CreateDate": "2022-07-07T15:02:41+00:00"
   },
   "AmazonKeyspacesReadOnlyAccess": {
     "Document": {
@@ -39151,6 +39247,7 @@
             "application-autoscaling:DescribeScalingPolicies",
             "application-autoscaling:DescribeScheduledActions",
             "cloudwatch:DescribeAlarms",
+            "cloudwatch:GetMetricData",
             "kms:DescribeKey",
             "kms:ListAliases"
           ],
@@ -39158,9 +39255,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-06-01T19:32:47+00:00"
+    "CreateDate": "2022-07-07T14:54:05+00:00"
   },
   "AmazonKinesisAnalyticsFullAccess": {
     "Document": {
@@ -44260,6 +44357,17 @@
           ]
         },
         {
+          "Sid": "GetCredentialsForServerless",
+          "Effect": "Allow",
+          "Action": "redshift-serverless:GetCredentials",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/RedshiftDataFullAccess": "*"
+            }
+          }
+        },
+        {
           "Sid": "DenyCreateAPIUser",
           "Effect": "Deny",
           "Action": "redshift:CreateClusterUser",
@@ -44280,9 +44388,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-07-27T20:05:33+00:00"
+    "CreateDate": "2022-07-08T01:44:27+00:00"
   },
   "AmazonRedshiftFullAccess": {
     "Document": {
@@ -44291,6 +44399,7 @@
         {
           "Action": [
             "redshift:*",
+            "redshift-serverless:*",
             "ec2:DescribeAccountAttributes",
             "ec2:DescribeAddresses",
             "ec2:DescribeAvailabilityZones",
@@ -44367,9 +44476,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-09-09T19:51:19+00:00"
+    "CreateDate": "2022-07-07T23:31:13+00:00"
   },
   "AmazonRedshiftQueryEditor": {
     "Document": {
@@ -57222,6 +57331,8 @@
             "drs:GetFailbackReplicationConfiguration",
             "drs:GetLaunchConfiguration",
             "drs:GetReplicationConfiguration",
+            "drs:ListExtensibleSourceServers",
+            "drs:ListStagingAccounts",
             "drs:ListTagsForResource",
             "ds:Check*",
             "ds:Describe*",
@@ -57337,10 +57448,6 @@
             "forecast:ListPredictorBacktestExportJobs",
             "forecast:ListPredictors",
             "forecast:QueryForecast",
-            "freertos:Describe*",
-            "freertos:List*",
-            "fsx:Describe*",
-            "fsx:List*",
             "frauddetector:BatchGetVariable",
             "frauddetector:DescribeDetector",
             "frauddetector:DescribeModelVersions",
@@ -57363,6 +57470,10 @@
             "frauddetector:GetVariables",
             "frauddetector:ListEventPredictions",
             "frauddetector:ListTagsForResource",
+            "freertos:Describe*",
+            "freertos:List*",
+            "fsx:Describe*",
+            "fsx:List*",
             "gamelift:Describe*",
             "gamelift:Get*",
             "gamelift:List*",
@@ -57452,6 +57563,7 @@
             "glue:ListTriggers",
             "glue:ListWorkflows",
             "glue:QuerySchemaVersionMetadata",
+            "glue:SearchTables",
             "grafana:ListWorkspaces",
             "greengrass:DescribeComponent",
             "greengrass:Get*",
@@ -57485,6 +57597,10 @@
             "imagebuilder:List*",
             "importexport:Get*",
             "importexport:List*",
+            "inspector:Describe*",
+            "inspector:Get*",
+            "inspector:List*",
+            "inspector:Preview*",
             "inspector2:BatchGetAccountStatus",
             "inspector2:BatchGetFreeTrialInfo",
             "inspector2:DescribeOrganizationConfiguration",
@@ -57501,10 +57617,9 @@
             "inspector2:ListMembers",
             "inspector2:ListTagsForResource",
             "inspector2:ListUsageTotals",
-            "inspector:Describe*",
-            "inspector:Get*",
-            "inspector:List*",
-            "inspector:Preview*",
+            "iot:Describe*",
+            "iot:Get*",
+            "iot:List*",
             "iot1click:DescribeDevice",
             "iot1click:DescribePlacement",
             "iot1click:DescribeProject",
@@ -57515,9 +57630,6 @@
             "iot1click:ListPlacements",
             "iot1click:ListProjects",
             "iot1click:ListTagsForResource",
-            "iot:Describe*",
-            "iot:Get*",
-            "iot:List*",
             "iotanalytics:Describe*",
             "iotanalytics:Get*",
             "iotanalytics:List*",
@@ -57580,16 +57692,16 @@
             "iotwireless:ListWirelessDevices",
             "iotwireless:ListWirelessGateways",
             "iotwireless:ListWirelessGatewayTaskDefinitions",
-            "ivs:GetStreamSession",
-            "ivs:ListStreamSessions",
             "ivs:BatchGetChannel",
             "ivs:GetChannel",
             "ivs:GetPlaybackKeyPair",
             "ivs:GetRecordingConfiguration",
+            "ivs:GetStreamSession",
             "ivs:ListChannels",
             "ivs:ListPlaybackKeyPairs",
             "ivs:ListRecordingConfigurations",
             "ivs:ListStreams",
+            "ivs:ListStreamSessions",
             "ivs:ListTagsForResource",
             "ivschat:GetRoom",
             "ivschat:ListRooms",
@@ -57734,6 +57846,9 @@
             "logs:StartQuery",
             "logs:StopQuery",
             "logs:TestMetricFilter",
+            "lookoutmetrics:Describe*",
+            "lookoutmetrics:Get*",
+            "lookoutmetrics:List*",
             "lookoutvision:DescribeDataset",
             "lookoutvision:DescribeModel",
             "lookoutvision:DescribeModelPackagingJob",
@@ -57743,9 +57858,6 @@
             "lookoutvision:ListModels",
             "lookoutvision:ListProjects",
             "lookoutvision:ListTagsForResource",
-            "lookoutmetrics:Describe*",
-            "lookoutmetrics:List*",
-            "lookoutmetrics:Get*",
             "machinelearning:Describe*",
             "machinelearning:Get*",
             "macie2:BatchGetCustomDataIdentifiers",
@@ -57774,8 +57886,6 @@
             "macie2:ListOrganizationAdminAccounts",
             "macie2:ListTagsForResource",
             "macie2:SearchResources",
-            "macie:ListMemberAccounts",
-            "macie:ListS3Resources",
             "managedblockchain:GetMember",
             "managedblockchain:GetNetwork",
             "managedblockchain:GetNode",
@@ -57798,6 +57908,26 @@
             "mediaconvert:DescribeEndpoints",
             "mediaconvert:Get*",
             "mediaconvert:List*",
+            "medialive:DescribeChannel",
+            "medialive:DescribeInput",
+            "medialive:DescribeInputDevice",
+            "medialive:DescribeInputDeviceThumbnail",
+            "medialive:DescribeInputSecurityGroup",
+            "medialive:DescribeMultiplex",
+            "medialive:DescribeMultiplexProgram",
+            "medialive:DescribeOffering",
+            "medialive:DescribeReservation",
+            "medialive:DescribeSchedule",
+            "medialive:ListChannels",
+            "medialive:ListInputDevices",
+            "medialive:ListInputDeviceTransfers",
+            "medialive:ListInputs",
+            "medialive:ListInputSecurityGroups",
+            "medialive:ListMultiplexes",
+            "medialive:ListMultiplexPrograms",
+            "medialive:ListOfferings",
+            "medialive:ListReservations",
+            "medialive:ListTagsForResource",
             "mediapackage-vod:Describe*",
             "mediapackage-vod:List*",
             "mediapackage:Describe*",
@@ -58176,9 +58306,9 @@
         }
       ]
     },
-    "VersionId": "v87",
+    "VersionId": "v88",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-23T20:16:18+00:00"
+    "CreateDate": "2022-07-06T17:26:50+00:00"
   },
   "ResourceGroupsandTagEditorFullAccess": {
     "Document": {

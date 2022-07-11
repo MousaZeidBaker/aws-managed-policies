@@ -42,6 +42,17 @@
         ]
       },
       {
+        "Sid": "GetCredentialsForServerless",
+        "Effect": "Allow",
+        "Action": "redshift-serverless:GetCredentials",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/RedshiftDataFullAccess": "*"
+          }
+        }
+      },
+      {
         "Sid": "DenyCreateAPIUser",
         "Effect": "Deny",
         "Action": "redshift:CreateClusterUser",
@@ -62,7 +73,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-07-27T20:05:33+00:00"
+  "CreateDate": "2022-07-08T01:44:27+00:00"
 }

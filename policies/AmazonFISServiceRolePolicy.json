@@ -57,13 +57,14 @@
           "ecs:DescribeClusters",
           "ecs:DescribeTasks",
           "ecs:ListTasks",
-          "eks:DescribeNodegroup"
+          "eks:DescribeNodegroup",
+          "eks:DescribeCluster"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-02-07T11:13:04+00:00"
+  "CreateDate": "2022-07-06T11:03:20+00:00"
 }

@@ -12,10 +12,17 @@
       {
         "Effect": "Allow",
         "Action": [
-          "drs:CreateRecoveryInstanceForDrs",
           "drs:TagResource"
         ],
         "Resource": "arn:aws:drs:*:*:recovery-instance/*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "drs:CreateRecoveryInstanceForDrs",
+          "drs:TagResource"
+        ],
+        "Resource": "arn:aws:drs:*:*:source-server/*"
       },
       {
         "Effect": "Allow",
@@ -97,7 +104,8 @@
       {
         "Effect": "Allow",
         "Action": [
-          "ec2:DeleteVolume"
+          "ec2:DeleteVolume",
+          "ec2:ModifyVolume"
         ],
         "Resource": "arn:aws:ec2:*:*:volume/*",
         "Condition": {
@@ -309,10 +317,15 @@
             "aws:RequestTag/AWSElasticDisasterRecoveryManaged": "false"
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": "cloudwatch:GetMetricData",
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-11-17T10:56:17+00:00"
+  "CreateDate": "2022-07-10T12:44:41+00:00"
 }
