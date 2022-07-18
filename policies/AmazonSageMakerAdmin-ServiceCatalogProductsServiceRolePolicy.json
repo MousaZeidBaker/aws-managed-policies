@@ -286,6 +286,20 @@
       },
       {
         "Effect": "Allow",
+        "Action": "lambda:TagResource",
+        "Resource": [
+          "arn:aws:lambda:*:*:function:sagemaker-*"
+        ],
+        "Condition": {
+          "ForAllValues:StringLike": {
+            "aws:TagKeys": [
+              "sagemaker:*"
+            ]
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
         "Action": [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
@@ -396,7 +410,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-03-21T17:33:28+00:00"
+  "CreateDate": "2022-07-14T19:36:42+00:00"
 }

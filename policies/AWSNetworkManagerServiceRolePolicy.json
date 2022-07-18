@@ -26,13 +26,17 @@
           "organizations:DescribeOrganization",
           "organizations:ListAccounts",
           "organizations:ListAWSServiceAccessForOrganization",
-          "organizations:ListDelegatedAdministrators"
+          "organizations:ListDelegatedAdministrators",
+          "ec2:DescribeTransitGatewayRouteTableAnnouncements",
+          "ec2:DescribeTransitGatewayPolicyTables",
+          "ec2:GetTransitGatewayPolicyTableAssociations",
+          "ec2:GetTransitGatewayPolicyTableEntries"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-05-24T14:42:03+00:00"
+  "CreateDate": "2022-07-12T12:03:37+00:00"
 }
