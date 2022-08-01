@@ -64,10 +64,22 @@
             "iam:PassedToService": "assets.marketplace.amazonaws.com"
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "vendor-insights:GetDataSource",
+          "vendor-insights:ListDataSources",
+          "vendor-insights:ListSecurityProfiles",
+          "vendor-insights:GetSecurityProfile",
+          "vendor-insights:GetSecurityProfileSnapshot",
+          "vendor-insights:ListSecurityProfileSnapshots"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-11-30T19:26:49+00:00"
+  "CreateDate": "2022-07-26T15:06:13+00:00"
 }
