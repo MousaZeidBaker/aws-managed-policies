@@ -6,6 +6,7 @@
         "Effect": "Allow",
         "Action": [
           "kafka:DescribeCluster",
+          "kafka:DescribeClusterV2",
           "kafka:GetBootstrapBrokers",
           "ec2:CreateNetworkInterface",
           "ec2:DescribeNetworkInterfaces",
@@ -21,7 +22,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-08-11T17:35:05+00:00"
+  "CreateDate": "2022-08-02T20:08:02+00:00"
 }

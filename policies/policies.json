@@ -17921,6 +17921,7 @@
           "Effect": "Allow",
           "Action": [
             "kafka:DescribeCluster",
+            "kafka:DescribeClusterV2",
             "kafka:GetBootstrapBrokers",
             "ec2:CreateNetworkInterface",
             "ec2:DescribeNetworkInterfaces",
@@ -17936,9 +17937,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-08-11T17:35:05+00:00"
+    "CreateDate": "2022-08-02T20:08:02+00:00"
   },
   "AWSLambdaReplicator": {
     "Document": {
@@ -38020,12 +38021,20 @@
           ],
           "Effect": "Allow",
           "Resource": "*"
+        },
+        {
+          "Sid": "Stmt1480452973135",
+          "Effect": "Allow",
+          "Action": [
+            "acm:DescribeCertificate"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-08-31T10:30:23+00:00"
+    "CreateDate": "2022-08-02T15:31:35+00:00"
   },
   "AmazonEventBridgeApiDestinationsServiceRolePolicy": {
     "Document": {
@@ -47669,6 +47678,27 @@
         {
           "Effect": "Allow",
           "Action": [
+            "sagemaker:AddTags"
+          ],
+          "Resource": [
+            "arn:aws:sagemaker:*:*:endpoint/*",
+            "arn:aws:sagemaker:*:*:endpoint-config/*",
+            "arn:aws:sagemaker:*:*:model/*",
+            "arn:aws:sagemaker:*:*:pipeline/*",
+            "arn:aws:sagemaker:*:*:project/*",
+            "arn:aws:sagemaker:*:*:model-package/*"
+          ],
+          "Condition": {
+            "ForAllValues:StringLike": {
+              "aws:TagKeys": [
+                "sagemaker:*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "sagemaker:CreateImage",
             "sagemaker:DeleteImage",
             "sagemaker:DescribeImage",
@@ -47702,9 +47732,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-07-14T19:36:42+00:00"
+    "CreateDate": "2022-08-02T19:12:55+00:00"
   },
   "AmazonSageMakerCoreServiceRolePolicy": {
     "Document": {
@@ -57206,6 +57236,7 @@
             "rds:DescribeEventCategories",
             "rds:DescribeEventSubscriptions",
             "rds:DescribeEvents",
+            "rds:DescribeGlobalClusters",
             "rds:DescribeOrderableDBInstanceOptions",
             "rds:DescribePendingMaintenanceActions",
             "rds:DownloadDBLogFilePortion",
@@ -57255,12 +57286,23 @@
             "arn:aws:logs:*:*:log-group:/aws/rds/*:log-stream:*",
             "arn:aws:logs:*:*:log-group:/aws/neptune/*:log-stream:*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "neptune-db:Read*",
+            "neptune-db:Get*",
+            "neptune-db:List*"
+          ],
+          "Resource": [
+            "*"
+          ]
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2018-05-30T19:16:37+00:00"
+    "CreateDate": "2022-08-03T18:53:32+00:00"
   },
   "NetworkAdministrator": {
     "Document": {
