@@ -5,6 +5,7 @@
       {
         "Effect": "Deny",
         "Action": [
+          "cloudtrail:LookupEvents",
           "ec2:RequestSpotInstances",
           "ec2:RunInstances",
           "ec2:StartInstances",
@@ -67,7 +68,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-11-11T21:32:48+00:00"
+  "CreateDate": "2022-08-10T21:15:53+00:00"
 }

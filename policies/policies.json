@@ -1697,6 +1697,21 @@
         {
           "Effect": "Allow",
           "Action": [
+            "drs:DisconnectSourceServer"
+          ],
+          "Resource": "arn:aws:drs:*:*:source-server/*",
+          "Condition": {
+            "Bool": {
+              "aws:ViaAWSService": "true"
+            },
+            "Null": {
+              "aws:ResourceTag/AWSApplicationMigrationServiceConfiguredDR": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "ssm:GetParameter",
             "ssm:PutParameter"
           ],
@@ -1711,9 +1726,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-31T21:14:49+00:00"
+    "CreateDate": "2022-08-11T16:08:08+00:00"
   },
   "AWSApplicationMigrationMGHAccess": {
     "Document": {
@@ -7931,6 +7946,7 @@
         {
           "Effect": "Deny",
           "Action": [
+            "cloudtrail:LookupEvents",
             "ec2:RequestSpotInstances",
             "ec2:RunInstances",
             "ec2:StartInstances",
@@ -7993,9 +8009,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-11T21:32:48+00:00"
+    "CreateDate": "2022-08-10T21:15:53+00:00"
   },
   "AWSConfigMultiAccountSetupPolicy": {
     "Document": {
@@ -39556,10 +39572,7 @@
             "ssm:DescribeAssociation",
             "ssm:DescribeInstanceInformation",
             "ssm:ListAssociations",
-            "ssm:ListResourceDataSync",
-            "ssm:StartAssociationsOnce",
-            "ssm:DeleteAssociation",
-            "ssm:UpdateAssociation"
+            "ssm:ListResourceDataSync"
           ],
           "Resource": "*"
         },
@@ -39567,12 +39580,16 @@
           "Sid": "GatherInventory",
           "Effect": "Allow",
           "Action": [
-            "ssm:CreateAssociation"
+            "ssm:CreateAssociation",
+            "ssm:StartAssociationsOnce",
+            "ssm:DeleteAssociation",
+            "ssm:UpdateAssociation"
           ],
           "Resource": [
             "arn:*:ec2:*:*:instance/*",
             "arn:aws:ssm:*:*:document/AWS-GatherSoftwareInventory",
-            "arn:*:ssm:*:*:managed-instance/*"
+            "arn:*:ssm:*:*:managed-instance/*",
+            "arn:*:ssm:*:*:association/*"
           ]
         },
         {
@@ -39603,9 +39620,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-16T20:27:48+00:00"
+    "CreateDate": "2022-08-11T18:45:32+00:00"
   },
   "AmazonInspectorFullAccess": {
     "Document": {
