@@ -95,6 +95,9 @@
           "datasync:DescribeLocationSmb",
           "datasync:DescribeTask",
           "datasync:ListTagsForResource",
+          "datasync:ListLocations",
+          "datasync:ListTasks",
+          "datasync:ListAgents",
           "dax:DescribeClusters",
           "dax:DescribeParameterGroups",
           "dax:DescribeParameters",
@@ -420,6 +423,8 @@
           "servicediscovery:GetNamespace",
           "servicediscovery:GetService",
           "servicediscovery:ListTagsForResource",
+          "servicediscovery:ListServices",
+          "servicediscovery:ListNamespaces",
           "ses:DescribeReceiptRule",
           "ses:DescribeReceiptRuleSet",
           "ses:GetConfigurationSet",
@@ -428,6 +433,7 @@
           "ses:GetEmailTemplate",
           "ses:GetTemplate",
           "ses:ListConfigurationSets",
+          "ses:ListContactLists",
           "shield:DescribeDRTAccess",
           "shield:DescribeProtection",
           "shield:DescribeSubscription",
@@ -492,7 +498,7 @@
       }
     ]
   },
-  "VersionId": "v33",
+  "VersionId": "v34",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-07-15T01:41:02+00:00"
+  "CreateDate": "2022-08-19T22:19:46+00:00"
 }
