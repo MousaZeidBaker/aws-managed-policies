@@ -24,7 +24,12 @@
           "wafv2:*",
           "s3:ListAllMyBuckets",
           "logs:DescribeResourcePolicies",
-          "logs:DescribeLogGroups"
+          "logs:DescribeLogGroups",
+          "cognito-idp:ListUserPools",
+          "cognito-idp:AssociateWebACL",
+          "cognito-idp:DisassociateWebACL",
+          "cognito-idp:ListResourcesForWebACL",
+          "cognito-idp:GetWebACLForResource"
         ],
         "Resource": "*"
       },
@@ -65,7 +70,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-01-11T19:34:04+00:00"
+  "CreateDate": "2022-08-25T20:13:28+00:00"
 }

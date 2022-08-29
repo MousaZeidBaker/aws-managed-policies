@@ -20,6 +20,7 @@
           "organizations:ListParents",
           "organizations:ListChildren",
           "organizations:ListOrganizationalUnitsForParent",
+          "organizations:ListDelegatedAdministrators",
           "sso:*",
           "sso-directory:*",
           "identitystore:*",
@@ -27,10 +28,24 @@
           "access-analyzer:ValidatePolicy"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "AWSSSOManageDelegatedAdministrator",
+        "Effect": "Allow",
+        "Action": [
+          "organizations:RegisterDelegatedAdministrator",
+          "organizations:DeregisterDelegatedAdministrator"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "organizations:ServicePrincipal": "sso.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-04-28T18:53:46+00:00"
+  "CreateDate": "2022-08-22T17:18:20+00:00"
 }
