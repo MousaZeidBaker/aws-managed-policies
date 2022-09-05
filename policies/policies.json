@@ -4222,6 +4222,7 @@
             "s3:ListBucket",
             "s3:GetBucketVersioning",
             "s3:GetBucketLocation",
+            "s3:GetBucketAcl",
             "s3:PutInventoryConfiguration",
             "s3:GetBucketNotification",
             "s3:PutBucketNotification"
@@ -4247,9 +4248,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-26T00:01:09+00:00"
+    "CreateDate": "2022-09-01T16:52:33+00:00"
   },
   "AWSBackupServiceRolePolicyForS3Restore": {
     "Document": {
@@ -31150,12 +31151,33 @@
             "amplify:UpdateBranch"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AmplifySSRViewLogGroups",
+          "Effect": "Allow",
+          "Action": "logs:DescribeLogGroups",
+          "Resource": "arn:aws:logs:*:*:log-group:*"
+        },
+        {
+          "Sid": "AmplifySSRCreateLogGroup",
+          "Effect": "Allow",
+          "Action": "logs:CreateLogGroup",
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/amplify/*"
+        },
+        {
+          "Sid": "AmplifySSRPushLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogStream",
+            "logs:PutLogEvents"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/amplify/*:log-stream:*"
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-13T22:42:11+00:00"
+    "CreateDate": "2022-08-30T23:24:53+00:00"
   },
   "AdministratorAccess": {
     "Document": {
@@ -36595,7 +36617,8 @@
             "arn:aws:ecr:*:*:repository/eks/eks-certificates-controller-public",
             "arn:aws:ecr:*:*:repository/bottlerocket-admin",
             "arn:aws:ecr:*:*:repository/bottlerocket-control-eks",
-            "arn:aws:ecr:*:*:repository/diagnostics-collector-eks"
+            "arn:aws:ecr:*:*:repository/diagnostics-collector-eks",
+            "arn:aws:ecr:*:*:repository/kubelet-config-updater"
           ]
         },
         {
@@ -36624,9 +36647,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-24T21:56:47+00:00"
+    "CreateDate": "2022-09-01T16:30:43+00:00"
   },
   "AmazonEKSLocalOutpostServiceRolePolicy": {
     "Document": {
@@ -46098,7 +46121,9 @@
             "sqlworkbench:UpdateFolder",
             "sqlworkbench:ListRedshiftClusters",
             "sqlworkbench:DriverExecute",
-            "sqlworkbench:ListTaggedResources"
+            "sqlworkbench:ListTaggedResources",
+            "sqlworkbench:ListQueryExecutionHistory",
+            "sqlworkbench:GetQueryExecutionHistory"
           ],
           "Resource": "*"
         },
@@ -46161,9 +46186,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-15T09:48:24+00:00"
+    "CreateDate": "2022-08-31T03:59:54+00:00"
   },
   "AmazonRedshiftQueryEditorV2ReadSharing": {
     "Document": {
@@ -46224,7 +46249,9 @@
             "sqlworkbench:UpdateFolder",
             "sqlworkbench:ListRedshiftClusters",
             "sqlworkbench:DriverExecute",
-            "sqlworkbench:ListTaggedResources"
+            "sqlworkbench:ListTaggedResources",
+            "sqlworkbench:ListQueryExecutionHistory",
+            "sqlworkbench:GetQueryExecutionHistory"
           ],
           "Resource": "*"
         },
@@ -46334,9 +46361,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-15T10:16:40+00:00"
+    "CreateDate": "2022-08-31T04:02:10+00:00"
   },
   "AmazonRedshiftQueryEditorV2ReadWriteSharing": {
     "Document": {
@@ -46397,7 +46424,9 @@
             "sqlworkbench:UpdateFolder",
             "sqlworkbench:ListRedshiftClusters",
             "sqlworkbench:DriverExecute",
-            "sqlworkbench:ListTaggedResources"
+            "sqlworkbench:ListTaggedResources",
+            "sqlworkbench:ListQueryExecutionHistory",
+            "sqlworkbench:GetQueryExecutionHistory"
           ],
           "Resource": "*"
         },
@@ -46512,9 +46541,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-15T10:59:24+00:00"
+    "CreateDate": "2022-08-31T04:01:05+00:00"
   },
   "AmazonRedshiftReadOnlyAccess": {
     "Document": {
@@ -47735,6 +47764,57 @@
     "VersionId": "v3",
     "IsDefaultVersion": true,
     "CreateDate": "2019-07-27T00:16:05+00:00"
+  },
+  "AmazonSSMManagedEC2InstanceDefaultPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:DescribeAssociation",
+            "ssm:GetDeployablePatchSnapshotForInstance",
+            "ssm:GetDocument",
+            "ssm:DescribeDocument",
+            "ssm:GetManifest",
+            "ssm:ListAssociations",
+            "ssm:ListInstanceAssociations",
+            "ssm:PutInventory",
+            "ssm:PutComplianceItems",
+            "ssm:PutConfigurePackageResult",
+            "ssm:UpdateAssociationStatus",
+            "ssm:UpdateInstanceAssociationStatus",
+            "ssm:UpdateInstanceInformation"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssmmessages:CreateControlChannel",
+            "ssmmessages:CreateDataChannel",
+            "ssmmessages:OpenControlChannel",
+            "ssmmessages:OpenDataChannel"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2messages:AcknowledgeMessage",
+            "ec2messages:DeleteMessage",
+            "ec2messages:FailMessage",
+            "ec2messages:GetEndpoint",
+            "ec2messages:GetMessages",
+            "ec2messages:SendReply"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-08-30T20:54:27+00:00"
   },
   "AmazonSSMManagedInstanceCore": {
     "Document": {
@@ -51699,33 +51779,35 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Effect": "Allow",
           "Action": [
-            "workspaces:CreateWorkspaces",
-            "workspaces:DescribeWorkspaces",
-            "workspaces:RebootWorkspaces",
-            "workspaces:RebuildWorkspaces",
-            "workspaces:TerminateWorkspaces",
-            "workspaces:DescribeWorkspaceDirectories",
-            "workspaces:DescribeWorkspaceBundles",
-            "workspaces:ModifyWorkspaceProperties",
-            "workspaces:StopWorkspaces",
-            "workspaces:StartWorkspaces",
-            "workspaces:DescribeWorkspacesConnectionStatus",
+            "kms:DescribeKey",
+            "kms:ListAliases",
+            "kms:ListKeys",
             "workspaces:CreateTags",
+            "workspaces:CreateWorkspaces",
+            "workspaces:CreateWorkspaceImage",
             "workspaces:DeleteTags",
             "workspaces:DescribeTags",
-            "kms:ListKeys",
-            "kms:ListAliases",
-            "kms:DescribeKey"
+            "workspaces:DescribeWorkspaceBundles",
+            "workspaces:DescribeWorkspaceDirectories",
+            "workspaces:DescribeWorkspaces",
+            "workspaces:DescribeWorkspacesConnectionStatus",
+            "workspaces:ModifyWorkspaceProperties",
+            "workspaces:ModifySamlProperties",
+            "workspaces:RebootWorkspaces",
+            "workspaces:RebuildWorkspaces",
+            "workspaces:StartWorkspaces",
+            "workspaces:StopWorkspaces",
+            "workspaces:TerminateWorkspaces"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2016-08-18T23:08:42+00:00"
+    "CreateDate": "2022-08-31T18:28:53+00:00"
   },
   "AmazonWorkSpacesApplicationManagerAdminAccess": {
     "Document": {
@@ -54759,7 +54841,8 @@
             "eks:ListClusters",
             "eks:ListFargateProfiles",
             "eks:ListNodegroups",
-            "fsx:DescribeFileSystems"
+            "fsx:DescribeFileSystems",
+            "fsx:DescribeVolumes"
           ],
           "Resource": [
             "*"
@@ -54806,9 +54889,9 @@
         }
       ]
     },
-    "VersionId": "v19",
+    "VersionId": "v20",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-01-25T17:51:32+00:00"
+    "CreateDate": "2022-09-03T17:23:50+00:00"
   },
   "ComprehendDataAccessRolePolicy": {
     "Document": {
@@ -60004,6 +60087,7 @@
             "lambda:GetFunctionConcurrency",
             "lambda:GetFunctionConfiguration",
             "lambda:GetProvisionedConcurrencyConfig",
+            "lambda:ListProvisionedConcurrencyConfigs",
             "lambda:ListAliases",
             "lambda:ListVersionsByFunction"
           ],
@@ -60110,9 +60194,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-10-29T07:09:46+00:00"
+    "CreateDate": "2022-08-31T17:16:56+00:00"
   },
   "Route53ResolverServiceRolePolicy": {
     "Document": {
