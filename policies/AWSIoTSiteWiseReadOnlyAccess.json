@@ -7,13 +7,14 @@
         "Action": [
           "iotsitewise:Describe*",
           "iotsitewise:List*",
-          "iotsitewise:Get*"
+          "iotsitewise:Get*",
+          "iotsitewise:BatchGet*"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2018-12-04T20:55:11+00:00"
+  "CreateDate": "2022-09-16T19:05:20+00:00"
 }

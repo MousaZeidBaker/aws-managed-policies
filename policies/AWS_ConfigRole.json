@@ -313,6 +313,7 @@
           "glue:GetJobs",
           "glue:GetSecurityConfiguration",
           "glue:GetSecurityConfigurations",
+          "glue:GetTable",
           "glue:GetTags",
           "glue:GetWorkflow",
           "glue:ListCrawlers",
@@ -786,7 +787,7 @@
       }
     ]
   },
-  "VersionId": "v16",
+  "VersionId": "v17",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-09-07T20:46:38+00:00"
+  "CreateDate": "2022-09-14T19:21:07+00:00"
 }

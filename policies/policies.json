@@ -8865,6 +8865,7 @@
             "glue:GetJobs",
             "glue:GetSecurityConfiguration",
             "glue:GetSecurityConfigurations",
+            "glue:GetTable",
             "glue:GetTags",
             "glue:GetWorkflow",
             "glue:ListCrawlers",
@@ -9338,9 +9339,9 @@
         }
       ]
     },
-    "VersionId": "v35",
+    "VersionId": "v36",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-07T20:48:52+00:00"
+    "CreateDate": "2022-09-14T19:19:27+00:00"
   },
   "AWSConfigUserAccess": {
     "Document": {
@@ -17768,15 +17769,16 @@
           "Action": [
             "iotsitewise:Describe*",
             "iotsitewise:List*",
-            "iotsitewise:Get*"
+            "iotsitewise:Get*",
+            "iotsitewise:BatchGet*"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2018-12-04T20:55:11+00:00"
+    "CreateDate": "2022-09-16T19:05:20+00:00"
   },
   "AWSIoTThingsRegistration": {
     "Document": {
@@ -30447,6 +30449,7 @@
             "glue:GetJobs",
             "glue:GetSecurityConfiguration",
             "glue:GetSecurityConfigurations",
+            "glue:GetTable",
             "glue:GetTags",
             "glue:GetWorkflow",
             "glue:ListCrawlers",
@@ -30920,9 +30923,9 @@
         }
       ]
     },
-    "VersionId": "v16",
+    "VersionId": "v17",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-07T20:46:38+00:00"
+    "CreateDate": "2022-09-14T19:21:07+00:00"
   },
   "AccessAnalyzerServiceRolePolicy": {
     "Document": {
@@ -33540,6 +33543,69 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2021-11-29T15:08:38+00:00"
+  },
+  "AmazonCloudWatchEvidentlyServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": "appconfig:StartDeployment",
+          "Resource": [
+            "arn:aws:appconfig:*:*:application/*",
+            "arn:aws:appconfig:*:*:deploymentstrategy/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/DeployedBy": "Evidently"
+            }
+          }
+        },
+        {
+          "Effect": "Deny",
+          "Action": "appconfig:StartDeployment",
+          "Resource": "arn:aws:appconfig:*:*:application/*/configurationprofile/*",
+          "Condition": {
+            "StringNotEquals": {
+              "aws:ResourceTag/Owner": "Evidently"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "appconfig:TagResource",
+          "Resource": "arn:aws:appconfig:*:*:application/*/environment/*/deployment/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/DeployedBy": "Evidently"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "appconfig:StopDeployment",
+          "Resource": "arn:aws:appconfig:*:*:application/*"
+        },
+        {
+          "Effect": "Deny",
+          "Action": "appconfig:StopDeployment",
+          "Resource": "arn:aws:appconfig:*:*:application/*/environment/*/deployment/*",
+          "Condition": {
+            "StringNotEquals": {
+              "aws:ResourceTag/DeployedBy": "Evidently"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "appconfig:ListDeployments",
+          "Resource": "arn:aws:appconfig:*:*:application/*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-09-13T17:25:36+00:00"
   },
   "AmazonCloudWatchRUMFullAccess": {
     "Document": {
@@ -39389,12 +39455,23 @@
             "acm:DescribeCertificate"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "Stmt1480452973136",
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/ES"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-02T15:31:35+00:00"
+    "CreateDate": "2022-09-12T15:01:51+00:00"
   },
   "AmazonEventBridgeApiDestinationsServiceRolePolicy": {
     "Document": {
@@ -44244,12 +44321,23 @@
             "acm:DescribeCertificate"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "Stmt1480452973197",
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/ES"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-07-28T13:10:24+00:00"
+    "CreateDate": "2022-09-12T15:03:06+00:00"
   },
   "AmazonPersonalizeFullAccess": {
     "Document": {
@@ -48523,6 +48611,7 @@
             "ssm:GetAutomationExecution",
             "ssm:GetParameters",
             "ssm:StartAutomationExecution",
+            "ssm:StopAutomationExecution",
             "ssm:ListTagsForResource",
             "ssm:GetCalendarState"
           ],
@@ -48648,6 +48737,11 @@
         },
         {
           "Effect": "Allow",
+          "Action": "cloudwatch:DescribeAlarms",
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
           "Action": "iam:PassRole",
           "Resource": "*",
           "Condition": {
@@ -48721,9 +48815,9 @@
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-04-26T20:43:46+00:00"
+    "CreateDate": "2022-09-14T19:46:49+00:00"
   },
   "AmazonSageMakerAdmin-ServiceCatalogProductsServiceRolePolicy": {
     "Document": {
