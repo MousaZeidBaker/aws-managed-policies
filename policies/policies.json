@@ -1195,6 +1195,7 @@
           "Effect": "Allow",
           "Action": [
             "mgn:GetAgentInstallationAssetsForMgn",
+            "mgn:SendClientMetricsForMgn",
             "mgn:SendClientLogsForMgn",
             "mgn:RegisterAgentForMgn",
             "mgn:VerifyClientRoleForMgn"
@@ -1220,9 +1221,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-19T07:51:04+00:00"
+    "CreateDate": "2022-09-20T11:21:24+00:00"
   },
   "AWSApplicationMigrationAgentPolicy": {
     "Document": {
@@ -1233,6 +1234,7 @@
           "Action": [
             "mgn:SendAgentMetricsForMgn",
             "mgn:SendAgentLogsForMgn",
+            "mgn:SendClientMetricsForMgn",
             "mgn:SendClientLogsForMgn"
           ],
           "Resource": "*"
@@ -1260,9 +1262,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-04-07T07:00:21+00:00"
+    "CreateDate": "2022-09-20T11:13:40+00:00"
   },
   "AWSApplicationMigrationAgentPolicy_v2": {
     "Document": {
@@ -10113,7 +10115,9 @@
             "ec2:DisableFastSnapshotRestores",
             "ec2:CopySnapshot",
             "ec2:ModifySnapshotAttribute",
-            "ec2:DescribeSnapshotAttribute"
+            "ec2:DescribeSnapshotAttribute",
+            "ec2:DescribeSnapshotTierStatus",
+            "ec2:ModifySnapshotTier"
           ],
           "Resource": "*"
         },
@@ -10140,9 +10144,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-12-11T18:15:06+00:00"
+    "CreateDate": "2022-09-19T17:34:08+00:00"
   },
   "AWSDataLifecycleManagerServiceRoleForAMIManagement": {
     "Document": {
@@ -11315,6 +11319,97 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2015-07-13T16:37:38+00:00"
+  },
+  "AWSDeviceFarmServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:network-interface/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/AWSDeviceFarmManaged": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateNetworkInterface"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterfacePermission",
+            "ec2:DeleteNetworkInterface"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AWSDeviceFarmManaged": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyNetworkInterfaceAttribute"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:instance/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyNetworkInterfaceAttribute"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AWSDeviceFarmManaged": "true"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-09-20T21:02:28+00:00"
   },
   "AWSDeviceFarmTestGridServiceRolePolicy": {
     "Document": {
@@ -17487,6 +17582,30 @@
     "VersionId": "v5",
     "IsDefaultVersion": true,
     "CreateDate": "2022-04-04T18:03:01+00:00"
+  },
+  "AWSIoTFleetwiseServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": [
+                "AWS/IoTFleetWise"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-09-21T23:27:48+00:00"
   },
   "AWSIoTFullAccess": {
     "Document": {
@@ -39747,6 +39866,7 @@
           "Effect": "Allow",
           "Action": [
             "cloudwatch:DescribeAlarms",
+            "cloudwatch:GetMetricData",
             "ds:DescribeDirectories",
             "ec2:DescribeNetworkInterfaceAttribute",
             "ec2:DescribeRouteTables",
@@ -39806,9 +39926,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-26T13:18:46+00:00"
+    "CreateDate": "2022-09-22T14:08:01+00:00"
   },
   "AmazonFSxConsoleReadOnlyAccess": {
     "Document": {
@@ -39818,6 +39938,7 @@
           "Effect": "Allow",
           "Action": [
             "cloudwatch:DescribeAlarms",
+            "cloudwatch:GetMetricData",
             "ds:DescribeDirectories",
             "ec2:DescribeNetworkInterfaceAttribute",
             "ec2:DescribeSecurityGroups",
@@ -39833,9 +39954,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-06-08T12:21:09+00:00"
+    "CreateDate": "2022-09-22T14:07:26+00:00"
   },
   "AmazonFSxFullAccess": {
     "Document": {
