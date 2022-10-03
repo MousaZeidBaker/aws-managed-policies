@@ -36,7 +36,8 @@
           "migrationhub-strategy:GetMessage",
           "migrationhub-strategy:SendMessage",
           "migrationhub-strategy:ListAntiPatterns",
-          "migrationhub-strategy:ListJarArtifacts"
+          "migrationhub-strategy:ListJarArtifacts",
+          "migrationhub-strategy:UpdateCollectorConfiguration"
         ],
         "Resource": "arn:aws:migrationhub-strategy:*:*:*"
       },
@@ -49,7 +50,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-10-19T20:15:15+00:00"
+  "CreateDate": "2022-09-28T00:06:57+00:00"
 }

@@ -20912,7 +20912,8 @@
             "migrationhub-strategy:GetMessage",
             "migrationhub-strategy:SendMessage",
             "migrationhub-strategy:ListAntiPatterns",
-            "migrationhub-strategy:ListJarArtifacts"
+            "migrationhub-strategy:ListJarArtifacts",
+            "migrationhub-strategy:UpdateCollectorConfiguration"
           ],
           "Resource": "arn:aws:migrationhub-strategy:*:*:*"
         },
@@ -20925,9 +20926,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-10-19T20:15:15+00:00"
+    "CreateDate": "2022-09-28T00:06:57+00:00"
   },
   "AWSMigrationHubStrategyConsoleFullAccess": {
     "Document": {
@@ -25229,23 +25230,24 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Effect": "Allow",
           "Action": [
             "sso:GetManagedApplicationInstance",
             "sso:GetProfile",
             "sso:ListProfiles",
+            "sso:ListProfileAssociations",
             "sso:AssociateProfile",
             "sso:ListDirectoryAssociations",
             "sso-directory:DescribeUsers",
             "sso-directory:SearchUsers"
           ],
-          "Resource": "*",
-          "Effect": "Allow"
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-12-02T19:06:08+00:00"
+    "CreateDate": "2022-09-29T20:38:15+00:00"
   },
   "AWSServiceRoleForSMS": {
     "Document": {
@@ -25871,6 +25873,43 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2022-08-22T17:01:15+00:00"
+  },
+  "AWSSupportPlansFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "supportplans:GetSupportPlan",
+            "supportplans:GetSupportPlanUpdateStatus",
+            "supportplans:StartSupportPlanUpdate"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-09-27T18:19:30+00:00"
+  },
+  "AWSSupportPlansReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "supportplans:GetSupportPlan",
+            "supportplans:GetSupportPlanUpdateStatus"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-09-27T18:08:29+00:00"
   },
   "AWSSupportServiceRolePolicy": {
     "Document": {
@@ -40002,7 +40041,7 @@
             "logs:PutLogEvents"
           ],
           "Resource": [
-            "arn:aws:logs:*:*:log-group:/aws/fsx/*:log-group:*"
+            "arn:aws:logs:*:*:log-group:/aws/fsx/*"
           ]
         },
         {
@@ -40032,12 +40071,28 @@
               ]
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcs"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "fsx.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-26T13:17:29+00:00"
+    "CreateDate": "2022-09-29T18:27:51+00:00"
   },
   "AmazonFSxReadOnlyAccess": {
     "Document": {
@@ -53030,6 +53085,75 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2015-02-06T18:41:14+00:00"
+  },
+  "AppIntegrationsServiceLinkedRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/AppIntegrations"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "appflow:DescribeConnectorEntity",
+            "appflow:ListConnectorEntities"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "appflow:DescribeConnectorProfiles",
+            "appflow:UseConnectorProfile"
+          ],
+          "Resource": "arn:aws:appflow:*:*:connector-profile/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "appflow:DeleteFlow",
+            "appflow:DescribeFlow",
+            "appflow:DescribeFlowExecutionRecords",
+            "appflow:StartFlow",
+            "appflow:StopFlow",
+            "appflow:UpdateFlow"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AppIntegrationsManaged": "true"
+            }
+          },
+          "Resource": "arn:aws:appflow:*:*:flow/FlowCreatedByAppIntegrations-*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "appflow:TagResource"
+          ],
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "AppIntegrationsManaged"
+              ]
+            }
+          },
+          "Resource": "arn:aws:appflow:*:*:flow/FlowCreatedByAppIntegrations-*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-09-30T19:42:56+00:00"
   },
   "AppRunnerNetworkingServiceRolePolicy": {
     "Document": {
