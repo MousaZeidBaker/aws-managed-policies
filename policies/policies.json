@@ -3867,12 +3867,60 @@
             "backup-gateway:ListTagsForResource"
           ],
           "Resource": "arn:aws:backup-gateway:*:*:vm/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:GetTemplate",
+            "cloudformation:DescribeStacks",
+            "cloudformation:ListStackResources"
+          ],
+          "Resource": "arn:aws:cloudformation:*:*:stack/*/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:CreateClusterSnapshot",
+            "redshift:DescribeClusterSnapshots",
+            "redshift:DescribeTags"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:snapshot:*/*",
+            "arn:aws:redshift:*:*:cluster:*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DeleteClusterSnapshot"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:snapshot:*/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeClusters"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:cluster:*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:CreateTags"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:snapshot:*/*"
+          ]
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-17T17:31:44+00:00"
+    "CreateDate": "2022-10-12T22:14:45+00:00"
   },
   "AWSBackupServiceRolePolicyForRestores": {
     "Document": {
@@ -3992,7 +4040,8 @@
                 "dynamodb.*.amazonaws.com",
                 "ec2.*.amazonaws.com",
                 "elasticfilesystem.*.amazonaws.com",
-                "rds.*.amazonaws.com"
+                "rds.*.amazonaws.com",
+                "redshift.*.amazonaws.com"
               ]
             }
           }
@@ -4039,7 +4088,10 @@
         {
           "Effect": "Allow",
           "Action": "ec2:CreateTags",
-          "Resource": "arn:aws:ec2:*::snapshot/*",
+          "Resource": [
+            "arn:aws:ec2:*::snapshot/*",
+            "arn:aws:ec2:*:*:instance/*"
+          ],
           "Condition": {
             "ForAllValues:StringEquals": {
               "aws:TagKeys": [
@@ -4165,12 +4217,60 @@
             "backup-gateway:Restore"
           ],
           "Resource": "arn:aws:backup-gateway:*:*:hypervisor/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:CreateChangeSet",
+            "cloudformation:DescribeChangeSet"
+          ],
+          "Resource": "arn:aws:cloudformation:*:*:stack/*/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:RestoreFromClusterSnapshot",
+            "redshift:RestoreTableFromClusterSnapshot"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:snapshot:*/*",
+            "arn:aws:redshift:*:*:cluster:*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeClusters"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:cluster:*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeTableRestoreStatus"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeAccountAttributes",
+            "ec2:DescribeAddresses",
+            "ec2:DescribeAvailabilityZones",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeInternetGateways"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-07-19T23:22:51+00:00"
+    "CreateDate": "2022-10-12T22:12:43+00:00"
   },
   "AWSBackupServiceRolePolicyForS3Backup": {
     "Document": {
@@ -36978,12 +37078,60 @@
             "arn:aws:ecs:*:*:task/*",
             "arn:aws:ssm:*:*:document/AmazonECS-ExecuteInteractiveCommand"
           ]
+        },
+        {
+          "Sid": "CloudMapResourceCreation",
+          "Effect": "Allow",
+          "Action": [
+            "servicediscovery:CreateHttpNamespace",
+            "servicediscovery:CreateService"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "AmazonECSManaged"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "CloudMapResourceTagging",
+          "Effect": "Allow",
+          "Action": "servicediscovery:TagResource",
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "aws:RequestTag/AmazonECSManaged": "*"
+            }
+          }
+        },
+        {
+          "Sid": "CloudMapResourceDeletion",
+          "Effect": "Allow",
+          "Action": [
+            "servicediscovery:DeleteService"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonECSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "CloudMapResourceDiscovery",
+          "Effect": "Allow",
+          "Action": [
+            "servicediscovery:DiscoverInstances"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-01-13T20:04:13+00:00"
+    "CreateDate": "2022-10-14T18:10:03+00:00"
   },
   "AmazonECSTaskExecutionRolePolicy": {
     "Document": {
@@ -39671,12 +39819,72 @@
               "cloudwatch:namespace": "AWS/ES"
             }
           }
+        },
+        {
+          "Sid": "Stmt1480452973198",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVpcEndpoint",
+            "ec2:ModifyVpcEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc/*",
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:route-table/*"
+          ]
+        },
+        {
+          "Sid": "Stmt1480452973199",
+          "Effect": "Allow",
+          "Action": "ec2:CreateVpcEndpoint",
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/OpenSearchManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "Stmt1480452973200",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyVpcEndpoint",
+            "ec2:DeleteVpcEndpoints"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/OpenSearchManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "Stmt1480452973201",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVpcEndpoints"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "Stmt1480452973202",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateVpcEndpoint"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-12T15:01:51+00:00"
+    "CreateDate": "2022-10-13T13:45:16+00:00"
   },
   "AmazonEventBridgeApiDestinationsServiceRolePolicy": {
     "Document": {
@@ -44555,12 +44763,72 @@
               "cloudwatch:namespace": "AWS/ES"
             }
           }
+        },
+        {
+          "Sid": "Stmt1480452973198",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVpcEndpoint",
+            "ec2:ModifyVpcEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc/*",
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:route-table/*"
+          ]
+        },
+        {
+          "Sid": "Stmt1480452973199",
+          "Effect": "Allow",
+          "Action": "ec2:CreateVpcEndpoint",
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/OpenSearchManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "Stmt1480452973200",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyVpcEndpoint",
+            "ec2:DeleteVpcEndpoints"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/OpenSearchManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "Stmt1480452973201",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVpcEndpoints"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "Stmt1480452973202",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateVpcEndpoint"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-12T15:03:06+00:00"
+    "CreateDate": "2022-10-13T14:05:59+00:00"
   },
   "AmazonPersonalizeFullAccess": {
     "Document": {
@@ -56090,12 +56358,21 @@
             "arn:aws:logs:*:*:log-group:*",
             "arn:aws:logs:*:*:destination:AmazonCloudWatch-ApplicationInsights-LogIngestionDestination*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticfilesystem:DescribeFileSystems"
+          ],
+          "Resource": [
+            "*"
+          ]
         }
       ]
     },
-    "VersionId": "v20",
+    "VersionId": "v21",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-03T17:23:50+00:00"
+    "CreateDate": "2022-10-10T19:01:17+00:00"
   },
   "ComprehendDataAccessRolePolicy": {
     "Document": {
