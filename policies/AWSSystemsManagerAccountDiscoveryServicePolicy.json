@@ -7,6 +7,8 @@
         "Action": [
           "organizations:DescribeAccount",
           "organizations:DescribeOrganization",
+          "organizations:DescribeOrganizationalUnit",
+          "organizations:ListRoots",
           "organizations:ListAccounts",
           "organizations:ListAWSServiceAccessForOrganization",
           "organizations:ListChildren",
@@ -18,7 +20,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-05-27T18:04:51+00:00"
+  "CreateDate": "2022-10-17T20:25:02+00:00"
 }

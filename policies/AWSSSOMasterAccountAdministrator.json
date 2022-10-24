@@ -46,6 +46,7 @@
           "sso:*",
           "sso-directory:*",
           "identitystore:*",
+          "identitystore-auth:*",
           "ds:CreateAlias",
           "access-analyzer:ValidatePolicy"
         ],
@@ -67,7 +68,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-08-22T17:07:31+00:00"
+  "CreateDate": "2022-10-20T20:34:27+00:00"
 }
