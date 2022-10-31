@@ -128,6 +128,18 @@
       {
         "Effect": "Allow",
         "Action": [
+          "elasticloadbalancing:DeregisterTargets"
+        ],
+        "Resource": "arn:*:elasticloadbalancing:*:*:targetgroup/refactor-spaces-tg-*",
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/refactor-spaces:route-id": "false"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
           "elasticloadbalancing:AddTags",
           "elasticloadbalancing:CreateTargetGroup"
         ],
@@ -140,7 +152,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-11-29T06:50:15+00:00"
+  "CreateDate": "2022-10-28T18:39:20+00:00"
 }

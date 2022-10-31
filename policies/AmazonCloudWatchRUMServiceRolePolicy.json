@@ -10,10 +10,20 @@
         "Resource": [
           "*"
         ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": "cloudwatch:PutMetricData",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "cloudwatch:namespace": "AWS/RUM"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-11-17T23:17:23+00:00"
+  "CreateDate": "2022-10-26T21:33:26+00:00"
 }

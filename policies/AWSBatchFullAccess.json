@@ -17,6 +17,8 @@
           "ecs:DescribeClusters",
           "ecs:Describe*",
           "ecs:List*",
+          "eks:DescribeCluster",
+          "eks:ListClusters",
           "logs:Describe*",
           "logs:Get*",
           "logs:TestMetricFilter",
@@ -55,7 +57,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-03-10T07:02:45+00:00"
+  "CreateDate": "2022-10-24T16:09:09+00:00"
 }

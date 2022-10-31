@@ -13,7 +13,9 @@
           "ec2:DescribeInstances",
           "ec2:DescribeNetworkInterfaces",
           "ec2:DescribeNetworkInterfaceAttribute",
-          "ec2:DescribeSecurityGroups"
+          "ec2:DescribeSecurityGroups",
+          "ec2:DescribeVpcAttribute",
+          "ec2:DescribePlacementGroups"
         ],
         "Resource": "*"
       },
@@ -93,7 +95,8 @@
           "arn:aws:ec2:*:*:launch-template/*",
           "arn:aws:ec2:*:*:network-interface/*",
           "arn:aws:ec2:*:*:security-group/*",
-          "arn:aws:ec2:*:*:subnet/*"
+          "arn:aws:ec2:*:*:subnet/*",
+          "arn:aws:ec2:*:*:placement-group/*"
         ]
       },
       {
@@ -103,7 +106,8 @@
           "ec2:RevokeSecurityGroupIngress",
           "ec2:DeleteNetworkInterface",
           "ec2:DeleteSecurityGroup",
-          "ec2:TerminateInstances"
+          "ec2:TerminateInstances",
+          "ec2:GetConsoleOutput"
         ],
         "Resource": "*",
         "Condition": {
@@ -165,15 +169,18 @@
       },
       {
         "Effect": "Allow",
-        "Action": [
-          "secretsmanager:DeleteSecret"
-        ],
+        "Action": "secretsmanager:DeleteSecret",
         "Resource": "arn:aws:secretsmanager:*:*:secret:eks-local.cluster.x-k8s.io/*",
         "Condition": {
           "StringLike": {
             "aws:ResourceTag/eks-local:controlplane-name": "*"
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": "secretsmanager:DescribeSecret",
+        "Resource": "arn:aws:secretsmanager:*:*:secret:eks-local.cluster.x-k8s.io/*"
       },
       {
         "Effect": "Allow",
@@ -232,7 +239,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-08-23T21:53:02+00:00"
+  "CreateDate": "2022-10-24T16:24:51+00:00"
 }

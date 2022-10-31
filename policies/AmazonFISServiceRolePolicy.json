@@ -48,6 +48,7 @@
         "Effect": "Allow",
         "Action": [
           "ec2:DescribeInstances",
+          "ec2:DescribeSubnets",
           "iam:GetUser",
           "iam:GetRole",
           "iam:ListUsers",
@@ -64,7 +65,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-07-06T11:03:20+00:00"
+  "CreateDate": "2022-10-25T09:05:23+00:00"
 }
