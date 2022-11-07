@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Effect": "Allow",
         "Action": [
           "qldb:CreateLedger",
           "qldb:UpdateLedger",
@@ -37,24 +38,24 @@
           "qldb:PartiQLInsert",
           "qldb:PartiQLUpdate",
           "qldb:PartiQLSelect",
-          "qldb:PartiQLHistoryFunction"
+          "qldb:PartiQLHistoryFunction",
+          "qldb:PartiQLRedact"
         ],
-        "Effect": "Allow",
         "Resource": "*"
       },
       {
+        "Effect": "Allow",
         "Action": [
           "dbqms:*"
         ],
-        "Effect": "Allow",
         "Resource": "*"
       },
       {
+        "Effect": "Allow",
         "Action": [
           "kinesis:ListStreams",
           "kinesis:DescribeStream"
         ],
-        "Effect": "Allow",
         "Resource": "*"
       },
       {
@@ -69,7 +70,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-09-02T23:21:23+00:00"
+  "CreateDate": "2022-11-04T17:01:10+00:00"
 }

@@ -22,10 +22,23 @@
         "Resource": [
           "*"
         ]
+      },
+      {
+        "Sid": "AwsOrgsDelegatedAdminAccess",
+        "Effect": "Allow",
+        "Action": "organizations:ListDelegatedAdministrators",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "organizations:ServicePrincipal": [
+              "cloudtrail.amazonaws.com"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2018-10-24T21:21:44+00:00"
+  "CreateDate": "2022-11-03T20:35:01+00:00"
 }

@@ -99,6 +99,8 @@
           "cloudformation:DescribeType",
           "cloudformation:GetResource",
           "cloudformation:ListResources",
+          "cloudformation:ListStackResources",
+          "cloudformation:ListStacks",
           "cloudformation:ListTypes",
           "cloudfront:ListDistributions",
           "cloudfront:ListTagsForResource",
@@ -909,7 +911,7 @@
       }
     ]
   },
-  "VersionId": "v37",
+  "VersionId": "v38",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-10-18T17:20:33+00:00"
+  "CreateDate": "2022-10-31T19:27:26+00:00"
 }
