@@ -2729,6 +2729,29 @@
     "IsDefaultVersion": true,
     "CreateDate": "2021-08-24T01:02:23+00:00"
   },
+  "AWSBackupDataTransferAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "backup-storage:StartObject",
+            "backup-storage:PutChunk",
+            "backup-storage:GetChunk",
+            "backup-storage:ListChunks",
+            "backup-storage:ListObjects",
+            "backup-storage:GetObjectMetadata",
+            "backup-storage:NotifyObjectComplete"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-10T22:48:05+00:00"
+  },
   "AWSBackupFullAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -3019,12 +3042,94 @@
           "Effect": "Allow",
           "Action": "cloudwatch:GetMetricData",
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:ListTables",
+            "timestream:ListDatabases"
+          ],
+          "Resource": [
+            "arn:aws:timestream:*:*:database/*/table/*",
+            "arn:aws:timestream:*:*:database/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:DescribeEndpoints"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListAllMyBuckets"
+          ],
+          "Resource": "arn:aws:s3:::*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeClusters",
+            "redshift:DescribeClusterSubnetGroups",
+            "redshift:DescribeClusterSnapshots",
+            "redshift:DescribeSnapshotSchedules"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:cluster:*",
+            "arn:aws:redshift:*:*:subnetgroup:*",
+            "arn:aws:redshift:*:*:snapshot:*/*",
+            "arn:aws:redshift:*:*:snapshotschedule:*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeNodeConfigurationOptions",
+            "redshift:DescribeOrderableClusterOptions",
+            "redshift:DescribeClusterParameterGroups",
+            "redshift:DescribeClusterTracks"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeAddresses"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:ListStacks"
+          ],
+          "Resource": [
+            "arn:aws:cloudformation:*:*:stack/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm-sap:GetOperation",
+            "ssm-sap:ListDatabases"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm-sap:GetDatabase",
+            "ssm-sap:ListTagsForResource"
+          ],
+          "Resource": "arn:aws:ssm-sap:*:*:*"
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-24T22:03:13+00:00"
+    "CreateDate": "2022-11-10T22:47:21+00:00"
   },
   "AWSBackupOperatorAccess": {
     "Document": {
@@ -3090,7 +3195,8 @@
             "ec2:DescribePlacementGroups",
             "ec2:DescribeInstances",
             "ec2:DescribeInstanceTypes",
-            "ec2:DescribeVpcEndpoints"
+            "ec2:DescribeVpcEndpoints",
+            "ec2:DescribeAddresses"
           ],
           "Effect": "Allow",
           "Resource": "*"
@@ -3214,12 +3320,87 @@
           "Effect": "Allow",
           "Action": "cloudwatch:GetMetricData",
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:ListDatabases",
+            "timestream:ListTables"
+          ],
+          "Resource": [
+            "arn:aws:timestream:*:*:database/*/table/*",
+            "arn:aws:timestream:*:*:database/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:DescribeEndpoints"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListAllMyBuckets"
+          ],
+          "Resource": "arn:aws:s3:::*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeClusters",
+            "redshift:DescribeClusterSubnetGroups",
+            "redshift:DescribeClusterSnapshots",
+            "redshift:DescribeSnapshotSchedules"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:cluster:*",
+            "arn:aws:redshift:*:*:subnetgroup:*",
+            "arn:aws:redshift:*:*:snapshot:*/*",
+            "arn:aws:redshift:*:*:snapshotschedule:*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeNodeConfigurationOptions",
+            "redshift:DescribeOrderableClusterOptions",
+            "redshift:DescribeClusterParameterGroups",
+            "redshift:DescribeClusterTracks"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:ListStacks"
+          ],
+          "Resource": [
+            "arn:aws:cloudformation:*:*:stack/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm-sap:GetOperation",
+            "ssm-sap:ListDatabases"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm-sap:GetDatabase",
+            "ssm-sap:ListTagsForResource"
+          ],
+          "Resource": "arn:aws:ssm-sap:*:*:*"
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-24T22:03:30+00:00"
+    "CreateDate": "2022-11-10T22:52:47+00:00"
   },
   "AWSBackupOrganizationAdminAccess": {
     "Document": {
@@ -3286,6 +3467,46 @@
     "VersionId": "v2",
     "IsDefaultVersion": true,
     "CreateDate": "2020-11-24T22:09:43+00:00"
+  },
+  "AWSBackupRestoreAccessForSAPHANA": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "backup:Get*",
+            "backup:List*",
+            "backup:Describe*",
+            "backup:StartBackupJob",
+            "backup:StartRestoreJob"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm-sap:GetOperation",
+            "ssm-sap:ListDatabases"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm-sap:BackupDatabase",
+            "ssm-sap:RestoreDatabase",
+            "ssm-sap:UpdateHanaBackupSettings",
+            "ssm-sap:GetDatabase",
+            "ssm-sap:ListTagsForResource"
+          ],
+          "Resource": "arn:aws:ssm-sap:*:*:*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-10T22:43:27+00:00"
   },
   "AWSBackupServiceLinkedRolePolicyForBackup": {
     "Document": {
@@ -3522,15 +3743,68 @@
         {
           "Effect": "Allow",
           "Action": [
-            "sysops-sap:GetOperation"
+            "sysops-sap:GetOperation",
+            "ssm-sap:GetOperation"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:ListDatabases",
+            "timestream:ListTables",
+            "timestream:ListTagsForResource",
+            "timestream:DescribeDatabase",
+            "timestream:DescribeTable",
+            "timestream:GetAwsBackupStatus",
+            "timestream:GetAwsRestoreStatus"
+          ],
+          "Resource": [
+            "arn:aws:timestream:*:*:database/*/table/*",
+            "arn:aws:timestream:*:*:database/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:DescribeEndpoints"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeClusterSnapshots",
+            "redshift:DescribeTags"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:snapshot:*/*",
+            "arn:aws:redshift:*:*:cluster:*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DeleteClusterSnapshot"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:snapshot:*/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "redshift:DescribeClusters"
+          ],
+          "Resource": [
+            "arn:aws:redshift:*:*:cluster:*"
+          ]
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-07-28T17:29:44+00:00"
+    "CreateDate": "2022-11-10T22:51:20+00:00"
   },
   "AWSBackupServiceLinkedRolePolicyForBackupTest": {
     "Document": {
@@ -3915,12 +4189,53 @@
           "Resource": [
             "arn:aws:redshift:*:*:snapshot:*/*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:StartAwsBackupJob",
+            "timestream:GetAwsBackupStatus",
+            "timestream:ListTables",
+            "timestream:ListDatabases",
+            "timestream:ListTagsForResource",
+            "timestream:DescribeTable",
+            "timestream:DescribeDatabase"
+          ],
+          "Resource": [
+            "arn:aws:timestream:*:*:database/*/table/*",
+            "arn:aws:timestream:*:*:database/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:DescribeEndpoints"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm-sap:GetOperation",
+            "ssm-sap:ListDatabases"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm-sap:BackupDatabase",
+            "ssm-sap:UpdateHanaBackupSettings",
+            "ssm-sap:GetDatabase",
+            "ssm-sap:ListTagsForResource"
+          ],
+          "Resource": "arn:aws:ssm-sap:*:*:*"
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-12T22:14:45+00:00"
+    "CreateDate": "2022-11-10T22:38:14+00:00"
   },
   "AWSBackupServiceRolePolicyForRestores": {
     "Document": {
@@ -4265,12 +4580,37 @@
             "ec2:DescribeInternetGateways"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:StartAwsRestoreJob",
+            "timestream:GetAwsRestoreStatus",
+            "timestream:ListTables",
+            "timestream:ListTagsForResource",
+            "timestream:ListDatabases",
+            "timestream:DescribeTable",
+            "timestream:DescribeDatabase"
+          ],
+          "Resource": [
+            "arn:aws:timestream:*:*:database/*/table/*",
+            "arn:aws:timestream:*:*:database/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "timestream:DescribeEndpoints"
+          ],
+          "Resource": [
+            "*"
+          ]
         }
       ]
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-12T22:12:43+00:00"
+    "CreateDate": "2022-11-10T22:45:54+00:00"
   },
   "AWSBackupServiceRolePolicyForS3Backup": {
     "Document": {
@@ -21603,7 +21943,10 @@
         {
           "Effect": "Allow",
           "Action": [
-            "discovery:GetDiscoverySummary"
+            "discovery:GetDiscoverySummary",
+            "discovery:DescribeTags",
+            "discovery:DescribeConfigurations",
+            "discovery:ListConfigurations"
           ],
           "Resource": "*"
         },
@@ -21628,9 +21971,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-10-19T20:13:26+00:00"
+    "CreateDate": "2022-11-09T00:00:06+00:00"
   },
   "AWSMigrationHubStrategyServiceRolePolicy": {
     "Document": {
@@ -23256,6 +23599,80 @@
     "IsDefaultVersion": true,
     "CreateDate": "2021-12-16T23:17:46+00:00"
   },
+  "AWSProtonCodeBuildProvisioningBasicAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogStream",
+            "logs:CreateLogGroup",
+            "logs:PutLogEvents"
+          ],
+          "Resource": [
+            "arn:aws:logs:*:*:log-group:/aws/codebuild/AWSProton-*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": "proton:NotifyResourceDeploymentStatusChange",
+          "Resource": "arn:aws:proton:*:*:*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-09T21:04:16+00:00"
+  },
+  "AWSProtonCodeBuildProvisioningServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:CreateStack",
+            "cloudformation:CreateChangeSet",
+            "cloudformation:DeleteChangeSet",
+            "cloudformation:DeleteStack",
+            "cloudformation:DescribeStacks",
+            "cloudformation:DescribeStackEvents",
+            "cloudformation:ListStackResources"
+          ],
+          "Resource": [
+            "arn:aws:cloudformation:*:*:stack/AWSProton-CodeBuild-*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "codebuild:CreateProject",
+            "codebuild:DeleteProject",
+            "codebuild:StartBuild",
+            "codebuild:StopBuild",
+            "codebuild:RetryBuild",
+            "codebuild:BatchGetBuilds",
+            "codebuild:BatchGetProjects"
+          ],
+          "Resource": "arn:aws:codebuild:*:*:project/AWSProton*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "*",
+          "Condition": {
+            "StringEqualsIfExists": {
+              "iam:PassedToService": "codebuild.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-09T21:32:06+00:00"
+  },
   "AWSProtonDeveloperAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -24304,6 +24721,61 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2018-11-14T19:28:28+00:00"
+  },
+  "AWSResourceExplorerFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "resource-explorer-2:*",
+            "ec2:DescribeRegions",
+            "ram:ListResources"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "iam:CreateServiceLinkedRole"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": [
+                "resource-explorer-2.amazonaws.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-07T20:01:20+00:00"
+  },
+  "AWSResourceExplorerReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "resource-explorer-2:Get*",
+            "resource-explorer-2:List*",
+            "resource-explorer-2:Search",
+            "resource-explorer-2:BatchGetView",
+            "ec2:DescribeRegions",
+            "ram:ListResources"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-07T19:56:00+00:00"
   },
   "AWSResourceExplorerServiceRolePolicy": {
     "Document": {
@@ -31508,6 +31980,8 @@
             "xray:GetSamplingTargets",
             "xray:GetSamplingStatisticSummaries",
             "xray:BatchGetTraces",
+            "xray:BatchGetTraceSummaryById",
+            "xray:GetDistinctTraceGraphs",
             "xray:GetServiceGraph",
             "xray:GetTraceGraph",
             "xray:GetTraceSummaries",
@@ -31526,9 +32000,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-09-03T22:19:40+00:00"
+    "CreateDate": "2022-11-11T19:46:21+00:00"
   },
   "AWSXrayWriteOnlyAccess": {
     "Document": {
@@ -35890,14 +36364,16 @@
             "profile:SearchProfiles",
             "profile:CreateProfile",
             "profile:UpdateProfile",
-            "profile:AddProfileKey"
+            "profile:AddProfileKey",
+            "profile:ListProfileObjectTypes"
           ],
           "Resource": "arn:aws:profile:*:*:domains/amazon-connect-*"
         },
         {
           "Effect": "Allow",
           "Action": [
-            "profile:ListProfileObjects"
+            "profile:ListProfileObjects",
+            "profile:GetProfileObjectType"
           ],
           "Resource": [
             "arn:aws:profile:*:*:domains/amazon-connect-*/object-types/*"
@@ -35912,6 +36388,14 @@
         },
         {
           "Effect": "Allow",
+          "Action": [
+            "profile:ListProfileObjectTypeTemplates",
+            "profile:GetProfileObjectTypeTemplate"
+          ],
+          "Resource": "arn:aws:profile:*:*:/templates*"
+        },
+        {
+          "Effect": "Allow",
           "Action": "cloudwatch:PutMetricData",
           "Resource": "*",
           "Condition": {
@@ -35922,9 +36406,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-27T19:35:06+00:00"
+    "CreateDate": "2022-11-07T19:01:31+00:00"
   },
   "AmazonConnectVoiceIDFullAccess": {
     "Document": {
@@ -41224,11 +41708,17 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "EventBridgeActions",
           "Effect": "Allow",
-          "Action": "events:*",
+          "Action": [
+            "events:*",
+            "schemas:*",
+            "scheduler:*"
+          ],
           "Resource": "*"
         },
         {
+          "Sid": "IAMCreateServiceLinkedRoleForApiDestinations",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "arn:aws:iam::*:role/aws-service-role/AmazonEventBridgeApiDestinationsServiceRolePolicy",
@@ -41239,6 +41729,18 @@
           }
         },
         {
+          "Sid": "IAMCreateServiceLinkedRoleForAmazonEventBridgeSchemas",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/schemas.amazonaws.com/AWSServiceRoleForSchemas",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "schemas.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "SecretsManagerAccessForApiDestinations",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:CreateSecret",
@@ -41250,6 +41752,7 @@
           "Resource": "arn:aws:secretsmanager:*:*:secret:events!*"
         },
         {
+          "Sid": "IAMPassRoleAccessForEventBridge",
           "Effect": "Allow",
           "Action": "iam:PassRole",
           "Resource": "arn:aws:iam::*:role/*",
@@ -41258,12 +41761,23 @@
               "iam:PassedToService": "events.amazonaws.com"
             }
           }
+        },
+        {
+          "Sid": "IAMPassRoleAccessForScheduler",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/*",
+          "Condition": {
+            "StringLike": {
+              "iam:PassedToService": "scheduler.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-03-04T18:56:38+00:00"
+    "CreateDate": "2022-11-10T18:01:43+00:00"
   },
   "AmazonEventBridgeReadOnlyAccess": {
     "Document": {
@@ -41290,15 +41804,80 @@
             "events:DescribeApiDestination",
             "events:ListApiDestinations",
             "events:DescribeEndpoint",
-            "events:ListEndpoints"
+            "events:ListEndpoints",
+            "schemas:DescribeCodeBinding",
+            "schemas:DescribeDiscoverer",
+            "schemas:DescribeRegistry",
+            "schemas:DescribeSchema",
+            "schemas:ExportSchema",
+            "schemas:GetCodeBindingSource",
+            "schemas:GetDiscoveredSchema",
+            "schemas:GetResourcePolicy",
+            "schemas:ListDiscoverers",
+            "schemas:ListRegistries",
+            "schemas:ListSchemas",
+            "schemas:ListSchemaVersions",
+            "schemas:ListTagsForResource",
+            "schemas:SearchSchemas",
+            "scheduler:GetSchedule",
+            "scheduler:GetScheduleGroup",
+            "scheduler:ListSchedules",
+            "scheduler:ListScheduleGroups",
+            "scheduler:ListTagsForResource"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-08T20:42:18+00:00"
+    "CreateDate": "2022-11-10T18:01:54+00:00"
+  },
+  "AmazonEventBridgeSchedulerFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": "scheduler:*",
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/*",
+          "Condition": {
+            "StringLike": {
+              "iam:PassedToService": "scheduler.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-10T18:37:25+00:00"
+  },
+  "AmazonEventBridgeSchedulerReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "scheduler:ListSchedules",
+            "scheduler:ListScheduleGroups",
+            "scheduler:GetSchedule",
+            "scheduler:GetScheduleGroup",
+            "scheduler:ListTagsForResource"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-10T18:50:12+00:00"
   },
   "AmazonEventBridgeSchemasFullAccess": {
     "Document": {
@@ -42110,6 +42689,62 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2021-11-26T23:15:15+00:00"
+  },
+  "AmazonGrafanaServiceLinkedRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeDhcpOptions",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateNetworkInterface",
+          "Resource": "*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "AmazonGrafanaManaged"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateNetworkInterface"
+            },
+            "Null": {
+              "aws:RequestTag/AmazonGrafanaManaged": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:DeleteNetworkInterface",
+          "Resource": "*",
+          "Condition": {
+            "Null": {
+              "ec2:ResourceTag/AmazonGrafanaManaged": "false"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-08T23:10:33+00:00"
   },
   "AmazonGuardDutyFullAccess": {
     "Document": {
@@ -44251,25 +44886,16 @@
         {
           "Effect": "Allow",
           "Action": [
-            "lookoutequipment:DescribeDataset",
-            "lookoutequipment:DescribeDataIngestionJob",
-            "lookoutequipment:DescribeModel",
-            "lookoutequipment:DescribeInferenceScheduler",
-            "lookoutequipment:ListDatasets",
-            "lookoutequipment:ListDataIngestionJobs",
-            "lookoutequipment:ListModels",
-            "lookoutequipment:ListInferenceSchedulers",
-            "lookoutequipment:ListInferenceExecutions",
-            "lookoutequipment:ListTagsForResource",
-            "lookoutequipment:ListSensorStatistics"
+            "lookoutequipment:Describe*",
+            "lookoutequipment:List*"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-30T18:33:42+00:00"
+    "CreateDate": "2022-11-10T22:04:33+00:00"
   },
   "AmazonLookoutMetricsFullAccess": {
     "Document": {
@@ -46609,7 +47235,14 @@
             "ec2:DescribeSecurityGroups",
             "ec2:DescribeVolumesModifications",
             "ec2:DescribeSubnets",
-            "ec2:DescribeVpcAttribute"
+            "ec2:DescribeVpcAttribute",
+            "ec2:SearchTransitGatewayMulticastGroups",
+            "ec2:GetTransitGatewayMulticastDomainAssociations",
+            "ec2:DescribeTransitGatewayMulticastDomains",
+            "ec2:DescribeTransitGateways",
+            "ec2:DescribeTransitGatewayVpcAttachments",
+            "ec2:DescribePlacementGroups",
+            "ec2:DescribeRouteTables"
           ],
           "Resource": [
             "*"
@@ -46632,7 +47265,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46650,7 +47284,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46670,7 +47305,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46688,7 +47324,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46708,6 +47345,40 @@
           ]
         },
         {
+          "Sid": "eccRunInstances3",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:RunInstances"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:network-interface/*",
+            "arn:aws:ec2:*::snapshot/*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "RequireImdsV2",
+          "Effect": "Deny",
+          "Action": "ec2:RunInstances",
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "StringNotEquals": {
+              "ec2:MetadataHttpTokens": "required"
+            },
+            "StringLike": {
+              "aws:RequestTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "eccRunInstances3keyPair1",
           "Effect": "Allow",
           "Action": [
@@ -46721,7 +47392,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46739,7 +47411,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46757,7 +47430,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46771,7 +47445,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ],
               "ec2:CreateAction": [
                 "CreateKeyPair",
@@ -46799,7 +47474,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46813,7 +47489,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46831,7 +47508,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46848,7 +47526,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46865,7 +47544,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46882,7 +47562,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46926,15 +47607,15 @@
           "Effect": "Allow",
           "Action": [
             "cloudwatch:EnableAlarmActions",
-            "cloudwatch:DeleteAlarms",
-            "cloudwatch:DescribeAlarms"
+            "cloudwatch:DeleteAlarms"
           ],
           "Resource": "arn:aws:cloudwatch:*:*:alarm:do-not-delete-rds-custom-*",
           "Condition": {
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46951,10 +47632,19 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
+        },
+        {
+          "Sid": "cw3",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:DescribeAlarms"
+          ],
+          "Resource": "arn:aws:cloudwatch:*:*:alarm:*"
         },
         {
           "Sid": "ssm1",
@@ -46971,7 +47661,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -46987,6 +47678,37 @@
           "Resource": "*"
         },
         {
+          "Sid": "ssm4",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:PutParameter",
+            "ssm:AddTagsToResource"
+          ],
+          "Resource": "arn:aws:ssm:*:*:parameter/rds/custom-oracle-rac/*",
+          "Condition": {
+            "StringLike": {
+              "aws:RequestTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ssm5",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:DeleteParameter"
+          ],
+          "Resource": "arn:aws:ssm:*:*:parameter/rds/custom-oracle-rac/*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "eb1",
           "Effect": "Allow",
           "Action": [
@@ -46998,7 +47720,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47020,7 +47743,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47037,7 +47761,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47056,16 +47781,17 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-10-08T21:44:15+00:00"
+    "CreateDate": "2022-11-08T18:01:22+00:00"
   },
   "AmazonRDSCustomServiceRolePolicy": {
     "Document": {
@@ -47091,7 +47817,14 @@
             "ec2:DescribeSecurityGroups",
             "ec2:DescribeVolumesModifications",
             "ec2:DescribeSubnets",
-            "ec2:DescribeVpcAttribute"
+            "ec2:DescribeVpcAttribute",
+            "ec2:SearchTransitGatewayMulticastGroups",
+            "ec2:GetTransitGatewayMulticastDomainAssociations",
+            "ec2:DescribeTransitGatewayMulticastDomains",
+            "ec2:DescribeTransitGateways",
+            "ec2:DescribeTransitGatewayVpcAttachments",
+            "ec2:DescribePlacementGroups",
+            "ec2:DescribeRouteTables"
           ],
           "Resource": [
             "*"
@@ -47114,7 +47847,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47132,7 +47866,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47152,7 +47887,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47170,7 +47906,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47190,6 +47927,40 @@
           ]
         },
         {
+          "Sid": "eccRunInstances3",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:RunInstances"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:network-interface/*",
+            "arn:aws:ec2:*::snapshot/*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "RequireImdsV2",
+          "Effect": "Deny",
+          "Action": "ec2:RunInstances",
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "StringNotEquals": {
+              "ec2:MetadataHttpTokens": "required"
+            },
+            "StringLike": {
+              "aws:RequestTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "eccRunInstances3keyPair1",
           "Effect": "Allow",
           "Action": [
@@ -47203,7 +47974,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47221,7 +47993,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47239,7 +48012,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47253,7 +48027,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ],
               "ec2:CreateAction": [
                 "CreateKeyPair",
@@ -47281,7 +48056,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47295,7 +48071,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47313,7 +48090,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47330,7 +48108,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47347,7 +48126,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47364,7 +48144,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47408,15 +48189,15 @@
           "Effect": "Allow",
           "Action": [
             "cloudwatch:EnableAlarmActions",
-            "cloudwatch:DeleteAlarms",
-            "cloudwatch:DescribeAlarms"
+            "cloudwatch:DeleteAlarms"
           ],
           "Resource": "arn:aws:cloudwatch:*:*:alarm:do-not-delete-rds-custom-*",
           "Condition": {
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47433,10 +48214,19 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
+        },
+        {
+          "Sid": "cw3",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:DescribeAlarms"
+          ],
+          "Resource": "arn:aws:cloudwatch:*:*:alarm:*"
         },
         {
           "Sid": "ssm1",
@@ -47453,7 +48243,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47469,6 +48260,37 @@
           "Resource": "*"
         },
         {
+          "Sid": "ssm4",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:PutParameter",
+            "ssm:AddTagsToResource"
+          ],
+          "Resource": "arn:aws:ssm:*:*:parameter/rds/custom-oracle-rac/*",
+          "Condition": {
+            "StringLike": {
+              "aws:RequestTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ssm5",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:DeleteParameter"
+          ],
+          "Resource": "arn:aws:ssm:*:*:parameter/rds/custom-oracle-rac/*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "eb1",
           "Effect": "Allow",
           "Action": [
@@ -47480,7 +48302,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47502,7 +48325,8 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47519,7 +48343,8 @@
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -47538,16 +48363,17 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-oracle",
-                "custom-sqlserver"
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-10-08T21:39:12+00:00"
+    "CreateDate": "2022-11-09T22:17:08+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
@@ -54757,6 +55583,30 @@
     "VersionId": "v4",
     "IsDefaultVersion": true,
     "CreateDate": "2022-10-17T16:43:45+00:00"
+  },
+  "AmazonWorkspacesPCAAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:IssueCertificate",
+            "acm-pca:GetCertificate",
+            "acm-pca:DescribeCertificateAuthority"
+          ],
+          "Resource": "arn:*:acm-pca:*:*:*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/euc-private-ca": "*"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-11-08T00:25:55+00:00"
   },
   "AmazonZocaloFullAccess": {
     "Document": {

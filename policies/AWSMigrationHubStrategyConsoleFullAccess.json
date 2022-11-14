@@ -39,7 +39,10 @@
       {
         "Effect": "Allow",
         "Action": [
-          "discovery:GetDiscoverySummary"
+          "discovery:GetDiscoverySummary",
+          "discovery:DescribeTags",
+          "discovery:DescribeConfigurations",
+          "discovery:ListConfigurations"
         ],
         "Resource": "*"
       },
@@ -64,7 +67,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-10-19T20:13:26+00:00"
+  "CreateDate": "2022-11-09T00:00:06+00:00"
 }

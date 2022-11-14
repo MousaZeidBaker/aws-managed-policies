@@ -9,6 +9,8 @@
           "xray:GetSamplingTargets",
           "xray:GetSamplingStatisticSummaries",
           "xray:BatchGetTraces",
+          "xray:BatchGetTraceSummaryById",
+          "xray:GetDistinctTraceGraphs",
           "xray:GetServiceGraph",
           "xray:GetTraceGraph",
           "xray:GetTraceSummaries",
@@ -27,7 +29,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-09-03T22:19:40+00:00"
+  "CreateDate": "2022-11-11T19:46:21+00:00"
 }
