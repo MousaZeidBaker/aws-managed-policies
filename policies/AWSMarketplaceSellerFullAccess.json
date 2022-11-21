@@ -76,10 +76,19 @@
           "vendor-insights:ListSecurityProfileSnapshots"
         ],
         "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "aws-marketplace:TagResource",
+          "aws-marketplace:UntagResource",
+          "aws-marketplace:ListTagsForResource"
+        ],
+        "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-07-26T15:06:13+00:00"
+  "CreateDate": "2022-11-18T23:54:51+00:00"
 }

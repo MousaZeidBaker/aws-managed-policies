@@ -6,9 +6,25 @@
         "Effect": "Allow",
         "Action": [
           "organizations:DisableAWSServiceAccess",
-          "organizations:EnableAWSServiceAccess"
+          "organizations:EnableAWSServiceAccess",
+          "organizations:ListDelegatedAdministrators"
         ],
         "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "organizations:ServicePrincipal": [
+              "backup.amazonaws.com"
+            ]
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "organizations:RegisterDelegatedAdministrator",
+          "organizations:DeregisterDelegatedAdministrator"
+        ],
+        "Resource": "arn:aws:organizations::*:account/*",
         "Condition": {
           "StringEquals": {
             "organizations:ServicePrincipal": [
@@ -60,7 +76,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-11-24T22:09:43+00:00"
+  "CreateDate": "2022-11-18T18:26:40+00:00"
 }
