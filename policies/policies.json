@@ -23699,12 +23699,21 @@
             "aws-marketplace:CancelChangeSet"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:TagResource",
+            "aws-marketplace:UntagResource",
+            "aws-marketplace:ListTagsForResource"
+          ],
+          "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-27T15:34:07+00:00"
+    "CreateDate": "2022-12-07T20:02:37+00:00"
   },
   "AWSPrivateMarketplaceRequests": {
     "Document": {
@@ -53079,7 +53088,8 @@
             "forecast:InvokeForecastEndpoint",
             "forecast:GetRecentForecastContext",
             "forecast:DescribePredictor",
-            "forecast:TagResource"
+            "forecast:TagResource",
+            "forecast:DeleteResourceTree"
           ],
           "Resource": [
             "arn:aws:forecast:*:*:*Canvas*"
@@ -53099,9 +53109,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-09T00:44:25+00:00"
+    "CreateDate": "2022-12-06T23:10:32+00:00"
   },
   "AmazonSageMakerCoreServiceRolePolicy": {
     "Document": {
@@ -53239,12 +53249,35 @@
             "arn:aws:s3:::*Sagemaker*",
             "arn:aws:s3:::*sagemaker*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject"
+          ],
+          "Resource": [
+            "arn:aws:s3:::*SageMaker*/metadata/*",
+            "arn:aws:s3:::*Sagemaker*/metadata/*",
+            "arn:aws:s3:::*sagemaker*/metadata/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "glue:GetTable",
+            "glue:UpdateTable"
+          ],
+          "Resource": [
+            "arn:aws:glue:*:*:catalog",
+            "arn:aws:glue:*:*:database/sagemaker_featurestore",
+            "arn:aws:glue:*:*:table/sagemaker_featurestore/*"
+          ]
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-02-24T02:18:50+00:00"
+    "CreateDate": "2022-12-05T14:19:58+00:00"
   },
   "AmazonSageMakerFullAccess": {
     "Document": {
@@ -57435,12 +57468,24 @@
             "ssm:GetParameters"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "VpcLatticeManagement",
+          "Effect": "Allow",
+          "Action": [
+            "vpc-lattice:DeregisterTargets",
+            "vpc-lattice:GetTargetGroup",
+            "vpc-lattice:ListTargets",
+            "vpc-lattice:ListTargetGroups",
+            "vpc-lattice:RegisterTargets"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-10-29T22:06:23+00:00"
+    "CreateDate": "2022-12-06T20:15:29+00:00"
   },
   "AwsGlueDataBrewFullAccessPolicy": {
     "Document": {

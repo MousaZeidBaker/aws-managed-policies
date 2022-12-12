@@ -25,10 +25,19 @@
           "aws-marketplace:CancelChangeSet"
         ],
         "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "aws-marketplace:TagResource",
+          "aws-marketplace:UntagResource",
+          "aws-marketplace:ListTagsForResource"
+        ],
+        "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-08-27T15:34:07+00:00"
+  "CreateDate": "2022-12-07T20:02:37+00:00"
 }

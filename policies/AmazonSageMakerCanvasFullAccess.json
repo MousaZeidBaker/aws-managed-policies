@@ -185,7 +185,8 @@
           "forecast:InvokeForecastEndpoint",
           "forecast:GetRecentForecastContext",
           "forecast:DescribePredictor",
-          "forecast:TagResource"
+          "forecast:TagResource",
+          "forecast:DeleteResourceTree"
         ],
         "Resource": [
           "arn:aws:forecast:*:*:*Canvas*"
@@ -205,7 +206,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-09-09T00:44:25+00:00"
+  "CreateDate": "2022-12-06T23:10:32+00:00"
 }
