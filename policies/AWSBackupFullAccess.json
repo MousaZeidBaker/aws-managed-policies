@@ -281,7 +281,28 @@
       },
       {
         "Effect": "Allow",
-        "Action": "backup-gateway:GetGateway",
+        "Action": [
+          "backup-gateway:GetHypervisor",
+          "backup-gateway:GetHypervisorPropertyMappings",
+          "backup-gateway:PutHypervisorPropertyMappings",
+          "backup-gateway:StartVirtualMachinesMetadataSync"
+        ],
+        "Resource": "arn:aws:backup-gateway:*:*:hypervisor/*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "backup-gateway:GetVirtualMachine"
+        ],
+        "Resource": "arn:aws:backup-gateway:*:*:vm/*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "backup-gateway:GetBandwidthRateLimitSchedule",
+          "backup-gateway:GetGateway",
+          "backup-gateway:PutBandwidthRateLimitSchedule"
+        ],
         "Resource": "arn:aws:backup-gateway:*:*:gateway/*"
       },
       {
@@ -373,7 +394,7 @@
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v14",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-10T22:47:21+00:00"
+  "CreateDate": "2022-12-15T20:15:51+00:00"
 }

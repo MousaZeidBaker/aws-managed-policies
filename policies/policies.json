@@ -3138,7 +3138,28 @@
         },
         {
           "Effect": "Allow",
-          "Action": "backup-gateway:GetGateway",
+          "Action": [
+            "backup-gateway:GetHypervisor",
+            "backup-gateway:GetHypervisorPropertyMappings",
+            "backup-gateway:PutHypervisorPropertyMappings",
+            "backup-gateway:StartVirtualMachinesMetadataSync"
+          ],
+          "Resource": "arn:aws:backup-gateway:*:*:hypervisor/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "backup-gateway:GetVirtualMachine"
+          ],
+          "Resource": "arn:aws:backup-gateway:*:*:vm/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "backup-gateway:GetBandwidthRateLimitSchedule",
+            "backup-gateway:GetGateway",
+            "backup-gateway:PutBandwidthRateLimitSchedule"
+          ],
           "Resource": "arn:aws:backup-gateway:*:*:gateway/*"
         },
         {
@@ -3230,9 +3251,36 @@
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-10T22:47:21+00:00"
+    "CreateDate": "2022-12-15T20:15:51+00:00"
+  },
+  "AWSBackupGatewayServiceRolePolicyForVirtualMachineMetadataSync": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ListVmTags",
+          "Effect": "Allow",
+          "Action": [
+            "backup-gateway:ListTagsForResource"
+          ],
+          "Resource": "arn:aws:backup-gateway:*:*:vm/*"
+        },
+        {
+          "Sid": "VMTagPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "backup-gateway:TagResource",
+            "backup-gateway:UntagResource"
+          ],
+          "Resource": "arn:aws:backup-gateway:*:*:vm/*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-12-15T19:43:11+00:00"
   },
   "AWSBackupOperatorAccess": {
     "Document": {
@@ -3416,7 +3464,25 @@
         },
         {
           "Effect": "Allow",
-          "Action": "backup-gateway:GetGateway",
+          "Action": [
+            "backup-gateway:GetHypervisor",
+            "backup-gateway:GetHypervisorPropertyMappings"
+          ],
+          "Resource": "arn:aws:backup-gateway:*:*:hypervisor/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "backup-gateway:GetVirtualMachine"
+          ],
+          "Resource": "arn:aws:backup-gateway:*:*:vm/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "backup-gateway:GetBandwidthRateLimitSchedule",
+            "backup-gateway:GetGateway"
+          ],
           "Resource": "arn:aws:backup-gateway:*:*:gateway/*"
         },
         {
@@ -3501,9 +3567,9 @@
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-10T22:52:47+00:00"
+    "CreateDate": "2022-12-15T20:13:00+00:00"
   },
   "AWSBackupOrganizationAdminAccess": {
     "Document": {
@@ -24724,17 +24790,44 @@
           }
         },
         {
-          "Sid": "CloudwatchAccess",
+          "Sid": "CloudwatchCreateAccess",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogGroup",
+            "logs:TagResource"
+          ],
+          "Resource": [
+            "arn:aws:logs:*:*:log-group:/aws/codebuild/*:*",
+            "arn:aws:logs:*:*:log-group:/aws/ecs/containerinsights/*:*",
+            "arn:aws:logs:*:*:log-group:/aws/ecs/container-logs/*:*"
+          ],
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/a2c-generated": "false"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "a2c-generated"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "CloudwatchGetAccess",
+          "Effect": "Allow",
+          "Action": [
             "logs:GetLogEvents"
           ],
           "Resource": [
             "arn:aws:logs:*:*:log-group:/aws/codebuild/*:*",
             "arn:aws:logs:*:*:log-group:/aws/ecs/containerinsights/*:*",
             "arn:aws:logs:*:*:log-group:/aws/ecs/container-logs/*:*"
-          ]
+          ],
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/a2c-generated": "false"
+            }
+          }
         },
         {
           "Sid": "SsmParameterAccess",
@@ -24838,9 +24931,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-25T16:41:15+00:00"
+    "CreateDate": "2022-12-16T23:26:55+00:00"
   },
   "AWSRefactoringToolkitSidecarPolicy": {
     "Document": {
@@ -26890,6 +26983,24 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2017-10-12T18:31:55+00:00"
+  },
+  "AWSServiceRoleForGroundStationDataflowEndpointGroupPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeAddresses",
+            "ec2:DescribeNetworkInterfaces"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2022-12-13T23:52:45+00:00"
   },
   "AWSServiceRoleForImageBuilder": {
     "Document": {
@@ -48104,12 +48215,55 @@
               ]
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:GetRandomPassword"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DeleteSecret",
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:RotateSecret",
+            "secretsmanager:UpdateSecret",
+            "secretsmanager:UpdateSecretVersionStage",
+            "secretsmanager:ListSecretVersionIds"
+          ],
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:rds-beta-us-east-1!*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "rds-beta-us-east-1"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "secretsmanager:TagResource",
+          "Resource": "arn:aws:secretsmanager:*:*:secret:rds-beta-us-east-1!*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "aws:rds:primaryDBInstanceArn",
+                "aws:rds:primaryDBClusterArn"
+              ]
+            },
+            "StringLike": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "rds-beta-us-east-1"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-07T17:10:39+00:00"
+    "CreateDate": "2022-12-14T18:33:17+00:00"
   },
   "AmazonRDSCustomPreviewServiceRolePolicy": {
     "Document": {
@@ -49580,12 +49734,55 @@
               ]
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:GetRandomPassword"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DeleteSecret",
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:RotateSecret",
+            "secretsmanager:UpdateSecret",
+            "secretsmanager:UpdateSecretVersionStage",
+            "secretsmanager:ListSecretVersionIds"
+          ],
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:rds-preview-us-east-2!*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "rds-preview-us-east-2"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "secretsmanager:TagResource",
+          "Resource": "arn:aws:secretsmanager:*:*:secret:rds-preview-us-east-2!*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "aws:rds:primaryDBInstanceArn",
+                "aws:rds:primaryDBClusterArn"
+              ]
+            },
+            "StringLike": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "rds-preview-us-east-2"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-07T16:55:33+00:00"
+    "CreateDate": "2022-12-13T15:53:59+00:00"
   },
   "AmazonRDSReadOnlyAccess": {
     "Document": {
@@ -49734,12 +49931,55 @@
               ]
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:GetRandomPassword"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DeleteSecret",
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:RotateSecret",
+            "secretsmanager:UpdateSecret",
+            "secretsmanager:UpdateSecretVersionStage",
+            "secretsmanager:ListSecretVersionIds"
+          ],
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:rds!*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "rds"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "secretsmanager:TagResource",
+          "Resource": "arn:aws:secretsmanager:*:*:secret:rds!*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "aws:rds:primaryDBInstanceArn",
+                "aws:rds:primaryDBClusterArn"
+              ]
+            },
+            "StringLike": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "rds"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-03-21T15:03:27+00:00"
+    "CreateDate": "2022-12-13T16:24:27+00:00"
   },
   "AmazonRedshiftAllCommandsFullAccess": {
     "Document": {
@@ -56608,16 +56848,18 @@
             "kms:ListAliases",
             "kms:ListKeys",
             "workspaces:CreateTags",
-            "workspaces:CreateWorkspaces",
             "workspaces:CreateWorkspaceImage",
+            "workspaces:CreateWorkspaces",
+            "workspaces:CreateStandbyWorkspaces",
             "workspaces:DeleteTags",
             "workspaces:DescribeTags",
             "workspaces:DescribeWorkspaceBundles",
             "workspaces:DescribeWorkspaceDirectories",
             "workspaces:DescribeWorkspaces",
             "workspaces:DescribeWorkspacesConnectionStatus",
-            "workspaces:ModifyWorkspaceProperties",
+            "workspaces:ModifyCertificateBasedAuthProperties",
             "workspaces:ModifySamlProperties",
+            "workspaces:ModifyWorkspaceProperties",
             "workspaces:RebootWorkspaces",
             "workspaces:RebuildWorkspaces",
             "workspaces:StartWorkspaces",
@@ -56628,9 +56870,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-31T18:28:53+00:00"
+    "CreateDate": "2022-12-15T19:43:23+00:00"
   },
   "AmazonWorkSpacesApplicationManagerAdminAccess": {
     "Document": {
@@ -56739,9 +56981,7 @@
             "ec2:DescribeVpcs",
             "ec2:DescribeSubnets",
             "ec2:DescribeAvailabilityZones",
-            "ec2:CreateNetworkInterface",
             "ec2:DescribeNetworkInterfaces",
-            "ec2:DeleteNetworkInterface",
             "ec2:AssociateAddress",
             "ec2:DisassociateAddress",
             "ec2:DescribeRouteTables",
@@ -56749,6 +56989,28 @@
             "ec2:DescribeVpcEndpoints"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/WorkSpacesWebManaged": "true"
+            }
+          }
         },
         {
           "Effect": "Allow",
@@ -56764,6 +57026,18 @@
               "aws:TagKeys": [
                 "WorkSpacesWebManaged"
               ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteNetworkInterface"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/WorkSpacesWebManaged": "true"
             }
           }
         },
@@ -56793,9 +57067,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-17T16:43:45+00:00"
+    "CreateDate": "2022-12-15T22:46:33+00:00"
   },
   "AmazonWorkspacesPCAAccess": {
     "Document": {
@@ -64621,22 +64895,12 @@
             "iotevents:ListTagsForResource",
             "iotfleethub:DescribeApplication",
             "iotfleethub:ListApplications",
-            "iotroborunner:GetAction",
-            "iotroborunner:GetActionTemplate",
-            "iotroborunner:GetActivity",
             "iotroborunner:GetDestination",
-            "iotroborunner:GetDestinationRelationship",
             "iotroborunner:GetSite",
-            "iotroborunner:GetTask",
             "iotroborunner:GetWorker",
             "iotroborunner:GetWorkerFleet",
-            "iotroborunner:ListActions",
-            "iotroborunner:ListActionTemplates",
-            "iotroborunner:ListActivities",
-            "iotroborunner:ListDestinationRelationships",
             "iotroborunner:ListDestinations",
             "iotroborunner:ListSites",
-            "iotroborunner:ListTasks",
             "iotroborunner:ListWorkerFleets",
             "iotroborunner:ListWorkers",
             "iotsitewise:Describe*",
@@ -65311,9 +65575,9 @@
         }
       ]
     },
-    "VersionId": "v93",
+    "VersionId": "v94",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-02T17:58:34+00:00"
+    "CreateDate": "2022-12-13T17:29:03+00:00"
   },
   "ResourceGroupsandTagEditorFullAccess": {
     "Document": {
