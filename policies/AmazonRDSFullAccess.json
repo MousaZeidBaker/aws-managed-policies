@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Effect": "Allow",
         "Action": [
           "rds:*",
           "application-autoscaling:DeleteScalingPolicy",
@@ -34,19 +35,19 @@
           "sns:Publish",
           "logs:DescribeLogStreams",
           "logs:GetLogEvents",
-          "outposts:GetOutpostInstanceTypes"
+          "outposts:GetOutpostInstanceTypes",
+          "devops-guru:GetResourceCollection"
         ],
-        "Effect": "Allow",
         "Resource": "*"
       },
       {
-        "Action": "pi:*",
         "Effect": "Allow",
+        "Action": "pi:*",
         "Resource": "arn:aws:pi:*:*:metrics/rds/*"
       },
       {
-        "Action": "iam:CreateServiceLinkedRole",
         "Effect": "Allow",
+        "Action": "iam:CreateServiceLinkedRole",
         "Resource": "*",
         "Condition": {
           "StringLike": {
@@ -59,7 +60,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-03-07T21:11:46+00:00"
+  "CreateDate": "2022-12-19T20:09:11+00:00"
 }
