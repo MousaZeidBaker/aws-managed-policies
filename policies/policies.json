@@ -5732,6 +5732,447 @@
     "IsDefaultVersion": true,
     "CreateDate": "2019-11-18T16:39:50+00:00"
   },
+  "AWSCleanRoomsFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CleanRoomsAccess",
+          "Effect": "Allow",
+          "Action": [
+            "cleanrooms:*"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "PassServiceRole",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": "arn:aws:iam::*:role/service-role/*cleanrooms*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "ListRolesToPickServiceRole",
+          "Effect": "Allow",
+          "Action": [
+            "iam:ListRoles"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "GetRoleAndListRolePoliciesToInspectServiceRole",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetRole",
+            "iam:ListRolePolicies",
+            "iam:ListAttachedRolePolicies"
+          ],
+          "Resource": "arn:aws:iam::*:role/service-role/*cleanrooms*"
+        },
+        {
+          "Sid": "ListPoliciesToInspectServiceRolePolicy",
+          "Effect": "Allow",
+          "Action": [
+            "iam:ListPolicies"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "GetPolicyToInspectServiceRolePolicy",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetPolicy",
+            "iam:GetPolicyVersion"
+          ],
+          "Resource": "arn:aws:iam::*:policy/*cleanrooms*"
+        },
+        {
+          "Sid": "ConsoleDisplayTables",
+          "Effect": "Allow",
+          "Action": [
+            "glue:GetDatabase",
+            "glue:GetDatabases",
+            "glue:GetTable",
+            "glue:GetTables",
+            "glue:GetPartition",
+            "glue:GetPartitions",
+            "glue:GetSchema",
+            "glue:GetSchemaVersion",
+            "glue:BatchGetPartition"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ConsolePickQueryResultsBucketListAll",
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListAllMyBuckets"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ConsolePickQueryResultsBucket",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetBucketLocation",
+            "s3:ListBucketVersions"
+          ],
+          "Resource": "arn:aws:s3:::cleanrooms-queryresults*"
+        },
+        {
+          "Sid": "WriteQueryResults",
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListBucket",
+            "s3:PutObject"
+          ],
+          "Resource": "arn:aws:s3:::cleanrooms-queryresults*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "ConsoleDisplayQueryResults",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject"
+          ],
+          "Resource": "arn:aws:s3:::cleanrooms-queryresults*"
+        },
+        {
+          "Sid": "EstablishLogDeliveries",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogDelivery",
+            "logs:GetLogDelivery",
+            "logs:UpdateLogDelivery",
+            "logs:DeleteLogDelivery",
+            "logs:ListLogDeliveries"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "SetupLogGroupsDescribe",
+          "Effect": "Allow",
+          "Action": [
+            "logs:DescribeLogGroups"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "SetupLogGroupsCreate",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogGroup"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/cleanrooms*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "SetupLogGroupsResourcePolicy",
+          "Effect": "Allow",
+          "Action": [
+            "logs:DescribeResourcePolicies",
+            "logs:PutResourcePolicy"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "ConsoleLogSummaryQueryLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:StartQuery"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/cleanrooms*"
+        },
+        {
+          "Sid": "ConsoleLogSummaryObtainLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:GetQueryResults"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-01-12T16:10:54+00:00"
+  },
+  "AWSCleanRoomsFullAccessNoQuerying": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CleanRoomsAccess",
+          "Effect": "Allow",
+          "Action": [
+            "cleanrooms:BatchGetSchema",
+            "cleanrooms:CreateCollaboration",
+            "cleanrooms:CreateConfiguredTable",
+            "cleanrooms:CreateConfiguredTableAnalysisRule",
+            "cleanrooms:CreateConfiguredTableAssociation",
+            "cleanrooms:CreateMembership",
+            "cleanrooms:DeleteCollaboration",
+            "cleanrooms:DeleteConfiguredTable",
+            "cleanrooms:DeleteConfiguredTableAnalysisRule",
+            "cleanrooms:DeleteConfiguredTableAssociation",
+            "cleanrooms:DeleteMember",
+            "cleanrooms:DeleteMembership",
+            "cleanrooms:GetCollaboration",
+            "cleanrooms:GetConfiguredTable",
+            "cleanrooms:GetConfiguredTableAnalysisRule",
+            "cleanrooms:GetConfiguredTableAssociation",
+            "cleanrooms:GetMembership",
+            "cleanrooms:GetProtectedQuery",
+            "cleanrooms:GetSchema",
+            "cleanrooms:GetSchemaAnalysisRule",
+            "cleanrooms:ListCollaborations",
+            "cleanrooms:ListConfiguredTableAssociations",
+            "cleanrooms:ListConfiguredTables",
+            "cleanrooms:ListMembers",
+            "cleanrooms:ListMemberships",
+            "cleanrooms:ListProtectedQueries",
+            "cleanrooms:ListSchemas",
+            "cleanrooms:UpdateCollaboration",
+            "cleanrooms:UpdateConfiguredTable",
+            "cleanrooms:UpdateConfiguredTableAnalysisRule",
+            "cleanrooms:UpdateConfiguredTableAssociation",
+            "cleanrooms:UpdateMembership"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CleanRoomsNoQuerying",
+          "Effect": "Deny",
+          "Action": [
+            "cleanrooms:StartProtectedQuery",
+            "cleanrooms:UpdateProtectedQuery"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "PassServiceRole",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": "arn:aws:iam::*:role/service-role/*cleanrooms*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "ListRolesToPickServiceRole",
+          "Effect": "Allow",
+          "Action": [
+            "iam:ListRoles"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "GetRoleAndListRolePoliciesToInspectServiceRole",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetRole",
+            "iam:ListRolePolicies",
+            "iam:ListAttachedRolePolicies"
+          ],
+          "Resource": "arn:aws:iam::*:role/service-role/*cleanrooms*"
+        },
+        {
+          "Sid": "ListPoliciesToInspectServiceRolePolicy",
+          "Effect": "Allow",
+          "Action": [
+            "iam:ListPolicies"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "GetPolicyToInspectServiceRolePolicy",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetPolicy",
+            "iam:GetPolicyVersion"
+          ],
+          "Resource": "arn:aws:iam::*:policy/*cleanrooms*"
+        },
+        {
+          "Sid": "ConsoleDisplayTables",
+          "Effect": "Allow",
+          "Action": [
+            "glue:GetDatabase",
+            "glue:GetDatabases",
+            "glue:GetTable",
+            "glue:GetTables",
+            "glue:GetPartition",
+            "glue:GetPartitions",
+            "glue:GetSchema",
+            "glue:GetSchemaVersion",
+            "glue:BatchGetPartition"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "EstablishLogDeliveries",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogDelivery",
+            "logs:GetLogDelivery",
+            "logs:UpdateLogDelivery",
+            "logs:DeleteLogDelivery",
+            "logs:ListLogDeliveries"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "SetupLogGroupsDescribe",
+          "Effect": "Allow",
+          "Action": [
+            "logs:DescribeLogGroups"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "SetupLogGroupsCreate",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogGroup"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/cleanrooms*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "SetupLogGroupsResourcePolicy",
+          "Effect": "Allow",
+          "Action": [
+            "logs:DescribeResourcePolicies",
+            "logs:PutResourcePolicy"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cleanrooms.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "ConsoleLogSummaryQueryLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:StartQuery"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/cleanrooms*"
+        },
+        {
+          "Sid": "ConsoleLogSummaryObtainLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:GetQueryResults"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-01-12T16:12:31+00:00"
+  },
+  "AWSCleanRoomsReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CleanRoomsRead",
+          "Effect": "Allow",
+          "Action": [
+            "cleanrooms:BatchGet*",
+            "cleanrooms:Get*",
+            "cleanrooms:List*"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ConsoleDisplayTables",
+          "Effect": "Allow",
+          "Action": [
+            "glue:GetDatabase",
+            "glue:GetDatabases",
+            "glue:GetTable",
+            "glue:GetTables",
+            "glue:GetPartition",
+            "glue:GetPartitions",
+            "glue:GetSchema",
+            "glue:GetSchemaVersion",
+            "glue:BatchGetPartition"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ConsoleLogSummaryQueryLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:StartQuery"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/cleanrooms*"
+        },
+        {
+          "Sid": "ConsoleLogSummaryObtainLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:GetQueryResults"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-01-12T16:10:48+00:00"
+  },
   "AWSCloud9Administrator": {
     "Document": {
       "Version": "2012-10-17",
@@ -17384,6 +17825,39 @@
     "IsDefaultVersion": true,
     "CreateDate": "2020-11-16T18:11:34+00:00"
   },
+  "AWSHealth_EventProcessorServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "events:DeleteRule",
+            "events:PutTargets",
+            "events:PutRule",
+            "events:RemoveTargets"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "events:ManagedBy": "event-processor.health.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "events:DescribeRule",
+            "events:ListTargetsByRule"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-01-13T19:24:56+00:00"
+  },
   "AWSIPAMServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -26539,13 +27013,42 @@
             "iam:ListGroups",
             "iam:ListRoles",
             "iam:ListUsers",
-            "servicecatalog:*",
+            "servicecatalog:Get*",
+            "servicecatalog:Scan*",
+            "servicecatalog:Search*",
+            "servicecatalog:List*",
+            "servicecatalog:TagResource",
+            "servicecatalog:UntagResource",
+            "servicecatalog:SyncResource",
             "ssm:DescribeDocument",
             "ssm:GetAutomationExecution",
             "ssm:ListDocuments",
             "ssm:ListDocumentVersions",
             "config:DescribeConfigurationRecorders",
             "config:DescribeConfigurationRecorderStatus"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "servicecatalog:Accept*",
+            "servicecatalog:Associate*",
+            "servicecatalog:Batch*",
+            "servicecatalog:Copy*",
+            "servicecatalog:Create*",
+            "servicecatalog:Delete*",
+            "servicecatalog:Describe*",
+            "servicecatalog:Disable*",
+            "servicecatalog:Disassociate*",
+            "servicecatalog:Enable*",
+            "servicecatalog:Execute*",
+            "servicecatalog:Import*",
+            "servicecatalog:Provision*",
+            "servicecatalog:Put*",
+            "servicecatalog:Reject*",
+            "servicecatalog:Terminate*",
+            "servicecatalog:Update*"
           ],
           "Resource": "*"
         },
@@ -26561,9 +27064,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-02-06T01:57:54+00:00"
+    "CreateDate": "2023-01-11T18:08:18+00:00"
   },
   "AWSServiceCatalogAdminReadOnlyAccess": {
     "Document": {
@@ -28535,13 +29038,29 @@
             "appsync:listGraphqlApis",
             "appsync:listResolvers",
             "appsync:listTypes",
+            "aps:describeAlertManagerDefinition",
+            "aps:describeRuleGroupsNamespace",
+            "aps:describeWorkspace",
+            "aps:listRuleGroupsNamespaces",
+            "aps:listWorkspaces",
             "athena:batchGetNamedQuery",
             "athena:batchGetQueryExecution",
+            "athena:getCalculationExecution",
+            "athena:getCalculationExecutionStatus",
+            "athena:getDataCatalog",
             "athena:getNamedQuery",
             "athena:getQueryExecution",
+            "athena:getSession",
+            "athena:getSessionStatus",
             "athena:getWorkGroup",
+            "athena:listCalculationExecutions",
+            "athena:listDataCatalogs",
+            "athena:listEngineVersions",
+            "athena:listExecutors",
             "athena:listNamedQueries",
+            "athena:listNotebookSessions",
             "athena:listQueryExecutions",
+            "athena:listSessions",
             "athena:listTagsForResource",
             "athena:listWorkGroups",
             "auditmanager:getAccountStatus",
@@ -28631,6 +29150,30 @@
             "ce:getSavingsPlansUtilization",
             "ce:getSavingsPlansUtilizationDetails",
             "ce:getTags",
+            "chime:describeAppInstance",
+            "chime:getAttendee",
+            "chime:getGlobalSettings",
+            "chime:getMediaCapturePipeline",
+            "chime:getMediaPipeline",
+            "chime:getMeeting",
+            "chime:getProxySession",
+            "chime:getSipMediaApplication",
+            "chime:getSipRule",
+            "chime:getVoiceConnector",
+            "chime:getVoiceConnectorGroup",
+            "chime:getVoiceConnectorLoggingConfiguration",
+            "chime:listAppInstances",
+            "chime:listAttendees",
+            "chime:listChannelBans",
+            "chime:listChannels",
+            "chime:listChannelsModeratedByAppInstanceUser",
+            "chime:listMediaCapturePipelines",
+            "chime:listMediaPipelines",
+            "chime:listMeetings",
+            "chime:listSipMediaApplications",
+            "chime:listSipRules",
+            "chime:listVoiceConnectorGroups",
+            "chime:listVoiceConnectors",
             "cloud9:describeEnvironmentMemberships",
             "cloud9:describeEnvironments",
             "cloud9:listEnvironments",
@@ -28802,6 +29345,30 @@
             "cognito-sync:getIdentityPoolConfiguration",
             "cognito-sync:listDatasets",
             "cognito-sync:listIdentityPoolUsage",
+            "comprehend:describeDocumentClassificationJob",
+            "comprehend:describeDocumentClassifier",
+            "comprehend:describeDominantLanguageDetectionJob",
+            "comprehend:describeEndpoint",
+            "comprehend:describeEntitiesDetectionJob",
+            "comprehend:describeEntityRecognizer",
+            "comprehend:describeEventsDetectionJob",
+            "comprehend:describeKeyPhrasesDetectionJob",
+            "comprehend:describePiiEntitiesDetectionJob",
+            "comprehend:describeSentimentDetectionJob",
+            "comprehend:describeTargetedSentimentDetectionJob",
+            "comprehend:describeTopicsDetectionJob",
+            "comprehend:listDocumentClassificationJobs",
+            "comprehend:listDocumentClassifiers",
+            "comprehend:listDominantLanguageDetectionJobs",
+            "comprehend:listEndpoints",
+            "comprehend:listEntitiesDetectionJobs",
+            "comprehend:listEntityRecognizers",
+            "comprehend:listEventsDetectionJobs",
+            "comprehend:listKeyPhrasesDetectionJobs",
+            "comprehend:listPiiEntitiesDetectionJobs",
+            "comprehend:listSentimentDetectionJobs",
+            "comprehend:listTargetedSentimentDetectionJobs",
+            "comprehend:listTopicsDetectionJobs",
             "compute-optimizer:getAutoScalingGroupRecommendations",
             "compute-optimizer:getEBSVolumeRecommendations",
             "compute-optimizer:getEC2InstanceRecommendations",
@@ -29075,6 +29642,8 @@
             "ec2:describeTransitGatewayAttachments",
             "ec2:describeTransitGatewayRouteTables",
             "ec2:describeTransitGateways",
+            "ec2:describeTransitGatewayConnectPeers",
+            "ec2:describeTransitGatewayMulticastDomains",
             "ec2:describeTransitGatewayVpcAttachments",
             "ec2:describeVolumeAttribute",
             "ec2:describeVolumes",
@@ -29102,7 +29671,9 @@
             "ec2:getManagedPrefixListAssociations",
             "ec2:getManagedPrefixListEntries",
             "ec2:getReservedInstancesExchangeQuote",
+            "ec2:getTransitGatewayMulticastDomainAssociations",
             "ec2:searchLocalGatewayRoutes",
+            "ec2:searchTransitGatewayMulticastGroups",
             "ecr-public:describeImages",
             "ecr-public:describeImageTags",
             "ecr-public:describeRegistries",
@@ -29254,12 +29825,46 @@
             "forecast:listForecasts",
             "forecast:listPredictors",
             "fsx:describeBackups",
+            "fsx:describeDataRepositoryAssociations",
             "fsx:describeDataRepositoryTasks",
+            "fsx:describeFileCaches",
             "fsx:describeFileSystems",
             "fsx:describeSnapshots",
             "fsx:describeStorageVirtualMachines",
             "fsx:describeVolumes",
             "fsx:listTagsForResource",
+            "gamelift:describeAlias",
+            "gamelift:describeBuild",
+            "gamelift:describeEC2InstanceLimits",
+            "gamelift:describeFleetAttributes",
+            "gamelift:describeFleetCapacity",
+            "gamelift:describeFleetEvents",
+            "gamelift:describeFleetLocationAttributes",
+            "gamelift:describeFleetLocationCapacity",
+            "gamelift:describeFleetLocationUtilization",
+            "gamelift:describeFleetPortSettings",
+            "gamelift:describeFleetUtilization",
+            "gamelift:describeGameServer",
+            "gamelift:describeGameServerGroup",
+            "gamelift:describeGameSessionDetails",
+            "gamelift:describeGameSessionPlacement",
+            "gamelift:describeGameSessionQueues",
+            "gamelift:describeGameSessions",
+            "gamelift:describeInstances",
+            "gamelift:describeMatchmaking",
+            "gamelift:describeMatchmakingConfigurations",
+            "gamelift:describeMatchmakingRuleSets",
+            "gamelift:describePlayerSessions",
+            "gamelift:describeRuntimeConfiguration",
+            "gamelift:describeScalingPolicies",
+            "gamelift:describeScript",
+            "gamelift:listAliases",
+            "gamelift:listBuilds",
+            "gamelift:listFleets",
+            "gamelift:listGameServerGroups",
+            "gamelift:listGameServers",
+            "gamelift:listScripts",
+            "gamelift:resolveAlias",
             "gamesparks:getExtension",
             "gamesparks:getExtensionVersion",
             "gamesparks:getGame",
@@ -29299,6 +29904,10 @@
             "glue:getDatabase",
             "glue:getDatabases",
             "glue:getDataflowGraph",
+            "glue:getDataQualityResult",
+            "glue:getDataQualityRuleRecommendationRun",
+            "glue:getDataQualityRuleset",
+            "glue:getDataQualityRulesetEvaluationRun",
             "glue:getDevEndpoint",
             "glue:getDevEndpoints",
             "glue:getJob",
@@ -29320,6 +29929,10 @@
             "glue:getTriggers",
             "glue:getUserDefinedFunction",
             "glue:getUserDefinedFunctions",
+            "glue:listDataQualityResults",
+            "glue:listDataQualityRuleRecommendationRuns",
+            "glue:listDataQualityRulesetEvaluationRuns",
+            "glue:listDataQualityRulesets",
             "glue:listRegistries",
             "glue:listSchemas",
             "glue:listSchemaVersions",
@@ -29474,6 +30087,10 @@
             "inspector2:listFindings",
             "inspector2:listMembers",
             "inspector2:listUsageTotals",
+            "internetmonitor:getMonitor",
+            "internetmonitor:listMonitors",
+            "internetmonitor:getHealthEvent",
+            "internetmonitor:listHealthEvents",
             "iot:describeAuthorizer",
             "iot:describeCACertificate",
             "iot:describeCertificate",
@@ -29590,7 +30207,14 @@
             "iotwireless:listWirelessDevices",
             "iotwireless:listWirelessGateways",
             "iotwireless:listWirelessGatewayTaskDefinitions",
+            "ivs:getChannel",
+            "ivs:getRecordingConfiguration",
+            "ivs:getStream",
+            "ivs:getStreamSession",
             "ivs:listChannels",
+            "ivs:listPlaybackKeyPairs",
+            "ivs:listRecordingConfigurations",
+            "ivs:listStreamKeys",
             "ivs:listStreams",
             "ivs:listStreamSessions",
             "kafka:describeCluster",
@@ -29605,6 +30229,12 @@
             "kafka:listClusters",
             "kafka:listClustersV2",
             "kafka:listNodes",
+            "kafkaconnect:describeConnector",
+            "kafkaconnect:describeCustomPlugin",
+            "kafkaconnect:describeWorkerConfiguration",
+            "kafkaconnect:listConnectors",
+            "kafkaconnect:listCustomPlugins",
+            "kafkaconnect:listWorkerConfigurations",
             "kendra:describeDataSource",
             "kendra:describeFaq",
             "kendra:describeIndex",
@@ -29622,6 +30252,15 @@
             "kinesisanalytics:describeApplicationSnapshot",
             "kinesisanalytics:listApplications",
             "kinesisanalytics:listApplicationSnapshots",
+            "kinesisvideo:describeImageGenerationConfiguration",
+            "kinesisvideo:describeNotificationConfiguration",
+            "kinesisvideo:describeSignalingChannel",
+            "kinesisvideo:describeStream",
+            "kinesisvideo:getDataEndpoint",
+            "kinesisvideo:getIceServerConfig",
+            "kinesisvideo:getSignalingChannelEndpoint",
+            "kinesisvideo:listSignalingChannels",
+            "kinesisvideo:listStreams",
             "kms:describeKey",
             "kms:getKeyPolicy",
             "kms:getKeyRotationStatus",
@@ -29852,12 +30491,16 @@
             "mobiletargeting:getGcmChannel",
             "mobiletargeting:getImportJob",
             "mobiletargeting:getImportJobs",
+            "mobiletargeting:getJourney",
+            "mobiletargeting:getJourneyExecutionMetrics",
+            "mobiletargeting:getJourneyExecutionActivityMetrics",
             "mobiletargeting:getSegment",
             "mobiletargeting:getSegmentImportJobs",
             "mobiletargeting:getSegments",
             "mobiletargeting:getSegmentVersion",
             "mobiletargeting:getSegmentVersions",
             "mobiletargeting:getSmsChannel",
+            "mobiletargeting:listJourneys",
             "mq:describeBroker",
             "mq:describeConfiguration",
             "mq:describeConfigurationRevision",
@@ -29895,6 +30538,7 @@
             "networkmanager:getConnectPeer",
             "networkmanager:getConnectPeerAssociations",
             "networkmanager:getCoreNetwork",
+            "networkmanager:getCoreNetworkChangeEvents",
             "networkmanager:getCoreNetworkChangeSet",
             "networkmanager:getCoreNetworkPolicy",
             "networkmanager:getCustomerGatewayAssociations",
@@ -29911,13 +30555,62 @@
             "networkmanager:getSites",
             "networkmanager:getSiteToSiteVpnAttachment",
             "networkmanager:getTransitGatewayConnectPeerAssociations",
+            "networkmanager:getTransitGatewayPeering",
             "networkmanager:getTransitGatewayRegistrations",
+            "networkmanager:getTransitGatewayRouteTableAttachment",
             "networkmanager:getVpcAttachment",
             "networkmanager:listAttachments",
             "networkmanager:listConnectPeers",
             "networkmanager:listCoreNetworkPolicyVersions",
             "networkmanager:listCoreNetworks",
+            "networkmanager:listOrganizationServiceAccessStatus",
+            "networkmanager:listPeerings",
             "networkmanager:listTagsForResource",
+            "nimble:getEula",
+            "nimble:getLaunchProfile",
+            "nimble:getLaunchProfileDetails",
+            "nimble:getLaunchProfileInitialization",
+            "nimble:getLaunchProfileMember",
+            "nimble:getStreamingImage",
+            "nimble:getStreamingSession",
+            "nimble:getStreamingSessionStream",
+            "nimble:getStudio",
+            "nimble:getStudioComponent",
+            "nimble:listEulaAcceptances",
+            "nimble:listEulas",
+            "nimble:listLaunchProfiles",
+            "nimble:listStreamingImages",
+            "nimble:listStreamingSessions",
+            "nimble:listStudioComponents",
+            "nimble:listStudios",
+            "omics:getAnnotationImportJob",
+            "omics:getAnnotationStore",
+            "omics:getReadSetImportJob",
+            "omics:getReadSetMetadata",
+            "omics:getReference",
+            "omics:getReferenceImportJob",
+            "omics:getReferenceMetadata",
+            "omics:getReferenceStore",
+            "omics:getRun",
+            "omics:getRunGroup",
+            "omics:getSequenceStore",
+            "omics:getVariantImportJob",
+            "omics:getVariantStore",
+            "omics:getWorkflow",
+            "omics:listAnnotationImportJobs",
+            "omics:listAnnotationStores",
+            "omics:listReadSetImportJobs",
+            "omics:listReadSets",
+            "omics:listReferenceImportJobs",
+            "omics:listReferenceStores",
+            "omics:listReferences",
+            "omics:listRunGroups",
+            "omics:listRunTasks",
+            "omics:listRuns",
+            "omics:listSequenceStores",
+            "omics:listVariantImportJobs",
+            "omics:listVariantStores",
+            "omics:listWorkflows",
             "opsworks-cm:describeAccountAttributes",
             "opsworks-cm:describeBackups",
             "opsworks-cm:describeEvents",
@@ -29953,25 +30646,39 @@
             "outposts:listOutposts",
             "outposts:listSites",
             "personalize:describeAlgorithm",
+            "personalize:describeBatchInferenceJob",
+            "personalize:describeBatchSegmentJob",
             "personalize:describeCampaign",
             "personalize:describeDataset",
+            "personalize:describeDatasetExportJob",
             "personalize:describeDatasetGroup",
             "personalize:describeDatasetImportJob",
             "personalize:describeEventTracker",
             "personalize:describeFeatureTransformation",
+            "personalize:describeFilter",
             "personalize:describeRecipe",
+            "personalize:describeRecommender",
             "personalize:describeSchema",
             "personalize:describeSolution",
             "personalize:describeSolutionVersion",
+            "personalize:getPersonalizedRanking",
+            "personalize:getRecommendations",
+            "personalize:getSolutionMetrics",
+            "personalize:listBatchInferenceJobs",
+            "personalize:listBatchSegmentJobs",
             "personalize:listCampaigns",
+            "personalize:listDatasetExportJobs",
             "personalize:listDatasetGroups",
             "personalize:listDatasetImportJobs",
             "personalize:listDatasets",
             "personalize:listEventTrackers",
             "personalize:listRecipes",
+            "personalize:listRecommenders",
             "personalize:listSchemas",
             "personalize:listSolutions",
             "personalize:listSolutionVersions",
+            "pipes:describePipe",
+            "pipes:listPipes",
             "polly:describeVoices",
             "polly:getLexicon",
             "polly:listLexicons",
@@ -30535,6 +31242,22 @@
             "tiros:createQuery",
             "tiros:getQueryAnswer",
             "tiros:getQueryExplanation",
+            "transcribe:describeLanguageModel",
+            "transcribe:getCallAnalyticsCategory",
+            "transcribe:getCallAnalyticsJob",
+            "transcribe:getMedicalTranscriptionJob",
+            "transcribe:getMedicalVocabulary",
+            "transcribe:getTranscriptionJob",
+            "transcribe:getVocabulary",
+            "transcribe:getVocabularyFilter",
+            "transcribe:listCallAnalyticsCategories",
+            "transcribe:listCallAnalyticsJobs",
+            "transcribe:listLanguageModels",
+            "transcribe:listMedicalTranscriptionJobs",
+            "transcribe:listMedicalVocabularies",
+            "transcribe:listTranscriptionJobs",
+            "transcribe:listVocabularies",
+            "transcribe:listVocabularyFilters",
             "transfer:describeExecution",
             "transfer:describeServer",
             "transfer:describeUser",
@@ -30641,9 +31364,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v26",
+    "VersionId": "v27",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-04T21:30:02+00:00"
+    "CreateDate": "2023-01-10T18:39:33+00:00"
   },
   "AWSSystemsManagerAccountDiscoveryServicePolicy": {
     "Document": {
@@ -36283,15 +37006,24 @@
             "chime:UntagMeeting",
             "chime:UntagResource",
             "chime:StartMeetingTranscription",
-            "chime:StopMeetingTranscription"
+            "chime:StopMeetingTranscription",
+            "chime:CreateMediaCapturePipeline",
+            "chime:CreateMediaConcatenationPipeline",
+            "chime:CreateMediaLiveConnectorPipeline",
+            "chime:DeleteMediaCapturePipeline",
+            "chime:DeleteMediaPipeline",
+            "chime:GetMediaCapturePipeline",
+            "chime:GetMediaPipeline",
+            "chime:ListMediaCapturePipelines",
+            "chime:ListMediaPipelines"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-10-21T18:04:27+00:00"
+    "CreateDate": "2023-01-10T18:05:12+00:00"
   },
   "AmazonChimeSDKMediaPipelinesServiceLinkedRolePolicy": {
     "Document": {
@@ -38280,15 +39012,16 @@
           "Effect": "Allow",
           "Action": "apigateway:GET",
           "Resource": [
+            "arn:aws:apigateway:*::/restapis/??????????",
             "arn:aws:apigateway:*::/restapis/*/resources",
             "arn:aws:apigateway:*::/restapis/*/resources/*/methods/*/integration"
           ]
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-19T08:43:10+00:00"
+    "CreateDate": "2023-01-10T14:36:48+00:00"
   },
   "AmazonDocDB-ElasticServiceRolePolicy": {
     "Document": {
@@ -45363,7 +46096,8 @@
             "StringEqualsIfExists": {
               "iam:PassedToService": [
                 "lambda.amazonaws.com",
-                "ec2.amazonaws.com"
+                "ec2.amazonaws.com",
+                "ec2.amazonaws.com.cn"
               ]
             }
           }
@@ -45530,7 +46264,9 @@
               "iam:AWSServiceName": [
                 "autoscaling.amazonaws.com",
                 "application-insights.amazonaws.com",
-                "events.amazonaws.com"
+                "events.amazonaws.com",
+                "autoscaling.amazonaws.com.cn",
+                "events.amazonaws.com.cn"
               ]
             }
           }
@@ -45719,7 +46455,9 @@
             "servicecatalog:CreateConstraint",
             "servicecatalog:CreateProduct",
             "servicecatalog:AssociatePrincipalWithPortfolio",
-            "servicecatalog:CreateProvisioningArtifact"
+            "servicecatalog:CreateProvisioningArtifact",
+            "servicecatalog:TagResource",
+            "servicecatalog:UntagResource"
           ],
           "Resource": [
             "arn:aws:servicecatalog:*:*:*/*",
@@ -45730,12 +46468,39 @@
               "aws:CalledVia": "launchwizard.amazonaws.com"
             }
           }
+        },
+        {
+          "Sid": "VisualEditor0",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:CreateAssociation",
+            "ssm:DeleteAssociation"
+          ],
+          "Resource": "arn:aws:ssm:*:*:document/AWS-ConfigureAWSPackage",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "launchwizard.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "logs:TagResource",
+            "logs:UntagResource"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:LaunchWizard*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "launchwizard.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-12T19:16:27+00:00"
+    "CreateDate": "2023-01-12T23:55:29+00:00"
   },
   "AmazonLexChannelsAccess": {
     "Document": {
@@ -54678,6 +55443,30 @@
       "Statement": [
         {
           "Effect": "Allow",
+          "Action": "elasticfilesystem:CreateAccessPoint",
+          "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/ManagedByAmazonSageMakerResource": "*",
+              "aws:RequestTag/ManagedByAmazonSageMakerResource": "*"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticfilesystem:DeleteAccessPoint",
+            "elasticfilesystem:DescribeAccessPoints"
+          ],
+          "Resource": "arn:aws:elasticfilesystem:*:*:access-point/*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/ManagedByAmazonSageMakerResource": "*"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
           "Action": "elasticfilesystem:CreateFileSystem",
           "Resource": "*",
           "Condition": {
@@ -54768,9 +55557,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-08-28T22:39:39+00:00"
+    "CreateDate": "2023-01-12T20:01:49+00:00"
   },
   "AmazonSageMakerPipelinesIntegrations": {
     "Document": {
@@ -60956,10 +61745,16 @@
           "Effect": "Allow",
           "Action": [
             "config:PutConfigRule",
-            "config:DeleteConfigRule",
-            "config:DescribeConfigRules"
+            "config:DeleteConfigRule"
           ],
           "Resource": "arn:aws:config:*:*:config-rule/aws-service-rule/config-conforms.amazonaws.com*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "config:DescribeConfigRules"
+          ],
+          "Resource": "*"
         },
         {
           "Effect": "Allow",
@@ -61054,9 +61849,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-07-26T00:33:20+00:00"
+    "CreateDate": "2023-01-12T04:17:34+00:00"
   },
   "DAXServiceRolePolicy": {
     "Document": {
@@ -64596,6 +65391,20 @@
             "applicationinsights:List*",
             "appmesh:Describe*",
             "appmesh:List*",
+            "apprunner:DescribeAutoScalingConfiguration",
+            "apprunner:DescribeCustomDomains",
+            "apprunner:DescribeObservabilityConfiguration",
+            "apprunner:DescribeService",
+            "apprunner:DescribeVpcConnector",
+            "apprunner:DescribeVpcIngressConnection",
+            "apprunner:ListAutoScalingConfigurations",
+            "apprunner:ListConnections",
+            "apprunner:ListObservabilityConfigurations",
+            "apprunner:ListOperations",
+            "apprunner:ListServices",
+            "apprunner:ListTagsForResource",
+            "apprunner:ListVpcConnectors",
+            "apprunner:ListVpcIngressConnections",
             "appstream:Describe*",
             "appstream:List*",
             "appsync:Get*",
@@ -64618,6 +65427,9 @@
             "aps:ListTagsForResource",
             "aps:ListWorkspaces",
             "aps:QueryMetrics",
+            "arc-zonal-shift:GetManagedResource",
+            "arc-zonal-shift:ListManagedResources",
+            "arc-zonal-shift:ListZonalShifts",
             "athena:Batch*",
             "athena:Get*",
             "athena:List*",
@@ -64663,6 +65475,7 @@
             "billingconductor:ListBillingGroupCostReports",
             "billingconductor:ListBillingGroups",
             "billingconductor:ListCustomLineItems",
+            "billingconductor:ListCustomLineItemVersions",
             "billingconductor:ListPricingPlans",
             "billingconductor:ListPricingPlansAssociatedWithPricingRule",
             "billingconductor:ListPricingRules",
@@ -64699,6 +65512,7 @@
             "ce:GetTags",
             "ce:GetUsageForecast",
             "ce:ListCostCategoryDefinitions",
+            "ce:ListSavingsPlansPurchaseRecommendationGeneration",
             "ce:ListTagsForResource",
             "chatbot:Describe*",
             "chatbot:Get*",
@@ -64880,14 +65694,20 @@
             "devops-guru:DescribeEventSourcesConfig",
             "devops-guru:DescribeFeedback",
             "devops-guru:DescribeInsight",
+            "devops-guru:DescribeOrganizationHealth",
+            "devops-guru:DescribeOrganizationOverview",
+            "devops-guru:DescribeOrganizationResourceCollectionHealth",
             "devops-guru:DescribeResourceCollectionHealth",
             "devops-guru:DescribeServiceIntegration",
             "devops-guru:GetCostEstimation",
             "devops-guru:GetResourceCollection",
             "devops-guru:ListAnomaliesForInsight",
+            "devops-guru:ListAnomalousLogGroups",
             "devops-guru:ListEvents",
             "devops-guru:ListInsights",
+            "devops-guru:ListMonitoredResources",
             "devops-guru:ListNotificationChannels",
+            "devops-guru:ListOrganizationInsights",
             "devops-guru:ListRecommendations",
             "devops-guru:SearchInsights",
             "devops-guru:StartCostEstimation",
@@ -64920,6 +65740,7 @@
             "dynamodb:Describe*",
             "dynamodb:Get*",
             "dynamodb:List*",
+            "dynamodb:PartiQLSelect",
             "dynamodb:Query",
             "dynamodb:Scan",
             "ec2:Describe*",
@@ -65171,6 +65992,7 @@
             "glue:ListWorkflows",
             "glue:QuerySchemaVersionMetadata",
             "glue:SearchTables",
+            "grafana:DescribeWorkspace",
             "grafana:ListWorkspaces",
             "greengrass:DescribeComponent",
             "greengrass:Get*",
@@ -65301,7 +66123,9 @@
             "ivs:ListStreams",
             "ivs:ListStreamSessions",
             "ivs:ListTagsForResource",
+            "ivschat:GetLoggingConfiguration",
             "ivschat:GetRoom",
+            "ivschat:ListLoggingConfigurations",
             "ivschat:ListRooms",
             "ivschat:ListTagsForResource",
             "kafka:Describe*",
@@ -65464,8 +66288,10 @@
             "macie2:DescribeOrganizationConfiguration",
             "macie2:GetAdministratorAccount",
             "macie2:GetAllowList",
+            "macie2:GetAutomatedDiscoveryConfiguration",
             "macie2:GetBucketStatistics",
             "macie2:GetClassificationExportConfiguration",
+            "macie2:GetClassificationScope",
             "macie2:GetCustomDataIdentifier",
             "macie2:GetFindings",
             "macie2:GetFindingsFilter",
@@ -65474,18 +66300,24 @@
             "macie2:GetInvitationsCount",
             "macie2:GetMacieSession",
             "macie2:GetMember",
+            "macie2:GetResourceProfile",
             "macie2:GetRevealConfiguration",
             "macie2:GetSensitiveDataOccurrencesAvailability",
+            "macie2:GetSensitivityInspectionTemplate",
             "macie2:GetUsageStatistics",
             "macie2:GetUsageTotals",
             "macie2:ListAllowLists",
             "macie2:ListClassificationJobs",
+            "macie2:ListClassificationScopes",
             "macie2:ListCustomDataIdentifiers",
             "macie2:ListFindings",
             "macie2:ListFindingsFilters",
             "macie2:ListInvitations",
             "macie2:ListMembers",
             "macie2:ListOrganizationAdminAccounts",
+            "macie2:ListResourceProfileArtifacts",
+            "macie2:ListResourceProfileDetections",
+            "macie2:ListSensitivityInspectionTemplates",
             "macie2:ListTagsForResource",
             "macie2:SearchResources",
             "managedblockchain:GetMember",
@@ -65549,10 +66381,16 @@
             "mgh:List*",
             "mgn:DescribeJobLogItems",
             "mgn:DescribeJobs",
+            "mgn:DescribeLaunchConfigurationTemplates",
             "mgn:DescribeReplicationConfigurationTemplates",
             "mgn:DescribeSourceServers",
+            "mgn:DescribeVcenterClients",
             "mgn:GetLaunchConfiguration",
             "mgn:GetReplicationConfiguration",
+            "mgn:ListApplications",
+            "mgn:ListSourceServerActions",
+            "mgn:ListTemplateActions",
+            "mgn:ListWaves",
             "mobileanalytics:Get*",
             "mobilehub:Describe*",
             "mobilehub:Export*",
@@ -65633,6 +66471,12 @@
             "nimble:ListStudioMembers",
             "nimble:ListStudios",
             "nimble:ListTagsForResource",
+            "oam:GetLink",
+            "oam:GetSink",
+            "oam:GetSinkPolicy",
+            "oam:ListAttachedLinks",
+            "oam:ListLinks",
+            "oam:ListSinks",
             "opsworks-cm:Describe*",
             "opsworks-cm:List*",
             "opsworks:Describe*",
@@ -65724,6 +66568,15 @@
             "resiliencehub:ListTagsForResource",
             "resiliencehub:ListTestRecommendations",
             "resiliencehub:ListUnsupportedAppVersionResources",
+            "resource-explorer-2:BatchGetView",
+            "resource-explorer-2:GetDefaultView",
+            "resource-explorer-2:GetIndex",
+            "resource-explorer-2:GetView",
+            "resource-explorer-2:ListIndexes",
+            "resource-explorer-2:ListSupportedResourceTypes",
+            "resource-explorer-2:ListTagsForResource",
+            "resource-explorer-2:ListViews",
+            "resource-explorer-2:Search",
             "resource-groups:Get*",
             "resource-groups:List*",
             "resource-groups:Search*",
@@ -65764,9 +66617,12 @@
             "s3:DescribeJob",
             "s3:Get*",
             "s3:List*",
+            "sagemaker-groundtruth-synthetic:GetAccountDetails",
             "sagemaker-groundtruth-synthetic:GetBatch",
             "sagemaker-groundtruth-synthetic:GetProject",
+            "sagemaker-groundtruth-synthetic:ListBatchDataTransfers",
             "sagemaker-groundtruth-synthetic:ListBatchSummaries",
+            "sagemaker-groundtruth-synthetic:ListProjectDataTransfers",
             "sagemaker-groundtruth-synthetic:ListProjectSummaries",
             "sagemaker:Describe*",
             "sagemaker:GetSearchSuggestions",
@@ -65938,9 +66794,9 @@
         }
       ]
     },
-    "VersionId": "v94",
+    "VersionId": "v95",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-13T17:29:03+00:00"
+    "CreateDate": "2023-01-11T22:47:20+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
