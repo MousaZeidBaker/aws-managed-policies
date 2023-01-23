@@ -40,9 +40,14 @@
         "Effect": "Allow",
         "Action": [
           "s3:GetObject",
-          "s3:ListBucket"
+          "s3:ListBucket",
+          "s3:GetObjectVersion"
         ],
-        "Resource": "*",
+        "Resource": [
+          "arn:aws:s3:::*-nodepackage-store-*",
+          "arn:aws:s3:::*-application-payload-store-*",
+          "arn:aws:s3:*:*:accesspoint/panorama*"
+        ],
         "Condition": {
           "StringLike": {
             "s3:DataAccessPointArn": "arn:aws:s3:*:*:accesspoint/panorama*"
@@ -51,7 +56,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-10-20T12:14:03+00:00"
+  "CreateDate": "2023-01-17T21:32:36+00:00"
 }

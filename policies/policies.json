@@ -21504,12 +21504,19 @@
           ],
           "Effect": "Allow",
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:ListPrivateListings"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-10-28T21:49:43+00:00"
+    "CreateDate": "2023-01-19T23:45:29+00:00"
   },
   "AWSMarketplaceMeteringFullAccess": {
     "Document": {
@@ -21626,12 +21633,19 @@
             "aws-marketplace:ListPrivateMarketplaceRequests",
             "aws-marketplace:DescribePrivateMarketplaceRequests"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:ListPrivateListings"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-10-28T21:51:31+00:00"
+    "CreateDate": "2023-01-19T23:30:25+00:00"
   },
   "AWSMarketplaceSellerFullAccess": {
     "Document": {
@@ -23818,9 +23832,14 @@
           "Effect": "Allow",
           "Action": [
             "s3:GetObject",
-            "s3:ListBucket"
+            "s3:ListBucket",
+            "s3:GetObjectVersion"
           ],
-          "Resource": "*",
+          "Resource": [
+            "arn:aws:s3:::*-nodepackage-store-*",
+            "arn:aws:s3:::*-application-payload-store-*",
+            "arn:aws:s3:*:*:accesspoint/panorama*"
+          ],
           "Condition": {
             "StringLike": {
               "s3:DataAccessPointArn": "arn:aws:s3:*:*:accesspoint/panorama*"
@@ -23829,9 +23848,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-10-20T12:14:03+00:00"
+    "CreateDate": "2023-01-17T21:32:36+00:00"
   },
   "AWSPanoramaFullAccess": {
     "Document": {
@@ -38484,15 +38503,89 @@
         {
           "Effect": "Allow",
           "Action": [
+            "guardduty:GetFindings",
             "guardduty:ListDetectors"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-10-21T22:07:28+00:00"
+    "CreateDate": "2023-01-17T14:35:33+00:00"
+  },
+  "AmazonDetectiveInvestigatorAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "detective:BatchGetGraphMemberDatasources",
+            "detective:BatchGetMembershipDatasources",
+            "detective:DescribeOrganizationConfiguration",
+            "detective:GetFreeTrialEligibility",
+            "detective:GetGraphIngestState",
+            "detective:GetMembers",
+            "detective:GetPricingInformation",
+            "detective:GetUsageInformation",
+            "detective:ListDatasourcePackages",
+            "detective:ListGraphs",
+            "detective:ListHighDegreeEntities",
+            "detective:ListInvitations",
+            "detective:ListMembers",
+            "detective:ListOrganizationAdminAccount",
+            "detective:ListTagsForResource",
+            "detective:SearchGraph"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeOrganization",
+            "organizations:ListAccounts"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "guardduty:ArchiveFindings",
+            "guardduty:GetFindings",
+            "guardduty:ListDetectors"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-01-17T15:24:26+00:00"
+  },
+  "AmazonDetectiveMemberAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "detective:AcceptInvitation",
+            "detective:BatchGetMembershipDatasources",
+            "detective:DisassociateMembership",
+            "detective:GetFreeTrialEligibility",
+            "detective:GetPricingInformation",
+            "detective:GetUsageInformation",
+            "detective:ListInvitations",
+            "detective:RejectInvitation"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-01-17T15:16:14+00:00"
   },
   "AmazonDetectiveServiceLinkedRolePolicy": {
     "Document": {
