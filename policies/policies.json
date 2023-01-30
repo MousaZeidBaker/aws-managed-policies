@@ -13546,6 +13546,7 @@
             "autoscaling:AttachInstances",
             "autoscaling:CreateAutoScalingGroup",
             "autoscaling:CreateLaunchConfiguration",
+            "autoscaling:CreateOrUpdateTags",
             "autoscaling:DeleteLaunchConfiguration",
             "autoscaling:DeleteAutoScalingGroup",
             "autoscaling:DeleteScheduledAction",
@@ -13673,9 +13674,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-22T01:07:07+00:00"
+    "CreateDate": "2023-01-23T23:48:56+00:00"
   },
   "AWSElasticBeanstalkManagedUpdatesServiceRolePolicy": {
     "Document": {
@@ -13753,6 +13754,7 @@
             "autoscaling:AttachInstances",
             "autoscaling:CreateAutoScalingGroup",
             "autoscaling:CreateLaunchConfiguration",
+            "autoscaling:CreateOrUpdateTags",
             "autoscaling:DeleteAutoScalingGroup",
             "autoscaling:DeleteLaunchConfiguration",
             "autoscaling:DeleteScheduledAction",
@@ -13887,9 +13889,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-23T18:07:08+00:00"
+    "CreateDate": "2023-01-27T20:23:38+00:00"
   },
   "AWSElasticBeanstalkMulticontainerDocker": {
     "Document": {
@@ -17871,6 +17873,8 @@
             "ec2:DescribePublicIpv4Pools",
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
+            "ec2:GetIpamDiscoveredResourceCidrs",
+            "ec2:GetIpamDiscoveredAccounts",
             "organizations:DescribeAccount",
             "organizations:DescribeOrganization",
             "organizations:ListAccounts",
@@ -17890,9 +17894,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-30T19:08:11+00:00"
+    "CreateDate": "2023-01-25T20:13:08+00:00"
   },
   "AWSIQContractServiceRolePolicy": {
     "Document": {
@@ -25964,6 +25968,15 @@
             "elasticloadbalancing:DescribeLoadBalancers",
             "elasticloadbalancing:DescribeRules",
             "elasticloadbalancing:DescribeTargetGroups",
+            "elasticache:DescribeCacheClusters",
+            "elasticache:DescribeGlobalReplicationGroups",
+            "elasticache:DescribeCacheParameterGroups",
+            "elasticache:DescribeReplicationGroups",
+            "elasticache:DescribeReservedCacheNodes",
+            "elasticache:DescribeSnapshots",
+            "elasticache:DescribeCacheSubnetGroups",
+            "elasticache:DescribeUsers",
+            "elasticache:DescribeUserGroups",
             "es:ListDomainNames",
             "iam:ListGroups",
             "iam:ListInstanceProfiles",
@@ -25975,6 +25988,8 @@
             "iam:ListUsers",
             "kinesis:ListStreamConsumers",
             "kinesis:ListStreams",
+            "lambda:ListCodeSigningConfigs",
+            "lambda:ListEventSourceMappings",
             "lambda:ListFunctions",
             "logs:DescribeDestinations",
             "logs:DescribeLogGroups",
@@ -26022,7 +26037,8 @@
             "ssm:DescribeParameters",
             "ssm:DescribePatchBaselines",
             "ssm:ListAssociations",
-            "ssm:ListDocuments"
+            "ssm:ListDocuments",
+            "sqs:ListQueues"
           ],
           "Resource": [
             "*"
@@ -26030,9 +26046,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-31T17:23:15+00:00"
+    "CreateDate": "2023-01-26T14:43:30+00:00"
   },
   "AWSResourceGroupsReadOnlyAccess": {
     "Document": {
@@ -36446,12 +36462,21 @@
           "Resource": [
             "*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "pricing:GetProducts"
+          ],
+          "Resource": [
+            "*"
+          ]
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-14T21:05:56+00:00"
+    "CreateDate": "2023-01-24T16:59:23+00:00"
   },
   "AmazonAugmentedAIFullAccess": {
     "Document": {
@@ -61591,6 +61616,8 @@
           "Action": [
             "route53:GetHostedZone",
             "route53:GetHealthCheck",
+            "route53:ListHostedZones",
+            "route53:ListHealthChecks",
             "route53:ListQueryLoggingConfigs"
           ],
           "Resource": [
@@ -61602,8 +61629,10 @@
           "Action": [
             "route53resolver:ListFirewallRuleGroupAssociations",
             "route53resolver:GetFirewallRuleGroup",
+            "route53resolver:ListFirewallRuleGroups",
             "route53resolver:ListResolverEndpoints",
             "route53resolver:GetResolverQueryLogConfig",
+            "route53resolver:ListResolverQueryLogConfigs",
             "route53resolver:ListResolverQueryLogConfigAssociations",
             "route53resolver:GetResolverEndpoint",
             "route53resolver:GetFirewallRuleGroupAssociation"
@@ -61614,9 +61643,9 @@
         }
       ]
     },
-    "VersionId": "v22",
+    "VersionId": "v23",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-04T19:28:35+00:00"
+    "CreateDate": "2023-01-23T21:38:30+00:00"
   },
   "ComprehendDataAccessRolePolicy": {
     "Document": {
@@ -62737,6 +62766,94 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2020-09-30T19:22:54+00:00"
+  },
+  "Ec2InstanceConnectEndpoint": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeAvailabilityZones"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": "arn:aws:ec2:*:*:subnet/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "InstanceConnectEndpointId"
+              ]
+            },
+            "Null": {
+              "aws:RequestTag/InstanceConnectEndpointId": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyNetworkInterfaceAttribute"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/InstanceConnectEndpointId": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateNetworkInterface"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "InstanceConnectEndpointId"
+              ]
+            },
+            "Null": {
+              "aws:RequestTag/InstanceConnectEndpointId": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteNetworkInterface"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/InstanceConnectEndpointId": [
+                "eice-*"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-01-24T20:19:21+00:00"
   },
   "ElastiCacheServiceRolePolicy": {
     "Document": {

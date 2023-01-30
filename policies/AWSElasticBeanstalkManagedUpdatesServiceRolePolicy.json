@@ -74,6 +74,7 @@
           "autoscaling:AttachInstances",
           "autoscaling:CreateAutoScalingGroup",
           "autoscaling:CreateLaunchConfiguration",
+          "autoscaling:CreateOrUpdateTags",
           "autoscaling:DeleteAutoScalingGroup",
           "autoscaling:DeleteLaunchConfiguration",
           "autoscaling:DeleteScheduledAction",
@@ -208,7 +209,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-08-23T18:07:08+00:00"
+  "CreateDate": "2023-01-27T20:23:38+00:00"
 }
