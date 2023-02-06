@@ -100,8 +100,6 @@
         "Action": [
           "config:DeleteConfigRule",
           "config:DescribeComplianceByConfigRule",
-          "config:DescribeConfigRuleEvaluationStatus",
-          "config:DescribeConfigRules",
           "config:GetComplianceDetailsByConfigRule",
           "config:PutConfigRule",
           "config:StartConfigRulesEvaluation"
@@ -140,6 +138,8 @@
         "Action": [
           "organizations:DescribeAccount",
           "organizations:DescribeOrganization",
+          "config:DescribeConfigRuleEvaluationStatus",
+          "config:DescribeConfigRules",
           "organizations:ListAccounts",
           "organizations:DescribeOrganizationalUnit",
           "organizations:ListChildren",
@@ -610,7 +610,7 @@
       }
     ]
   },
-  "VersionId": "v26",
+  "VersionId": "v27",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-15T20:51:43+00:00"
+  "CreateDate": "2023-02-03T23:53:37+00:00"
 }
