@@ -23170,10 +23170,27 @@
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
             "ec2:CreateVpcEndpoint",
-            "ec2:DescribeVpcEndpoints"
+            "ec2:DescribeVpcEndpoints",
+            "ec2:DescribeInstances",
+            "ec2:DescribeNetworkInterfaces"
           ],
           "Effect": "Allow",
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "resource-groups:ListGroupResources",
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "tag:GetResources",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:CalledViaLast": "resource-groups.amazonaws.com"
+            }
+          }
         },
         {
           "Effect": "Allow",
@@ -23202,9 +23219,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-11-17T17:17:26+00:00"
+    "CreateDate": "2023-02-14T17:09:19+00:00"
   },
   "AWSNetworkManagerCloudWANServiceRolePolicy": {
     "Document": {
@@ -24570,6 +24587,186 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2017-11-22T00:36:27+00:00"
+  },
+  "AWSPrivateCAAuditor": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:CreateCertificateAuthorityAuditReport",
+            "acm-pca:DescribeCertificateAuthority",
+            "acm-pca:DescribeCertificateAuthorityAuditReport",
+            "acm-pca:GetCertificateAuthorityCsr",
+            "acm-pca:GetCertificateAuthorityCertificate",
+            "acm-pca:GetCertificate",
+            "acm-pca:GetPolicy",
+            "acm-pca:ListPermissions",
+            "acm-pca:ListTags"
+          ],
+          "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:ListCertificateAuthorities"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-02-14T18:33:44+00:00"
+  },
+  "AWSPrivateCAFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:*"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-02-14T18:20:59+00:00"
+  },
+  "AWSPrivateCAPrivilegedUser": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:IssueCertificate"
+          ],
+          "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*",
+          "Condition": {
+            "StringLike": {
+              "acm-pca:TemplateArn": [
+                "arn:aws:acm-pca:::template/*CACertificate*/V*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Deny",
+          "Action": [
+            "acm-pca:IssueCertificate"
+          ],
+          "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*",
+          "Condition": {
+            "StringNotLike": {
+              "acm-pca:TemplateArn": [
+                "arn:aws:acm-pca:::template/*CACertificate*/V*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:RevokeCertificate",
+            "acm-pca:GetCertificate",
+            "acm-pca:ListPermissions"
+          ],
+          "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:ListCertificateAuthorities"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-02-14T18:26:02+00:00"
+  },
+  "AWSPrivateCAReadOnly": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": {
+        "Effect": "Allow",
+        "Action": [
+          "acm-pca:DescribeCertificateAuthority",
+          "acm-pca:DescribeCertificateAuthorityAuditReport",
+          "acm-pca:ListCertificateAuthorities",
+          "acm-pca:GetCertificateAuthorityCsr",
+          "acm-pca:GetCertificateAuthorityCertificate",
+          "acm-pca:GetCertificate",
+          "acm-pca:GetPolicy",
+          "acm-pca:ListPermissions",
+          "acm-pca:ListTags"
+        ],
+        "Resource": "*"
+      }
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-02-14T18:30:50+00:00"
+  },
+  "AWSPrivateCAUser": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:IssueCertificate"
+          ],
+          "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*",
+          "Condition": {
+            "StringLike": {
+              "acm-pca:TemplateArn": [
+                "arn:aws:acm-pca:::template/EndEntityCertificate/V*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Deny",
+          "Action": [
+            "acm-pca:IssueCertificate"
+          ],
+          "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*",
+          "Condition": {
+            "StringNotLike": {
+              "acm-pca:TemplateArn": [
+                "arn:aws:acm-pca:::template/EndEntityCertificate/V*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:RevokeCertificate",
+            "acm-pca:GetCertificate",
+            "acm-pca:ListPermissions"
+          ],
+          "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:ListCertificateAuthorities"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-02-14T18:16:08+00:00"
   },
   "AWSPrivateMarketplaceAdminFullAccess": {
     "Document": {
@@ -45571,7 +45768,8 @@
           "Action": [
             "lambda:ListFunctions",
             "lambda:GetFunction",
-            "lambda:GetLayerVersion"
+            "lambda:GetLayerVersion",
+            "cloudwatch:GetMetricData"
           ],
           "Resource": "*"
         },
@@ -45620,9 +45818,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-17T20:32:51+00:00"
+    "CreateDate": "2023-02-15T17:01:23+00:00"
   },
   "AmazonInspectorFullAccess": {
     "Document": {
@@ -50194,12 +50392,20 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "servicequota1",
+          "Effect": "Allow",
+          "Action": [
+            "servicequotas:GetServiceQuota"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-08T18:01:22+00:00"
+    "CreateDate": "2023-02-14T23:58:11+00:00"
   },
   "AmazonRDSCustomServiceRolePolicy": {
     "Document": {
@@ -55868,7 +56074,9 @@
           "Condition": {
             "StringEquals": {
               "iam:PassedToService": [
-                "lambda.amazonaws.com"
+                "lambda.amazonaws.com",
+                "elasticmapreduce.amazonaws.com",
+                "ec2.amazonaws.com"
               ]
             }
           }
@@ -55881,7 +56089,8 @@
             "events:PutTargets"
           ],
           "Resource": [
-            "arn:aws:events:*:*:rule/SageMakerPipelineExecutionEMRStepStatusUpdateRule"
+            "arn:aws:events:*:*:rule/SageMakerPipelineExecutionEMRStepStatusUpdateRule",
+            "arn:aws:events:*:*:rule/SageMakerPipelineExecutionEMRClusterStatusUpdateRule"
           ]
         },
         {
@@ -55889,7 +56098,11 @@
           "Action": [
             "elasticmapreduce:AddJobFlowSteps",
             "elasticmapreduce:CancelSteps",
-            "elasticmapreduce:DescribeStep"
+            "elasticmapreduce:DescribeStep",
+            "elasticmapreduce:RunJobFlow",
+            "elasticmapreduce:DescribeCluster",
+            "elasticmapreduce:TerminateJobFlows",
+            "elasticmapreduce:ListSteps"
           ],
           "Resource": [
             "arn:aws:elasticmapreduce:*:*:cluster/*"
@@ -55897,9 +56110,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-20T18:39:06+00:00"
+    "CreateDate": "2023-02-17T21:28:19+00:00"
   },
   "AmazonSageMakerReadOnly": {
     "Document": {
@@ -67391,11 +67604,13 @@
             "dynamodb:ListGlobalTables",
             "dynamodb:ListTables",
             "ec2:DescribeAvailabilityZones",
+            "ec2:DescribeCustomerGateways",
             "ec2:DescribeInstances",
             "ec2:DescribeSubnets",
             "ec2:DescribeVolumes",
             "ec2:DescribeVpcs",
             "ec2:DescribeVpnConnections",
+            "ec2:DescribeVpnGateways",
             "ec2:GetEbsEncryptionByDefault",
             "ec2:GetEbsDefaultKmsKeyId",
             "elasticloadbalancing:DescribeInstanceHealth",
@@ -67420,9 +67635,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-31T17:16:56+00:00"
+    "CreateDate": "2023-02-14T18:08:46+00:00"
   },
   "Route53ResolverServiceRolePolicy": {
     "Document": {

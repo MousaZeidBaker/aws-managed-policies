@@ -38,7 +38,9 @@
         "Condition": {
           "StringEquals": {
             "iam:PassedToService": [
-              "lambda.amazonaws.com"
+              "lambda.amazonaws.com",
+              "elasticmapreduce.amazonaws.com",
+              "ec2.amazonaws.com"
             ]
           }
         }
@@ -51,7 +53,8 @@
           "events:PutTargets"
         ],
         "Resource": [
-          "arn:aws:events:*:*:rule/SageMakerPipelineExecutionEMRStepStatusUpdateRule"
+          "arn:aws:events:*:*:rule/SageMakerPipelineExecutionEMRStepStatusUpdateRule",
+          "arn:aws:events:*:*:rule/SageMakerPipelineExecutionEMRClusterStatusUpdateRule"
         ]
       },
       {
@@ -59,7 +62,11 @@
         "Action": [
           "elasticmapreduce:AddJobFlowSteps",
           "elasticmapreduce:CancelSteps",
-          "elasticmapreduce:DescribeStep"
+          "elasticmapreduce:DescribeStep",
+          "elasticmapreduce:RunJobFlow",
+          "elasticmapreduce:DescribeCluster",
+          "elasticmapreduce:TerminateJobFlows",
+          "elasticmapreduce:ListSteps"
         ],
         "Resource": [
           "arn:aws:elasticmapreduce:*:*:cluster/*"
@@ -67,7 +74,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-04-20T18:39:06+00:00"
+  "CreateDate": "2023-02-17T21:28:19+00:00"
 }
