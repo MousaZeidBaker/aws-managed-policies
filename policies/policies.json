@@ -9203,10 +9203,16 @@
           "Effect": "Allow",
           "Action": [
             "config:PutConformancePack",
-            "config:DeleteConformancePack",
-            "config:DescribeConformancePackStatus"
+            "config:DeleteConformancePack"
           ],
           "Resource": "arn:aws:config:*:*:conformance-pack/aws-service-conformance-pack/config-multiaccountsetup.amazonaws.com/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "config:DescribeConformancePackStatus"
+          ],
+          "Resource": "*"
         },
         {
           "Effect": "Allow",
@@ -9239,9 +9245,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-05-21T22:59:26+00:00"
+    "CreateDate": "2023-02-24T01:39:49+00:00"
   },
   "AWSConfigRemediationServiceRolePolicy": {
     "Document": {
@@ -19864,12 +19870,22 @@
           "Effect": "Allow",
           "Action": "iotroborunner:*",
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/iotroborunner.amazonaws.com/AWSServiceRoleForIoTRoboRunner",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "iotroborunner.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-29T03:54:37+00:00"
+    "CreateDate": "2023-02-23T18:34:44+00:00"
   },
   "AWSIotRoboRunnerReadOnly": {
     "Document": {
@@ -19894,6 +19910,28 @@
     "VersionId": "v2",
     "IsDefaultVersion": true,
     "CreateDate": "2022-11-16T20:51:43+00:00"
+  },
+  "AWSIotRoboRunnerServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": {
+        "Effect": "Allow",
+        "Action": [
+          "cloudwatch:PutMetricData"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "cloudwatch:namespace": [
+              "AWS/Usage"
+            ]
+          }
+        }
+      }
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-02-21T16:56:31+00:00"
   },
   "AWSKeyManagementServiceCustomKeyStoresServiceRolePolicy": {
     "Document": {
@@ -22337,6 +22375,13 @@
           }
         },
         {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeLaunchTemplates"
+          ],
+          "Resource": "*"
+        },
+        {
           "Action": [
             "mgh:GetHomeRegion"
           ],
@@ -22422,9 +22467,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-21T18:48:26+00:00"
+    "CreateDate": "2023-02-24T20:28:36+00:00"
   },
   "AWSMigrationHubRefactorSpacesFullAccess": {
     "Document": {
@@ -35514,6 +35559,7 @@
             "cloudformation:ExecuteChangeSet",
             "cloudformation:GetTemplate",
             "cloudformation:UpdateStack",
+            "cloudformation:ListStacks",
             "cloudformation:ListStackResources",
             "cloudformation:DeleteStackSet",
             "cloudformation:DescribeStackSet",
@@ -35536,6 +35582,7 @@
             "iam:DeleteRolePolicy",
             "iam:DetachRolePolicy",
             "iam:PutRolePolicy",
+            "iam:UntagRole",
             "iam:UpdateRole",
             "iam:GetRole",
             "iam:GetPolicy",
@@ -35573,6 +35620,7 @@
             "appsync:ListResolversByFunction",
             "appsync:ListTypes",
             "appsync:StartSchemaCreation",
+            "appsync:UntagResource",
             "appsync:UpdateApiKey",
             "appsync:UpdateDataSource",
             "appsync:UpdateFunction",
@@ -35645,6 +35693,7 @@
             "dynamodb:PutItem",
             "dynamodb:TagResource",
             "dynamodb:ListTagsOfResource",
+            "dynamodb:UntagResource",
             "dynamodb:UpdateContinuousBackups",
             "dynamodb:UpdateItem",
             "dynamodb:UpdateTable",
@@ -35687,7 +35736,9 @@
             "es:CreateElasticsearchDomain",
             "es:DeleteElasticsearchDomain",
             "es:DescribeElasticsearchDomain",
-            "s3:PutEncryptionConfiguration"
+            "es:UpdateElasticsearchDomainConfig",
+            "s3:PutEncryptionConfiguration",
+            "s3:PutBucketPublicAccessBlock"
           ],
           "Resource": "*",
           "Condition": {
@@ -35770,6 +35821,7 @@
             "iam:DeleteRole",
             "iam:DetachRolePolicy",
             "cloudformation:ListStacks",
+            "cloudformation:DescribeStacks",
             "sns:CreateSMSSandboxPhoneNumber",
             "sns:GetSMSSandboxAccountStatus",
             "sns:VerifySMSSandboxPhoneNumber",
@@ -35784,7 +35836,10 @@
             "lex:GetBuiltinIntents",
             "lex:GetBuiltinSlotTypes",
             "cloudformation:GetTemplateSummary",
-            "codecommit:GitPull"
+            "codecommit:GitPull",
+            "cloudfront:GetCloudFrontOriginAccessIdentity",
+            "cloudfront:GetCloudFrontOriginAccessIdentityConfig",
+            "polly:DescribeVoices"
           ],
           "Resource": "*"
         },
@@ -35927,9 +35982,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-30T23:24:53+00:00"
+    "CreateDate": "2023-02-24T20:14:32+00:00"
   },
   "AdministratorAccess": {
     "Document": {
@@ -37956,16 +38011,19 @@
           "Action": "cloudwatch:PutMetricData",
           "Resource": "*",
           "Condition": {
-            "StringEquals": {
-              "cloudwatch:namespace": "AWS/RUM"
+            "StringLike": {
+              "cloudwatch:namespace": [
+                "RUM/CustomMetrics/*",
+                "AWS/RUM"
+              ]
             }
           }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-26T21:33:26+00:00"
+    "CreateDate": "2023-02-22T20:35:15+00:00"
   },
   "AmazonCodeGuruProfilerAgentAccess": {
     "Document": {
@@ -45397,12 +45455,22 @@
             "s3:GetBucketPolicyStatus"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "malware-protection.guardduty.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-03T23:14:07+00:00"
+    "CreateDate": "2023-02-21T16:56:23+00:00"
   },
   "AmazonHealthLakeFullAccess": {
     "Document": {
@@ -45815,12 +45883,50 @@
           "Resource": [
             "arn:*:events:*:*:rule/DO-NOT-DELETE-AmazonInspector*ManagedRule"
           ]
+        },
+        {
+          "Sid": "LambdaCodeVulnerabilityScanning",
+          "Effect": "Allow",
+          "Action": [
+            "codeguru-security:CreateScan",
+            "codeguru-security:GetScan",
+            "codeguru-security:ListFindings",
+            "codeguru-security:BatchGetFindings",
+            "codeguru-security:DeleteScansByCategory"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "CodeGuruCodeVulnerabilityScanning",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetRole",
+            "iam:GetRolePolicy",
+            "iam:GetPolicy",
+            "iam:GetPolicyVersion",
+            "iam:ListAttachedRolePolicies",
+            "iam:ListPolicies",
+            "iam:ListPolicyVersions",
+            "lambda:ListVersionsByFunction"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "codeguru-security.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-15T17:01:23+00:00"
+    "CreateDate": "2023-02-24T17:57:17+00:00"
   },
   "AmazonInspectorFullAccess": {
     "Document": {
@@ -46570,6 +46676,7 @@
             "autoscaling:DeleteAutoScalingGroup",
             "autoscaling:DeleteLaunchConfiguration",
             "autoscaling:UpdateAutoScalingGroup",
+            "autoscaling:CreateOrUpdateTags",
             "logs:CreateLogStream",
             "logs:DeleteLogGroup",
             "logs:DeleteLogStream",
@@ -46945,6 +47052,19 @@
         {
           "Effect": "Allow",
           "Action": [
+            "elasticfilesystem:UntagResource",
+            "elasticfilesystem:TagResource"
+          ],
+          "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "launchwizard.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "logs:TagResource",
             "logs:UntagResource"
           ],
@@ -46957,9 +47077,9 @@
         }
       ]
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-12T23:55:29+00:00"
+    "CreateDate": "2023-02-22T17:25:14+00:00"
   },
   "AmazonLexChannelsAccess": {
     "Document": {
@@ -48946,6 +49066,46 @@
     "VersionId": "v4",
     "IsDefaultVersion": true,
     "CreateDate": "2022-12-20T19:31:23+00:00"
+  },
+  "AmazonOmicsFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "omics:*"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ram:AcceptResourceShareInvitation",
+            "ram:GetResourceShareInvitations"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:CalledViaLast": "omics.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "omics.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-02-24T00:59:33+00:00"
   },
   "AmazonOmicsReadOnlyAccess": {
     "Document": {
@@ -50982,12 +51142,20 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "servicequota1",
+          "Effect": "Allow",
+          "Action": [
+            "servicequotas:GetServiceQuota"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-09T22:17:08+00:00"
+    "CreateDate": "2023-02-21T23:14:53+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
