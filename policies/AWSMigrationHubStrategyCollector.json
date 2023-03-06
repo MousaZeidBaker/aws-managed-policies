@@ -5,6 +5,7 @@
       {
         "Effect": "Allow",
         "Action": [
+          "s3:GetObject",
           "s3:PutObject",
           "s3:GetBucketAcl"
         ],
@@ -50,7 +51,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-09-28T00:06:57+00:00"
+  "CreateDate": "2023-03-02T22:08:23+00:00"
 }

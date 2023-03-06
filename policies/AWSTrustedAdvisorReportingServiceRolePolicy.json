@@ -3,23 +3,24 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Effect": "Allow",
         "Action": [
           "organizations:DescribeOrganization",
           "organizations:ListAWSServiceAccessForOrganization",
           "organizations:ListAccounts",
           "organizations:ListAccountsForParent",
+          "organizations:ListDelegatedAdministrators",
           "organizations:ListOrganizationalUnitsForParent",
           "organizations:ListChildren",
           "organizations:ListParents",
           "organizations:DescribeOrganizationalUnit",
           "organizations:DescribeAccount"
         ],
-        "Effect": "Allow",
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-09-11T21:36:48+00:00"
+  "CreateDate": "2023-02-28T23:23:45+00:00"
 }
