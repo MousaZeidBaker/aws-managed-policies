@@ -104,15 +104,30 @@
         {
           "Effect": "Allow",
           "Action": [
+            "account:GetAccountInformation",
+            "account:GetAlternateContact",
+            "account:GetChallengeQuestions",
+            "account:GetContactInformation",
+            "account:GetRegionOptStatus",
+            "account:ListRegions",
+            "billing:GetIAMAccessPreference",
+            "billing:GetSellerOfRecord",
+            "payments:ListPaymentPreferences"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "aws-portal:ViewBilling"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2015-02-06T18:41:18+00:00"
+    "CreateDate": "2023-03-07T17:02:30+00:00"
   },
   "AWSAccountManagementFullAccess": {
     "Document": {
@@ -5207,17 +5222,48 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "VisualEditor0",
           "Effect": "Allow",
           "Action": [
-            "aws-portal:ViewBilling"
+            "account:GetAccountInformation",
+            "aws-portal:ViewBilling",
+            "billing:GetBillingData",
+            "billing:GetBillingDetails",
+            "billing:GetBillingNotifications",
+            "billing:GetBillingPreferences",
+            "billing:GetCredits",
+            "billing:GetContractInformation",
+            "billing:GetIAMAccessPreference",
+            "billing:GetSellerOfRecord",
+            "billing:ListBillingViews",
+            "consolidatedbilling:ListLinkedAccounts",
+            "consolidatedbilling:GetAccountBillingRole",
+            "cur:GetClassicReport",
+            "cur:GetClassicReportPreferences",
+            "cur:GetUsageReport",
+            "freetier:GetFreeTierAlertPreference",
+            "freetier:GetFreeTierUsage",
+            "invoicing:GetInvoiceEmailDeliveryPreferences",
+            "invoicing:GetInvoicePDF",
+            "invoicing:ListInvoiceSummaries",
+            "payments:GetPaymentInstrument",
+            "payments:GetPaymentStatus",
+            "payments:ListPaymentPreferences",
+            "purchase-orders:GetPurchaseOrder",
+            "purchase-orders:ViewPurchaseOrders",
+            "purchase-orders:ListPurchaseOrderInvoices",
+            "purchase-orders:ListPurchaseOrders",
+            "tax:GetTaxRegistrationDocument",
+            "tax:GetTaxInheritance",
+            "tax:ListTaxRegistrations"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-08-27T20:08:51+00:00"
+    "CreateDate": "2023-03-08T17:48:14+00:00"
   },
   "AWSBudgetsActionsRolePolicyForResourceAdministrationWithSSM": {
     "Document": {
@@ -10981,6 +11027,24 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2021-11-01T21:27:29+00:00"
+  },
+  "AWSDMSFleetAdvisorServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": {
+        "Effect": "Allow",
+        "Action": "cloudwatch:PutMetricData",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "cloudwatch:namespace": "AWS/DMS/FleetAdvisor"
+          }
+        }
+      }
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-03-06T09:10:42+00:00"
   },
   "AWSDataExchangeFullAccess": {
     "Document": {
@@ -25233,16 +25297,29 @@
         {
           "Effect": "Allow",
           "Action": [
+            "account:GetAccountInformation",
+            "account:GetContactInformation",
             "aws-portal:*Billing",
-            "purchase-orders:*PurchaseOrders"
+            "payments:GetPaymentInstrument",
+            "payments:ListPaymentPreferences",
+            "purchase-orders:AddPurchaseOrder",
+            "purchase-orders:DeletePurchaseOrder",
+            "purchase-orders:GetPurchaseOrder",
+            "purchase-orders:ListPurchaseOrderInvoices",
+            "purchase-orders:ListPurchaseOrders",
+            "purchase-orders:ModifyPurchaseOrders",
+            "purchase-orders:UpdatePurchaseOrderStatus",
+            "purchase-orders:UpdatePurchaseOrder",
+            "purchase-orders:ViewPurchaseOrders",
+            "tax:ListTaxRegistrations"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-22T20:06:47+00:00"
+    "CreateDate": "2023-03-07T22:32:54+00:00"
   },
   "AWSQuickSightDescribeRDS": {
     "Document": {
@@ -28891,6 +28968,8 @@
             "config:SelectResourceConfig",
             "config:DescribeConfigurationAggregators",
             "config:SelectAggregateResourceConfig",
+            "config:DescribeConfigRuleEvaluationStatus",
+            "config:DescribeConfigRules",
             "s3:GetBucketLocation"
           ],
           "Resource": "*"
@@ -28899,8 +28978,6 @@
           "Effect": "Allow",
           "Action": [
             "config:GetComplianceDetailsByConfigRule",
-            "config:DescribeConfigRuleEvaluationStatus",
-            "config:DescribeConfigRules",
             "config:PutConfigRule",
             "config:DeleteConfigRule"
           ],
@@ -28916,9 +28993,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-19T21:16:45+00:00"
+    "CreateDate": "2023-03-10T00:51:25+00:00"
   },
   "AWSShieldDRTAccessPolicy": {
     "Document": {
@@ -38988,12 +39065,22 @@
           "Effect": "Allow",
           "Action": "iam:DeleteServiceLinkedRole",
           "Resource": "arn:aws:iam::*:role/aws-service-role/connect.amazonaws.com/AWSServiceRoleForAmazonConnect*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/profile.amazonaws.com/*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "profile.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-23T22:05:12+00:00"
+    "CreateDate": "2023-03-07T14:49:25+00:00"
   },
   "AmazonDMSCloudWatchLogsRole": {
     "Document": {
@@ -40803,12 +40890,24 @@
               "iam:PassedToService": "ecs-tasks.amazonaws.com"
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ecs:TagResource",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ecs:CreateAction": [
+                "RunTask"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2018-05-22T19:13:11+00:00"
+    "CreateDate": "2023-03-06T22:25:12+00:00"
   },
   "AmazonEC2ContainerServiceRole": {
     "Document": {
@@ -40857,12 +40956,25 @@
             "logs:PutLogEvents"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ecs:TagResource",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ecs:CreateAction": [
+                "CreateCluster",
+                "RegisterContainerInstance"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-06-13T19:11:37+00:00"
+    "CreateDate": "2023-03-06T22:19:04+00:00"
   },
   "AmazonEC2FullAccess": {
     "Document": {
@@ -42671,11 +42783,15 @@
           "Effect": "Allow",
           "Action": [
             "eks:DescribeCluster",
+            "eks:ListNodeGroups",
+            "eks:DescribeNodeGroup",
             "ec2:DescribeRouteTables",
             "ec2:DescribeSubnets",
             "ec2:DescribeSecurityGroups",
             "elasticloadbalancing:DescribeInstanceHealth",
-            "elasticloadbalancing:DescribeLoadBalancers"
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "elasticloadbalancing:DescribeTargetGroups",
+            "elasticloadbalancing:DescribeTargetHealth"
           ],
           "Resource": "*"
         },
@@ -42706,9 +42822,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-12-03T19:55:44+00:00"
+    "CreateDate": "2023-03-10T22:58:13+00:00"
   },
   "AmazonEMRFullAccessPolicy_v2": {
     "Document": {
@@ -45765,7 +45881,13 @@
             "s3:ListAllMyBuckets",
             "s3:GetBucketAcl",
             "s3:GetBucketPolicy",
-            "s3:GetBucketPolicyStatus"
+            "s3:GetBucketPolicyStatus",
+            "lambda:GetFunctionConfiguration",
+            "lambda:ListTags",
+            "eks:ListClusters",
+            "eks:DescribeCluster",
+            "ec2:DescribeVpcEndpointServices",
+            "ec2:DescribeSecurityGroups"
           ],
           "Resource": "*"
         },
@@ -45778,12 +45900,139 @@
               "iam:AWSServiceName": "malware-protection.guardduty.amazonaws.com"
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateVpcEndpoint",
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:TagKeys": "GuardDutyManaged"
+            },
+            "StringLike": {
+              "ec2:VpceServiceName": [
+                "com.amazonaws.*.guardduty-data",
+                "com.amazonaws.*.guardduty-data-fips"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyVpcEndpoint",
+            "ec2:DeleteVpcEndpoints"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/GuardDutyManaged": false
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVpcEndpoint",
+            "ec2:ModifyVpcEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc/*",
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:subnet/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateVpcEndpoint"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:TagKeys": "GuardDutyManaged"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AuthorizeSecurityGroupIngress",
+            "ec2:AuthorizeSecurityGroupEgress",
+            "ec2:RevokeSecurityGroupIngress",
+            "ec2:RevokeSecurityGroupEgress",
+            "ec2:DeleteSecurityGroup"
+          ],
+          "Resource": "arn:aws:ec2:*:*:security-group/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/GuardDutyManaged": false
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateSecurityGroup",
+          "Resource": "arn:aws:ec2:*:*:security-group/*",
+          "Condition": {
+            "StringLike": {
+              "aws:RequestTag/GuardDutyManaged": "*"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateSecurityGroup",
+          "Resource": "arn:aws:ec2:*:*:vpc/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "arn:aws:ec2:*:*:security-group/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateSecurityGroup"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:TagKeys": "GuardDutyManaged"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "eks:CreateAddon",
+          "Resource": "arn:aws:eks:*:*:cluster/*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:TagKeys": "GuardDutyManaged"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "eks:DeleteAddon",
+            "eks:UpdateAddon",
+            "eks:DescribeAddon"
+          ],
+          "Resource": "arn:aws:eks:*:*:addon/*/aws-guardduty-agent/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "eks:TagResource",
+          "Resource": "arn:aws:eks:*:*:cluster/*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:TagKeys": "GuardDutyManaged"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-21T16:56:23+00:00"
+    "CreateDate": "2023-03-08T19:59:16+00:00"
   },
   "AmazonHealthLakeFullAccess": {
     "Document": {
@@ -51121,6 +51370,7 @@
                 "CreateKeyPair",
                 "RunInstances",
                 "CreateVolume",
+                "CreateSnapshot",
                 "CreateSnapshots",
                 "CopySnapshot",
                 "AllocateAddress"
@@ -51206,6 +51456,7 @@
           "Effect": "Allow",
           "Action": [
             "ec2:CopySnapshot",
+            "ec2:CreateSnapshot",
             "ec2:CreateSnapshots"
           ],
           "Resource": "arn:aws:ec2:*::snapshot/*",
@@ -51233,6 +51484,21 @@
                 "custom-oracle",
                 "custom-sqlserver",
                 "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "eccSnapshot4",
+          "Effect": "Allow",
+          "Action": "ec2:CreateSnapshot",
+          "Resource": [
+            "arn:aws:ec2:*:*:volume/*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/AWSRDSCustom": [
+                "custom-sqlserver"
               ]
             }
           }
@@ -51457,6 +51723,41 @@
           }
         },
         {
+          "Sid": "sqs1",
+          "Effect": "Allow",
+          "Action": [
+            "sqs:CreateQueue",
+            "sqs:TagQueue"
+          ],
+          "Resource": "arn:aws:sqs:*:*:do-not-delete-rds-custom-*",
+          "Condition": {
+            "StringLike": {
+              "aws:RequestTag/AWSRDSCustom": [
+                "custom-sqlserver"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "sqs2",
+          "Effect": "Allow",
+          "Action": [
+            "sqs:GetQueueAttributes",
+            "sqs:SendMessage",
+            "sqs:ReceiveMessage",
+            "sqs:DeleteMessage",
+            "sqs:DeleteQueue"
+          ],
+          "Resource": "arn:aws:sqs:*:*:do-not-delete-rds-custom-*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/AWSRDSCustom": [
+                "custom-sqlserver"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "servicequota1",
           "Effect": "Allow",
           "Action": [
@@ -51466,9 +51767,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-21T23:14:53+00:00"
+    "CreateDate": "2023-03-08T23:32:54+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
@@ -56409,8 +56710,7 @@
         {
           "Effect": "Allow",
           "Action": [
-            "elasticfilesystem:DeleteAccessPoint",
-            "elasticfilesystem:DescribeAccessPoints"
+            "elasticfilesystem:DeleteAccessPoint"
           ],
           "Resource": "arn:aws:elasticfilesystem:*:*:access-point/*",
           "Condition": {
@@ -56446,10 +56746,24 @@
         {
           "Effect": "Allow",
           "Action": [
+            "elasticfilesystem:DescribeAccessPoints",
             "elasticfilesystem:DescribeFileSystems",
             "elasticfilesystem:DescribeMountTargets"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "elasticfilesystem:TagResource",
+          "Resource": [
+            "arn:aws:elasticfilesystem:*:*:access-point/*",
+            "arn:aws:elasticfilesystem:*:*:file-system/*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/ManagedByAmazonSageMakerResource": "*"
+            }
+          }
         },
         {
           "Effect": "Allow",
@@ -56511,9 +56825,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-12T20:01:49+00:00"
+    "CreateDate": "2023-03-09T18:20:35+00:00"
   },
   "AmazonSageMakerPipelinesIntegrations": {
     "Document": {
@@ -60815,33 +61129,89 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "VisualEditor0",
           "Effect": "Allow",
           "Action": [
+            "account:GetAccountInformation",
             "aws-portal:*Billing",
-            "aws-portal:*Usage",
             "aws-portal:*PaymentMethods",
-            "budgets:ViewBudget",
+            "aws-portal:*Usage",
+            "billing:GetBillingData",
+            "billing:GetBillingDetails",
+            "billing:GetBillingNotifications",
+            "billing:GetBillingPreferences",
+            "billing:GetContractInformation",
+            "billing:GetCredits",
+            "billing:GetIAMAccessPreference",
+            "billing:GetSellerOfRecord",
+            "billing:ListBillingViews",
+            "billing:PutContractInformation",
+            "billing:RedeemCredits",
+            "billing:UpdateBillingPreferences",
+            "billing:UpdateIAMAccessPreference",
             "budgets:ModifyBudget",
-            "ce:UpdatePreferences",
-            "ce:CreateReport",
-            "ce:UpdateReport",
-            "ce:DeleteReport",
+            "budgets:ViewBudget",
             "ce:CreateNotificationSubscription",
-            "ce:UpdateNotificationSubscription",
+            "ce:CreateReport",
             "ce:DeleteNotificationSubscription",
-            "cur:DescribeReportDefinitions",
-            "cur:PutReportDefinition",
-            "cur:ModifyReportDefinition",
+            "ce:DeleteReport",
+            "ce:UpdateNotificationSubscription",
+            "ce:UpdatePreferences",
+            "ce:UpdateReport",
+            "consolidatedbilling:GetAccountBillingRole",
+            "consolidatedbilling:ListLinkedAccounts",
             "cur:DeleteReportDefinition",
-            "purchase-orders:*PurchaseOrders"
+            "cur:DescribeReportDefinitions",
+            "cur:GetClassicReport",
+            "cur:GetClassicReportPreferences",
+            "cur:GetUsageReport",
+            "cur:ModifyReportDefinition",
+            "cur:PutClassicReportPreferences",
+            "cur:PutReportDefinition",
+            "cur:ValidateReportDestination",
+            "freetier:GetFreeTierAlertPreference",
+            "freetier:GetFreeTierUsage",
+            "freetier:PutFreeTierAlertPreference",
+            "invoicing:GetInvoiceEmailDeliveryPreferences",
+            "invoicing:GetInvoicePDF",
+            "invoicing:ListInvoiceSummaries",
+            "invoicing:PutInvoiceEmailDeliveryPreferences",
+            "payments:CreatePaymentInstrument",
+            "payments:DeletePaymentInstrument",
+            "payments:GetPaymentInstrument",
+            "payments:GetPaymentStatus",
+            "payments:ListPaymentPreferences",
+            "payments:MakePayment",
+            "payments:UpdatePaymentPreferences",
+            "purchase-orders:AddPurchaseOrder",
+            "purchase-orders:DeletePurchaseOrder",
+            "purchase-orders:GetPurchaseOrder",
+            "purchase-orders:ListPurchaseOrderInvoices",
+            "purchase-orders:ListPurchaseOrders",
+            "purchase-orders:ModifyPurchaseOrders",
+            "purchase-orders:UpdatePurchaseOrder",
+            "purchase-orders:UpdatePurchaseOrderStatus",
+            "purchase-orders:ViewPurchaseOrders",
+            "tax:BatchPutTaxRegistration",
+            "tax:DeleteTaxRegistration",
+            "tax:GetExemptions",
+            "tax:GetTaxInheritance",
+            "tax:GetTaxInterview",
+            "tax:GetTaxRegistration",
+            "tax:GetTaxRegistrationDocument",
+            "tax:ListTaxRegistrations",
+            "tax:PutTaxInheritance",
+            "tax:PutTaxInterview",
+            "tax:PutTaxRegistration",
+            "tax:UpdateExemptions"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-10-05T20:37:01+00:00"
+    "CreateDate": "2023-03-08T18:01:33+00:00"
   },
   "CertificateManagerServiceRolePolicy": {
     "Document": {
@@ -62819,6 +63189,35 @@
     "VersionId": "v6",
     "IsDefaultVersion": true,
     "CreateDate": "2023-01-12T04:17:34+00:00"
+  },
+  "CustomerProfilesServiceLinkedRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/CustomerProfiles"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "iam:DeleteRole"
+          ],
+          "Resource": "arn:aws:iam::*:role/aws-service-role/profile.amazonaws.com/AWSServiceRoleForProfile_*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-03-07T22:56:52+00:00"
   },
   "DAXServiceRolePolicy": {
     "Document": {
@@ -70225,9 +70624,6 @@
             "mediaconnect:ListFlows",
             "mediaconnect:ListOfferings",
             "mediaconnect:ListReservations",
-            "mobilehub:ListAvailableFeatures",
-            "mobilehub:ListAvailableRegions",
-            "mobilehub:ListProjects",
             "mobiletargeting:GetApplicationSettings",
             "mobiletargeting:GetCampaigns",
             "mobiletargeting:GetImportJobs",
@@ -70290,9 +70686,9 @@
         }
       ]
     },
-    "VersionId": "v16",
+    "VersionId": "v17",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-05T20:51:00+00:00"
+    "CreateDate": "2023-03-06T15:59:28+00:00"
   },
   "WAFLoggingServiceRolePolicy": {
     "Document": {
