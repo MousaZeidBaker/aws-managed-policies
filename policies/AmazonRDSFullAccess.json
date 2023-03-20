@@ -17,6 +17,7 @@
           "cloudwatch:GetMetricStatistics",
           "cloudwatch:PutMetricAlarm",
           "cloudwatch:DeleteAlarms",
+          "cloudwatch:ListMetrics",
           "ec2:DescribeAccountAttributes",
           "ec2:DescribeAvailabilityZones",
           "ec2:DescribeCoipPools",
@@ -60,7 +61,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-12-19T20:09:11+00:00"
+  "CreateDate": "2023-03-15T13:44:54+00:00"
 }

@@ -60,7 +60,11 @@
           "s3:ObjectOwnerOverrideToBucketOwner",
           "s3:PutAccountPublicAccessBlock",
           "s3:PutBucketPolicy",
-          "s3:ListAllMyBuckets"
+          "s3:ListAllMyBuckets",
+          "ec2:PurchaseReservedInstancesOffering",
+          "ec2:AcceptReservedInstancesExchangeQuote",
+          "ec2:CreateReservedInstancesListing",
+          "savingsplans:CreateSavingsPlan"
         ],
         "Resource": [
           "*"
@@ -68,7 +72,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-08-10T21:15:53+00:00"
+  "CreateDate": "2023-03-16T00:20:25+00:00"
 }

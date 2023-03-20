@@ -9204,7 +9204,11 @@
             "s3:ObjectOwnerOverrideToBucketOwner",
             "s3:PutAccountPublicAccessBlock",
             "s3:PutBucketPolicy",
-            "s3:ListAllMyBuckets"
+            "s3:ListAllMyBuckets",
+            "ec2:PurchaseReservedInstancesOffering",
+            "ec2:AcceptReservedInstancesExchangeQuote",
+            "ec2:CreateReservedInstancesListing",
+            "savingsplans:CreateSavingsPlan"
           ],
           "Resource": [
             "*"
@@ -9212,9 +9216,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-10T21:15:53+00:00"
+    "CreateDate": "2023-03-16T00:20:25+00:00"
   },
   "AWSConfigMultiAccountSetupPolicy": {
     "Document": {
@@ -17763,15 +17767,17 @@
             "sso:AssociateProfile",
             "sso:DisassociateProfile",
             "sso:GetProfile",
-            "sso:ListProfileAssociations"
+            "sso:ListProfileAssociations",
+            "sso-directory:DescribeUser",
+            "sso-directory:DescribeGroup"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-20T20:27:55+00:00"
+    "CreateDate": "2023-03-15T22:17:26+00:00"
   },
   "AWSGreengrassFullAccess": {
     "Document": {
@@ -25300,6 +25306,8 @@
             "account:GetAccountInformation",
             "account:GetContactInformation",
             "aws-portal:*Billing",
+            "consolidatedbilling:GetAccountBillingRole",
+            "invoicing:GetInvoicePDF",
             "payments:GetPaymentInstrument",
             "payments:ListPaymentPreferences",
             "purchase-orders:AddPurchaseOrder",
@@ -25317,9 +25325,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-07T22:32:54+00:00"
+    "CreateDate": "2023-03-17T19:07:53+00:00"
   },
   "AWSQuickSightDescribeRDS": {
     "Document": {
@@ -27383,6 +27391,7 @@
             "config:DescribeConfigurationRecorders",
             "config:DescribeConfigurationRecorderStatus",
             "config:DescribeConfigRules",
+            "config:DescribeConfigRuleEvaluationStatus",
             "config:BatchGetResourceConfig",
             "config:SelectResourceConfig",
             "iam:GenerateCredentialReport",
@@ -27399,16 +27408,15 @@
           "Action": [
             "config:PutConfigRule",
             "config:DeleteConfigRule",
-            "config:GetComplianceDetailsByConfigRule",
-            "config:DescribeConfigRuleEvaluationStatus"
+            "config:GetComplianceDetailsByConfigRule"
           ],
           "Resource": "arn:aws:config:*:*:config-rule/aws-service-rule/*securityhub*"
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-07-14T20:32:48+00:00"
+    "CreateDate": "2023-03-17T23:50:43+00:00"
   },
   "AWSServiceCatalogAdminFullAccess": {
     "Document": {
@@ -28564,12 +28572,69 @@
               "ec2:ResourceTag/CreatedBy": "EC2 Image Builder"
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "inspector2:ListCoverage",
+            "inspector2:ListFindings"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecr:CreateRepository"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "EC2 Image Builder"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecr:TagResource"
+          ],
+          "Resource": "arn:aws:ecr:*:*:repository/image-builder-*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "EC2 Image Builder"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecr:BatchDeleteImage"
+          ],
+          "Resource": "arn:aws:ecr:*:*:repository/image-builder-*",
+          "Condition": {
+            "StringEquals": {
+              "ecr:ResourceTag/CreatedBy": "EC2 Image Builder"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "events:DeleteRule",
+            "events:DescribeRule",
+            "events:PutRule",
+            "events:PutTargets",
+            "events:RemoveTargets"
+          ],
+          "Resource": [
+            "arn:aws:events:*:*:rule/ImageBuilder-*"
+          ]
         }
       ]
     },
-    "VersionId": "v17",
+    "VersionId": "v18",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-16T00:09:27+00:00"
+    "CreateDate": "2023-03-13T20:33:11+00:00"
   },
   "AWSServiceRoleForIoTSiteWise": {
     "Document": {
@@ -29777,6 +29842,12 @@
             "backup:listReportPlans",
             "backup:listRestoreJobs",
             "backup:listTags",
+            "backup-gateway:getGateway",
+            "backup-gateway:getHypervisor",
+            "backup-gateway:getHypervisorPropertyMappings",
+            "backup-gateway:getVirtualMachine",
+            "backup-gateway:listGateways",
+            "backup-gateway:listHypervisors",
             "batch:describeComputeEnvironments",
             "batch:describeJobDefinitions",
             "batch:describeJobQueues",
@@ -29824,6 +29895,18 @@
             "chime:listSipRules",
             "chime:listVoiceConnectorGroups",
             "chime:listVoiceConnectors",
+            "cleanrooms:batchGetSchema",
+            "cleanrooms:getCollaboration",
+            "cleanrooms:getConfiguredTable",
+            "cleanrooms:getConfiguredTableAssociation",
+            "cleanrooms:getMembership",
+            "cleanrooms:getSchema",
+            "cleanrooms:listCollaborations",
+            "cleanrooms:listConfiguredTableAssociations",
+            "cleanrooms:listConfiguredTables",
+            "cleanrooms:listMembers",
+            "cleanrooms:listMemberships",
+            "cleanrooms:listSchemas",
             "cloud9:describeEnvironmentMemberships",
             "cloud9:describeEnvironments",
             "cloud9:listEnvironments",
@@ -31119,6 +31202,10 @@
             "mgn:describeVcenterClients",
             "mgn:getLaunchConfiguration",
             "mgn:getReplicationConfiguration",
+            "mgn:listApplications",
+            "mgn:listSourceServerActions",
+            "mgn:listTemplateActions",
+            "mgn:listWaves",
             "mobiletargeting:getAdmChannel",
             "mobiletargeting:getApnsChannel",
             "mobiletargeting:getApnsSandboxChannel",
@@ -31537,6 +31624,7 @@
             "s3:getMultiRegionAccessPoint",
             "s3:getMultiRegionAccessPointPolicy",
             "s3:getMultiRegionAccessPointPolicyStatus",
+            "s3:getMultiRegionAccessPointRoutes",
             "s3:getObjectLegalHold",
             "s3:getObjectRetention",
             "s3:getReplicationConfiguration",
@@ -31776,6 +31864,15 @@
             "ssm-incidents:listReplicationSets",
             "ssm-incidents:listResponsePlans",
             "ssm-incidents:listTimelineEvents",
+            "ssm-sap:getApplication",
+            "ssm-sap:getComponent",
+            "ssm-sap:getDatabase",
+            "ssm-sap:getOperation",
+            "ssm-sap:getResourcePermission",
+            "ssm-sap:listApplications",
+            "ssm-sap:listComponents",
+            "ssm-sap:listDatabases",
+            "ssm-sap:listOperations",
             "ssm:describeActivations",
             "ssm:describeAssociation",
             "ssm:describeAssociationExecutions",
@@ -31918,6 +32015,25 @@
             "transfer:listUsers",
             "transfer:listWorkflows",
             "transfer:sendWorkflowStepState",
+            "vpc-lattice:getAccessLogSubscription",
+            "vpc-lattice:getAuthPolicy",
+            "vpc-lattice:getListener",
+            "vpc-lattice:getResourcePolicy",
+            "vpc-lattice:getRule",
+            "vpc-lattice:getService",
+            "vpc-lattice:getServiceNetwork",
+            "vpc-lattice:getServiceNetworkServiceAssociation",
+            "vpc-lattice:getServiceNetworkVpcAssociation",
+            "vpc-lattice:getTargetGroup",
+            "vpc-lattice:listAccessLogSubscriptions",
+            "vpc-lattice:listListeners",
+            "vpc-lattice:listRules",
+            "vpc-lattice:listServiceNetworks",
+            "vpc-lattice:listServiceNetworkServiceAssociations",
+            "vpc-lattice:listServiceNetworkVpcAssociations",
+            "vpc-lattice:listServices",
+            "vpc-lattice:listTargetGroups",
+            "vpc-lattice:listTargets",
             "waf-regional:getByteMatchSet",
             "waf-regional:getChangeTokenStatus",
             "waf-regional:getIPSet",
@@ -32014,9 +32130,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v27",
+    "VersionId": "v28",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-10T18:39:33+00:00"
+    "CreateDate": "2023-03-16T20:29:42+00:00"
   },
   "AWSSystemsManagerAccountDiscoveryServicePolicy": {
     "Document": {
@@ -51893,6 +52009,7 @@
             "cloudwatch:GetMetricStatistics",
             "cloudwatch:PutMetricAlarm",
             "cloudwatch:DeleteAlarms",
+            "cloudwatch:ListMetrics",
             "ec2:DescribeAccountAttributes",
             "ec2:DescribeAvailabilityZones",
             "ec2:DescribeCoipPools",
@@ -51936,9 +52053,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-19T20:09:11+00:00"
+    "CreateDate": "2023-03-15T13:44:54+00:00"
   },
   "AmazonRDSPerformanceInsightsReadOnly": {
     "Document": {
@@ -52150,6 +52267,7 @@
           "Effect": "Allow",
           "Action": [
             "cloudwatch:GetMetricStatistics",
+            "cloudwatch:ListMetrics",
             "logs:DescribeLogStreams",
             "logs:GetLogEvents",
             "devops-guru:GetResourceCollection"
@@ -52158,9 +52276,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-19T20:44:13+00:00"
+    "CreateDate": "2023-03-15T14:02:16+00:00"
   },
   "AmazonRDSServiceRolePolicy": {
     "Document": {
@@ -66799,6 +66917,9 @@
             "access-analyzer:ListTagsForResource",
             "access-analyzer:ValidatePolicy",
             "account:GetAlternateContact",
+            "account:GetContactInformation",
+            "account:GetRegionOptStatus",
+            "account:ListRegions",
             "acm-pca:Describe*",
             "acm-pca:Get*",
             "acm-pca:List*",
@@ -66888,6 +67009,10 @@
             "arc-zonal-shift:GetManagedResource",
             "arc-zonal-shift:ListManagedResources",
             "arc-zonal-shift:ListZonalShifts",
+            "artifact:GetReport",
+            "artifact:GetReportMetadata",
+            "artifact:GetTermForReport",
+            "artifact:ListReports",
             "athena:Batch*",
             "athena:Get*",
             "athena:List*",
@@ -66928,6 +67053,14 @@
             "backup:List*",
             "batch:Describe*",
             "batch:List*",
+            "billing:GetBillingData",
+            "billing:GetBillingDetails",
+            "billing:GetBillingNotifications",
+            "billing:GetBillingPreferences",
+            "billing:GetContractInformation",
+            "billing:GetCredits",
+            "billing:GetIAMAccessPreference",
+            "billing:GetSellerOfRecord",
             "billing:ListBillingViews",
             "billingconductor:ListAccountAssociations",
             "billingconductor:ListBillingGroupCostReports",
@@ -67120,6 +67253,8 @@
             "connect:Describe*",
             "connect:GetFederationToken",
             "connect:List*",
+            "consolidatedbilling:GetAccountBillingRole",
+            "consolidatedbilling:ListLinkedAccounts",
             "databrew:DescribeDataset",
             "databrew:DescribeJob",
             "databrew:DescribeJobRun",
@@ -67369,6 +67504,8 @@
             "frauddetector:GetExternalModels",
             "frauddetector:GetKMSEncryptionKey",
             "frauddetector:GetLabels",
+            "frauddetector:GetListElements",
+            "frauddetector:GetListsMetadata",
             "frauddetector:GetModels",
             "frauddetector:GetModelVersion",
             "frauddetector:GetOutcomes",
@@ -67378,6 +67515,8 @@
             "frauddetector:ListTagsForResource",
             "freertos:Describe*",
             "freertos:List*",
+            "freetier:GetFreeTierAlertPreference",
+            "freetier:GetFreeTierUsage",
             "fsx:Describe*",
             "fsx:List*",
             "gamelift:Describe*",
@@ -67407,6 +67546,7 @@
             "glacier:List*",
             "globalaccelerator:Describe*",
             "globalaccelerator:List*",
+            "glue:BatchGetCrawlers",
             "glue:BatchGetDevEndpoints",
             "glue:BatchGetJobs",
             "glue:BatchGetPartition",
@@ -67460,6 +67600,7 @@
             "glue:GetWorkflowRunProperties",
             "glue:GetWorkflowRuns",
             "glue:ListCrawlers",
+            "glue:ListCrawls",
             "glue:ListDevEndpoints",
             "glue:ListJobs",
             "glue:ListMLTransforms",
@@ -67541,6 +67682,9 @@
             "internetmonitor:ListHealthEvents",
             "internetmonitor:ListMonitors",
             "internetmonitor:ListTagsForResource",
+            "invoicing:GetInvoiceEmailDeliveryPreferences",
+            "invoicing:GetInvoicePDF",
+            "invoicing:ListInvoiceSummaries",
             "iot:Describe*",
             "iot:Get*",
             "iot:List*",
@@ -67574,6 +67718,28 @@
             "iotevents:ListTagsForResource",
             "iotfleethub:DescribeApplication",
             "iotfleethub:ListApplications",
+            "iotfleetwise:GetCampaign",
+            "iotfleetwise:GetDecoderManifest",
+            "iotfleetwise:GetFleet",
+            "iotfleetwise:GetLoggingOptions",
+            "iotfleetwise:GetModelManifest",
+            "iotfleetwise:GetRegisterAccountStatus",
+            "iotfleetwise:GetSignalCatalog",
+            "iotfleetwise:GetVehicle",
+            "iotfleetwise:GetVehicleStatus",
+            "iotfleetwise:ListCampaigns",
+            "iotfleetwise:ListDecoderManifestNetworkInterfaces",
+            "iotfleetwise:ListDecoderManifests",
+            "iotfleetwise:ListDecoderManifestSignals",
+            "iotfleetwise:ListFleets",
+            "iotfleetwise:ListFleetsForVehicle",
+            "iotfleetwise:ListModelManifestNodes",
+            "iotfleetwise:ListModelManifests",
+            "iotfleetwise:ListSignalCatalogNodes",
+            "iotfleetwise:ListSignalCatalogs",
+            "iotfleetwise:ListTagsForResource",
+            "iotfleetwise:ListVehicles",
+            "iotfleetwise:ListVehiclesInFleet",
             "iotroborunner:GetDestination",
             "iotroborunner:GetSite",
             "iotroborunner:GetWorker",
@@ -67778,6 +67944,22 @@
             "logs:StartQuery",
             "logs:StopQuery",
             "logs:TestMetricFilter",
+            "lookoutequipment:DescribeDataIngestionJob",
+            "lookoutequipment:DescribeDataset",
+            "lookoutequipment:DescribeInferenceScheduler",
+            "lookoutequipment:DescribeLabel",
+            "lookoutequipment:DescribeLabelGroup",
+            "lookoutequipment:DescribeModel",
+            "lookoutequipment:ListDataIngestionJobs",
+            "lookoutequipment:ListDatasets",
+            "lookoutequipment:ListInferenceEvents",
+            "lookoutequipment:ListInferenceExecutions",
+            "lookoutequipment:ListInferenceSchedulers",
+            "lookoutequipment:ListLabelGroups",
+            "lookoutequipment:ListLabels",
+            "lookoutequipment:ListModels",
+            "lookoutequipment:ListSensorStatistics",
+            "lookoutequipment:ListTagsForResource",
             "lookoutmetrics:Describe*",
             "lookoutmetrics:Get*",
             "lookoutmetrics:List*",
@@ -67903,6 +68085,10 @@
             "mediastore:ListContainers",
             "mediastore:ListItems",
             "mediastore:ListTagsForResource",
+            "memorydb:DescribeClusters",
+            "memorydb:DescribeParameterGroups",
+            "memorydb:DescribeParameters",
+            "memorydb:ListTags",
             "mgh:Describe*",
             "mgh:GetHomeRegion",
             "mgh:List*",
@@ -67919,13 +68105,6 @@
             "mgn:ListTemplateActions",
             "mgn:ListWaves",
             "mobileanalytics:Get*",
-            "mobilehub:Describe*",
-            "mobilehub:Export*",
-            "mobilehub:Generate*",
-            "mobilehub:Get*",
-            "mobilehub:List*",
-            "mobilehub:Validate*",
-            "mobilehub:Verify*",
             "mobiletargeting:Get*",
             "mobiletargeting:List*",
             "monitron:GetProject",
@@ -68012,6 +68191,9 @@
             "organizations:List*",
             "outposts:Get*",
             "outposts:List*",
+            "payments:GetPaymentInstrument",
+            "payments:GetPaymentStatus",
+            "payments:ListPaymentPreferences",
             "personalize:Describe*",
             "personalize:Get*",
             "personalize:List*",
@@ -68039,6 +68221,10 @@
             "proton:ListServices",
             "proton:ListServiceTemplates",
             "proton:ListTagsForResource",
+            "purchase-orders:GetPurchaseOrder",
+            "purchase-orders:ListPurchaseOrderInvoices",
+            "purchase-orders:ListPurchaseOrders",
+            "purchase-orders:ViewPurchaseOrders",
             "qldb:DescribeJournalS3Export",
             "qldb:DescribeLedger",
             "qldb:GetBlock",
@@ -68298,9 +68484,17 @@
             "tag:DescribeReportCreation",
             "tag:Get*",
             "tax:GetExemptions",
+            "tax:GetExemptions",
+            "tax:GetTaxInheritance",
+            "tax:GetTaxInterview",
+            "tax:GetTaxRegistration",
+            "tax:GetTaxRegistrationDocument",
+            "tax:ListTaxRegistrations",
+            "timestream:DescribeBatchLoadTask",
             "timestream:DescribeDatabase",
             "timestream:DescribeEndpoints",
             "timestream:DescribeTable",
+            "timestream:ListBatchLoadTasks",
             "timestream:ListDatabases",
             "timestream:ListMeasures",
             "timestream:ListTables",
@@ -68340,9 +68534,9 @@
         }
       ]
     },
-    "VersionId": "v97",
+    "VersionId": "v98",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-03T16:08:45+00:00"
+    "CreateDate": "2023-03-13T18:25:39+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {

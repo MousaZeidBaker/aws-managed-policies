@@ -26,13 +26,15 @@
           "sso:AssociateProfile",
           "sso:DisassociateProfile",
           "sso:GetProfile",
-          "sso:ListProfileAssociations"
+          "sso:ListProfileAssociations",
+          "sso-directory:DescribeUser",
+          "sso-directory:DescribeGroup"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-12-20T20:27:55+00:00"
+  "CreateDate": "2023-03-15T22:17:26+00:00"
 }
