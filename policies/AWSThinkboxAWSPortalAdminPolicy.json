@@ -309,7 +309,8 @@
         "Effect": "Allow",
         "Action": [
           "cloudformation:EstimateTemplateCost",
-          "cloudformation:DescribeStacks"
+          "cloudformation:DescribeStacks",
+          "cloudformation:ListStacks"
         ],
         "Resource": "*"
       },
@@ -375,7 +376,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-08-20T17:16:03+00:00"
+  "CreateDate": "2023-03-23T20:12:28+00:00"
 }

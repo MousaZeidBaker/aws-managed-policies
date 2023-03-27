@@ -60,7 +60,8 @@
           "sqlworkbench:ListTaggedResources",
           "sqlworkbench:ListQueryExecutionHistory",
           "sqlworkbench:GetQueryExecutionHistory",
-          "sqlworkbench:ListNotebooks"
+          "sqlworkbench:ListNotebooks",
+          "sqlworkbench:GetSchemaInference"
         ],
         "Resource": "*"
       },
@@ -145,7 +146,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-02-01T20:10:01+00:00"
+  "CreateDate": "2023-03-21T09:03:27+00:00"
 }

@@ -303,6 +303,7 @@
         "Effect": "Allow",
         "Action": [
           "cloudformation:DescribeStacks",
+          "cloudformation:ListStacks",
           "clouddirectory:ListDirectories",
           "codebuild:BatchGetProjects",
           "codebuild:BatchGetBuilds",
@@ -351,7 +352,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-12-16T23:26:55+00:00"
+  "CreateDate": "2023-03-23T23:14:02+00:00"
 }

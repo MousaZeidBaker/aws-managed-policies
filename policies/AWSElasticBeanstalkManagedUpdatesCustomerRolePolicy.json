@@ -266,10 +266,26 @@
           "arn:aws:cloudwatch:*:*:alarm:awseb-*",
           "arn:aws:cloudwatch:*:*:alarm:eb-*"
         ]
+      },
+      {
+        "Sid": "AllowECSTagResource",
+        "Effect": "Allow",
+        "Action": [
+          "ecs:TagResource"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "ecs:CreateAction": [
+              "CreateCluster",
+              "RegisterTaskDefinition"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-01-23T23:48:56+00:00"
+  "CreateDate": "2023-03-23T23:15:54+00:00"
 }
