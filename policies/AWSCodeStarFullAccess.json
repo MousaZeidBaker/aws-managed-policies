@@ -20,6 +20,7 @@
         "Effect": "Allow",
         "Action": [
           "cloudformation:DescribeStack*",
+          "cloudformation:ListStacks*",
           "cloudformation:GetTemplateSummary"
         ],
         "Resource": [
@@ -28,7 +29,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2018-01-10T21:54:06+00:00"
+  "CreateDate": "2023-03-28T00:06:28+00:00"
 }

@@ -4610,7 +4610,8 @@
             "kms:Encrypt",
             "kms:GenerateDataKey",
             "kms:ReEncryptTo",
-            "kms:ReEncryptFrom"
+            "kms:ReEncryptFrom",
+            "kms:GenerateDataKeyWithoutPlaintext"
           ],
           "Resource": "*",
           "Condition": {
@@ -4872,9 +4873,9 @@
         }
       ]
     },
-    "VersionId": "v15",
+    "VersionId": "v16",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-10T22:45:54+00:00"
+    "CreateDate": "2023-03-28T23:32:58+00:00"
   },
   "AWSBackupServiceRolePolicyForS3Backup": {
     "Document": {
@@ -8875,6 +8876,7 @@
           "Effect": "Allow",
           "Action": [
             "cloudformation:DescribeStack*",
+            "cloudformation:ListStacks*",
             "cloudformation:GetTemplateSummary"
           ],
           "Resource": [
@@ -8883,9 +8885,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2018-01-10T21:54:06+00:00"
+    "CreateDate": "2023-03-28T00:06:28+00:00"
   },
   "AWSCodeStarNotificationsServiceRolePolicy": {
     "Document": {
@@ -15132,12 +15134,19 @@
             "drs:IssueAgentCertificateForDrs"
           ],
           "Resource": "arn:aws:drs:*:*:source-server/${aws:SourceIdentity}"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "drs:GetAgentInstallationAssetsForDrs"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-17T10:32:32+00:00"
+    "CreateDate": "2023-03-27T13:47:48+00:00"
   },
   "AWSElasticDisasterRecoveryConsoleFullAccess": {
     "Document": {
@@ -17133,6 +17142,7 @@
             "s3:ListBucket",
             "s3:GetBucketAcl",
             "s3:GetBucketLocation",
+            "cloudformation:ListStacks",
             "cloudformation:DescribeStacks",
             "cloudformation:GetTemplateSummary",
             "dynamodb:ListTables",
@@ -17272,9 +17282,9 @@
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-02-11T19:49:01+00:00"
+    "CreateDate": "2023-03-30T15:58:41+00:00"
   },
   "AWSGlueConsoleSageMakerNotebookFullAccess": {
     "Document": {
@@ -18126,6 +18136,25 @@
     "VersionId": "v5",
     "IsDefaultVersion": true,
     "CreateDate": "2018-11-14T00:35:02+00:00"
+  },
+  "AWSGroundStationAgentInstancePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "groundstation:RegisterAgent",
+            "groundstation:UpdateAgentStatus",
+            "groundstation:GetAgentConfiguration"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-03-29T15:23:12+00:00"
   },
   "AWSHealthFullAccess": {
     "Document": {
@@ -23544,6 +23573,11 @@
         },
         {
           "Effect": "Allow",
+          "Action": "acm:DescribeCertificate",
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
           "Action": "resource-groups:ListGroupResources",
           "Resource": "*"
         },
@@ -23584,9 +23618,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-14T17:09:19+00:00"
+    "CreateDate": "2023-03-30T17:19:09+00:00"
   },
   "AWSNetworkManagerCloudWANServiceRolePolicy": {
     "Document": {
@@ -34486,7 +34520,11 @@
             "cognito-idp:AssociateWebACL",
             "cognito-idp:DisassociateWebACL",
             "cognito-idp:ListResourcesForWebACL",
-            "cognito-idp:GetWebACLForResource"
+            "cognito-idp:GetWebACLForResource",
+            "apprunner:AssociateWebAcl",
+            "apprunner:DisassociateWebAcl",
+            "apprunner:DescribeWebAclForService",
+            "apprunner:ListServices"
           ],
           "Resource": "*"
         },
@@ -34527,9 +34565,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-25T20:13:28+00:00"
+    "CreateDate": "2023-03-30T20:56:05+00:00"
   },
   "AWSWAFConsoleReadOnlyAccess": {
     "Document": {
@@ -34556,16 +34594,18 @@
             "wafv2:CheckCapacity",
             "cognito-idp:ListUserPools",
             "cognito-idp:ListResourcesForWebACL",
-            "cognito-idp:GetWebACLForResource"
+            "cognito-idp:GetWebACLForResource",
+            "apprunner:DescribeWebAclForService",
+            "apprunner:ListServices"
           ],
           "Effect": "Allow",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-25T20:13:55+00:00"
+    "CreateDate": "2023-03-30T20:59:06+00:00"
   },
   "AWSWAFFullAccess": {
     "Document": {
@@ -34586,7 +34626,11 @@
             "cognito-idp:AssociateWebACL",
             "cognito-idp:DisassociateWebACL",
             "cognito-idp:ListResourcesForWebACL",
-            "cognito-idp:GetWebACLForResource"
+            "cognito-idp:GetWebACLForResource",
+            "apprunner:AssociateWebAcl",
+            "apprunner:DisassociateWebAcl",
+            "apprunner:DescribeWebAclForService",
+            "apprunner:ListServices"
           ],
           "Resource": "*"
         },
@@ -34627,9 +34671,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-25T20:11:30+00:00"
+    "CreateDate": "2023-03-30T20:24:20+00:00"
   },
   "AWSWAFReadOnlyAccess": {
     "Document": {
@@ -34646,16 +34690,18 @@
             "wafv2:Describe*",
             "wafv2:CheckCapacity",
             "cognito-idp:ListResourcesForWebACL",
-            "cognito-idp:GetWebACLForResource"
+            "cognito-idp:GetWebACLForResource",
+            "apprunner:DescribeWebAclForService",
+            "apprunner:ListServices"
           ],
           "Effect": "Allow",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-25T20:12:57+00:00"
+    "CreateDate": "2023-03-30T20:53:00+00:00"
   },
   "AWSWellArchitectedOrganizationsServiceRolePolicy": {
     "Document": {
@@ -39752,6 +39798,76 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2023-03-26T18:24:35+00:00"
+  },
+  "AmazonDataZonePreviewConsoleFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "datazonecontrol:*"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "kms:DescribeKey",
+            "kms:ListAliases",
+            "glue:GetConnections",
+            "glue:GetDatabase",
+            "redshift:DescribeClusters",
+            "ec2:DescribeSubnets",
+            "secretsmanager:ListSecrets",
+            "iam:ListRoles",
+            "sso:DescribeRegisteredRegions"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "glue:CreateConnection"
+          ],
+          "Resource": [
+            "arn:aws:glue:*:*:catalog",
+            "arn:aws:glue:*:*:connection/AmazonDataZone-*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:CreateSecret"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonDataZone-*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": [
+            "arn:aws:iam::*:role/AmazonDataZoneServiceRole*",
+            "arn:aws:iam::*:role/service-role/AmazonDataZoneServiceRole*",
+            "arn:aws:iam::*:role/AmazonDataZoneBootstrapRole*",
+            "arn:aws:iam::*:role/service-role/AmazonDataZoneBootstrapRole",
+            "arn:aws:iam::*:role/AmazonDataZoneDomainExecutionRole",
+            "arn:aws:iam::*:role/service-role/AmazonDataZoneDomainExecutionRole"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:passedToService": "datazonecontrol.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-03-28T15:16:04+00:00"
   },
   "AmazonDataZoneProjectDeploymentPermissionsBoundary": {
     "Document": {
@@ -53178,12 +53294,30 @@
               ]
             }
           }
+        },
+        {
+          "Action": [
+            "devops-guru:SearchInsights",
+            "devops-guru:ListAnomaliesForInsight"
+          ],
+          "Effect": "Allow",
+          "Resource": "*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "devops-guru:ServiceNames": [
+                "RDS"
+              ]
+            },
+            "Null": {
+              "devops-guru:ServiceNames": "false"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-15T13:44:54+00:00"
+    "CreateDate": "2023-03-30T12:05:22+00:00"
   },
   "AmazonRDSPerformanceInsightsReadOnly": {
     "Document": {
@@ -53401,12 +53535,30 @@
             "devops-guru:GetResourceCollection"
           ],
           "Resource": "*"
+        },
+        {
+          "Action": [
+            "devops-guru:SearchInsights",
+            "devops-guru:ListAnomaliesForInsight"
+          ],
+          "Effect": "Allow",
+          "Resource": "*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "devops-guru:ServiceNames": [
+                "RDS"
+              ]
+            },
+            "Null": {
+              "devops-guru:ServiceNames": "false"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-15T14:02:16+00:00"
+    "CreateDate": "2023-03-30T14:42:55+00:00"
   },
   "AmazonRDSServiceRolePolicy": {
     "Document": {
@@ -71837,6 +71989,141 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2015-09-03T20:48:59+00:00"
+  },
+  "VPCLatticeFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "vpc-lattice:*",
+            "acm:DescribeCertificate",
+            "acm:ListCertificates",
+            "cloudwatch:GetMetricData",
+            "cloudwatch:GetMetricStatistics",
+            "cloudwatch:ListMetrics",
+            "ec2:DescribeInstances",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcAttribute",
+            "ec2:DescribeVpcs",
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "firehose:DescribeDeliveryStream",
+            "firehose:ListDeliveryStreams",
+            "logs:DescribeLogGroups",
+            "s3:ListAllMyBuckets",
+            "lambda:ListAliases",
+            "lambda:ListFunctions",
+            "lambda:ListVersionsByFunction"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogDelivery",
+            "logs:DeleteLogDelivery",
+            "logs:GetLogDelivery",
+            "logs:ListLogDeliveries",
+            "logs:UpdateLogDelivery",
+            "logs:DescribeResourcePolicies"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "vpc-lattice.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/vpc-lattice.amazonaws.com/AWSServiceRoleForVpcLattice",
+          "Condition": {
+            "StringLike": {
+              "iam:AWSServiceName": "vpc-lattice.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/delivery.logs.amazonaws.com/AWSServiceRoleForLogDelivery",
+          "Condition": {
+            "StringLike": {
+              "iam:AWSServiceName": "delivery.logs.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "iam:DeleteServiceLinkedRole",
+            "iam:GetServiceLinkedRoleDeletionStatus"
+          ],
+          "Resource": "arn:aws:iam::*:role/aws-service-role/vpc-lattice.amazonaws.com/AWSServiceRoleForVpcLattice"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-03-30T02:49:02+00:00"
+  },
+  "VPCLatticeReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "vpc-lattice:Get*",
+            "vpc-lattice:List*",
+            "acm:DescribeCertificate",
+            "acm:ListCertificates",
+            "cloudwatch:GetMetricData",
+            "ec2:DescribeInstances",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcAttribute",
+            "ec2:DescribeVpcs",
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "firehose:DescribeDeliveryStream",
+            "firehose:ListDeliveryStreams",
+            "lambda:ListAliases",
+            "lambda:ListFunctions",
+            "lambda:ListVersionsByFunction",
+            "logs:DescribeLogGroups",
+            "logs:GetLogDelivery",
+            "logs:ListLogDeliveries",
+            "s3:ListAllMyBuckets"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-03-30T02:47:25+00:00"
+  },
+  "VPCLatticeServicesInvokeAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "vpc-lattice-svcs:Invoke"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-03-30T02:45:07+00:00"
   },
   "ViewOnlyAccess": {
     "Document": {
