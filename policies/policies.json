@@ -22326,6 +22326,60 @@
     "IsDefaultVersion": true,
     "CreateDate": "2022-11-19T00:08:42+00:00"
   },
+  "AWSMediaConnectServicePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecs:UpdateService",
+            "ecs:DeleteService",
+            "ecs:CreateService",
+            "ecs:DescribeServices",
+            "ecs:PutAttributes",
+            "ecs:DeleteAttributes",
+            "ecs:RunTask",
+            "ecs:ListTasks",
+            "ecs:StartTask",
+            "ecs:StopTask",
+            "ecs:DescribeTasks",
+            "ecs:DescribeContainerInstances",
+            "ecs:UpdateContainerInstancesState"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ArnLike": {
+              "ecs:cluster": "arn:aws:ecs:*:*:cluster/MediaConnectGateway"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecs:CreateCluster",
+            "ecs:RegisterTaskDefinition"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecs:UpdateCluster",
+            "ecs:UpdateClusterSettings",
+            "ecs:ListAttributes",
+            "ecs:DescribeClusters",
+            "ecs:DeregisterContainerInstance",
+            "ecs:ListContainerInstances"
+          ],
+          "Resource": "arn:aws:ecs:*:*:cluster/MediaConnectGateway"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-03T22:11:40+00:00"
+  },
   "AWSMediaTailorServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -22818,6 +22872,217 @@
     "VersionId": "v3",
     "IsDefaultVersion": true,
     "CreateDate": "2023-02-24T20:28:36+00:00"
+  },
+  "AWSMigrationHubRefactorSpaces-EnvironmentsWithoutBridgesFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "RefactorSpaces",
+          "Effect": "Allow",
+          "Action": [
+            "refactor-spaces:*"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcEndpointServiceConfigurations",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeTags",
+            "ec2:DescribeAccountAttributes",
+            "ec2:DescribeInternetGateways"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVpcEndpointServiceConfiguration"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteTags"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/refactor-spaces:environment-id": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:DeleteVpcEndpointServiceConfigurations",
+          "Resource": "*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/refactor-spaces:application-id": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:AddTags",
+            "elasticloadbalancing:CreateLoadBalancer"
+          ],
+          "Resource": "arn:*:elasticloadbalancing:*:*:loadbalancer/net/refactor-spaces-nlb-*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/refactor-spaces:application-id": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "elasticloadbalancing:DescribeTags",
+            "elasticloadbalancing:DescribeTargetHealth",
+            "elasticloadbalancing:DescribeTargetGroups",
+            "elasticloadbalancing:DescribeListeners"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:RegisterTargets",
+            "elasticloadbalancing:CreateLoadBalancerListeners",
+            "elasticloadbalancing:CreateListener",
+            "elasticloadbalancing:DeleteListener",
+            "elasticloadbalancing:DeleteTargetGroup"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/refactor-spaces:route-id": [
+                "*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "elasticloadbalancing:DeleteLoadBalancer",
+          "Resource": "arn:*:elasticloadbalancing:*:*:loadbalancer/net/refactor-spaces-nlb-*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:AddTags",
+            "elasticloadbalancing:CreateListener"
+          ],
+          "Resource": "arn:*:elasticloadbalancing:*:*:loadbalancer/net/refactor-spaces-nlb-*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/refactor-spaces:route-id": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "elasticloadbalancing:DeleteListener",
+          "Resource": "arn:*:elasticloadbalancing:*:*:listener/net/refactor-spaces-nlb-*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:DeleteTargetGroup",
+            "elasticloadbalancing:RegisterTargets"
+          ],
+          "Resource": "arn:*:elasticloadbalancing:*:*:targetgroup/refactor-spaces-tg-*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:AddTags",
+            "elasticloadbalancing:CreateTargetGroup"
+          ],
+          "Resource": "arn:*:elasticloadbalancing:*:*:targetgroup/refactor-spaces-tg-*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/refactor-spaces:route-id": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "apigateway:GET",
+            "apigateway:DELETE",
+            "apigateway:PATCH",
+            "apigateway:POST",
+            "apigateway:PUT",
+            "apigateway:UpdateRestApiPolicy"
+          ],
+          "Resource": [
+            "arn:aws:apigateway:*::/restapis",
+            "arn:aws:apigateway:*::/restapis/*",
+            "arn:aws:apigateway:*::/vpclinks",
+            "arn:aws:apigateway:*::/vpclinks/*",
+            "arn:aws:apigateway:*::/tags",
+            "arn:aws:apigateway:*::/tags/*"
+          ],
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/refactor-spaces:application-id": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "apigateway:GET",
+          "Resource": [
+            "arn:aws:apigateway:*::/vpclinks",
+            "arn:aws:apigateway:*::/vpclinks/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeOrganization"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:CreateStack"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "refactor-spaces.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "elasticloadbalancing.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-03T20:09:48+00:00"
   },
   "AWSMigrationHubRefactorSpacesFullAccess": {
     "Document": {
@@ -25534,6 +25799,38 @@
     "VersionId": "v3",
     "IsDefaultVersion": true,
     "CreateDate": "2022-11-18T18:28:24+00:00"
+  },
+  "AWSProtonServiceGitSyncServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ProtonServiceSync",
+          "Effect": "Allow",
+          "Action": [
+            "proton:GetService",
+            "proton:UpdateService",
+            "proton:UpdateServicePipeline",
+            "proton:GetServiceInstance",
+            "proton:CreateServiceInstance",
+            "proton:UpdateServiceInstance",
+            "proton:ListServiceInstances",
+            "proton:GetComponent",
+            "proton:CreateComponent",
+            "proton:ListComponents",
+            "proton:UpdateComponent",
+            "proton:GetEnvironment",
+            "proton:CreateEnvironment",
+            "proton:ListEnvironments",
+            "proton:UpdateEnvironment"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-04T15:55:48+00:00"
   },
   "AWSProtonSyncServiceRolePolicy": {
     "Document": {
@@ -39929,6 +40226,9 @@
             "kms:DescribeKey",
             "kms:EnableKeyRotation",
             "kms:DisableKeyRotation",
+            "kms:GenerateDataKey",
+            "kms:Encrypt",
+            "kms:Decrypt",
             "ec2:AuthorizeSecurityGroupEgress",
             "ec2:AuthorizeSecurityGroupIngress"
           ],
@@ -40211,9 +40511,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-21T02:54:30+00:00"
+    "CreateDate": "2023-04-04T02:48:38+00:00"
   },
   "AmazonDataZoneProjectRolePermissionsBoundary": {
     "Document": {
@@ -53979,7 +54279,7 @@
           "Action": [
             "secretsmanager:GetSecretValue"
           ],
-          "Resource": "*",
+          "Resource": "arn:aws:secretsmanager:*:*:secret:*",
           "Condition": {
             "StringLike": {
               "secretsmanager:ResourceTag/RedshiftDataFullAccess": "*"
@@ -53996,10 +54296,16 @@
           ]
         },
         {
+          "Sid": "GetCredentialsWithFederatedIAMCredentials",
+          "Effect": "Allow",
+          "Action": "redshift:GetClusterCredentialsWithIAM",
+          "Resource": "arn:aws:redshift:*:*:dbname:*/*"
+        },
+        {
           "Sid": "GetCredentialsForServerless",
           "Effect": "Allow",
           "Action": "redshift-serverless:GetCredentials",
-          "Resource": "*",
+          "Resource": "arn:aws:redshift-serverless:*:*:workgroup/*",
           "Condition": {
             "StringLike": {
               "aws:ResourceTag/RedshiftDataFullAccess": "*"
@@ -54027,9 +54333,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-07-12T03:34:16+00:00"
+    "CreateDate": "2023-04-07T18:18:32+00:00"
   },
   "AmazonRedshiftFullAccess": {
     "Document": {
@@ -54987,6 +55293,48 @@
         },
         {
           "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/Redshift": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AuthorizeSecurityGroupEgress",
+            "ec2:AuthorizeSecurityGroupIngress",
+            "ec2:RevokeSecurityGroupEgress",
+            "ec2:RevokeSecurityGroupIngress",
+            "ec2:ModifySecurityGroupRules",
+            "ec2:DeleteSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/Redshift": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
           "Action": "ec2:CreateTags",
           "Resource": [
             "arn:aws:ec2:*:*:subnet/*",
@@ -55039,9 +55387,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-07T20:27:51+00:00"
+    "CreateDate": "2023-04-05T20:32:17+00:00"
   },
   "AmazonRekognitionCustomLabelsFullAccess": {
     "Document": {
