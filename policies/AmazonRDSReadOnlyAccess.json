@@ -22,6 +22,7 @@
         "Action": [
           "cloudwatch:GetMetricStatistics",
           "cloudwatch:ListMetrics",
+          "cloudwatch:GetMetricData",
           "logs:DescribeLogStreams",
           "logs:GetLogEvents",
           "devops-guru:GetResourceCollection"
@@ -48,7 +49,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-03-30T14:42:55+00:00"
+  "CreateDate": "2023-04-14T12:32:09+00:00"
 }
