@@ -35,7 +35,10 @@
           "ec2:DescribeSubnets",
           "ec2:DescribeVolumes",
           "ec2:GetEbsEncryptionByDefault",
-          "ec2:GetEbsDefaultKmsKeyId"
+          "ec2:GetEbsDefaultKmsKeyId",
+          "ec2:DescribeKeyPairs",
+          "ec2:DescribeCapacityReservations",
+          "ec2:DescribeHosts"
         ],
         "Resource": "*"
       },
@@ -95,12 +98,26 @@
         "Action": [
           "ec2:CreateLaunchTemplateVersion",
           "ec2:ModifyLaunchTemplate",
-          "ec2:DeleteLaunchTemplateVersions"
+          "ec2:DeleteLaunchTemplateVersions",
+          "ec2:CreateTags",
+          "ec2:DeleteTags"
         ],
         "Resource": "arn:aws:ec2:*:*:launch-template/*",
         "Condition": {
           "Null": {
             "aws:ResourceTag/AWSElasticDisasterRecoveryManaged": "false"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ec2:CreateLaunchTemplate"
+        ],
+        "Resource": "arn:aws:ec2:*:*:launch-template/*",
+        "Condition": {
+          "Null": {
+            "aws:RequestTag/AWSElasticDisasterRecoveryManaged": "false"
           }
         }
       },
@@ -320,10 +337,22 @@
             "aws:ViaAWSService": "true"
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": "ec2:CreateTags",
+        "Resource": "arn:aws:ec2:*:*:launch-template/*",
+        "Condition": {
+          "StringEquals": {
+            "ec2:CreateAction": [
+              "CreateLaunchTemplate"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-05-29T08:40:00+00:00"
+  "CreateDate": "2023-04-19T09:52:11+00:00"
 }

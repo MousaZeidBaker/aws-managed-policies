@@ -78,7 +78,8 @@
         "Action": [
           "ec2:DescribeSecurityGroups",
           "ec2:DescribeSubnets",
-          "ec2:DescribeVpcs"
+          "ec2:DescribeVpcs",
+          "ec2:DescribeRouteTables"
         ],
         "Resource": "*",
         "Condition": {
@@ -91,7 +92,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-09-29T18:27:51+00:00"
+  "CreateDate": "2023-04-19T20:43:42+00:00"
 }

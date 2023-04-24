@@ -1873,12 +1873,22 @@
               "aws:CalledVia": "mgn.amazonaws.com"
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ssm:ListCommands",
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "ssm.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-20T10:43:04+00:00"
+    "CreateDate": "2023-04-20T17:28:13+00:00"
   },
   "AWSApplicationMigrationMGHAccess": {
     "Document": {
@@ -15245,7 +15255,10 @@
             "ec2:DescribeSubnets",
             "ec2:DescribeVolumes",
             "ec2:GetEbsEncryptionByDefault",
-            "ec2:GetEbsDefaultKmsKeyId"
+            "ec2:GetEbsDefaultKmsKeyId",
+            "ec2:DescribeKeyPairs",
+            "ec2:DescribeCapacityReservations",
+            "ec2:DescribeHosts"
           ],
           "Resource": "*"
         },
@@ -15305,12 +15318,26 @@
           "Action": [
             "ec2:CreateLaunchTemplateVersion",
             "ec2:ModifyLaunchTemplate",
-            "ec2:DeleteLaunchTemplateVersions"
+            "ec2:DeleteLaunchTemplateVersions",
+            "ec2:CreateTags",
+            "ec2:DeleteTags"
           ],
           "Resource": "arn:aws:ec2:*:*:launch-template/*",
           "Condition": {
             "Null": {
               "aws:ResourceTag/AWSElasticDisasterRecoveryManaged": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateLaunchTemplate"
+          ],
+          "Resource": "arn:aws:ec2:*:*:launch-template/*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/AWSElasticDisasterRecoveryManaged": "false"
             }
           }
         },
@@ -15530,12 +15557,24 @@
               "aws:ViaAWSService": "true"
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "arn:aws:ec2:*:*:launch-template/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "CreateLaunchTemplate"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-29T08:40:00+00:00"
+    "CreateDate": "2023-04-19T09:52:11+00:00"
   },
   "AWSElasticDisasterRecoveryConversionServerPolicy": {
     "Document": {
@@ -33372,6 +33411,24 @@
         {
           "Effect": "Allow",
           "Action": [
+            "s3:PutBucketPolicy"
+          ],
+          "Resource": [
+            "arn:aws:s3::*:logs-for-aws-portal-cache*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:PutBucketOwnershipControls"
+          ],
+          "Resource": [
+            "arn:aws:s3::*:logs-for-stack*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "s3:ListAllMyBuckets"
           ],
           "Resource": "*"
@@ -33473,9 +33530,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-23T20:12:28+00:00"
+    "CreateDate": "2023-04-18T18:24:02+00:00"
   },
   "AWSThinkboxAWSPortalGatewayPolicy": {
     "Document": {
@@ -34560,6 +34617,40 @@
     "VersionId": "v9",
     "IsDefaultVersion": true,
     "CreateDate": "2021-08-10T22:41:30+00:00"
+  },
+  "AWSUserNotificationsServiceLinkedRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "events:DescribeRule",
+            "events:PutRule",
+            "events:PutTargets",
+            "events:DeleteRule",
+            "events:ListTargetsByRule",
+            "events:RemoveTargets"
+          ],
+          "Resource": [
+            "arn:aws:events:*:*:rule/AWSUserNotificationsManagedRule-*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/Notifications"
+            }
+          },
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-19T13:28:34+00:00"
   },
   "AWSVPCS2SVpnServiceRolePolicy": {
     "Document": {
@@ -38265,7 +38356,9 @@
         {
           "Effect": "Allow",
           "Action": [
-            "s3:ListAllMyBuckets"
+            "s3:ListAllMyBuckets",
+            "servicequotas:GetServiceQuota",
+            "cloudwatch:GetMetricData"
           ],
           "Resource": "*"
         },
@@ -38416,9 +38509,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-03-31T19:03:33+00:00"
+    "CreateDate": "2023-04-19T16:25:29+00:00"
   },
   "AmazonBraketJobsExecutionPolicy": {
     "Document": {
@@ -39340,6 +39433,92 @@
     "VersionId": "v3",
     "IsDefaultVersion": true,
     "CreateDate": "2023-02-22T20:35:15+00:00"
+  },
+  "AmazonCodeCatalystFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CodeCatalystResourceAccess",
+          "Effect": "Allow",
+          "Action": [
+            "codecatalyst:*",
+            "iam:ListRoles"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CodeCatalystAssociateIAMRole",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": [
+                "codecatalyst.amazonaws.com",
+                "codecatalyst-runner.amazonaws.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-20T16:50:16+00:00"
+  },
+  "AmazonCodeCatalystReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "codecatalyst:Get*",
+            "codecatalyst:List*"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-20T16:49:12+00:00"
+  },
+  "AmazonCodeCatalystSupportAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "support:DescribeAttachment",
+            "support:DescribeCaseAttributes",
+            "support:DescribeCases",
+            "support:DescribeCommunications",
+            "support:DescribeIssueTypes",
+            "support:DescribeServices",
+            "support:DescribeSeverityLevels",
+            "support:DescribeSupportLevel",
+            "support:SearchForCases",
+            "support:AddAttachmentsToSet",
+            "support:AddCommunicationToCase",
+            "support:CreateCase",
+            "support:InitiateCallForCase",
+            "support:InitiateChatForCase",
+            "support:PutCaseAttributes",
+            "support:RateCaseCommunication",
+            "support:ResolveCase"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-20T12:34:44+00:00"
   },
   "AmazonCodeGuruProfilerAgentAccess": {
     "Document": {
@@ -44790,15 +44969,18 @@
           ],
           "Condition": {
             "StringEquals": {
-              "cloudwatch:namespace": "AWS/EMRServerless"
+              "cloudwatch:namespace": [
+                "AWS/EMRServerless",
+                "AWS/Usage"
+              ]
             }
           }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-20T23:15:42+00:00"
+    "CreateDate": "2023-04-20T15:47:33+00:00"
   },
   "AmazonEMRServicePolicy_v2": {
     "Document": {
@@ -46844,7 +47026,8 @@
           "Action": [
             "ec2:DescribeSecurityGroups",
             "ec2:DescribeSubnets",
-            "ec2:DescribeVpcs"
+            "ec2:DescribeVpcs",
+            "ec2:DescribeRouteTables"
           ],
           "Resource": "*",
           "Condition": {
@@ -46857,9 +47040,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-29T18:27:51+00:00"
+    "CreateDate": "2023-04-19T20:43:42+00:00"
   },
   "AmazonFSxReadOnlyAccess": {
     "Document": {
@@ -48045,6 +48228,11 @@
         },
         {
           "Effect": "Allow",
+          "Action": "codeguru-security:BatchGetFindings",
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
           "Condition": {
@@ -48068,9 +48256,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-29T19:10:15+00:00"
+    "CreateDate": "2023-04-19T21:33:48+00:00"
   },
   "AmazonInspector2ReadOnlyAccess": {
     "Document": {
@@ -66552,7 +66740,6 @@
           "Effect": "Allow",
           "Action": [
             "config:DeleteConfigRule",
-            "config:DescribeComplianceByConfigRule",
             "config:GetComplianceDetailsByConfigRule",
             "config:PutConfigRule",
             "config:StartConfigRulesEvaluation"
@@ -66562,6 +66749,7 @@
         {
           "Effect": "Allow",
           "Action": [
+            "config:DescribeComplianceByConfigRule",
             "config:DescribeConfigurationRecorders",
             "config:DescribeConfigurationRecorderStatus",
             "config:PutConfigurationRecorder",
@@ -67063,9 +67251,9 @@
         }
       ]
     },
-    "VersionId": "v27",
+    "VersionId": "v28",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-03T23:53:37+00:00"
+    "CreateDate": "2023-04-21T18:33:58+00:00"
   },
   "FSxDeleteServiceLinkedRoleAccess": {
     "Document": {
@@ -68857,6 +69045,208 @@
     "IsDefaultVersion": true,
     "CreateDate": "2019-09-26T22:14:29+00:00"
   },
+  "ROSAAmazonEBSCSIDriverOperatorPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeSnapshots",
+            "ec2:DescribeTags",
+            "ec2:DescribeVolumes",
+            "ec2:DescribeVolumesModifications"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AttachVolume",
+            "ec2:DetachVolume"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*",
+            "arn:aws:ec2:*:*:volume/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteVolume",
+            "ec2:ModifyVolume"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:volume/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVolume"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:volume/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "CreateSnapshotResourceTag",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSnapshot"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:volume/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "CreateSnapshotRequestTag",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSnapshot"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:snapshot/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteSnapshot"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:snapshot/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:volume/*",
+            "arn:aws:ec2:*:*:snapshot/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "CreateVolume",
+                "CreateSnapshot"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-20T22:36:00+00:00"
+  },
+  "ROSACloudNetworkConfigOperatorPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DescribeNetworkResources",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeInstanceStatus",
+            "ec2:DescribeInstanceTypes",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeNetworkInterfaces"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ModifyEIPs",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:UnassignPrivateIpAddresses",
+            "ec2:AssignPrivateIpAddresses",
+            "ec2:UnassignIpv6Addresses",
+            "ec2:AssignIpv6Addresses"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-20T22:34:36+00:00"
+  },
+  "ROSAIngressOperatorPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "route53:ListHostedZones",
+            "tag:GetResources"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "route53:ChangeResourceRecordSets"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAllValues:StringLike": {
+              "route53:ChangeResourceRecordSetsNormalizedRecordNames": [
+                "*.openshiftapps.com",
+                "*.devshift.org",
+                "*.openshiftusgov.com",
+                "*.devshiftusgov.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-20T22:37:08+00:00"
+  },
   "ROSAManageSubscription": {
     "Document": {
       "Version": "2012-10-17",
@@ -68888,6 +69278,25 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2022-04-11T20:58:08+00:00"
+  },
+  "ROSAWorkerInstancePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "Ec2ReadOnly",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeRegions"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-04-20T22:35:32+00:00"
   },
   "ReadOnlyAccess": {
     "Document": {
