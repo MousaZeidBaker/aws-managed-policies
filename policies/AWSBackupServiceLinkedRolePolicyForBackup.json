@@ -233,8 +233,8 @@
       {
         "Effect": "Allow",
         "Action": [
-          "sysops-sap:GetOperation",
-          "ssm-sap:GetOperation"
+          "ssm-sap:GetOperation",
+          "ssm-sap:UpdateHANABackupSettings"
         ],
         "Resource": "*"
       },
@@ -250,7 +250,6 @@
           "timestream:GetAwsRestoreStatus"
         ],
         "Resource": [
-          "arn:aws:timestream:*:*:database/*/table/*",
           "arn:aws:timestream:*:*:database/*"
         ]
       },
@@ -289,10 +288,19 @@
         "Resource": [
           "arn:aws:redshift:*:*:cluster:*"
         ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "cloudformation:ListStacks"
+        ],
+        "Resource": [
+          "arn:aws:cloudformation:*:*:stack/*"
+        ]
       }
     ]
   },
-  "VersionId": "v12",
+  "VersionId": "v13",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-10T22:51:20+00:00"
+  "CreateDate": "2023-04-24T21:22:45+00:00"
 }
