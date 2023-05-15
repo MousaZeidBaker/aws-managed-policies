@@ -14832,6 +14832,22 @@
           ]
         },
         {
+          "Sid": "AllowECSTagResource",
+          "Effect": "Allow",
+          "Action": [
+            "ecs:TagResource"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ecs:CreateAction": [
+                "CreateCluster",
+                "RegisterTaskDefinition"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "AllowS3OperationsOnElasticBeanstalkBuckets",
           "Effect": "Allow",
           "Action": [
@@ -14854,12 +14870,28 @@
           }
         },
         {
+          "Sid": "AllowELBAddTags",
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:AddTags"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "elasticloadbalancing:CreateAction": [
+                "CreateLoadBalancer"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "AllowOperations",
           "Effect": "Allow",
           "Action": [
             "autoscaling:AttachInstances",
             "autoscaling:CreateAutoScalingGroup",
             "autoscaling:CreateLaunchConfiguration",
+            "autoscaling:CreateOrUpdateTags",
             "autoscaling:DeleteLaunchConfiguration",
             "autoscaling:DeleteAutoScalingGroup",
             "autoscaling:DeleteScheduledAction",
@@ -14957,9 +14989,9 @@
         }
       ]
     },
-    "VersionId": "v16",
+    "VersionId": "v17",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-06-14T23:18:46+00:00"
+    "CreateDate": "2023-05-10T19:29:34+00:00"
   },
   "AWSElasticBeanstalkServiceRolePolicy": {
     "Document": {
@@ -15639,6 +15671,39 @@
     "IsDefaultVersion": true,
     "CreateDate": "2021-11-17T13:42:23+00:00"
   },
+  "AWSElasticDisasterRecoveryCrossAccountReplicationPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVolumes",
+            "ec2:DescribeInstances",
+            "drs:DescribeSourceServers",
+            "drs:DescribeReplicationConfigurationTemplates",
+            "drs:CreateSourceServerForDrs"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "drs:TagResource"
+          ],
+          "Resource": "arn:aws:drs:*:*:source-server/*",
+          "Condition": {
+            "StringEquals": {
+              "drs:CreateAction": "CreateSourceServerForDrs"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-05-14T07:16:47+00:00"
+  },
   "AWSElasticDisasterRecoveryEc2InstancePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -15679,12 +15744,30 @@
             "drs:GetAgentReplicationInfoForDrs"
           ],
           "Resource": "arn:aws:drs:*:*:source-server/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "sts:AssumeRole",
+            "sts:TagSession"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/service-role/DRSCrossAccountAgentAuthorizedRole_*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "aws:RequestTag/SourceInstanceARN": "${ec2:SourceInstanceARN}"
+            },
+            "ForAnyValue:StringEquals": {
+              "sts:TransitiveTagKeys": "SourceInstanceARN"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-26T12:30:18+00:00"
+    "CreateDate": "2023-05-14T07:27:48+00:00"
   },
   "AWSElasticDisasterRecoveryFailbackInstallationPolicy": {
     "Document": {
@@ -15888,12 +15971,30 @@
             "drs:GetAgentReplicationInfoForDrs"
           ],
           "Resource": "arn:aws:drs:*:*:source-server/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "sts:AssumeRole",
+            "sts:TagSession"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/service-role/DRSCrossAccountAgentAuthorizedRole_*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "aws:RequestTag/SourceInstanceARN": "${ec2:SourceInstanceARN}"
+            },
+            "ForAnyValue:StringEquals": {
+              "sts:TransitiveTagKeys": "SourceInstanceARN"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-30T13:17:11+00:00"
+    "CreateDate": "2023-05-14T07:32:48+00:00"
   },
   "AWSElasticDisasterRecoveryReplicationServerPolicy": {
     "Document": {
@@ -17107,6 +17208,26 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2022-10-26T15:33:44+00:00"
+  },
+  "AWSFinSpaceServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/FinSpace"
+            }
+          },
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-05-12T16:42:03+00:00"
   },
   "AWSForWordPressPluginPolicy": {
     "Document": {
@@ -21565,13 +21686,27 @@
             "s3:CreateBucket",
             "s3:DeleteBucket",
             "s3:DeleteBucketPolicy",
-            "s3:DeleteObject*",
+            "s3:DeleteObject",
+            "s3:DeleteObjectTagging",
+            "s3:DeleteObjectVersion",
+            "s3:DeleteObjectVersionTagging",
             "s3:GetBucketLocation",
             "s3:GetBucketLogging",
             "s3:GetBucketPolicy",
             "s3:GetBucketVersioning",
             "s3:GetLifecycleConfiguration",
-            "s3:GetObject*",
+            "s3:GetObject",
+            "s3:GetObjectAcl",
+            "s3:GetObjectAttributes",
+            "s3:GetObjectLegalHold",
+            "s3:GetObjectRetention",
+            "s3:GetObjectTagging",
+            "s3:GetObjectVersion",
+            "s3:GetObjectVersionAcl",
+            "s3:GetObjectVersionAttributes",
+            "s3:GetObjectVersionForReplication",
+            "s3:GetObjectVersionTagging",
+            "s3:GetObjectVersionTorrent",
             "s3:ListBucket",
             "s3:ListBucketVersions",
             "s3:PutBucketAcl",
@@ -21590,21 +21725,44 @@
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateChangeSet",
+            "cloudformation:DeleteChangeSet",
             "cloudformation:DeleteStack",
             "cloudformation:DescribeChangeSet",
+            "cloudformation:DescribeStackEvents",
             "cloudformation:DescribeStackResources",
             "cloudformation:DescribeStacks",
             "cloudformation:ExecuteChangeSet",
+            "cloudformation:GetTemplate",
             "cloudformation:GetTemplateSummary",
-            "cloudformation:UpdateTermination*"
+            "cloudformation:TagResource",
+            "cloudformation:UntagResource",
+            "cloudformation:UpdateTerminationProtection"
           ],
           "Resource": "arn:aws:cloudformation:*:*:stack/ams-cdk-toolkit*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecr:CreateRepository",
+            "ecr:DeleteLifecyclePolicy",
+            "ecr:DeleteRepository",
+            "ecr:DeleteRepositoryPolicy",
+            "ecr:DescribeRepositories",
+            "ecr:GetLifecyclePolicy",
+            "ecr:ListTagsForResource",
+            "ecr:PutImageTagMutability",
+            "ecr:PutLifecyclePolicy",
+            "ecr:SetRepositoryPolicy",
+            "ecr:TagResource",
+            "ecr:UntagResource"
+          ],
+          "Resource": "arn:aws:ecr:*:*:repository/ams-cdktoolkit*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-30T22:10:28+00:00"
+    "CreateDate": "2023-05-10T17:48:44+00:00"
   },
   "AWSManagedServices_ContactsServiceRolePolicy": {
     "Document": {
@@ -30369,15 +30527,16 @@
           "Action": [
             "supportplans:GetSupportPlan",
             "supportplans:GetSupportPlanUpdateStatus",
-            "supportplans:StartSupportPlanUpdate"
+            "supportplans:StartSupportPlanUpdate",
+            "supportplans:CreateSupportPlanSchedule"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-27T18:19:30+00:00"
+    "CreateDate": "2023-05-09T21:07:01+00:00"
   },
   "AWSSupportPlansReadOnlyAccess": {
     "Document": {
@@ -39965,6 +40124,45 @@
     "VersionId": "v4",
     "IsDefaultVersion": true,
     "CreateDate": "2020-11-27T15:09:46+00:00"
+  },
+  "AmazonCodeGuruSecurityFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AmazonCodeGuruSecurityFullAccess",
+          "Effect": "Allow",
+          "Action": [
+            "codeguru-security:*"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-05-09T21:03:38+00:00"
+  },
+  "AmazonCodeGuruSecurityScanAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AmazonCodeGuruSecurityScanAccess",
+          "Effect": "Allow",
+          "Action": [
+            "codeguru-security:CreateScan",
+            "codeguru-security:CreateUploadUrl",
+            "codeguru-security:GetScan",
+            "codeguru-security:GetFindings"
+          ],
+          "Resource": "arn:aws:codeguru-security:*:*:scans/*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-05-09T20:54:32+00:00"
   },
   "AmazonCognitoDeveloperAuthenticatedIdentities": {
     "Document": {
@@ -55895,59 +56093,6 @@
         {
           "Effect": "Allow",
           "Action": [
-            "ec2:AuthorizeSecurityGroupEgress",
-            "ec2:AuthorizeSecurityGroupIngress",
-            "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
-            "ec2:ReplaceRouteTableAssociation",
-            "ec2:CreateRouteTable",
-            "ec2:AttachInternetGateway",
-            "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
-            "ec2:AssociateRouteTable",
-            "ec2:RevokeSecurityGroupIngress",
-            "ec2:CreateRoute",
-            "ec2:CreateSecurityGroup",
-            "ec2:RevokeSecurityGroupEgress",
-            "ec2:ModifyVpcAttribute",
-            "ec2:CreateSubnet"
-          ],
-          "Resource": [
-            "arn:aws:ec2:*:*:subnet/*",
-            "arn:aws:ec2:*:*:route-table/*",
-            "arn:aws:ec2:*:*:security-group/*",
-            "arn:aws:ec2:*:*:vpc/*",
-            "arn:aws:ec2:*:*:internet-gateway/*"
-          ],
-          "Condition": {
-            "StringEquals": {
-              "aws:ResourceTag/Purpose": "RedshiftMigrateToVpc"
-            }
-          }
-        },
-        {
-          "Effect": "Allow",
-          "Action": [
-            "ec2:CreateSecurityGroup",
-            "ec2:CreateInternetGateway",
-            "ec2:CreateVpc",
-            "ec2:CreateRouteTable",
-            "ec2:CreateSubnet"
-          ],
-          "Resource": [
-            "arn:aws:ec2:*:*:subnet/*",
-            "arn:aws:ec2:*:*:route-table/*",
-            "arn:aws:ec2:*:*:security-group/*",
-            "arn:aws:ec2:*:*:vpc/*",
-            "arn:aws:ec2:*:*:internet-gateway/*"
-          ],
-          "Condition": {
-            "StringEquals": {
-              "aws:RequestTag/Purpose": "RedshiftMigrateToVpc"
-            }
-          }
-        },
-        {
-          "Effect": "Allow",
-          "Action": [
             "ec2:CreateSecurityGroup"
           ],
           "Resource": [
@@ -56041,9 +56186,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-05T20:32:17+00:00"
+    "CreateDate": "2023-05-08T18:57:44+00:00"
   },
   "AmazonRekognitionCustomLabelsFullAccess": {
     "Document": {
@@ -58885,12 +59030,17 @@
           "Effect": "Allow",
           "Action": "sagemaker-geospatial:GetEarthObservationJob",
           "Resource": "arn:aws:sagemaker-geospatial:*:*:earth-observation-job/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "sagemaker-geospatial:GetRasterDataCollection",
+          "Resource": "arn:aws:sagemaker-geospatial:*:*:raster-data-collection/*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-30T10:08:36+00:00"
+    "CreateDate": "2023-05-10T20:28:02+00:00"
   },
   "AmazonSageMakerGeospatialFullAccess": {
     "Document": {
@@ -65118,7 +65268,8 @@
           "Effect": "Allow",
           "Action": [
             "cloudFormation:DescribeStacks",
-            "cloudFormation:ListStackResources"
+            "cloudFormation:ListStackResources",
+            "cloudFormation:ListStacks"
           ],
           "Resource": [
             "*"
@@ -65478,9 +65629,9 @@
         }
       ]
     },
-    "VersionId": "v23",
+    "VersionId": "v24",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-23T21:38:30+00:00"
+    "CreateDate": "2023-05-11T16:34:40+00:00"
   },
   "ComprehendDataAccessRolePolicy": {
     "Document": {
@@ -66210,7 +66361,8 @@
             "application-autoscaling:RegisterScalableTarget",
             "application-autoscaling:DescribeScalableTargets",
             "application-autoscaling:PutScalingPolicy",
-            "application-autoscaling:DescribeScalingPolicies"
+            "application-autoscaling:DescribeScalingPolicies",
+            "account:ListRegions"
           ],
           "Resource": "*"
         },
@@ -66230,9 +66382,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-09-09T18:43:04+00:00"
+    "CreateDate": "2023-05-10T17:04:21+00:00"
   },
   "EC2FastLaunchServiceRolePolicy": {
     "Document": {
@@ -71355,6 +71507,18 @@
             "nimble:ListStudioMembers",
             "nimble:ListStudios",
             "nimble:ListTagsForResource",
+            "notifications-contacts:GetEmailContact",
+            "notifications-contacts:ListEmailContacts",
+            "notifications-contacts:ListTagsForResource",
+            "notifications:GetEventRule",
+            "notifications:GetNotificationConfiguration",
+            "notifications:GetNotificationEvent",
+            "notifications:ListChannels",
+            "notifications:ListEventRules",
+            "notifications:ListNotificationConfigurations",
+            "notifications:ListNotificationEvents",
+            "notifications:ListNotificationHubs",
+            "notifications:ListTagsForResource",
             "oam:GetLink",
             "oam:GetSink",
             "oam:GetSinkPolicy",
@@ -71734,9 +71898,9 @@
         }
       ]
     },
-    "VersionId": "v99",
+    "VersionId": "v100",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-27T19:19:51+00:00"
+    "CreateDate": "2023-05-08T15:09:55+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {

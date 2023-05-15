@@ -7,13 +7,14 @@
         "Action": [
           "supportplans:GetSupportPlan",
           "supportplans:GetSupportPlanUpdateStatus",
-          "supportplans:StartSupportPlanUpdate"
+          "supportplans:StartSupportPlanUpdate",
+          "supportplans:CreateSupportPlanSchedule"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-09-27T18:19:30+00:00"
+  "CreateDate": "2023-05-09T21:07:01+00:00"
 }
