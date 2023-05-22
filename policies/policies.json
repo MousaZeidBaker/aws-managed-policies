@@ -11259,6 +11259,70 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-03-06T09:10:42+00:00"
   },
+  "AWSDMSServerlessServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "id0",
+          "Effect": "Allow",
+          "Action": [
+            "dms:CreateReplicationInstance",
+            "dms:CreateReplicationTask"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "dms:req-tag/ResourceCreatedBy": "DMSServerless"
+            }
+          }
+        },
+        {
+          "Sid": "id1",
+          "Effect": "Allow",
+          "Action": [
+            "dms:DescribeReplicationInstances",
+            "dms:DescribeReplicationTasks"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "id2",
+          "Effect": "Allow",
+          "Action": [
+            "dms:StartReplicationTask",
+            "dms:StopReplicationTask",
+            "dms:DeleteReplicationTask",
+            "dms:DeleteReplicationInstance"
+          ],
+          "Resource": [
+            "arn:aws:dms:*:*:rep:*",
+            "arn:aws:dms:*:*:task:*"
+          ],
+          "Condition": {
+            "StringEqualsIgnoreCase": {
+              "aws:ResourceTag/ResourceCreatedBy": "DMSServerless"
+            }
+          }
+        },
+        {
+          "Sid": "id3",
+          "Effect": "Allow",
+          "Action": [
+            "dms:TestConnection",
+            "dms:DeleteConnection"
+          ],
+          "Resource": [
+            "arn:aws:dms:*:*:rep:*",
+            "arn:aws:dms:*:*:endpoint:*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-05-18T20:28:05+00:00"
+  },
   "AWSDataExchangeFullAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -17312,6 +17376,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "EC2Action1",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateNetworkInterface",
@@ -17321,11 +17386,13 @@
             "ec2:DescribeSubnets",
             "ec2:DescribeRegions",
             "ec2:ModifyNetworkInterfaceAttribute",
-            "ec2:DeleteNetworkInterface"
+            "ec2:DeleteNetworkInterface",
+            "ec2:DescribeAddresses"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "EC2Action2",
           "Effect": "Allow",
           "Action": [
             "ec2:DeleteSecurityGroup",
@@ -17340,6 +17407,7 @@
           }
         },
         {
+          "Sid": "EC2Action3",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateSecurityGroup",
@@ -17348,11 +17416,16 @@
           "Resource": "*"
         },
         {
+          "Sid": "ElbAction1",
           "Effect": "Allow",
-          "Action": "elasticloadbalancing:DescribeLoadBalancers",
+          "Action": [
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "elasticloadbalancing:DescribeListeners"
+          ],
           "Resource": "*"
         },
         {
+          "Sid": "EC2Action4",
           "Effect": "Allow",
           "Action": "ec2:CreateTags",
           "Resource": [
@@ -17362,9 +17435,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-02T18:33:56+00:00"
+    "CreateDate": "2023-05-19T20:41:25+00:00"
   },
   "AWSGlueConsoleFullAccess": {
     "Document": {
@@ -25847,6 +25920,7 @@
             "cloudformation:CreateChangeSet",
             "cloudformation:DeleteChangeSet",
             "cloudformation:DeleteStack",
+            "cloudformation:UpdateStack",
             "cloudformation:DescribeStacks",
             "cloudformation:DescribeStackEvents",
             "cloudformation:ListStackResources"
@@ -25860,6 +25934,7 @@
           "Action": [
             "codebuild:CreateProject",
             "codebuild:DeleteProject",
+            "codebuild:UpdateProject",
             "codebuild:StartBuild",
             "codebuild:StopBuild",
             "codebuild:RetryBuild",
@@ -25877,12 +25952,19 @@
               "iam:PassedToService": "codebuild.amazonaws.com"
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "servicequotas:GetServiceQuota"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-09T21:32:06+00:00"
+    "CreateDate": "2023-05-17T16:11:40+00:00"
   },
   "AWSProtonDeveloperAccess": {
     "Document": {
@@ -41533,12 +41615,19 @@
             "guardduty:ListDetectors"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "securityHub:GetFindings"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-17T14:35:33+00:00"
+    "CreateDate": "2023-05-17T19:39:57+00:00"
   },
   "AmazonDetectiveInvestigatorAccess": {
     "Document": {
@@ -41582,12 +41671,19 @@
             "guardduty:ListDetectors"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "securityHub:GetFindings"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-17T15:24:26+00:00"
+    "CreateDate": "2023-05-17T19:41:09+00:00"
   },
   "AmazonDetectiveMemberAccess": {
     "Document": {
