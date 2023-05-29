@@ -29168,7 +29168,10 @@
           "Effect": "Allow",
           "Action": [
             "sso:ListProfileAssociations",
-            "sso:ListProfiles"
+            "sso:ListProfiles",
+            "sso:ListDirectoryAssociations",
+            "sso:DescribeRegisteredRegions",
+            "sso:GetProfile"
           ],
           "Resource": [
             "*"
@@ -29210,9 +29213,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-24T19:39:12+00:00"
+    "CreateDate": "2023-05-26T18:27:32+00:00"
   },
   "AWSServiceRoleForEC2ScheduledInstances": {
     "Document": {
@@ -40715,44 +40718,48 @@
             "logs:DescribeLogStreams"
           ],
           "Resource": [
-            "arn:aws:logs:*:*:log-group:dms-tasks-*"
+            "arn:aws:logs:*:*:log-group:dms-tasks-*",
+            "arn:aws:logs:*:*:log-group:dms-serverless-replication-*"
           ]
         },
         {
-          "Sid": "AllowCreationOfDmsTasksLogGroups",
+          "Sid": "AllowCreationOfDmsLogGroups",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogGroup"
           ],
           "Resource": [
-            "arn:aws:logs:*:*:log-group:dms-tasks-*"
+            "arn:aws:logs:*:*:log-group:dms-tasks-*",
+            "arn:aws:logs:*:*:log-group:dms-serverless-replication-*:log-stream:"
           ]
         },
         {
-          "Sid": "AllowCreationOfDmsTaskLogStream",
+          "Sid": "AllowCreationOfDmsLogStream",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogStream"
           ],
           "Resource": [
-            "arn:aws:logs:*:*:log-group:dms-tasks-*:log-stream:dms-task-*"
+            "arn:aws:logs:*:*:log-group:dms-tasks-*:log-stream:dms-task-*",
+            "arn:aws:logs:*:*:log-group:dms-serverless-replication-*:log-stream:dms-serverless-*"
           ]
         },
         {
-          "Sid": "AllowUploadOfLogEventsToDmsTaskLogStream",
+          "Sid": "AllowUploadOfLogEventsToDmsLogStream",
           "Effect": "Allow",
           "Action": [
             "logs:PutLogEvents"
           ],
           "Resource": [
-            "arn:aws:logs:*:*:log-group:dms-tasks-*:log-stream:dms-task-*"
+            "arn:aws:logs:*:*:log-group:dms-tasks-*:log-stream:dms-task-*",
+            "arn:aws:logs:*:*:log-group:dms-serverless-replication-*:log-stream:dms-serverless-*"
           ]
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2016-01-07T23:44:53+00:00"
+    "CreateDate": "2023-05-23T21:32:57+00:00"
   },
   "AmazonDMSRedshiftS3Role": {
     "Document": {
@@ -53836,6 +53843,21 @@
           }
         },
         {
+          "Sid": "ecc1scoping3",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AssignPrivateIpAddresses"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "eccRunInstances1",
           "Effect": "Allow",
           "Action": "ec2:RunInstances",
@@ -53942,6 +53964,41 @@
           }
         },
         {
+          "Sid": "eccNetworkInterface1",
+          "Effect": "Allow",
+          "Action": "ec2:CreateNetworkInterface",
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringLike": {
+              "aws:RequestTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "eccNetworkInterface2",
+          "Effect": "Allow",
+          "Action": "ec2:CreateNetworkInterface",
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ]
+        },
+        {
+          "Sid": "eccNetworkInterface3",
+          "Effect": "Allow",
+          "Action": "ec2:DeleteNetworkInterface",
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/AWSRDSCustom": [
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "eccCreateTag1",
           "Effect": "Allow",
           "Action": [
@@ -53975,6 +54032,7 @@
               "ec2:CreateAction": [
                 "CreateKeyPair",
                 "RunInstances",
+                "CreateNetworkInterface",
                 "CreateVolume",
                 "CreateSnapshot",
                 "CreateSnapshots",
@@ -54373,9 +54431,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-08T23:32:54+00:00"
+    "CreateDate": "2023-05-29T03:33:55+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
@@ -74040,8 +74098,10 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Effect": "Allow",
           "Action": [
             "translate:TranslateText",
+            "translate:TranslateDocument",
             "translate:GetTerminology",
             "translate:ListTerminologies",
             "translate:ListTextTranslationJobs",
@@ -74052,14 +74112,13 @@
             "cloudwatch:GetMetricStatistics",
             "cloudwatch:ListMetrics"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-11-23T17:31:06+00:00"
+    "CreateDate": "2023-05-24T17:19:30+00:00"
   },
   "VMImportExportRoleForAWSConnector": {
     "Document": {
