@@ -323,6 +323,14 @@
         "Resource": "*"
       },
       {
+        "Sid": "AmplifyEcrSDKCalls",
+        "Effect": "Allow",
+        "Action": [
+          "ecr:DescribeRepositories"
+        ],
+        "Resource": "*"
+      },
+      {
         "Sid": "AmplifyStorageSDKCalls",
         "Effect": "Allow",
         "Action": [
@@ -440,7 +448,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-02-24T20:14:32+00:00"
+  "CreateDate": "2023-05-31T17:08:15+00:00"
 }

@@ -27,7 +27,10 @@
         "Action": [
           "ec2:CreateNetworkInterface"
         ],
-        "Resource": "arn:aws:ec2:*:*:subnet/*"
+        "Resource": [
+          "arn:aws:ec2:*:*:subnet/*",
+          "arn:aws:ec2:*:*:security-group/*"
+        ]
       },
       {
         "Effect": "Allow",
@@ -55,7 +58,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-29T03:35:11+00:00"
+  "CreateDate": "2023-06-01T16:28:50+00:00"
 }

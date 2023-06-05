@@ -17027,7 +17027,8 @@
             "ec2:RebootInstances",
             "ec2:SendSpotInstanceInterruptions",
             "ec2:StartInstances",
-            "ec2:StopInstances"
+            "ec2:StopInstances",
+            "ec2:TerminateInstances"
           ],
           "Resource": "arn:aws:ec2:*:*:instance/*"
         },
@@ -17054,6 +17055,7 @@
             "ssm:SendCommand"
           ],
           "Resource": [
+            "arn:aws:ec2:*:*:instance/*",
             "arn:aws:ssm:*:*:document/*"
           ]
         },
@@ -17067,9 +17069,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-26T20:39:26+00:00"
+    "CreateDate": "2023-06-02T23:01:50+00:00"
   },
   "AWSFaultInjectionSimulatorECSAccess": {
     "Document": {
@@ -17104,12 +17106,28 @@
           "Resource": [
             "arn:aws:ecs:*:*:container-instance/*/*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ssm:SendCommand",
+          "Resource": [
+            "arn:aws:ssm:*:*:managed-instance/*",
+            "arn:aws:ssm:*:*:document/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:ListCommands",
+            "ssm:CancelCommand"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-26T20:37:56+00:00"
+    "CreateDate": "2023-06-01T10:48:27+00:00"
   },
   "AWSFaultInjectionSimulatorEKSAccess": {
     "Document": {
@@ -17124,12 +17142,22 @@
           "Effect": "Allow",
           "Action": "ec2:TerminateInstances",
           "Resource": "arn:aws:ec2:*:*:instance/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:DescribeSubnets",
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "eks:DescribeCluster",
+          "Resource": "arn:aws:eks:*:*:cluster/*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-26T20:34:43+00:00"
+    "CreateDate": "2023-06-01T10:59:09+00:00"
   },
   "AWSFaultInjectionSimulatorNetworkAccess": {
     "Document": {
@@ -17266,12 +17294,28 @@
           "Resource": [
             "arn:aws:ssm:*:*:automation-execution/*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ssm:SendCommand",
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*",
+            "arn:aws:ssm:*:*:document/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:ListCommands",
+            "ssm:CancelCommand"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-26T15:33:44+00:00"
+    "CreateDate": "2023-06-02T22:55:18+00:00"
   },
   "AWSFinSpaceServiceRolePolicy": {
     "Document": {
@@ -19563,7 +19607,6 @@
             "iot:DetachThingPrincipal",
             "iot:RegisterCACertificate",
             "iot:CreateThing",
-            "freertos:ListHardwarePlatforms",
             "iam:ListRoles",
             "iot:RegisterCertificate",
             "iot:DeleteCACertificate",
@@ -19790,9 +19833,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-12-15T18:03:46+00:00"
+    "CreateDate": "2023-06-02T22:01:19+00:00"
   },
   "AWSIoTDeviceTesterForGreengrassFullAccess": {
     "Document": {
@@ -22585,12 +22628,46 @@
             "aws-marketplace:ListTagsForResource"
           ],
           "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace-management:GetSellerVerificationDetails",
+            "aws-marketplace-management:PutSellerVerificationDetails",
+            "aws-marketplace-management:GetBankAccountVerificationDetails",
+            "aws-marketplace-management:PutBankAccountVerificationDetails",
+            "aws-marketplace-management:GetSecondaryUserVerificationDetails",
+            "aws-marketplace-management:PutSecondaryUserVerificationDetails",
+            "aws-marketplace-management:GetAdditionalSellerNotificationRecipients",
+            "aws-marketplace-management:PutAdditionalSellerNotificationRecipients",
+            "payments:GetPaymentInstrument",
+            "payments:CreatePaymentInstrument",
+            "tax:GetTaxInterview",
+            "tax:PutTaxInterview"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "support:CreateCase"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:GetResourcePolicy",
+            "aws-marketplace:PutResourcePolicy",
+            "aws-marketplace:DeleteResourcePolicy"
+          ],
+          "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-22T23:33:23+00:00"
+    "CreateDate": "2023-06-01T17:46:22+00:00"
   },
   "AWSMarketplaceSellerProductsFullAccess": {
     "Document": {
@@ -35060,7 +35137,10 @@
           "Action": [
             "ec2:CreateNetworkInterface"
           ],
-          "Resource": "arn:aws:ec2:*:*:subnet/*"
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ]
         },
         {
           "Effect": "Allow",
@@ -35088,9 +35168,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-29T03:35:11+00:00"
+    "CreateDate": "2023-06-01T16:28:50+00:00"
   },
   "AWSVendorInsightsAssessorFullAccess": {
     "Document": {
@@ -35339,7 +35419,11 @@
             "apprunner:AssociateWebAcl",
             "apprunner:DisassociateWebAcl",
             "apprunner:DescribeWebAclForService",
-            "apprunner:ListServices"
+            "apprunner:ListServices",
+            "ec2:AssociateVerifiedAccessInstanceWebAcl",
+            "ec2:DisassociateVerifiedAccessInstanceWebAcl",
+            "ec2:DescribeVerifiedAccessInstanceWebAclAssociations",
+            "ec2:GetVerifiedAccessInstanceWebAcl"
           ],
           "Resource": "*"
         },
@@ -35380,9 +35464,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-30T20:56:05+00:00"
+    "CreateDate": "2023-05-31T19:11:14+00:00"
   },
   "AWSWAFConsoleReadOnlyAccess": {
     "Document": {
@@ -35411,16 +35495,18 @@
             "cognito-idp:ListResourcesForWebACL",
             "cognito-idp:GetWebACLForResource",
             "apprunner:DescribeWebAclForService",
-            "apprunner:ListServices"
+            "apprunner:ListServices",
+            "ec2:DescribeVerifiedAccessInstanceWebAclAssociations",
+            "ec2:GetVerifiedAccessInstanceWebAcl"
           ],
           "Effect": "Allow",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-30T20:59:06+00:00"
+    "CreateDate": "2023-05-31T19:12:04+00:00"
   },
   "AWSWAFFullAccess": {
     "Document": {
@@ -35445,7 +35531,11 @@
             "apprunner:AssociateWebAcl",
             "apprunner:DisassociateWebAcl",
             "apprunner:DescribeWebAclForService",
-            "apprunner:ListServices"
+            "apprunner:ListServices",
+            "ec2:AssociateVerifiedAccessInstanceWebAcl",
+            "ec2:DisassociateVerifiedAccessInstanceWebAcl",
+            "ec2:DescribeVerifiedAccessInstanceWebAclAssociations",
+            "ec2:GetVerifiedAccessInstanceWebAcl"
           ],
           "Resource": "*"
         },
@@ -35486,9 +35576,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-30T20:24:20+00:00"
+    "CreateDate": "2023-05-31T19:08:18+00:00"
   },
   "AWSWAFReadOnlyAccess": {
     "Document": {
@@ -35507,16 +35597,18 @@
             "cognito-idp:ListResourcesForWebACL",
             "cognito-idp:GetWebACLForResource",
             "apprunner:DescribeWebAclForService",
-            "apprunner:ListServices"
+            "apprunner:ListServices",
+            "ec2:DescribeVerifiedAccessInstanceWebAclAssociations",
+            "ec2:GetVerifiedAccessInstanceWebAcl"
           ],
           "Effect": "Allow",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-30T20:53:00+00:00"
+    "CreateDate": "2023-05-31T19:12:30+00:00"
   },
   "AWSWellArchitectedDiscoveryServiceRolePolicy": {
     "Document": {
@@ -37625,6 +37717,14 @@
           "Resource": "*"
         },
         {
+          "Sid": "AmplifyEcrSDKCalls",
+          "Effect": "Allow",
+          "Action": [
+            "ecr:DescribeRepositories"
+          ],
+          "Resource": "*"
+        },
+        {
           "Sid": "AmplifyStorageSDKCalls",
           "Effect": "Allow",
           "Action": [
@@ -37742,9 +37842,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-24T20:14:32+00:00"
+    "CreateDate": "2023-05-31T17:08:15+00:00"
   },
   "AdministratorAccess": {
     "Document": {
@@ -48903,6 +49003,8 @@
           "Effect": "Allow",
           "Action": [
             "codeguru-security:CreateScan",
+            "codeguru-security:GetAccountConfiguration",
+            "codeguru-security:GetFindings",
             "codeguru-security:GetScan",
             "codeguru-security:ListFindings",
             "codeguru-security:BatchGetFindings",
@@ -48923,6 +49025,7 @@
             "iam:ListAttachedRolePolicies",
             "iam:ListPolicies",
             "iam:ListPolicyVersions",
+            "iam:ListRolePolicies",
             "lambda:ListVersionsByFunction"
           ],
           "Resource": [
@@ -48986,9 +49089,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-28T18:13:17+00:00"
+    "CreateDate": "2023-05-31T18:30:12+00:00"
   },
   "AmazonInspectorFullAccess": {
     "Document": {
@@ -61207,6 +61310,438 @@
     "IsDefaultVersion": true,
     "CreateDate": "2022-04-04T16:34:43+00:00"
   },
+  "AmazonSecurityLakeAdministrator": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowActionsWithAnyResource",
+          "Effect": "Allow",
+          "Action": [
+            "securitylake:*",
+            "organizations:DescribeOrganization",
+            "organizations:ListDelegatedServicesForAccount",
+            "organizations:ListAccounts",
+            "iam:ListRoles",
+            "ram:GetResourceShareAssociations"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "AllowActionsWithAnyResourceViaSecurityLake",
+          "Effect": "Allow",
+          "Action": [
+            "glue:CreateCrawler",
+            "glue:StopCrawlerSchedule",
+            "lambda:CreateEventSourceMapping",
+            "lakeformation:GrantPermissions",
+            "lakeformation:ListPermissions",
+            "lakeformation:RegisterResource",
+            "lakeformation:RevokePermissions",
+            "lakeformation:GetDatalakeSettings",
+            "events:ListConnections",
+            "events:ListApiDestinations",
+            "iam:GetRole",
+            "kms:DescribeKey"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowManagingSecurityLakeS3Buckets",
+          "Effect": "Allow",
+          "Action": [
+            "s3:CreateBucket",
+            "s3:PutBucketPolicy",
+            "s3:PutBucketPublicAccessBlock",
+            "s3:PutBucketNotification",
+            "s3:PutBucketTagging",
+            "s3:PutEncryptionConfiguration",
+            "s3:PutBucketVersioning",
+            "s3:PutReplicationConfiguration",
+            "s3:PutLifecycleConfiguration",
+            "s3:ListBucket",
+            "s3:PutObject",
+            "s3:GetBucketNotification"
+          ],
+          "Resource": "arn:aws:s3:::aws-security-data-lake*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowLambdaCreateFunction",
+          "Effect": "Allow",
+          "Action": "lambda:CreateFunction",
+          "Resource": "arn:aws:lambda:*:*:function:SecurityLake_Glue_Partition_Updater_Lambda*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowGlueActions",
+          "Effect": "Allow",
+          "Action": [
+            "glue:CreateDatabase",
+            "glue:GetDatabase",
+            "glue:CreateTable",
+            "glue:GetTable"
+          ],
+          "Resource": [
+            "arn:aws:glue:*:*:catalog",
+            "arn:aws:glue:*:*:database/amazon_security_lake_glue_db*",
+            "arn:aws:glue:*:*:table/amazon_security_lake_glue_db*/*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowEventBridgeActions",
+          "Effect": "Allow",
+          "Action": [
+            "events:PutTargets",
+            "events:PutRule",
+            "events:DescribeRule",
+            "events:CreateApiDestination",
+            "events:CreateConnection",
+            "events:UpdateConnection",
+            "events:UpdateApiDestination",
+            "events:DeleteConnection",
+            "events:DeleteApiDestination",
+            "events:ListTargetsByRule",
+            "events:RemoveTargets",
+            "events:DeleteRule"
+          ],
+          "Resource": [
+            "arn:aws:events:*:*:rule/AmazonSecurityLake*",
+            "arn:aws:events:*:*:rule/SecurityLake*",
+            "arn:aws:events:*:*:api-destination/AmazonSecurityLake*",
+            "arn:aws:events:*:*:connection/AmazonSecurityLake*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowSQSActions",
+          "Effect": "Allow",
+          "Action": [
+            "sqs:CreateQueue",
+            "sqs:SetQueueAttributes",
+            "sqs:GetQueueURL",
+            "sqs:AddPermission",
+            "sqs:GetQueueAttributes",
+            "sqs:DeleteQueue"
+          ],
+          "Resource": [
+            "arn:aws:sqs:*:*:SecurityLake*",
+            "arn:aws:sqs:*:*:AmazonSecurityLake*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowKmsCmkGrantForSecurityLake",
+          "Effect": "Allow",
+          "Action": "kms:CreateGrant",
+          "Resource": "arn:aws:kms:*:*:key/*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            },
+            "StringLike": {
+              "kms:EncryptionContext:aws:s3:arn": "arn:aws:s3:::aws-security-data-lake*"
+            },
+            "ForAllValues:StringEquals": {
+              "kms:GrantOperations": [
+                "GenerateDataKey",
+                "RetireGrant"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllowEnablingQueryBasedSubscribers",
+          "Effect": "Allow",
+          "Action": [
+            "ram:CreateResourceShare",
+            "ram:AssociateResourceShare"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLikeIfExists": {
+              "ram:ResourceArn": [
+                "arn:aws:glue:*:*:catalog",
+                "arn:aws:glue:*:*:database/amazon_security_lake_glue_db*",
+                "arn:aws:glue:*:*:table/amazon_security_lake_glue_db*/*"
+              ]
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowConfiguringQueryBasedSubscribers",
+          "Effect": "Allow",
+          "Action": [
+            "ram:UpdateResourceShare",
+            "ram:GetResourceShares",
+            "ram:DisassociateResourceShare",
+            "ram:DeleteResourceShare"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "ram:ResourceShareName": "LakeFormation*"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowConfiguringCredentialsForSubscriberNotification",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:CreateSecret",
+            "secretsmanager:GetSecretValue",
+            "secretsmanager:PutSecretValue"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:events!connection/AmazonSecurityLake-*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowPassRoleForUpdatingGluePartitionsSecLakeArn",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeMetaStoreManager",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "lambda.amazonaws.com"
+            },
+            "StringLike": {
+              "iam:AssociatedResourceARN": "arn:aws:securitylake:*:*:data-lake/default"
+            }
+          }
+        },
+        {
+          "Sid": "AllowPassRoleForUpdatingGluePartitionsLambdaArn",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeMetaStoreManager",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "lambda.amazonaws.com"
+            },
+            "StringLike": {
+              "iam:AssociatedResourceARN": "arn:aws:lambda:*:*:function:SecurityLake_Glue_Partition_Updater_Lambda*"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowPassRoleForCrossRegionReplicationSecLakeArn",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeS3ReplicationRole",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "s3.amazonaws.com"
+            },
+            "StringLike": {
+              "iam:AssociatedResourceARN": "arn:aws:securitylake:*:*:data-lake/default"
+            }
+          }
+        },
+        {
+          "Sid": "AllowPassRoleForCrossRegionReplicationS3Arn",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeS3ReplicationRole",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "s3.amazonaws.com"
+            },
+            "StringLike": {
+              "iam:AssociatedResourceARN": "arn:aws:s3:::aws-security-data-lake*"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowPassRoleForCustomSourceCrawlerSecLakeArn",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeCustomDataGlueCrawler*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "glue.amazonaws.com"
+            },
+            "StringLike": {
+              "iam:AssociatedResourceARN": "arn:aws:securitylake:*:*:data-lake/default"
+            }
+          }
+        },
+        {
+          "Sid": "AllowPassRoleForCustomSourceCrawlerGlueArn",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeCustomDataGlueCrawler*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "glue.amazonaws.com"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowPassRoleForSubscriberNotificationSecLakeArn",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeSubscriberEventBridge",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "events.amazonaws.com"
+            },
+            "StringLike": {
+              "iam:AssociatedResourceARN": "arn:aws:securitylake:*:*:subscriber/*"
+            }
+          }
+        },
+        {
+          "Sid": "AllowPassRoleForSubscriberNotificationEventsArn",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeSubscriberEventBridge",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "events.amazonaws.com"
+            },
+            "StringLike": {
+              "iam:AssociatedResourceARN": "arn:aws:events:*:*:rule/AmazonSecurityLake*"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowOnboardingToSecurityLakeDependencies",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/securitylake.amazonaws.com/AWSServiceRoleForSecurityLake",
+            "arn:aws:iam::*:role/aws-service-role/lakeformation.amazonaws.com/AWSServiceRoleForLakeFormationDataAccess",
+            "arn:aws:iam::*:role/aws-service-role/apidestinations.events.amazonaws.com/AWSServiceRoleForAmazonEventBridgeApiDestinations"
+          ],
+          "Condition": {
+            "StringLike": {
+              "iam:AWSServiceName": [
+                "securitylake.amazonaws.com",
+                "lakeformation.amazonaws.com",
+                "apidestinations.events.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllowRolePolicyActionsforSubscibersandSources",
+          "Effect": "Allow",
+          "Action": [
+            "iam:CreateRole",
+            "iam:PutRolePolicy",
+            "iam:DeleteRolePolicy"
+          ],
+          "Resource": "arn:aws:iam::*:role/AmazonSecurityLake*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PermissionsBoundary": "arn:aws:iam::aws:policy/AmazonSecurityLakePermissionsBoundary"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowRegisterS3LocationInLakeFormation",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PutRolePolicy",
+            "iam:GetRolePolicy"
+          ],
+          "Resource": "arn:aws:iam::*:role/aws-service-role/lakeformation.amazonaws.com/AWSServiceRoleForLakeFormationDataAccess",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowIAMActionsByResource",
+          "Effect": "Allow",
+          "Action": [
+            "iam:ListRolePolicies",
+            "iam:DeleteRole"
+          ],
+          "Resource": "arn:aws:iam::*:role/AmazonSecurityLake*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "S3ReadAccessToSecurityLakes",
+          "Effect": "Allow",
+          "Action": [
+            "s3:Get*",
+            "s3:List*"
+          ],
+          "Resource": "arn:aws:s3:::aws-security-data-lake-*"
+        },
+        {
+          "Sid": "S3ResourcelessReadOnly",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetAccountPublicAccessBlock",
+            "s3:ListAccessPoints",
+            "s3:ListAllMyBuckets"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-05-30T22:04:10+00:00"
+  },
   "AmazonSecurityLakePermissionsBoundary": {
     "Document": {
       "Version": "2012-10-17",
@@ -70349,6 +70884,215 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2022-04-11T20:58:08+00:00"
+  },
+  "ROSASRESupportPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ReadPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeAvailabilityZones",
+            "ec2:DescribeRegions",
+            "sts:DecodeAuthorizationMessage"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "Route53",
+          "Effect": "Allow",
+          "Action": [
+            "route53:GetHostedZone",
+            "route53:GetHostedZoneCount",
+            "route53:ListHostedZones",
+            "route53:ListHostedZonesByName",
+            "route53:ListResourceRecordSets"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "DecribeIAMRoles",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetRole",
+            "iam:ListRoles"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "EC2DescribeInstance",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeInstanceStatus",
+            "ec2:DescribeIamInstanceProfileAssociations",
+            "ec2:DescribeReservedInstances",
+            "ec2:DescribeScheduledInstances"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "VPCNetwork",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeDhcpOptions",
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeRouteTables"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "Cloudtrail",
+          "Effect": "Allow",
+          "Action": [
+            "cloudtrail:DescribeTrails",
+            "cloudtrail:LookupEvents"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "Cloudwatch",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:GetMetricData",
+            "cloudwatch:GetMetricStatistics",
+            "cloudwatch:ListMetrics"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "DescribeVolumes",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVolumes",
+            "ec2:DescribeVolumesModifications",
+            "ec2:DescribeVolumeStatus"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "DescribeLoadBalancers",
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:DescribeAccountLimits",
+            "elasticloadbalancing:DescribeInstanceHealth",
+            "elasticloadbalancing:DescribeListenerCertificates",
+            "elasticloadbalancing:DescribeListeners",
+            "elasticloadbalancing:DescribeLoadBalancerAttributes",
+            "elasticloadbalancing:DescribeLoadBalancerPolicies",
+            "elasticloadbalancing:DescribeLoadBalancerPolicyTypes",
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "elasticloadbalancing:DescribeRules",
+            "elasticloadbalancing:DescribeSSLPolicies",
+            "elasticloadbalancing:DescribeTags",
+            "elasticloadbalancing:DescribeTargetGroupAttributes",
+            "elasticloadbalancing:DescribeTargetGroups",
+            "elasticloadbalancing:DescribeTargetHealth"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "DescribeVPC",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVpcEndpointConnections",
+            "ec2:DescribeVpcEndpoints"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "DescribeSecurityGroups",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSecurityGroupReferences",
+            "ec2:DescribeSecurityGroupRules",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeStaleSecurityGroups"
+          ],
+          "Resource": "arn:aws:ec2:*:*:security-group*/*"
+        },
+        {
+          "Sid": "DescribeAddressesAttribute",
+          "Effect": "Allow",
+          "Action": "ec2:DescribeAddressesAttribute",
+          "Resource": "arn:aws:ec2:*:*:elastic-ip/*"
+        },
+        {
+          "Sid": "DescribeInstance",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetInstanceProfile"
+          ],
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "DescribeSpotFleetInstances",
+          "Effect": "Allow",
+          "Action": "ec2:DescribeSpotFleetInstances",
+          "Resource": "arn:aws:ec2:*:*:spot-fleet-request/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "DescribeVolumeAttribute",
+          "Effect": "Allow",
+          "Action": "ec2:DescribeVolumeAttribute",
+          "Resource": "arn:aws:ec2:*:*:volume/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "ManageInstanceLifecycle",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:RebootInstances",
+            "ec2:StartInstances",
+            "ec2:StopInstances",
+            "ec2:TerminateInstances"
+          ],
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-06-01T14:36:06+00:00"
   },
   "ROSAWorkerInstancePolicy": {
     "Document": {
