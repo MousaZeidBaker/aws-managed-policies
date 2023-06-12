@@ -46,10 +46,20 @@
             "iam:AWSServiceName": "cassandra.application-autoscaling.amazonaws.com"
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": "iam:CreateServiceLinkedRole",
+        "Resource": "arn:aws:iam::*:role/aws-service-role/replication.cassandra.amazonaws.com/AWSServiceRoleForKeyspacesReplication",
+        "Condition": {
+          "StringLike": {
+            "iam:AWSServiceName": "replication.cassandra.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-07-07T15:02:41+00:00"
+  "CreateDate": "2023-06-05T15:21:18+00:00"
 }
