@@ -15421,7 +15421,8 @@
             "drs:SendClientLogsForDrs",
             "drs:CreateSourceServerForDrs",
             "drs:CreateRecoveryInstanceForDrs",
-            "drs:DescribeRecoveryInstances"
+            "drs:DescribeRecoveryInstances",
+            "drs:CreateSourceNetwork"
           ],
           "Resource": "*"
         },
@@ -15447,14 +15448,24 @@
         },
         {
           "Effect": "Allow",
+          "Action": "drs:TagResource",
+          "Resource": "arn:aws:drs:*:*:source-network/*",
+          "Condition": {
+            "StringEquals": {
+              "drs:CreateAction": "CreateSourceNetwork"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
           "Action": "drs:IssueAgentCertificateForDrs",
           "Resource": "arn:aws:drs:*:*:source-server/*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-28T07:10:44+00:00"
+    "CreateDate": "2023-06-13T09:43:59+00:00"
   },
   "AWSElasticDisasterRecoveryAgentPolicy": {
     "Document": {
@@ -15932,7 +15943,8 @@
           "Action": [
             "drs:GetAgentInstallationAssetsForDrs",
             "drs:SendClientLogsForDrs",
-            "drs:CreateSourceServerForDrs"
+            "drs:CreateSourceServerForDrs",
+            "drs:CreateSourceNetwork"
           ],
           "Resource": "*"
         },
@@ -15945,6 +15957,18 @@
           "Condition": {
             "StringEquals": {
               "drs:CreateAction": "CreateSourceServerForDrs"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "drs:TagResource"
+          ],
+          "Resource": "arn:aws:drs:*:*:source-network/*",
+          "Condition": {
+            "StringEquals": {
+              "drs:CreateAction": "CreateSourceNetwork"
             }
           }
         },
@@ -15984,9 +16008,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-14T07:27:48+00:00"
+    "CreateDate": "2023-06-13T16:30:14+00:00"
   },
   "AWSElasticDisasterRecoveryFailbackInstallationPolicy": {
     "Document": {
@@ -52072,6 +52096,27 @@
     "IsDefaultVersion": true,
     "CreateDate": "2018-06-28T15:46:10+00:00"
   },
+  "AmazonMacieReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "macie2:Describe*",
+            "macie2:Get*",
+            "macie2:List*",
+            "macie2:BatchGetCustomDataIdentifiers",
+            "macie2:SearchResources"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-06-15T21:50:06+00:00"
+  },
   "AmazonMacieServiceRole": {
     "Document": {
       "Version": "2012-10-17",
@@ -57646,20 +57691,21 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Effect": "Allow",
           "Action": [
             "sqs:GetQueueAttributes",
             "sqs:GetQueueUrl",
             "sqs:ListDeadLetterSourceQueues",
-            "sqs:ListQueues"
+            "sqs:ListQueues",
+            "sqs:ListMessageMoveTasks"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2018-08-20T23:35:49+00:00"
+    "CreateDate": "2023-06-15T15:37:35+00:00"
   },
   "AmazonSSMAutomationApproverAccess": {
     "Document": {
@@ -62763,6 +62809,265 @@
     "VersionId": "v9",
     "IsDefaultVersion": true,
     "CreateDate": "2021-08-02T19:12:14+00:00"
+  },
+  "AmazonVPCNetworkAccessAnalyzerFullAccessPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "directconnect:DescribeConnections",
+            "directconnect:DescribeDirectConnectGatewayAssociations",
+            "directconnect:DescribeDirectConnectGatewayAttachments",
+            "directconnect:DescribeDirectConnectGateways",
+            "directconnect:DescribeVirtualGateways",
+            "directconnect:DescribeVirtualInterfaces"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInsightsAccessScope",
+            "ec2:DeleteNetworkInsightsAccessScope",
+            "ec2:DeleteNetworkInsightsAccessScopeAnalysis",
+            "ec2:DescribeAvailabilityZones",
+            "ec2:DescribeCustomerGateways",
+            "ec2:DescribeInstances",
+            "ec2:DescribeInternetGateways",
+            "ec2:DescribeManagedPrefixLists",
+            "ec2:DescribeNatGateways",
+            "ec2:DescribeNetworkAcls",
+            "ec2:DescribeNetworkInsightsAccessScopeAnalyses",
+            "ec2:DescribeNetworkInsightsAccessScopes",
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribePrefixLists",
+            "ec2:DescribeRegions",
+            "ec2:DescribeRouteTables",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeTransitGatewayAttachments",
+            "ec2:DescribeTransitGatewayConnects",
+            "ec2:DescribeTransitGatewayPeeringAttachments",
+            "ec2:DescribeTransitGatewayRouteTables",
+            "ec2:DescribeTransitGateways",
+            "ec2:DescribeTransitGatewayVpcAttachments",
+            "ec2:DescribeVpcEndpoints",
+            "ec2:DescribeVpcEndpointServiceConfigurations",
+            "ec2:DescribeVpcPeeringConnections",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeVpnConnections",
+            "ec2:DescribeVpnGateways",
+            "ec2:GetManagedPrefixListEntries",
+            "ec2:GetNetworkInsightsAccessScopeAnalysisFindings",
+            "ec2:GetNetworkInsightsAccessScopeContent",
+            "ec2:GetTransitGatewayRouteTablePropagations",
+            "ec2:SearchTransitGatewayRoutes",
+            "ec2:StartNetworkInsightsAccessScopeAnalysis"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags",
+            "ec2:DeleteTags"
+          ],
+          "Resource": [
+            "arn:*:ec2:*:*:network-insights-access-scope/nis-*",
+            "arn:*:ec2:*:*:network-insights-access-scope-analysis/nisa-*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:DescribeListeners",
+            "elasticloadbalancing:DescribeLoadBalancerAttributes",
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "elasticloadbalancing:DescribeRules",
+            "elasticloadbalancing:DescribeTags",
+            "elasticloadbalancing:DescribeTargetGroups",
+            "elasticloadbalancing:DescribeTargetHealth"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "globalaccelerator:ListAccelerators",
+            "globalaccelerator:ListCustomRoutingAccelerators",
+            "globalaccelerator:ListCustomRoutingEndpointGroups",
+            "globalaccelerator:ListCustomRoutingListeners",
+            "globalaccelerator:ListCustomRoutingPortMappings",
+            "globalaccelerator:ListEndpointGroups",
+            "globalaccelerator:ListListeners"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "network-firewall:DescribeFirewall",
+            "network-firewall:DescribeFirewallPolicy",
+            "network-firewall:DescribeResourcePolicy",
+            "network-firewall:DescribeRuleGroup",
+            "network-firewall:ListFirewallPolicies",
+            "network-firewall:ListFirewalls",
+            "network-firewall:ListRuleGroups"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "resource-groups:ListGroupResources"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "tag:GetResources"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "tiros:CreateQuery",
+            "tiros:GetQueryAnswer"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-06-15T22:56:58+00:00"
+  },
+  "AmazonVPCReachabilityAnalyzerFullAccessPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "directconnect:DescribeConnections",
+            "directconnect:DescribeDirectConnectGatewayAssociations",
+            "directconnect:DescribeDirectConnectGatewayAttachments",
+            "directconnect:DescribeDirectConnectGateways",
+            "directconnect:DescribeVirtualGateways",
+            "directconnect:DescribeVirtualInterfaces"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInsightsPath",
+            "ec2:DeleteNetworkInsightsAnalysis",
+            "ec2:DeleteNetworkInsightsPath",
+            "ec2:DescribeAvailabilityZones",
+            "ec2:DescribeCustomerGateways",
+            "ec2:DescribeInstances",
+            "ec2:DescribeInternetGateways",
+            "ec2:DescribeManagedPrefixLists",
+            "ec2:DescribeNatGateways",
+            "ec2:DescribeNetworkAcls",
+            "ec2:DescribeNetworkInsightsAnalyses",
+            "ec2:DescribeNetworkInsightsPaths",
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribePrefixLists",
+            "ec2:DescribeRegions",
+            "ec2:DescribeRouteTables",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeTransitGatewayAttachments",
+            "ec2:DescribeTransitGatewayConnects",
+            "ec2:DescribeTransitGatewayPeeringAttachments",
+            "ec2:DescribeTransitGatewayRouteTables",
+            "ec2:DescribeTransitGateways",
+            "ec2:DescribeTransitGatewayVpcAttachments",
+            "ec2:DescribeVpcEndpoints",
+            "ec2:DescribeVpcEndpointServiceConfigurations",
+            "ec2:DescribeVpcPeeringConnections",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeVpnConnections",
+            "ec2:DescribeVpnGateways",
+            "ec2:GetManagedPrefixListEntries",
+            "ec2:GetTransitGatewayRouteTablePropagations",
+            "ec2:SearchTransitGatewayRoutes",
+            "ec2:StartNetworkInsightsAnalysis"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags",
+            "ec2:DeleteTags"
+          ],
+          "Resource": [
+            "arn:*:ec2:*:*:network-insights-path/nip-*",
+            "arn:*:ec2:*:*:network-insights-analysis/nia-*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:DescribeListeners",
+            "elasticloadbalancing:DescribeLoadBalancerAttributes",
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "elasticloadbalancing:DescribeRules",
+            "elasticloadbalancing:DescribeTags",
+            "elasticloadbalancing:DescribeTargetGroups",
+            "elasticloadbalancing:DescribeTargetHealth"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "globalaccelerator:ListAccelerators",
+            "globalaccelerator:ListCustomRoutingAccelerators",
+            "globalaccelerator:ListCustomRoutingEndpointGroups",
+            "globalaccelerator:ListCustomRoutingListeners",
+            "globalaccelerator:ListCustomRoutingPortMappings",
+            "globalaccelerator:ListEndpointGroups",
+            "globalaccelerator:ListListeners"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "network-firewall:DescribeFirewall",
+            "network-firewall:DescribeFirewallPolicy",
+            "network-firewall:DescribeResourcePolicy",
+            "network-firewall:DescribeRuleGroup",
+            "network-firewall:ListFirewallPolicies",
+            "network-firewall:ListFirewalls",
+            "network-firewall:ListRuleGroups"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "tiros:CreateQuery",
+            "tiros:ExtendQuery",
+            "tiros:GetQueryAnswer",
+            "tiros:GetQueryExplanation",
+            "tiros:GetQueryExtensionAccounts"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-06-14T20:12:17+00:00"
   },
   "AmazonVPCReachabilityAnalyzerPathComponentReadPolicy": {
     "Document": {
@@ -67877,6 +68182,23 @@
     "IsDefaultVersion": true,
     "CreateDate": "2020-12-04T22:11:28+00:00"
   },
+  "EMRDescribeClusterPolicyForEMRWAL": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticmapreduce:DescribeCluster"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-06-15T23:30:22+00:00"
+  },
   "Ec2ImageBuilderCrossAccountDistributionAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -72123,7 +72445,9 @@
             "access-analyzer:ListPolicyGenerations",
             "access-analyzer:ListTagsForResource",
             "access-analyzer:ValidatePolicy",
+            "account:GetAccountInformation",
             "account:GetAlternateContact",
+            "account:GetChallengeQuestions",
             "account:GetContactInformation",
             "account:GetRegionOptStatus",
             "account:ListRegions",
@@ -72309,6 +72633,7 @@
             "ce:GetSavingsPlansUtilizationDetails",
             "ce:GetTags",
             "ce:GetUsageForecast",
+            "ce:ListCostAllocationTags",
             "ce:ListCostCategoryDefinitions",
             "ce:ListSavingsPlansPurchaseRecommendationGeneration",
             "ce:ListTagsForResource",
@@ -72462,10 +72787,21 @@
             "config:SelectAggregateResourceConfig",
             "config:SelectResourceConfig",
             "connect:Describe*",
+            "connect:GetContactAttributes",
+            "connect:GetCurrentMetricData",
+            "connect:GetCurrentUserData",
             "connect:GetFederationToken",
+            "connect:GetMetricData",
+            "connect:GetMetricDataV2",
+            "connect:GetTaskTemplate",
+            "connect:GetTrafficDistribution",
             "connect:List*",
+            "consoleapp:GetDeviceIdentity",
+            "consoleapp:ListDeviceIdentities",
             "consolidatedbilling:GetAccountBillingRole",
             "consolidatedbilling:ListLinkedAccounts",
+            "customer-verification:GetCustomerVerificationDetails",
+            "customer-verification:GetCustomerVerificationEligibility",
             "databrew:DescribeDataset",
             "databrew:DescribeJob",
             "databrew:DescribeJobRun",
@@ -72545,6 +72881,7 @@
             "dms:Test*",
             "drs:DescribeJobLogItems",
             "drs:DescribeJobs",
+            "drs:DescribeLaunchConfigurationTemplates",
             "drs:DescribeRecoveryInstances",
             "drs:DescribeRecoverySnapshots",
             "drs:DescribeReplicationConfigurationTemplates",
@@ -72622,6 +72959,12 @@
             "emr-containers:ListManagedEndpoints",
             "emr-containers:ListTagsForResource",
             "emr-containers:ListVirtualClusters",
+            "emr-serverless:GetApplication",
+            "emr-serverless:GetDashboardForJobRun",
+            "emr-serverless:GetJobRun",
+            "emr-serverless:ListApplications",
+            "emr-serverless:ListJobRuns",
+            "emr-serverless:ListTagsForResource",
             "es:Describe*",
             "es:ESHttpGet",
             "es:ESHttpHead",
@@ -72864,6 +73207,17 @@
             "identity-sync:ListSyncFilters",
             "identitystore-auth:BatchGetSession",
             "identitystore-auth:ListSessions",
+            "identitystore:DescribeGroup",
+            "identitystore:DescribeGroupMembership",
+            "identitystore:DescribeUser",
+            "identitystore:GetGroupId",
+            "identitystore:GetGroupMembershipId",
+            "identitystore:GetUserId",
+            "identitystore:IsMemberInGroups",
+            "identitystore:ListGroupMemberships",
+            "identitystore:ListGroupMembershipsForMember",
+            "identitystore:ListGroups",
+            "identitystore:ListUsers",
             "imagebuilder:Get*",
             "imagebuilder:List*",
             "importexport:Get*",
@@ -73061,6 +73415,19 @@
             "kms:List*",
             "lambda:Get*",
             "lambda:List*",
+            "launchwizard:DescribeAdditionalNode",
+            "launchwizard:DescribeProvisionedApp",
+            "launchwizard:DescribeProvisioningEvents",
+            "launchwizard:DescribeSettingsSet",
+            "launchwizard:GetInfrastructureSuggestion",
+            "launchwizard:GetIpAddress",
+            "launchwizard:GetResourceCostEstimate",
+            "launchwizard:GetWorkloadAssets",
+            "launchwizard:ListAdditionalNodes",
+            "launchwizard:ListProvisionedApps",
+            "launchwizard:ListSettingsSets",
+            "launchwizard:ListWorkloadDeploymentOptions",
+            "launchwizard:ListWorkloads",
             "lex:DescribeBot",
             "lex:DescribeBotAlias",
             "lex:DescribeBotChannel",
@@ -73152,7 +73519,9 @@
             "logs:Get*",
             "logs:ListTagsForResource",
             "logs:ListTagsLogGroup",
+            "logs:StartLiveTail",
             "logs:StartQuery",
+            "logs:StopLiveTail",
             "logs:StopQuery",
             "logs:TestMetricFilter",
             "lookoutequipment:DescribeDataIngestionJob",
@@ -73416,6 +73785,12 @@
             "opsworks:Get*",
             "organizations:Describe*",
             "organizations:List*",
+            "osis:GetPipeline",
+            "osis:GetPipelineBlueprint",
+            "osis:GetPipelineChangeProgress",
+            "osis:ListPipelineBlueprints",
+            "osis:ListPipelines",
+            "osis:ListTagsForResource",
             "outposts:Get*",
             "outposts:List*",
             "payments:GetPaymentInstrument",
@@ -73430,6 +73805,9 @@
             "pi:GetResourceMetrics",
             "pi:ListAvailableResourceDimensions",
             "pi:ListAvailableResourceMetrics",
+            "pipes:DescribePipe",
+            "pipes:ListPipes",
+            "pipes:ListTagsForResource",
             "polly:Describe*",
             "polly:Get*",
             "polly:List*",
@@ -73452,11 +73830,13 @@
             "purchase-orders:ListPurchaseOrderInvoices",
             "purchase-orders:ListPurchaseOrders",
             "purchase-orders:ViewPurchaseOrders",
+            "qldb:DescribeJournalKinesisStream",
             "qldb:DescribeJournalS3Export",
             "qldb:DescribeLedger",
             "qldb:GetBlock",
             "qldb:GetDigest",
             "qldb:GetRevision",
+            "qldb:ListJournalKinesisStreamsForLedger",
             "qldb:ListJournalS3Exports",
             "qldb:ListJournalS3ExportsForLedger",
             "qldb:ListLedgers",
@@ -73588,6 +73968,8 @@
             "secretsmanager:Describe*",
             "secretsmanager:GetResourcePolicy",
             "secretsmanager:List*",
+            "securityhub:BatchGetControlEvaluations",
+            "securityhub:BatchGetSecurityControls",
             "securityhub:BatchGetStandardsControlAssociations",
             "securityhub:Describe*",
             "securityhub:Get*",
@@ -73726,6 +74108,20 @@
             "timestream:ListMeasures",
             "timestream:ListTables",
             "timestream:ListTagsForResource",
+            "tnb:GetSolFunctionInstance",
+            "tnb:GetSolFunctionPackage",
+            "tnb:GetSolFunctionPackageContent",
+            "tnb:GetSolFunctionPackageDescriptor",
+            "tnb:GetSolNetworkOperation",
+            "tnb:GetSolNetworkPackage",
+            "tnb:GetSolNetworkPackageContent",
+            "tnb:GetSolNetworkPackageDescriptor",
+            "tnb:ListSolFunctionInstances",
+            "tnb:ListSolFunctionPackages",
+            "tnb:ListSolNetworkInstances",
+            "tnb:ListSolNetworkOperations",
+            "tnb:ListSolNetworkPackages",
+            "tnb:ListTagsForResource",
             "transcribe:Get*",
             "transcribe:List*",
             "transfer:Describe*",
@@ -73773,6 +74169,22 @@
             "workmail:Get*",
             "workmail:List*",
             "workmail:Search*",
+            "workspaces-web:GetBrowserSettings",
+            "workspaces-web:GetIdentityProvider",
+            "workspaces-web:GetNetworkSettings",
+            "workspaces-web:GetPortal",
+            "workspaces-web:GetPortalServiceProviderMetadata",
+            "workspaces-web:GetTrustStore",
+            "workspaces-web:GetUserAccessLoggingSettings",
+            "workspaces-web:GetUserSettings",
+            "workspaces-web:ListBrowserSettings",
+            "workspaces-web:ListIdentityProviders",
+            "workspaces-web:ListNetworkSettings",
+            "workspaces-web:ListPortals",
+            "workspaces-web:ListTagsForResource",
+            "workspaces-web:ListTrustStores",
+            "workspaces-web:ListUserAccessLoggingSettings",
+            "workspaces-web:ListUserSettings",
             "workspaces:Describe*",
             "xray:BatchGet*",
             "xray:Get*"
@@ -73781,9 +74193,9 @@
         }
       ]
     },
-    "VersionId": "v100",
+    "VersionId": "v102",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-08T15:09:55+00:00"
+    "CreateDate": "2023-06-15T23:41:22+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
