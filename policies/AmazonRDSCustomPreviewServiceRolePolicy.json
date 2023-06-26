@@ -159,7 +159,8 @@
         "Condition": {
           "StringLike": {
             "aws:ResourceTag/AWSRDSCustom": [
-              "custom-oracle-rac"
+              "custom-oracle-rac",
+              "custom-oracle"
             ]
           }
         }
@@ -635,7 +636,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-04-26T02:01:02+00:00"
+  "CreateDate": "2023-06-23T00:24:50+00:00"
 }

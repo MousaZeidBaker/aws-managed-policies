@@ -2165,6 +2165,23 @@
         {
           "Effect": "Allow",
           "Action": [
+            "organizations:DescribeAccount"
+          ],
+          "Resource": "arn:aws:organizations::*:account/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeOrganization",
+            "organizations:ListAWSServiceAccessForOrganization",
+            "organizations:ListDelegatedAdministrators",
+            "organizations:ListAccounts"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "ec2:RegisterImage",
             "ec2:DeregisterImage"
           ],
@@ -2402,9 +2419,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-04-07T06:43:20+00:00"
+    "CreateDate": "2023-06-20T09:12:04+00:00"
   },
   "AWSApplicationMigrationVCenterClientPolicy": {
     "Document": {
@@ -8833,16 +8850,17 @@
           "Sid": "CodeStarNotificationsChatbotAccess",
           "Effect": "Allow",
           "Action": [
-            "chatbot:DescribeSlackChannelConfigurations"
+            "chatbot:DescribeSlackChannelConfigurations",
+            "chatbot:ListMicrosoftTeamsChannelConfigurations"
           ],
           "Resource": "*"
         }
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-08-03T22:38:28+00:00"
+    "CreateDate": "2023-06-21T22:46:59+00:00"
   },
   "AWSCodePipeline_ReadOnlyAccess": {
     "Document": {
@@ -26955,6 +26973,7 @@
             "organizations:ListAWSServiceAccessForOrganization",
             "organizations:ListAccounts",
             "organizations:ListDelegatedAdministrators",
+            "resource-groups:ListGroups",
             "resource-groups:ListGroupResources",
             "tag:GetResources",
             "tiros:CreateQuery",
@@ -26979,9 +26998,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-23T17:12:28+00:00"
+    "CreateDate": "2023-06-23T21:04:06+00:00"
   },
   "AWSRefactoringToolkitFullAccess": {
     "Document": {
@@ -43009,6 +43028,7 @@
         {
           "Effect": "Allow",
           "Action": [
+            "cloudwatch:GetMetricData",
             "cloudwatch:ListMetrics",
             "cloudwatch:GetMetricStatistics"
           ],
@@ -43028,9 +43048,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-05T13:51:04+00:00"
+    "CreateDate": "2023-06-21T18:05:47+00:00"
   },
   "AmazonDocDBElasticReadOnlyAccess": {
     "Document": {
@@ -43050,6 +43070,7 @@
         {
           "Effect": "Allow",
           "Action": [
+            "cloudwatch:GetMetricData",
             "cloudwatch:GetMetricStatistics",
             "cloudwatch:ListMetrics"
           ],
@@ -43057,9 +43078,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-08T14:37:37+00:00"
+    "CreateDate": "2023-06-21T16:57:09+00:00"
   },
   "AmazonDocDBFullAccess": {
     "Document": {
@@ -49285,15 +49306,18 @@
             "inspector2:BatchGetMemberEc2DeepInspectionStatus",
             "inspector2:GetEc2DeepInspectionConfiguration",
             "inspector2:SearchVulnerabilities",
-            "codeguru-security:BatchGetFindings"
+            "inspector2:GetEncryptionKey",
+            "inspector2:GetSbomExport",
+            "codeguru-security:BatchGetFindings",
+            "codeguru-security:GetAccountConfiguration"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-05T21:54:19+00:00"
+    "CreateDate": "2023-06-23T20:12:39+00:00"
   },
   "AmazonInspector2ServiceRolePolicy": {
     "Document": {
@@ -53835,7 +53859,8 @@
           "Condition": {
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
-                "custom-oracle-rac"
+                "custom-oracle-rac",
+                "custom-oracle"
               ]
             }
           }
@@ -54311,9 +54336,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-26T02:01:02+00:00"
+    "CreateDate": "2023-06-23T00:24:50+00:00"
   },
   "AmazonRDSCustomServiceRolePolicy": {
     "Document": {
@@ -54476,7 +54501,8 @@
           "Condition": {
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
-                "custom-oracle-rac"
+                "custom-oracle-rac",
+                "custom-oracle"
               ]
             }
           }
@@ -55004,9 +55030,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-29T03:33:55+00:00"
+    "CreateDate": "2023-06-22T23:12:48+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
