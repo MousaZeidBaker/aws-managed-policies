@@ -6,13 +6,14 @@
         "Effect": "Allow",
         "Action": [
           "wellarchitected:Get*",
-          "wellarchitected:List*"
+          "wellarchitected:List*",
+          "wellarchitected:ExportLens"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2018-11-29T18:21:08+00:00"
+  "CreateDate": "2023-06-29T17:16:13+00:00"
 }
