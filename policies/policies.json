@@ -17848,6 +17848,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "BaseAppPermissions",
           "Effect": "Allow",
           "Action": [
             "glue:*",
@@ -17883,7 +17884,10 @@
             "kms:ListAliases",
             "kms:DescribeKey",
             "cloudwatch:GetMetricData",
-            "cloudwatch:ListDashboards"
+            "cloudwatch:ListDashboards",
+            "databrew:ListRecipes",
+            "databrew:ListRecipeVersions",
+            "databrew:DescribeRecipe"
           ],
           "Resource": [
             "*"
@@ -18016,9 +18020,9 @@
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-30T15:58:41+00:00"
+    "CreateDate": "2023-07-14T14:37:54+00:00"
   },
   "AWSGlueConsoleSageMakerNotebookFullAccess": {
     "Document": {
@@ -41828,6 +41832,14 @@
         },
         {
           "Effect": "Allow",
+          "Action": "iam:GetPolicy",
+          "Resource": [
+            "arn:aws:iam::*:policy/service-role/AmazonDataZoneBootstrapServicePolicy-AmazonDataZoneBootstrapRole",
+            "arn:aws:iam::*:policy/service-role/AmazonDataZoneServicePolicy-AmazonDataZoneServiceRole"
+          ]
+        },
+        {
+          "Effect": "Allow",
           "Action": "iam:PassRole",
           "Resource": [
             "arn:aws:iam::*:role/AmazonDataZoneServiceRole*",
@@ -41845,9 +41857,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-28T15:16:04+00:00"
+    "CreateDate": "2023-07-13T18:01:12+00:00"
   },
   "AmazonDataZoneProjectDeploymentPermissionsBoundary": {
     "Document": {
@@ -48393,10 +48405,60 @@
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
             "firehose:ListDeliveryStreams",
-            "fsx:*",
             "kms:ListAliases",
             "logs:DescribeLogGroups",
             "s3:ListBucket"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "fsx:AssociateFileGateway",
+            "fsx:AssociateFileSystemAliases",
+            "fsx:CancelDataRepositoryTask",
+            "fsx:CopyBackup",
+            "fsx:CreateBackup",
+            "fsx:CreateDataRepositoryAssociation",
+            "fsx:CreateDataRepositoryTask",
+            "fsx:CreateFileCache",
+            "fsx:CreateFileSystem",
+            "fsx:CreateFileSystemFromBackup",
+            "fsx:CreateSnapshot",
+            "fsx:CreateStorageVirtualMachine",
+            "fsx:CreateVolume",
+            "fsx:CreateVolumeFromBackup",
+            "fsx:DeleteBackup",
+            "fsx:DeleteDataRepositoryAssociation",
+            "fsx:DeleteFileCache",
+            "fsx:DeleteFileSystem",
+            "fsx:DeleteSnapshot",
+            "fsx:DeleteStorageVirtualMachine",
+            "fsx:DeleteVolume",
+            "fsx:DescribeAssociatedFileGateways",
+            "fsx:DescribeBackups",
+            "fsx:DescribeDataRepositoryAssociations",
+            "fsx:DescribeDataRepositoryTasks",
+            "fsx:DescribeFileCaches",
+            "fsx:DescribeFileSystemAliases",
+            "fsx:DescribeFileSystems",
+            "fsx:DescribeSnapshots",
+            "fsx:DescribeStorageVirtualMachines",
+            "fsx:DescribeVolumes",
+            "fsx:DisassociateFileGateway",
+            "fsx:DisassociateFileSystemAliases",
+            "fsx:ListTagsForResource",
+            "fsx:ManageBackupPrincipalAssociations",
+            "fsx:ReleaseFileSystemNfsV3Locks",
+            "fsx:RestoreVolumeFromSnapshot",
+            "fsx:TagResource",
+            "fsx:UntagResource",
+            "fsx:UpdateDataRepositoryAssociation",
+            "fsx:UpdateFileCache",
+            "fsx:UpdateFileSystem",
+            "fsx:UpdateSnapshot",
+            "fsx:UpdateStorageVirtualMachine",
+            "fsx:UpdateVolume"
           ],
           "Resource": "*"
         },
@@ -48445,9 +48507,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-22T14:08:01+00:00"
+    "CreateDate": "2023-07-13T18:44:50+00:00"
   },
   "AmazonFSxConsoleReadOnlyAccess": {
     "Document": {
@@ -48484,8 +48546,58 @@
         {
           "Effect": "Allow",
           "Action": [
-            "ds:DescribeDirectories",
-            "fsx:*"
+            "ds:DescribeDirectories"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "fsx:AssociateFileGateway",
+            "fsx:AssociateFileSystemAliases",
+            "fsx:CancelDataRepositoryTask",
+            "fsx:CopyBackup",
+            "fsx:CreateBackup",
+            "fsx:CreateDataRepositoryAssociation",
+            "fsx:CreateDataRepositoryTask",
+            "fsx:CreateFileCache",
+            "fsx:CreateFileSystem",
+            "fsx:CreateFileSystemFromBackup",
+            "fsx:CreateSnapshot",
+            "fsx:CreateStorageVirtualMachine",
+            "fsx:CreateVolume",
+            "fsx:CreateVolumeFromBackup",
+            "fsx:DeleteBackup",
+            "fsx:DeleteDataRepositoryAssociation",
+            "fsx:DeleteFileCache",
+            "fsx:DeleteFileSystem",
+            "fsx:DeleteSnapshot",
+            "fsx:DeleteStorageVirtualMachine",
+            "fsx:DeleteVolume",
+            "fsx:DescribeAssociatedFileGateways",
+            "fsx:DescribeBackups",
+            "fsx:DescribeDataRepositoryAssociations",
+            "fsx:DescribeDataRepositoryTasks",
+            "fsx:DescribeFileCaches",
+            "fsx:DescribeFileSystemAliases",
+            "fsx:DescribeFileSystems",
+            "fsx:DescribeSnapshots",
+            "fsx:DescribeStorageVirtualMachines",
+            "fsx:DescribeVolumes",
+            "fsx:DisassociateFileGateway",
+            "fsx:DisassociateFileSystemAliases",
+            "fsx:ListTagsForResource",
+            "fsx:ManageBackupPrincipalAssociations",
+            "fsx:ReleaseFileSystemNfsV3Locks",
+            "fsx:RestoreVolumeFromSnapshot",
+            "fsx:TagResource",
+            "fsx:UntagResource",
+            "fsx:UpdateDataRepositoryAssociation",
+            "fsx:UpdateFileCache",
+            "fsx:UpdateFileSystem",
+            "fsx:UpdateSnapshot",
+            "fsx:UpdateStorageVirtualMachine",
+            "fsx:UpdateVolume"
           ],
           "Resource": "*"
         },
@@ -48571,9 +48683,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-19T20:43:42+00:00"
+    "CreateDate": "2023-07-13T18:41:47+00:00"
   },
   "AmazonFSxReadOnlyAccess": {
     "Document": {
@@ -73505,6 +73617,7 @@
             "elasticbeanstalk:Retrieve*",
             "elasticbeanstalk:Validate*",
             "elasticfilesystem:Describe*",
+            "elasticfilesystem:ListTagsForResource",
             "elasticloadbalancing:Describe*",
             "elasticmapreduce:Describe*",
             "elasticmapreduce:GetBlockPublicAccessConfiguration",
@@ -73880,10 +73993,23 @@
             "iotsitewise:List*",
             "iotwireless:GetDestination",
             "iotwireless:GetDeviceProfile",
+            "iotwireless:GetEventConfigurationByResourceTypes",
+            "iotwireless:GetFuotaTask",
+            "iotwireless:GetLogLevelsByResourceTypes",
+            "iotwireless:GetMulticastGroup",
+            "iotwireless:GetMulticastGroupSession",
+            "iotwireless:GetNetworkAnalyzerConfiguration",
             "iotwireless:GetPartnerAccount",
+            "iotwireless:GetPosition",
+            "iotwireless:GetPositionConfiguration",
+            "iotwireless:GetPositionEstimate",
+            "iotwireless:GetResourceEventConfiguration",
+            "iotwireless:GetResourceLogLevel",
+            "iotwireless:GetResourcePosition",
             "iotwireless:GetServiceEndpoint",
             "iotwireless:GetServiceProfile",
             "iotwireless:GetWirelessDevice",
+            "iotwireless:GetWirelessDeviceImportTask",
             "iotwireless:GetWirelessDeviceStatistics",
             "iotwireless:GetWirelessGateway",
             "iotwireless:GetWirelessGatewayCertificate",
@@ -73893,9 +74019,18 @@
             "iotwireless:GetWirelessGatewayTaskDefinition",
             "iotwireless:ListDestinations",
             "iotwireless:ListDeviceProfiles",
+            "iotwireless:ListDevicesForWirelessDeviceImportTask",
+            "iotwireless:ListEventConfigurations",
+            "iotwireless:ListFuotaTasks",
+            "iotwireless:ListMulticastGroups",
+            "iotwireless:ListMulticastGroupsByFuotaTask",
+            "iotwireless:ListNetworkAnalyzerConfigurations",
             "iotwireless:ListPartnerAccounts",
+            "iotwireless:ListPositionConfigurations",
+            "iotwireless:ListQueuedMessages",
             "iotwireless:ListServiceProfiles",
             "iotwireless:ListTagsForResource",
+            "iotwireless:ListWirelessDeviceImportTasks",
             "iotwireless:ListWirelessDevices",
             "iotwireless:ListWirelessGateways",
             "iotwireless:ListWirelessGatewayTaskDefinitions",
@@ -74355,6 +74490,12 @@
             "osis:ListTagsForResource",
             "outposts:Get*",
             "outposts:List*",
+            "payment-cryptography:GetAlias",
+            "payment-cryptography:GetKey",
+            "payment-cryptography:GetPublicKeyCertificate",
+            "payment-cryptography:ListAliases",
+            "payment-cryptography:ListKeys",
+            "payment-cryptography:ListTagsForResource",
             "payments:GetPaymentInstrument",
             "payments:GetPaymentStatus",
             "payments:ListPaymentPreferences",
@@ -74755,9 +74896,9 @@
         }
       ]
     },
-    "VersionId": "v102",
+    "VersionId": "v103",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-15T23:41:22+00:00"
+    "CreateDate": "2023-07-10T17:02:45+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
