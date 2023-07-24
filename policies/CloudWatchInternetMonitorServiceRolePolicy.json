@@ -1,12 +1,15 @@
 {
   "Document": {
+    "Version": "2012-10-17",
     "Statement": [
       {
         "Effect": "Allow",
         "Action": [
+          "cloudfront:GetDistribution",
+          "ec2:DescribeNetworkInterfaces",
           "ec2:DescribeVpcs",
-          "workspaces:DescribeWorkspaceDirectories",
-          "cloudfront:GetDistribution"
+          "elasticloadbalancing:DescribeLoadBalancers",
+          "workspaces:DescribeWorkspaceDirectories"
         ],
         "Resource": "*"
       },
@@ -34,10 +37,9 @@
         },
         "Resource": "*"
       }
-    ],
-    "Version": "2012-10-17"
+    ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-27T17:46:24+00:00"
+  "CreateDate": "2023-07-20T04:46:37+00:00"
 }

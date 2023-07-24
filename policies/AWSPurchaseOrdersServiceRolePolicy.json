@@ -17,9 +17,12 @@
           "purchase-orders:GetPurchaseOrder",
           "purchase-orders:ListPurchaseOrderInvoices",
           "purchase-orders:ListPurchaseOrders",
+          "purchase-orders:ListTagsForResource",
           "purchase-orders:ModifyPurchaseOrders",
-          "purchase-orders:UpdatePurchaseOrderStatus",
+          "purchase-orders:TagResource",
+          "purchase-orders:UntagResource",
           "purchase-orders:UpdatePurchaseOrder",
+          "purchase-orders:UpdatePurchaseOrderStatus",
           "purchase-orders:ViewPurchaseOrders",
           "tax:ListTaxRegistrations"
         ],
@@ -27,7 +30,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-03-17T19:07:53+00:00"
+  "CreateDate": "2023-07-17T18:59:18+00:00"
 }

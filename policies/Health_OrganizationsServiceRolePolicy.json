@@ -4,18 +4,18 @@
     "Statement": [
       {
         "Effect": "Allow",
-        "Action": "organizations:ListAccounts",
-        "Resource": "*"
-      },
-      {
-        "Sid": "ListAWSServiceAccessForOrganization0",
-        "Effect": "Allow",
-        "Action": "organizations:ListAWSServiceAccessForOrganization",
+        "Action": [
+          "organizations:ListAccounts",
+          "organizations:ListAWSServiceAccessForOrganization",
+          "organizations:ListDelegatedAdministrators",
+          "organizations:DescribeOrganization",
+          "organizations:DescribeAccount"
+        ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-06-08T12:48:44+00:00"
+  "CreateDate": "2023-07-19T14:34:18+00:00"
 }

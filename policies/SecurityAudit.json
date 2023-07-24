@@ -17,6 +17,7 @@
           "access-analyzer:ListArchiveRules",
           "access-analyzer:ListFindings",
           "access-analyzer:ListTagsForResource",
+          "account:GetAlternateContact",
           "acm-pca:DescribeCertificateAuthority",
           "acm-pca:DescribeCertificateAuthorityAuditReport",
           "acm-pca:GetPolicy",
@@ -90,7 +91,9 @@
           "cloudtrail:ListTags",
           "cloudtrail:LookupEvents",
           "cloudwatch:Describe*",
+          "cloudwatch:GetDashboard",
           "cloudwatch:ListTagsForResource",
+          "cloudwatch:ListDashboards",
           "codeartifact:GetDomainPermissionsPolicy",
           "codeartifact:GetRepositoryPermissionsPolicy",
           "codeartifact:ListRepositories",
@@ -210,6 +213,7 @@
           "eks:ListClusters",
           "eks:ListFargateProfiles",
           "eks:ListNodeGroups",
+          "eks:ListUpdates",
           "elastic-inference:DescribeAccelerators",
           "elasticache:Describe*",
           "elasticache:ListTagsForResource",
@@ -652,7 +656,7 @@
       }
     ]
   },
-  "VersionId": "v38",
+  "VersionId": "v39",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-07T18:56:25+00:00"
+  "CreateDate": "2023-07-20T19:34:47+00:00"
 }
