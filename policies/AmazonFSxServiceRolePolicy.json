@@ -5,7 +5,6 @@
       {
         "Effect": "Allow",
         "Action": [
-          "cloudwatch:PutMetricData",
           "ds:AuthorizeApplication",
           "ds:GetAuthorizedApplicationDetails",
           "ds:UnauthorizeApplication",
@@ -23,6 +22,20 @@
           "route53:AssociateVPCWithHostedZone"
         ],
         "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "cloudwatch:PutMetricData"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "cloudwatch:namespace": "AWS/FSx"
+          }
+        }
       },
       {
         "Effect": "Allow",
@@ -93,7 +106,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-08-20T12:51:29+00:00"
+  "CreateDate": "2023-07-26T17:57:34+00:00"
 }

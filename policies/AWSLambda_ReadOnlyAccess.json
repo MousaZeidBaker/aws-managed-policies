@@ -6,6 +6,7 @@
         "Effect": "Allow",
         "Action": [
           "cloudformation:DescribeStacks",
+          "cloudformation:ListStacks",
           "cloudformation:ListStackResources",
           "cloudwatch:GetMetricData",
           "cloudwatch:ListMetrics",
@@ -36,13 +37,19 @@
         "Action": [
           "logs:DescribeLogStreams",
           "logs:GetLogEvents",
-          "logs:FilterLogEvents"
+          "logs:FilterLogEvents",
+          "logs:StartQuery",
+          "logs:StopQuery",
+          "logs:DescribeQueries",
+          "logs:GetLogGroupFields",
+          "logs:GetLogRecord",
+          "logs:GetQueryResults"
         ],
         "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-11-17T21:10:32+00:00"
+  "CreateDate": "2023-07-27T17:32:05+00:00"
 }

@@ -17,6 +17,7 @@
           "billing:GetIAMAccessPreference",
           "billing:GetSellerOfRecord",
           "billing:ListBillingViews",
+          "ce:ListCostAllocationTags",
           "consolidatedbilling:ListLinkedAccounts",
           "consolidatedbilling:GetAccountBillingRole",
           "cur:GetClassicReport",
@@ -43,7 +44,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-28T19:56:01+00:00"
+  "CreateDate": "2023-07-26T18:05:19+00:00"
 }
