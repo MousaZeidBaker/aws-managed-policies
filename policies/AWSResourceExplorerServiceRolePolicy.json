@@ -25,6 +25,10 @@
           "cloudwatch:DescribeInsightRules",
           "cloudwatch:ListDashboards",
           "cloudwatch:ListMetricStreams",
+          "codebuild:ListProjects",
+          "codepipeline:ListPipelines",
+          "cognito-identity:ListIdentityPools",
+          "cognito-idp:ListUserPools",
           "dynamodb:ListStreams",
           "dynamodb:ListTables",
           "ec2:DescribeAddresses",
@@ -89,6 +93,7 @@
           "ec2:DescribeVpnConnections",
           "ec2:DescribeVpnGateways",
           "ec2:GetSubnetCidrReservations",
+          "ecr:DescribeRepositories",
           "ecs:DescribeCapacityProviders",
           "ecs:DescribeServices",
           "ecs:ListClusters",
@@ -109,6 +114,10 @@
           "elasticache:DescribeCacheSubnetGroups",
           "elasticache:DescribeUsers",
           "elasticache:DescribeUserGroups",
+          "elasticbeanstalk:DescribeApplications",
+          "elasticbeanstalk:DescribeApplicationVersions",
+          "elasticbeanstalk:DescribeEnvironments",
+          "elasticfilesystem:DescribeFileSystems",
           "es:ListDomainNames",
           "iam:ListGroups",
           "iam:ListInstanceProfiles",
@@ -118,6 +127,8 @@
           "iam:ListSAMLProviders",
           "iam:ListServerCertificates",
           "iam:ListUsers",
+          "iot:ListPolicies",
+          "iot:ListTopicRules",
           "kinesis:ListStreamConsumers",
           "kinesis:ListStreams",
           "lambda:ListCodeSigningConfigs",
@@ -157,6 +168,7 @@
           "s3:GetBucketLocation",
           "s3:ListAccessPoints",
           "s3:ListAllMyBuckets",
+          "s3:ListBucket",
           "s3:ListStorageLensConfigurations",
           "servicecatalog:ListApplications",
           "servicecatalog:ListAttributeGroups",
@@ -170,6 +182,7 @@
           "ssm:DescribePatchBaselines",
           "ssm:ListAssociations",
           "ssm:ListDocuments",
+          "states:ListStateMachines",
           "sqs:ListQueues"
         ],
         "Resource": [
@@ -178,7 +191,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-01-26T14:43:30+00:00"
+  "CreateDate": "2023-08-01T19:33:28+00:00"
 }

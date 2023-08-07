@@ -13,13 +13,14 @@
           "medical-imaging:ListDICOMImportJobs",
           "medical-imaging:ListDatastores",
           "medical-imaging:ListImageSetVersions",
+          "medical-imaging:ListTagsForResource",
           "medical-imaging:SearchImageSets"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-07-25T23:40:40+00:00"
+  "CreateDate": "2023-08-01T15:18:49+00:00"
 }
