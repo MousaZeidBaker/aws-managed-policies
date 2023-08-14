@@ -3106,6 +3106,7 @@
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "rds:DescribeDBSnapshots",
             "rds:ListTagsForResource",
@@ -3120,15 +3121,14 @@
             "rds:DescribeDBClusterParameterGroups",
             "rds:DescribeDBInstanceAutomatedBackups"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "rds:DeleteDBSnapshot",
             "rds:DeleteDBClusterSnapshot"
           ],
-          "Effect": "Allow",
           "Resource": "*",
           "Condition": {
             "ForAnyValue:StringEquals": {
@@ -3139,18 +3139,18 @@
           }
         },
         {
+          "Effect": "Allow",
           "Action": [
             "dynamodb:ListBackups",
             "dynamodb:ListTables"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "dynamodb:DeleteBackup"
           ],
-          "Effect": "Allow",
           "Resource": "*",
           "Condition": {
             "ForAnyValue:StringEquals": {
@@ -3161,13 +3161,14 @@
           }
         },
         {
+          "Effect": "Allow",
           "Action": [
             "elasticfilesystem:DescribeFilesystems"
           ],
-          "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*",
-          "Effect": "Allow"
+          "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "ec2:DescribeSnapshots",
             "ec2:DescribeVolumes",
@@ -3182,15 +3183,14 @@
             "ec2:DescribeInstanceTypes",
             "ec2:DescribeVpcEndpoints"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "ec2:DeleteSnapshot",
             "ec2:DeregisterImage"
           ],
-          "Effect": "Allow",
           "Resource": "*",
           "Condition": {
             "ForAnyValue:StringEquals": {
@@ -3201,12 +3201,12 @@
           }
         },
         {
+          "Effect": "Allow",
           "Action": [
             "tag:GetTagKeys",
             "tag:GetTagValues",
             "tag:GetResources"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
@@ -3234,11 +3234,11 @@
           "Resource": "arn:aws:storagegateway:*:*:gateway/*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "iam:ListRoles",
             "iam:GetRole"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
@@ -3260,20 +3260,20 @@
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "kms:ListKeys",
             "kms:DescribeKey",
             "kms:GenerateDataKey",
             "kms:ListAliases"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "kms:CreateGrant"
           ],
-          "Effect": "Allow",
           "Resource": "*",
           "Condition": {
             "ForAnyValue:StringEquals": {
@@ -3304,13 +3304,13 @@
           ]
         },
         {
-          "Action": "fsx:DescribeFileSystems",
           "Effect": "Allow",
+          "Action": "fsx:DescribeFileSystems",
           "Resource": "*"
         },
         {
-          "Action": "fsx:DescribeBackups",
           "Effect": "Allow",
+          "Action": "fsx:DescribeBackups",
           "Resource": "*"
         },
         {
@@ -3324,8 +3324,8 @@
           "Resource": "arn:aws:fsx:*:*:storage-virtual-machine/*/*"
         },
         {
-          "Action": "fsx:DeleteBackup",
           "Effect": "Allow",
+          "Action": "fsx:DeleteBackup",
           "Resource": "arn:aws:fsx:*:*:backup/*",
           "Condition": {
             "ForAnyValue:StringEquals": {
@@ -3336,8 +3336,8 @@
           }
         },
         {
-          "Action": "ds:DescribeDirectories",
           "Effect": "Allow",
+          "Action": "ds:DescribeDirectories",
           "Resource": "*"
         },
         {
@@ -3410,7 +3410,6 @@
             "timestream:ListDatabases"
           ],
           "Resource": [
-            "arn:aws:timestream:*:*:database/*/table/*",
             "arn:aws:timestream:*:*:database/*"
           ]
         },
@@ -3484,12 +3483,19 @@
             "ssm-sap:ListTagsForResource"
           ],
           "Resource": "arn:aws:ssm-sap:*:*:*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ram:GetResourceShareAssociations"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-15T20:15:51+00:00"
+    "CreateDate": "2023-08-08T18:20:54+00:00"
   },
   "AWSBackupGatewayServiceRolePolicyForVirtualMachineMetadataSync": {
     "Document": {
@@ -3537,6 +3543,7 @@
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "rds:DescribeDBSnapshots",
             "rds:ListTagsForResource",
@@ -3551,25 +3558,25 @@
             "rds:DescribeDBClusterParameterGroups",
             "rds:DescribeDBInstanceAutomatedBackups"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "dynamodb:ListBackups",
             "dynamodb:ListTables"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "elasticfilesystem:DescribeFilesystems"
           ],
-          "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*",
-          "Effect": "Allow"
+          "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "ec2:DescribeSnapshots",
             "ec2:DescribeVolumes",
@@ -3585,16 +3592,15 @@
             "ec2:DescribeVpcEndpoints",
             "ec2:DescribeAddresses"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "tag:GetTagKeys",
             "tag:GetTagValues",
             "tag:GetResources"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
@@ -3622,11 +3628,11 @@
           "Resource": "arn:aws:storagegateway:*:*:gateway/*"
         },
         {
+          "Effect": "Allow",
           "Action": [
             "iam:ListRoles",
             "iam:GetRole"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
@@ -3664,13 +3670,13 @@
           ]
         },
         {
-          "Action": "fsx:DescribeBackups",
           "Effect": "Allow",
+          "Action": "fsx:DescribeBackups",
           "Resource": "arn:aws:fsx:*:*:backup/*"
         },
         {
-          "Action": "fsx:DescribeFileSystems",
           "Effect": "Allow",
+          "Action": "fsx:DescribeFileSystems",
           "Resource": "arn:aws:fsx:*:*:file-system/*"
         },
         {
@@ -3684,8 +3690,8 @@
           "Resource": "arn:aws:fsx:*:*:storage-virtual-machine/*/*"
         },
         {
-          "Action": "ds:DescribeDirectories",
           "Effect": "Allow",
+          "Action": "ds:DescribeDirectories",
           "Resource": "*"
         },
         {
@@ -3733,7 +3739,6 @@
             "timestream:ListTables"
           ],
           "Resource": [
-            "arn:aws:timestream:*:*:database/*/table/*",
             "arn:aws:timestream:*:*:database/*"
           ]
         },
@@ -3800,12 +3805,19 @@
             "ssm-sap:ListTagsForResource"
           ],
           "Resource": "arn:aws:ssm-sap:*:*:*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ram:GetResourceShareAssociations"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-15T20:13:00+00:00"
+    "CreateDate": "2023-08-08T18:19:48+00:00"
   },
   "AWSBackupOrganizationAdminAccess": {
     "Document": {
@@ -20291,21 +20303,23 @@
           ],
           "Condition": {
             "ForAnyValue:StringEquals": {
+              "aws:TagKeys": [
+                "Owner"
+              ]
+            },
+            "StringEquals": {
               "ec2:CreateAction": [
                 "RunInstances",
                 "CreateSecurityGroup"
-              ],
-              "aws:TagKeys": [
-                "Owner"
               ]
             }
           }
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-02T22:01:19+00:00"
+    "CreateDate": "2023-08-10T20:30:07+00:00"
   },
   "AWSIoTDeviceTesterForGreengrassFullAccess": {
     "Document": {
@@ -24016,6 +24030,64 @@
     "VersionId": "v2",
     "IsDefaultVersion": true,
     "CreateDate": "2023-07-20T15:39:19+00:00"
+  },
+  "AWSMigrationHubRefactorSpaces-SSMAutomationPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstanceStatus",
+            "ec2:DescribeInstances"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyInstanceAttribute"
+          ],
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/refactor-spaces:ssm:optin": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyInstanceAttribute"
+          ],
+          "Resource": "arn:aws:ec2:*:*:security-group/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags",
+            "ec2:DeleteTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/refactor-spaces:ssm:optin": "true"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": "refactor-spaces:ssm:environment-id"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ssm:GetParameters",
+          "Resource": "arn:aws:ssm:*:*:parameter/ManagedByAWSApplicationMigrationService-*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-08-10T15:08:14+00:00"
   },
   "AWSMigrationHubRefactorSpacesFullAccess": {
     "Document": {
@@ -58569,6 +58641,7 @@
           "Action": [
             "s3:Get*",
             "s3:List*",
+            "s3:Describe*",
             "s3-object-lambda:Get*",
             "s3-object-lambda:List*"
           ],
@@ -58576,9 +58649,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-09-27T20:24:58+00:00"
+    "CreateDate": "2023-08-10T21:31:39+00:00"
   },
   "AmazonSESFullAccess": {
     "Document": {
@@ -73847,6 +73920,15 @@
             "appconfig:ListEnvironments",
             "appconfig:ListHostedConfigurationVersions",
             "appconfig:ListTagsForResource",
+            "appfabric:GetAppAuthorization",
+            "appfabric:GetAppBundle",
+            "appfabric:GetIngestion",
+            "appfabric:GetIngestionDestination",
+            "appfabric:ListAppAuthorizations",
+            "appfabric:ListAppBundles",
+            "appfabric:ListIngestionDestinations",
+            "appfabric:ListIngestions",
+            "appfabric:ListTagsForResource",
             "appflow:DescribeConnector",
             "appflow:DescribeConnectorEntity",
             "appflow:DescribeConnectorFields",
@@ -73885,6 +73967,7 @@
             "appsync:Get*",
             "appsync:List*",
             "aps:DescribeAlertManagerDefinition",
+            "aps:DescribeLoggingConfiguration",
             "aps:DescribeRuleGroupsNamespace",
             "aps:DescribeWorkspace",
             "aps:GetAlertManagerSilence",
@@ -74803,6 +74886,19 @@
             "kms:List*",
             "lambda:Get*",
             "lambda:List*",
+            "lakeformation:DescribeResource",
+            "lakeformation:GetDataCellsFilter",
+            "lakeformation:GetDataLakeSettings",
+            "lakeformation:GetEffectivePermissionsForPath",
+            "lakeformation:GetLfTag",
+            "lakeformation:GetResourceLfTags",
+            "lakeformation:ListDataCellsFilter",
+            "lakeformation:ListLfTags",
+            "lakeformation:ListPermissions",
+            "lakeformation:ListResources",
+            "lakeformation:ListTableStorageOptimizers",
+            "lakeformation:SearchDatabasesByLfTags",
+            "lakeformation:SearchTablesByLfTags",
             "launchwizard:DescribeAdditionalNode",
             "launchwizard:DescribeProvisionedApp",
             "launchwizard:DescribeProvisioningEvents",
@@ -75528,6 +75624,17 @@
             "translate:ListTerminologies",
             "translate:ListTextTranslationJobs",
             "trustedadvisor:Describe*",
+            "verifiedpermissions:ListPolicies",
+            "verifiedpermissions:ListIdentitySources",
+            "verifiedpermissions:ListPolicyStores",
+            "verifiedpermissions:ListPolicyTemplates",
+            "verifiedpermissions:GetIdentitySource",
+            "verifiedpermissions:GetPolicy",
+            "verifiedpermissions:GetPolicyStore",
+            "verifiedpermissions:GetPolicyTemplate",
+            "verifiedpermissions:GetSchema",
+            "verifiedpermissions:IsAuthorized",
+            "verifiedpermissions:IsAuthorizedWithToken",
             "vpc-lattice:GetAccessLogSubscription",
             "vpc-lattice:GetAuthPolicy",
             "vpc-lattice:GetListener",
@@ -75587,9 +75694,9 @@
         }
       ]
     },
-    "VersionId": "v103",
+    "VersionId": "v104",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-10T17:02:45+00:00"
+    "CreateDate": "2023-08-07T14:47:52+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
@@ -75624,15 +75731,16 @@
             "tag:UntagResources",
             "resource-groups:*",
             "cloudformation:DescribeStacks",
-            "cloudformation:ListStackResources"
+            "cloudformation:ListStackResources",
+            "cloudformation:ListStacks"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-10-02T23:57:57+00:00"
+    "CreateDate": "2023-08-10T13:29:19+00:00"
   },
   "ResourceGroupsandTagEditorReadOnlyAccess": {
     "Document": {
@@ -75648,15 +75756,16 @@
             "resource-groups:List*",
             "resource-groups:Search*",
             "cloudformation:DescribeStacks",
-            "cloudformation:ListStackResources"
+            "cloudformation:ListStackResources",
+            "cloudformation:ListStacks"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-03-07T19:43:17+00:00"
+    "CreateDate": "2023-08-10T13:42:58+00:00"
   },
   "Route53RecoveryReadinessServiceRolePolicy": {
     "Document": {
