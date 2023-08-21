@@ -8359,6 +8359,8 @@
             "sns:Publish",
             "cloudwatch:DescribeAlarms",
             "cloudwatch:PutMetricAlarm",
+            "elasticloadbalancing:DescribeLoadBalancerAttributes",
+            "elasticloadbalancing:DescribeTargetGroupAttributes",
             "elasticloadbalancing:DescribeLoadBalancers",
             "elasticloadbalancing:DescribeInstanceHealth",
             "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
@@ -8372,9 +8374,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-03T18:04:16+00:00"
+    "CreateDate": "2023-08-16T20:38:58+00:00"
   },
   "AWSCodeDeployRoleForCloudFormation": {
     "Document": {
@@ -10002,7 +10004,6 @@
             "amplifyuibuilder:ExportThemes",
             "amplifyuibuilder:GetTheme",
             "amplifyuibuilder:ListThemes",
-            "apigateway:GET",
             "app-integrations:GetEventIntegration",
             "app-integrations:ListEventIntegrationAssociations",
             "app-integrations:ListEventIntegrations",
@@ -10025,6 +10026,7 @@
             "appflow:ListTagsForResource",
             "application-autoscaling:DescribeScalableTargets",
             "application-autoscaling:DescribeScalingPolicies",
+            "appmesh:DescribeGatewayRoute",
             "appmesh:DescribeRoute",
             "appmesh:DescribeVirtualGateway",
             "appmesh:DescribeVirtualNode",
@@ -10045,6 +10047,7 @@
             "appstream:DescribeApplications",
             "appstream:DescribeDirectoryConfigs",
             "appstream:DescribeFleets",
+            "appstream:DescribeStacks",
             "appstream:ListTagsForResource",
             "appsync:GetApiCache",
             "appsync:GetGraphqlApi",
@@ -10052,6 +10055,7 @@
             "APS:DescribeRuleGroupsNamespace",
             "APS:DescribeWorkspace",
             "aps:ListRuleGroupsNamespaces",
+            "aps:ListTagsForResource",
             "APS:ListWorkspaces",
             "athena:GetDataCatalog",
             "athena:GetPreparedStatement",
@@ -10119,8 +10123,12 @@
             "cloudformation:ListStackResources",
             "cloudformation:ListStacks",
             "cloudformation:ListTypes",
+            "cloudfront:GetFunction",
+            "cloudfront:GetOriginAccessControl",
             "cloudfront:GetResponseHeadersPolicy",
             "cloudfront:ListDistributions",
+            "cloudfront:ListFunctions",
+            "cloudfront:ListOriginAccessControls",
             "cloudfront:ListResponseHeadersPolicies",
             "cloudfront:ListTagsForResource",
             "cloudtrail:DescribeTrails",
@@ -10140,8 +10148,12 @@
             "codeartifact:DescribeRepository",
             "codeartifact:GetRepositoryPermissionsPolicy",
             "codeartifact:ListDomains",
+            "codeartifact:ListPackages",
+            "codeartifact:ListPackageVersions",
             "codeartifact:ListRepositories",
             "codeartifact:ListTagsForResource",
+            "codebuild:BatchGetReportGroups",
+            "codebuild:ListReportGroups",
             "codecommit:GetRepository",
             "codecommit:GetRepositoryTriggers",
             "codecommit:ListRepositories",
@@ -10163,6 +10175,8 @@
             "config:Put*",
             "config:Select*",
             "connect:DescribePhoneNumber",
+            "connect:ListInstanceAttributes",
+            "connect:ListInstances",
             "connect:ListPhoneNumbers",
             "connect:ListPhoneNumbersV2",
             "connect:SearchAvailablePhoneNumbers",
@@ -10438,6 +10452,8 @@
             "glue:GetJobs",
             "glue:GetMLTransform",
             "glue:GetMLTransforms",
+            "glue:GetPartition",
+            "glue:GetPartitions",
             "glue:GetSecurityConfiguration",
             "glue:GetSecurityConfigurations",
             "glue:GetTable",
@@ -10458,6 +10474,7 @@
             "groundstation:ListMissionProfiles",
             "groundstation:ListTagsForResource",
             "guardduty:DescribePublishingDestination",
+            "guardduty:GetAdministratorAccount",
             "guardduty:GetDetector",
             "guardduty:GetFilter",
             "guardduty:GetFindings",
@@ -10503,6 +10520,7 @@
             "iam:ListGroupsForUser",
             "iam:ListInstanceProfiles",
             "iam:ListInstanceProfilesForRole",
+            "iam:ListInstanceProfileTags",
             "iam:ListMFADevices",
             "iam:ListMFADeviceTags",
             "iam:ListPolicyVersions",
@@ -10528,6 +10546,7 @@
             "imagebuilder:ListImageRecipes",
             "imagebuilder:ListImages",
             "imagebuilder:ListInfrastructureConfigurations",
+            "inspector2:ListFilters",
             "iot:DescribeAccountAuditConfiguration",
             "iot:DescribeAuthorizer",
             "iot:DescribeCertificate",
@@ -10535,7 +10554,9 @@
             "iot:DescribeDimension",
             "iot:DescribeDomainConfiguration",
             "iot:DescribeFleetMetric",
+            "iot:DescribeJobTemplate",
             "iot:DescribeMitigationAction",
+            "iot:DescribeProvisioningTemplate",
             "iot:DescribeRoleAlias",
             "iot:DescribeScheduledAudit",
             "iot:DescribeSecurityProfile",
@@ -10548,8 +10569,10 @@
             "iot:ListDimensions",
             "iot:ListDomainConfigurations",
             "iot:ListFleetMetrics",
+            "iot:ListJobTemplates",
             "iot:ListMitigationActions",
             "iot:ListPolicies",
+            "iot:ListProvisioningTemplates",
             "iot:ListRoleAliases",
             "iot:ListScheduledAudits",
             "iot:ListSecurityProfiles",
@@ -10592,16 +10615,22 @@
             "iotsitewise:ListProjectAssets",
             "iotsitewise:ListProjects",
             "iotsitewise:ListTagsForResource",
+            "iottwinmaker:GetComponentType",
             "iottwinmaker:GetEntity",
             "iottwinmaker:GetScene",
             "iottwinmaker:GetWorkspace",
+            "iottwinmaker:ListComponentTypes",
             "iottwinmaker:ListEntities",
             "iottwinmaker:ListScenes",
             "iottwinmaker:ListTagsForResource",
             "iottwinmaker:ListWorkspaces",
+            "iotwireless:GetFuotaTask",
+            "iotwireless:GetMulticastGroup",
             "iotwireless:GetServiceProfile",
             "iotwireless:GetWirelessDevice",
             "iotwireless:GetWirelessGatewayTaskDefinition",
+            "iotwireless:ListFuotaTasks",
+            "iotwireless:ListMulticastGroups",
             "iotwireless:ListServiceProfiles",
             "iotwireless:ListTagsForResource",
             "iotwireless:ListWirelessDevices",
@@ -10622,6 +10651,7 @@
             "kafka:ListClusters",
             "kafka:ListClustersV2",
             "kafka:ListConfigurations",
+            "kafka:ListScramSecrets",
             "kendra:DescribeIndex",
             "kendra:ListIndices",
             "kendra:ListTagsForResource",
@@ -10711,6 +10741,7 @@
             "macie2:GetFindingsPublicationConfiguration",
             "macie2:GetMacieSession",
             "macie2:ListCustomDataIdentifiers",
+            "macie2:ListTagsForResource",
             "managedblockchain:GetMember",
             "managedblockchain:GetNetwork",
             "managedblockchain:GetNode",
@@ -10719,6 +10750,7 @@
             "managedblockchain:ListNodes",
             "mediaconnect:DescribeFlow",
             "mediaconnect:ListFlows",
+            "mediaconnect:ListTagsForResource",
             "mediapackage-vod:DescribePackagingConfiguration",
             "mediapackage-vod:DescribePackagingGroup",
             "mediapackage-vod:ListPackagingConfigurations",
@@ -10745,6 +10777,7 @@
             "mq:ListBrokers",
             "network-firewall:DescribeLoggingConfiguration",
             "network-firewall:ListFirewalls",
+            "networkmanager:GetConnectPeer",
             "networkmanager:DescribeGlobalNetworks",
             "networkmanager:GetCustomerGatewayAssociations",
             "networkmanager:GetDevices",
@@ -10752,6 +10785,7 @@
             "networkmanager:GetLinks",
             "networkmanager:GetSites",
             "networkmanager:GetTransitGatewayRegistrations",
+            "networkmanager:ListConnectPeers",
             "networkmanager:ListTagsForResource",
             "nimble:GetLaunchProfile",
             "nimble:GetLaunchProfileDetails",
@@ -10769,8 +10803,10 @@
             "opsworks:ListTags",
             "organizations:DescribeAccount",
             "organizations:DescribeOrganization",
+            "organizations:DescribeEffectivePolicy",
             "organizations:DescribeOrganizationalUnit",
             "organizations:DescribePolicy",
+            "organizations:DescribeResourcePolicy",
             "organizations:ListAccounts",
             "organizations:ListAccountsForParent",
             "organizations:ListOrganizationalUnitsForParent",
@@ -10868,6 +10904,9 @@
             "resiliencehub:ListAppVersionResourceMappings",
             "resiliencehub:ListResiliencyPolicies",
             "resiliencehub:ListTagsForResource",
+            "resource-explorer-2:GetIndex",
+            "resource-explorer-2:ListIndexes",
+            "resource-explorer-2:ListTagsForResource",
             "resource-groups:GetGroup",
             "resource-groups:GetGroupConfiguration",
             "resource-groups:GetGroupQuery",
@@ -10898,6 +10937,7 @@
             "route53:GetDNSSEC",
             "route53:GetHealthCheck",
             "route53:GetHostedZone",
+            "route53:ListCidrCollections",
             "route53:ListHealthChecks",
             "route53:ListHostedZones",
             "route53:ListHostedZonesByName",
@@ -10962,6 +11002,8 @@
             "s3:GetEncryptionConfiguration",
             "s3:GetLifecycleConfiguration",
             "s3:GetMultiRegionAccessPoint",
+            "s3:GetMultiRegionAccessPointPolicy",
+            "s3:GetMultiRegionAccessPointPolicyStatus",
             "s3:GetReplicationConfiguration",
             "s3:GetStorageLensConfiguration",
             "s3:GetStorageLensConfigurationTagging",
@@ -11046,6 +11088,7 @@
             "signer:GetSigningProfile",
             "signer:ListProfilePermissions",
             "signer:ListSigningProfiles",
+            "sns:GetDataProtectionPolicy",
             "sns:GetSubscriptionAttributes",
             "sns:GetTopicAttributes",
             "sns:ListSubscriptions",
@@ -11058,9 +11101,12 @@
             "ssm:DescribeAutomationExecutions",
             "ssm:DescribeDocument",
             "ssm:DescribeDocumentPermission",
+            "ssm:DescribeParameters",
             "ssm:GetAutomationExecution",
             "ssm:GetDocument",
+            "ssm:GetParameter",
             "ssm:ListDocuments",
+            "ssm:ListTagsForResource",
             "sso:DescribeInstanceAccessControlAttributeConfiguration",
             "sso:DescribePermissionSet",
             "sso:GetInlinePolicyForPermissionSet",
@@ -11137,12 +11183,43 @@
           "Effect": "Allow",
           "Action": "logs:PutLogEvents",
           "Resource": "arn:aws:logs:*:*:log-group:/aws/config/*:log-stream:config-rule-evaluation/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "apigateway:GET"
+          ],
+          "Resource": [
+            "arn:aws:apigateway:*::/apis",
+            "arn:aws:apigateway:*::/apis/*",
+            "arn:aws:apigateway:*::/apis/*/integrations",
+            "arn:aws:apigateway:*::/apis/*/integrations/*",
+            "arn:aws:apigateway:*::/domainnames",
+            "arn:aws:apigateway:*::/clientcertificates",
+            "arn:aws:apigateway:*::/clientcertificates/*",
+            "arn:aws:apigateway:*::/restapis",
+            "arn:aws:apigateway:*::/restapis/*/resources/*/methods/*",
+            "arn:aws:apigateway:*::/restapis/*",
+            "arn:aws:apigateway:*::/restapis/*/stages/*",
+            "arn:aws:apigateway:*::/restapis/*/stages",
+            "arn:aws:apigateway:*::/restapis/*/resources",
+            "arn:aws:apigateway:*::/restapis/*/resources/*/methods/*/integration",
+            "arn:aws:apigateway:*::/restapis/*/resources/*",
+            "arn:aws:apigateway:*::/apis/*/routes/*",
+            "arn:aws:apigateway:*::/apis/*/routes",
+            "arn:aws:apigateway:*::/v2/apis/*/routes",
+            "arn:aws:apigateway:*::/v2/apis/*/routes/*",
+            "arn:aws:apigateway:*::/v2/apis",
+            "arn:aws:apigateway:*::/v2/apis/*",
+            "arn:aws:apigateway:*::/v2/apis/*/integrations",
+            "arn:aws:apigateway:*::/v2/apis/*/integrations/*"
+          ]
         }
       ]
     },
-    "VersionId": "v44",
+    "VersionId": "v45",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-09T21:10:35+00:00"
+    "CreateDate": "2023-08-16T18:05:21+00:00"
   },
   "AWSConfigUserAccess": {
     "Document": {
@@ -17274,6 +17351,121 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2017-09-20T17:29:09+00:00"
+  },
+  "AWSEntityResolutionConsoleFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "EntityResolutionAccess",
+          "Effect": "Allow",
+          "Action": [
+            "entityresolution:*"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "GlueSourcesConsoleDisplay",
+          "Effect": "Allow",
+          "Action": [
+            "glue:GetSchema",
+            "glue:SearchTables",
+            "glue:GetSchemaByDefinition",
+            "glue:GetSchemaVersion",
+            "glue:GetSchemaVersionsDiff",
+            "glue:GetDatabase",
+            "glue:GetDatabases",
+            "glue:GetTable",
+            "glue:GetTables",
+            "glue:GetTableVersion",
+            "glue:GetTableVersions"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "S3BucketsConsoleDisplay",
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListAllMyBuckets"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "S3SourcesConsoleDisplay",
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListBucket",
+            "s3:GetBucketLocation",
+            "s3:ListBucketVersions",
+            "s3:GetBucketVersioning"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "TaggingConsoleDisplay",
+          "Effect": "Allow",
+          "Action": [
+            "tag:GetTagKeys",
+            "tag:GetTagValues"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "KMSConsoleDisplay",
+          "Effect": "Allow",
+          "Action": [
+            "kms:DescribeKey",
+            "kms:ListAliases"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ListRolesToPickRoleForPassing",
+          "Effect": "Allow",
+          "Action": [
+            "iam:ListRoles"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "PassRoleToEntityResolutionService",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": "arn:aws:iam::*:role/*entityresolution*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": [
+                "entityresolution.amazonaws.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-08-17T17:54:14+00:00"
+  },
+  "AWSEntityResolutionConsoleReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "EntityResolutionRead",
+          "Effect": "Allow",
+          "Action": [
+            "entityresolution:Get*",
+            "entityresolution:List*"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-08-17T18:18:36+00:00"
   },
   "AWSFMAdminFullAccess": {
     "Document": {
@@ -56231,7 +56423,10 @@
         {
           "Effect": "Allow",
           "Action": "pi:*",
-          "Resource": "arn:aws:pi:*:*:metrics/rds/*"
+          "Resource": [
+            "arn:aws:pi:*:*:metrics/rds/*",
+            "arn:aws:pi:*:*:perf-reports/rds/*"
+          ]
         },
         {
           "Effect": "Allow",
@@ -56266,9 +56461,67 @@
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-14T12:27:01+00:00"
+    "CreateDate": "2023-08-17T23:00:17+00:00"
+  },
+  "AmazonRDSPerformanceInsightsFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "pi:DescribeDimensionKeys",
+            "pi:GetDimensionKeyDetails",
+            "pi:GetResourceMetadata",
+            "pi:GetResourceMetrics",
+            "pi:ListAvailableResourceDimensions",
+            "pi:ListAvailableResourceMetrics"
+          ],
+          "Resource": "arn:aws:pi:*:*:metrics/rds/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "pi:CreatePerformanceAnalysisReport",
+            "pi:GetPerformanceAnalysisReport",
+            "pi:ListPerformanceAnalysisReports",
+            "pi:DeletePerformanceAnalysisReport"
+          ],
+          "Resource": "arn:aws:pi:*:*:perf-reports/rds/*/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "pi:TagResource",
+            "pi:UntagResource",
+            "pi:ListTagsForResource"
+          ],
+          "Resource": "arn:aws:pi:*:*:*/rds/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "rds:DescribeDBInstances",
+            "rds:DescribeDBClusters"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:GetMetricStatistics",
+            "cloudwatch:ListMetrics",
+            "cloudwatch:GetMetricData"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-08-15T23:41:34+00:00"
   },
   "AmazonRDSPerformanceInsightsReadOnly": {
     "Document": {
@@ -56313,12 +56566,27 @@
           "Effect": "Allow",
           "Action": "pi:ListAvailableResourceMetrics",
           "Resource": "arn:aws:pi:*:*:metrics/rds/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "pi:GetPerformanceAnalysisReport",
+          "Resource": "arn:aws:pi:*:*:perf-reports/rds/*/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "pi:ListPerformanceAnalysisReports",
+          "Resource": "arn:aws:pi:*:*:perf-reports/rds/*/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "pi:ListTagsForResource",
+          "Resource": "arn:aws:pi:*:*:*/rds/*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-05T00:02:08+00:00"
+    "CreateDate": "2023-08-16T18:42:54+00:00"
   },
   "AmazonRDSPreviewServiceRolePolicy": {
     "Document": {
@@ -57277,7 +57545,9 @@
             "sqlworkbench:ListQueryExecutionHistory",
             "sqlworkbench:GetQueryExecutionHistory",
             "sqlworkbench:ListNotebooks",
-            "sqlworkbench:GetSchemaInference"
+            "sqlworkbench:GetSchemaInference",
+            "sqlworkbench:GetAutocompletionMetadata",
+            "sqlworkbench:GetAutocompletionResource"
           ],
           "Resource": "*"
         },
@@ -57362,9 +57632,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-21T09:03:27+00:00"
+    "CreateDate": "2023-08-16T19:24:59+00:00"
   },
   "AmazonRedshiftQueryEditorV2ReadSharing": {
     "Document": {
@@ -57429,7 +57699,9 @@
             "sqlworkbench:ListQueryExecutionHistory",
             "sqlworkbench:GetQueryExecutionHistory",
             "sqlworkbench:ListNotebooks",
-            "sqlworkbench:GetSchemaInference"
+            "sqlworkbench:GetSchemaInference",
+            "sqlworkbench:GetAutocompletionMetadata",
+            "sqlworkbench:GetAutocompletionResource"
           ],
           "Resource": "*"
         },
@@ -57569,9 +57841,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-21T08:39:48+00:00"
+    "CreateDate": "2023-08-16T19:23:13+00:00"
   },
   "AmazonRedshiftQueryEditorV2ReadWriteSharing": {
     "Document": {
@@ -57636,7 +57908,9 @@
             "sqlworkbench:ListQueryExecutionHistory",
             "sqlworkbench:GetQueryExecutionHistory",
             "sqlworkbench:ListNotebooks",
-            "sqlworkbench:GetSchemaInference"
+            "sqlworkbench:GetSchemaInference",
+            "sqlworkbench:GetAutocompletionMetadata",
+            "sqlworkbench:GetAutocompletionResource"
           ],
           "Resource": "*"
         },
@@ -57781,9 +58055,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-21T08:20:00+00:00"
+    "CreateDate": "2023-08-16T18:23:05+00:00"
   },
   "AmazonRedshiftReadOnlyAccess": {
     "Document": {
@@ -57983,12 +58257,39 @@
               ]
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:DeleteSecret",
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:UpdateSecret",
+            "secretsmanager:UpdateSecretVersionStage",
+            "secretsmanager:RotateSecret"
+          ],
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:redshift!*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "redshift",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:GetRandomPassword"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-08T18:57:44+00:00"
+    "CreateDate": "2023-08-14T10:46:23+00:00"
   },
   "AmazonRekognitionCustomLabelsFullAccess": {
     "Document": {
