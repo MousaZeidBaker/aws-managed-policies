@@ -220,6 +220,11 @@
       },
       {
         "Effect": "Allow",
+        "Action": "rds:DescribeDBInstances",
+        "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
         "Action": [
           "iam:PassRole"
         ],
@@ -246,7 +251,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-07-24T23:16:37+00:00"
+  "CreateDate": "2023-08-29T19:06:22+00:00"
 }
