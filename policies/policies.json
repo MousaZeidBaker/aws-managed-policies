@@ -3184,7 +3184,8 @@
             "rds:describeDBClusters",
             "rds:describeDBParameterGroups",
             "rds:DescribeDBClusterParameterGroups",
-            "rds:DescribeDBInstanceAutomatedBackups"
+            "rds:DescribeDBInstanceAutomatedBackups",
+            "rds:DescribeDBClusterAutomatedBackups"
           ],
           "Resource": "*"
         },
@@ -3558,9 +3559,9 @@
         }
       ]
     },
-    "VersionId": "v15",
+    "VersionId": "v16",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-08T18:20:54+00:00"
+    "CreateDate": "2023-09-06T20:47:03+00:00"
   },
   "AWSBackupGatewayServiceRolePolicyForVirtualMachineMetadataSync": {
     "Document": {
@@ -3621,7 +3622,8 @@
             "rds:DescribeDBClusters",
             "rds:DescribeDBParameterGroups",
             "rds:DescribeDBClusterParameterGroups",
-            "rds:DescribeDBInstanceAutomatedBackups"
+            "rds:DescribeDBInstanceAutomatedBackups",
+            "rds:DescribeDBClusterAutomatedBackups"
           ],
           "Resource": "*"
         },
@@ -3880,9 +3882,9 @@
         }
       ]
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-08T18:19:48+00:00"
+    "CreateDate": "2023-09-06T20:45:05+00:00"
   },
   "AWSBackupOrganizationAdminAccess": {
     "Document": {
@@ -4374,7 +4376,8 @@
             "rds:CreateDBClusterSnapshot",
             "rds:DescribeDBClusters",
             "rds:DescribeDBClusterSnapshots",
-            "rds:CopyDBClusterSnapshot"
+            "rds:CopyDBClusterSnapshot",
+            "rds:DescribeDBClusterAutomatedBackups"
           ],
           "Resource": "*"
         },
@@ -4386,6 +4389,22 @@
           "Resource": [
             "arn:aws:rds:*:*:db:*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "rds:ModifyDBCluster"
+          ],
+          "Resource": [
+            "arn:aws:rds:*:*:cluster:*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "rds:DeleteDBClusterAutomatedBackup"
+          ],
+          "Resource": "arn:aws:rds:*:*:cluster-auto-backup:*"
         },
         {
           "Effect": "Allow",
@@ -4739,9 +4758,9 @@
         }
       ]
     },
-    "VersionId": "v15",
+    "VersionId": "v16",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-24T21:27:09+00:00"
+    "CreateDate": "2023-09-06T20:38:44+00:00"
   },
   "AWSBackupServiceRolePolicyForRestores": {
     "Document": {
@@ -4827,7 +4846,9 @@
             "rds:DescribeDBClusters",
             "rds:RestoreDBClusterFromSnapshot",
             "rds:DeleteDBCluster",
-            "rds:RestoreDBInstanceToPointInTime"
+            "rds:RestoreDBInstanceToPointInTime",
+            "rds:DescribeDBClusterSnapshots",
+            "rds:RestoreDBClusterToPointInTime"
           ],
           "Resource": "*"
         },
@@ -5137,9 +5158,9 @@
         }
       ]
     },
-    "VersionId": "v17",
+    "VersionId": "v18",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-24T21:24:51+00:00"
+    "CreateDate": "2023-09-06T20:41:44+00:00"
   },
   "AWSBackupServiceRolePolicyForS3Backup": {
     "Document": {
@@ -11169,7 +11190,6 @@
             "ssm:DescribeParameters",
             "ssm:GetAutomationExecution",
             "ssm:GetDocument",
-            "ssm:GetParameter",
             "ssm:ListDocuments",
             "ssm:ListTagsForResource",
             "sso:DescribeInstanceAccessControlAttributeConfiguration",
@@ -11282,9 +11302,9 @@
         }
       ]
     },
-    "VersionId": "v45",
+    "VersionId": "v46",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-16T18:05:21+00:00"
+    "CreateDate": "2023-09-06T21:22:20+00:00"
   },
   "AWSConfigUserAccess": {
     "Document": {
@@ -30301,6 +30321,28 @@
     "IsDefaultVersion": true,
     "CreateDate": "2020-10-01T09:49:01+00:00"
   },
+  "AWSServiceRoleForCloudWatchMetrics_DbPerfInsightsServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "pi:GetResourceMetrics"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-09-07T09:32:32+00:00"
+  },
   "AWSServiceRoleForCodeGuru-Profiler": {
     "Document": {
       "Version": "2012-10-17",
@@ -37393,6 +37435,7 @@
             "appflow:ListTagsForResource",
             "application-autoscaling:DescribeScalableTargets",
             "application-autoscaling:DescribeScalingPolicies",
+            "appmesh:DescribeGatewayRoute",
             "appmesh:DescribeRoute",
             "appmesh:DescribeVirtualGateway",
             "appmesh:DescribeVirtualNode",
@@ -37413,6 +37456,7 @@
             "appstream:DescribeApplications",
             "appstream:DescribeDirectoryConfigs",
             "appstream:DescribeFleets",
+            "appstream:DescribeStacks",
             "appstream:ListTagsForResource",
             "appsync:GetApiCache",
             "appsync:GetGraphqlApi",
@@ -37420,6 +37464,7 @@
             "APS:DescribeRuleGroupsNamespace",
             "APS:DescribeWorkspace",
             "aps:ListRuleGroupsNamespaces",
+            "aps:ListTagsForResource",
             "APS:ListWorkspaces",
             "athena:GetDataCatalog",
             "athena:GetPreparedStatement",
@@ -37487,8 +37532,12 @@
             "cloudformation:ListStackResources",
             "cloudformation:ListStacks",
             "cloudformation:ListTypes",
+            "cloudfront:GetFunction",
+            "cloudfront:GetOriginAccessControl",
             "cloudfront:GetResponseHeadersPolicy",
             "cloudfront:ListDistributions",
+            "cloudfront:ListFunctions",
+            "cloudfront:ListOriginAccessControls",
             "cloudfront:ListResponseHeadersPolicies",
             "cloudfront:ListTagsForResource",
             "cloudtrail:DescribeTrails",
@@ -37508,8 +37557,12 @@
             "codeartifact:DescribeRepository",
             "codeartifact:GetRepositoryPermissionsPolicy",
             "codeartifact:ListDomains",
+            "codeartifact:ListPackages",
+            "codeartifact:ListPackageVersions",
             "codeartifact:ListRepositories",
             "codeartifact:ListTagsForResource",
+            "codebuild:BatchGetReportGroups",
+            "codebuild:ListReportGroups",
             "codecommit:GetRepository",
             "codecommit:GetRepositoryTriggers",
             "codecommit:ListRepositories",
@@ -37531,6 +37584,8 @@
             "config:Put*",
             "config:Select*",
             "connect:DescribePhoneNumber",
+            "connect:ListInstanceAttributes",
+            "connect:ListInstances",
             "connect:ListPhoneNumbers",
             "connect:ListPhoneNumbersV2",
             "connect:SearchAvailablePhoneNumbers",
@@ -37806,6 +37861,8 @@
             "glue:GetJobs",
             "glue:GetMLTransform",
             "glue:GetMLTransforms",
+            "glue:GetPartition",
+            "glue:GetPartitions",
             "glue:GetSecurityConfiguration",
             "glue:GetSecurityConfigurations",
             "glue:GetTable",
@@ -37826,6 +37883,7 @@
             "groundstation:ListMissionProfiles",
             "groundstation:ListTagsForResource",
             "guardduty:DescribePublishingDestination",
+            "guardduty:GetAdministratorAccount",
             "guardduty:GetDetector",
             "guardduty:GetFilter",
             "guardduty:GetFindings",
@@ -37871,6 +37929,7 @@
             "iam:ListGroupsForUser",
             "iam:ListInstanceProfiles",
             "iam:ListInstanceProfilesForRole",
+            "iam:ListInstanceProfileTags",
             "iam:ListMFADevices",
             "iam:ListMFADeviceTags",
             "iam:ListPolicyVersions",
@@ -37896,6 +37955,7 @@
             "imagebuilder:ListImageRecipes",
             "imagebuilder:ListImages",
             "imagebuilder:ListInfrastructureConfigurations",
+            "inspector2:ListFilters",
             "iot:DescribeAccountAuditConfiguration",
             "iot:DescribeAuthorizer",
             "iot:DescribeCertificate",
@@ -37903,7 +37963,9 @@
             "iot:DescribeDimension",
             "iot:DescribeDomainConfiguration",
             "iot:DescribeFleetMetric",
+            "iot:DescribeJobTemplate",
             "iot:DescribeMitigationAction",
+            "iot:DescribeProvisioningTemplate",
             "iot:DescribeRoleAlias",
             "iot:DescribeScheduledAudit",
             "iot:DescribeSecurityProfile",
@@ -37916,8 +37978,10 @@
             "iot:ListDimensions",
             "iot:ListDomainConfigurations",
             "iot:ListFleetMetrics",
+            "iot:ListJobTemplates",
             "iot:ListMitigationActions",
             "iot:ListPolicies",
+            "iot:ListProvisioningTemplates",
             "iot:ListRoleAliases",
             "iot:ListScheduledAudits",
             "iot:ListSecurityProfiles",
@@ -37960,16 +38024,22 @@
             "iotsitewise:ListProjectAssets",
             "iotsitewise:ListProjects",
             "iotsitewise:ListTagsForResource",
+            "iottwinmaker:GetComponentType",
             "iottwinmaker:GetEntity",
             "iottwinmaker:GetScene",
             "iottwinmaker:GetWorkspace",
+            "iottwinmaker:ListComponentTypes",
             "iottwinmaker:ListEntities",
             "iottwinmaker:ListScenes",
             "iottwinmaker:ListTagsForResource",
             "iottwinmaker:ListWorkspaces",
+            "iotwireless:GetFuotaTask",
+            "iotwireless:GetMulticastGroup",
             "iotwireless:GetServiceProfile",
             "iotwireless:GetWirelessDevice",
             "iotwireless:GetWirelessGatewayTaskDefinition",
+            "iotwireless:ListFuotaTasks",
+            "iotwireless:ListMulticastGroups",
             "iotwireless:ListServiceProfiles",
             "iotwireless:ListTagsForResource",
             "iotwireless:ListWirelessDevices",
@@ -37990,6 +38060,7 @@
             "kafka:ListClusters",
             "kafka:ListClustersV2",
             "kafka:ListConfigurations",
+            "kafka:ListScramSecrets",
             "kendra:DescribeIndex",
             "kendra:ListIndices",
             "kendra:ListTagsForResource",
@@ -38079,6 +38150,7 @@
             "macie2:GetFindingsPublicationConfiguration",
             "macie2:GetMacieSession",
             "macie2:ListCustomDataIdentifiers",
+            "macie2:ListTagsForResource",
             "managedblockchain:GetMember",
             "managedblockchain:GetNetwork",
             "managedblockchain:GetNode",
@@ -38087,6 +38159,7 @@
             "managedblockchain:ListNodes",
             "mediaconnect:DescribeFlow",
             "mediaconnect:ListFlows",
+            "mediaconnect:ListTagsForResource",
             "mediapackage-vod:DescribePackagingConfiguration",
             "mediapackage-vod:DescribePackagingGroup",
             "mediapackage-vod:ListPackagingConfigurations",
@@ -38113,6 +38186,7 @@
             "mq:ListBrokers",
             "network-firewall:DescribeLoggingConfiguration",
             "network-firewall:ListFirewalls",
+            "networkmanager:GetConnectPeer",
             "networkmanager:DescribeGlobalNetworks",
             "networkmanager:GetCustomerGatewayAssociations",
             "networkmanager:GetDevices",
@@ -38120,6 +38194,7 @@
             "networkmanager:GetLinks",
             "networkmanager:GetSites",
             "networkmanager:GetTransitGatewayRegistrations",
+            "networkmanager:ListConnectPeers",
             "networkmanager:ListTagsForResource",
             "nimble:GetLaunchProfile",
             "nimble:GetLaunchProfileDetails",
@@ -38137,8 +38212,10 @@
             "opsworks:ListTags",
             "organizations:DescribeAccount",
             "organizations:DescribeOrganization",
+            "organizations:DescribeEffectivePolicy",
             "organizations:DescribeOrganizationalUnit",
             "organizations:DescribePolicy",
+            "organizations:DescribeResourcePolicy",
             "organizations:ListAccounts",
             "organizations:ListAccountsForParent",
             "organizations:ListOrganizationalUnitsForParent",
@@ -38236,6 +38313,9 @@
             "resiliencehub:ListAppVersionResourceMappings",
             "resiliencehub:ListResiliencyPolicies",
             "resiliencehub:ListTagsForResource",
+            "resource-explorer-2:GetIndex",
+            "resource-explorer-2:ListIndexes",
+            "resource-explorer-2:ListTagsForResource",
             "resource-groups:GetGroup",
             "resource-groups:GetGroupConfiguration",
             "resource-groups:GetGroupQuery",
@@ -38266,6 +38346,7 @@
             "route53:GetDNSSEC",
             "route53:GetHealthCheck",
             "route53:GetHostedZone",
+            "route53:ListCidrCollections",
             "route53:ListHealthChecks",
             "route53:ListHostedZones",
             "route53:ListHostedZonesByName",
@@ -38330,6 +38411,8 @@
             "s3:GetEncryptionConfiguration",
             "s3:GetLifecycleConfiguration",
             "s3:GetMultiRegionAccessPoint",
+            "s3:GetMultiRegionAccessPointPolicy",
+            "s3:GetMultiRegionAccessPointPolicyStatus",
             "s3:GetReplicationConfiguration",
             "s3:GetStorageLensConfiguration",
             "s3:GetStorageLensConfigurationTagging",
@@ -38414,6 +38497,7 @@
             "signer:GetSigningProfile",
             "signer:ListProfilePermissions",
             "signer:ListSigningProfiles",
+            "sns:GetDataProtectionPolicy",
             "sns:GetSubscriptionAttributes",
             "sns:GetTopicAttributes",
             "sns:ListSubscriptions",
@@ -38426,9 +38510,11 @@
             "ssm:DescribeAutomationExecutions",
             "ssm:DescribeDocument",
             "ssm:DescribeDocumentPermission",
+            "ssm:DescribeParameters",
             "ssm:GetAutomationExecution",
             "ssm:GetDocument",
             "ssm:ListDocuments",
+            "ssm:ListTagsForResource",
             "sso:DescribeInstanceAccessControlAttributeConfiguration",
             "sso:DescribePermissionSet",
             "sso:GetInlinePolicyForPermissionSet",
@@ -38508,9 +38594,9 @@
         }
       ]
     },
-    "VersionId": "v25",
+    "VersionId": "v26",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-09T00:15:20+00:00"
+    "CreateDate": "2023-09-07T20:23:32+00:00"
   },
   "AccessAnalyzerServiceRolePolicy": {
     "Document": {
@@ -40868,6 +40954,28 @@
         {
           "Effect": "Allow",
           "Action": [
+            "kinesisvideo:GetDataEndpoint",
+            "kinesisvideo:PutMedia",
+            "kinesisvideo:UpdateDataRetention",
+            "kinesisvideo:DescribeStream",
+            "kinesisvideo:CreateStream"
+          ],
+          "Resource": [
+            "arn:aws:kinesisvideo:*:*:stream/ChimeMediaPipelines-*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "kinesisvideo:ListStreams"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "chime:GetMeeting",
             "chime:CreateAttendee",
             "chime:DeleteAttendee"
@@ -40876,9 +40984,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-04T22:02:05+00:00"
+    "CreateDate": "2023-09-07T20:08:32+00:00"
   },
   "AmazonChimeSDKMessagingServiceRolePolicy": {
     "Document": {
@@ -50838,6 +50946,7 @@
             "elasticloadbalancing:DescribeRules",
             "elasticloadbalancing:DescribeTags",
             "elasticloadbalancing:DescribeTargetGroups",
+            "elasticloadbalancing:DescribeTargetGroupAttributes",
             "elasticloadbalancing:DescribeTargetHealth",
             "network-firewall:DescribeFirewall",
             "network-firewall:DescribeFirewallPolicy",
@@ -51023,9 +51132,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-31T18:30:12+00:00"
+    "CreateDate": "2023-09-07T13:20:55+00:00"
   },
   "AmazonInspectorFullAccess": {
     "Document": {

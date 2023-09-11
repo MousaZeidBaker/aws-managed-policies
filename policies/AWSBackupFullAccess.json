@@ -26,7 +26,8 @@
           "rds:describeDBClusters",
           "rds:describeDBParameterGroups",
           "rds:DescribeDBClusterParameterGroups",
-          "rds:DescribeDBInstanceAutomatedBackups"
+          "rds:DescribeDBInstanceAutomatedBackups",
+          "rds:DescribeDBClusterAutomatedBackups"
         ],
         "Resource": "*"
       },
@@ -400,7 +401,7 @@
       }
     ]
   },
-  "VersionId": "v15",
+  "VersionId": "v16",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-08-08T18:20:54+00:00"
+  "CreateDate": "2023-09-06T20:47:03+00:00"
 }
