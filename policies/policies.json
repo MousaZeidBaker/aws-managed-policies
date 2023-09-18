@@ -16441,6 +16441,233 @@
     "IsDefaultVersion": true,
     "CreateDate": "2021-11-17T10:41:40+00:00"
   },
+  "AWSElasticDisasterRecoveryLaunchActionsPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:DescribeInstanceInformation"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "drs.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:SendCommand",
+            "ssm:StartAutomationExecution"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:document/*",
+            "arn:aws:ssm:*:*:automation-definition/*:*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "drs.amazonaws.com"
+              ]
+            },
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:SendCommand",
+            "ssm:StartAutomationExecution"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*::document/AWS-*",
+            "arn:aws:ssm:*::document/AWSCodeDeployAgent-*",
+            "arn:aws:ssm:*::document/AWSConfigRemediation-*",
+            "arn:aws:ssm:*::document/AWSConformancePacks-*",
+            "arn:aws:ssm:*::document/AWSDisasterRecovery-*",
+            "arn:aws:ssm:*::document/AWSDistroOTel-*",
+            "arn:aws:ssm:*::document/AWSDocs-*",
+            "arn:aws:ssm:*::document/AWSEC2-*",
+            "arn:aws:ssm:*::document/AWSEC2Launch-*",
+            "arn:aws:ssm:*::document/AWSFIS-*",
+            "arn:aws:ssm:*::document/AWSFleetManager-*",
+            "arn:aws:ssm:*::document/AWSIncidents-*",
+            "arn:aws:ssm:*::document/AWSKinesisTap-*",
+            "arn:aws:ssm:*::document/AWSMigration-*",
+            "arn:aws:ssm:*::document/AWSNVMe-*",
+            "arn:aws:ssm:*::document/AWSNitroEnclavesWindows-*",
+            "arn:aws:ssm:*::document/AWSObservabilityExporter-*",
+            "arn:aws:ssm:*::document/AWSPVDriver-*",
+            "arn:aws:ssm:*::document/AWSQuickSetupType-*",
+            "arn:aws:ssm:*::document/AWSQuickStarts-*",
+            "arn:aws:ssm:*::document/AWSRefactorSpaces-*",
+            "arn:aws:ssm:*::document/AWSResilienceHub-*",
+            "arn:aws:ssm:*::document/AWSSAP-*",
+            "arn:aws:ssm:*::document/AWSSAPTools-*",
+            "arn:aws:ssm:*::document/AWSSQLServer-*",
+            "arn:aws:ssm:*::document/AWSSSO-*",
+            "arn:aws:ssm:*::document/AWSSupport-*",
+            "arn:aws:ssm:*::document/AWSSystemsManagerSAP-*",
+            "arn:aws:ssm:*::document/AmazonCloudWatch-*",
+            "arn:aws:ssm:*::document/AmazonCloudWatchAgent-*",
+            "arn:aws:ssm:*::document/AmazonECS-*",
+            "arn:aws:ssm:*::document/AmazonEFSUtils-*",
+            "arn:aws:ssm:*::document/AmazonEKS-*",
+            "arn:aws:ssm:*::document/AmazonInspector-*",
+            "arn:aws:ssm:*::document/AmazonInspector2-*",
+            "arn:aws:ssm:*::document/AmazonInternal-*",
+            "arn:aws:ssm:*::document/AwsEnaNetworkDriver-*",
+            "arn:aws:ssm:*::document/AwsVssComponents-*",
+            "arn:aws:ssm:*::automation-definition/AWS-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSCodeDeployAgent-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSConfigRemediation-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSConformancePacks-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSDisasterRecovery-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSDistroOTel-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSDocs-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSEC2-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSEC2Launch-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSFIS-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSFleetManager-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSIncidents-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSKinesisTap-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSMigration-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSNVMe-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSNitroEnclavesWindows-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSObservabilityExporter-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSPVDriver-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSQuickSetupType-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSQuickStarts-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSRefactorSpaces-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSResilienceHub-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSSAP-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSSAPTools-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSSQLServer-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSSSO-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSSupport-*:*",
+            "arn:aws:ssm:*::automation-definition/AWSSystemsManagerSAP-*:*",
+            "arn:aws:ssm:*::automation-definition/AmazonCloudWatch-*:*",
+            "arn:aws:ssm:*::automation-definition/AmazonCloudWatchAgent-*:*",
+            "arn:aws:ssm:*::automation-definition/AmazonECS-*:*",
+            "arn:aws:ssm:*::automation-definition/AmazonEFSUtils-*:*",
+            "arn:aws:ssm:*::automation-definition/AmazonEKS-*:*",
+            "arn:aws:ssm:*::automation-definition/AmazonInspector-*:*",
+            "arn:aws:ssm:*::automation-definition/AmazonInspector2-*:*",
+            "arn:aws:ssm:*::automation-definition/AmazonInternal-*:*",
+            "arn:aws:ssm:*::automation-definition/AwsEnaNetworkDriver-*:*",
+            "arn:aws:ssm:*::automation-definition/AwsVssComponents-*:*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "drs.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:SendCommand"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "drs.amazonaws.com"
+              ]
+            },
+            "Null": {
+              "aws:ResourceTag/AWSElasticDisasterRecoveryManaged": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:ListDocuments",
+            "ssm:ListCommandInvocations"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:ListDocumentVersions",
+            "ssm:GetDocument",
+            "ssm:DescribeDocument"
+          ],
+          "Resource": "arn:aws:ssm:*:*:document/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetAutomationExecution"
+          ],
+          "Resource": "arn:aws:ssm:*:*:automation-execution/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AWSElasticDisasterRecoveryManaged": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetParameters"
+          ],
+          "Resource": "arn:aws:ssm:*:*:parameter/ManagedByAWSElasticDisasterRecoveryService-*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "ssm.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetParameter",
+            "ssm:PutParameter"
+          ],
+          "Resource": "arn:aws:ssm:*:*:parameter/ManagedByAWSElasticDisasterRecoveryService-*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": [
+            "arn:aws:iam::*:role/service-role/AWSElasticDisasterRecoveryRecoveryInstanceWithLaunchActionsRole"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "ec2.amazonaws.com"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "drs.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-09-13T07:38:26+00:00"
+  },
   "AWSElasticDisasterRecoveryNetworkReplicationPolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -16485,7 +16712,8 @@
             "drs:GetReplicationConfiguration",
             "drs:ListExtensibleSourceServers",
             "drs:ListStagingAccounts",
-            "drs:ListTagsForResource"
+            "drs:ListTagsForResource",
+            "drs:ListLaunchActions"
           ],
           "Resource": "*"
         },
@@ -16503,12 +16731,46 @@
           "Effect": "Allow",
           "Action": "iam:ListRoles",
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ssm:ListCommandInvocations",
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ssm:GetParameter",
+          "Resource": "arn:aws:ssm:*:*:parameter/ManagedByAWSElasticDisasterRecovery-*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:DescribeDocument",
+            "ssm:GetDocument"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:document/AWS-CreateImage",
+            "arn:aws:ssm:*:*:document/AWSMigration-LinuxTimeSyncSetting",
+            "arn:aws:ssm:*:*:document/AWSEC2-ApplicationInsightsCloudwatchAgentInstallAndConfigure"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetAutomationExecution"
+          ],
+          "Resource": "arn:aws:ssm:*:*:automation-execution/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AWSElasticDisasterRecoveryManaged": "false"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-29T08:27:37+00:00"
+    "CreateDate": "2023-09-13T07:42:45+00:00"
   },
   "AWSElasticDisasterRecoveryRecoveryInstancePolicy": {
     "Document": {
@@ -18166,7 +18428,8 @@
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:DescribeLoadBalancers",
-            "elasticloadbalancing:DescribeListeners"
+            "elasticloadbalancing:DescribeListeners",
+            "elasticloadbalancing:DescribeTargetGroups"
           ],
           "Resource": "*"
         },
@@ -18181,9 +18444,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-19T20:41:25+00:00"
+    "CreateDate": "2023-09-12T16:45:28+00:00"
   },
   "AWSGlueConsoleFullAccess": {
     "Document": {
@@ -18953,7 +19216,7 @@
             "logs:PutLogEvents"
           ],
           "Resource": [
-            "arn:aws:logs:*:*:/aws-glue/*"
+            "arn:aws:logs:*:*:*:/aws-glue/*"
           ]
         },
         {
@@ -18977,9 +19240,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2018-06-25T18:23:09+00:00"
+    "CreateDate": "2023-09-11T16:39:47+00:00"
   },
   "AWSGrafanaAccountAdministrator": {
     "Document": {
@@ -36543,15 +36806,20 @@
             "sqs:ListQueues",
             "cloudwatch:GetMetricStatistics",
             "ce:GetReservationPurchaseRecommendation",
-            "ce:GetSavingsPlansPurchaseRecommendation"
+            "ce:GetSavingsPlansPurchaseRecommendation",
+            "route53resolver:ListResolverEndpoints",
+            "route53resolver:ListResolverEndpointIpAddresses",
+            "ec2:DescribeSubnets",
+            "kafka:ListClustersV2",
+            "kafka:ListNodes"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-10T22:41:30+00:00"
+    "CreateDate": "2023-09-14T18:02:41+00:00"
   },
   "AWSUserNotificationsServiceLinkedRolePolicy": {
     "Document": {
@@ -42632,6 +42900,513 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2015-09-02T00:09:20+00:00"
+  },
+  "AmazonDataZoneEnvironmentRolePermissionsBoundary": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags",
+            "ec2:DeleteTags"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:network-interface/*"
+          ],
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "aws-glue-service-resource"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "glue:*DataQuality*",
+            "glue:BatchCreatePartition",
+            "glue:BatchDeleteConnection",
+            "glue:BatchDeletePartition",
+            "glue:BatchDeleteTable",
+            "glue:BatchDeleteTableVersion",
+            "glue:BatchGetJobs",
+            "glue:BatchGetWorkflows",
+            "glue:BatchStopJobRun",
+            "glue:BatchUpdatePartition",
+            "glue:CreateBlueprint",
+            "glue:CreateConnection",
+            "glue:CreateCrawler",
+            "glue:CreateDatabase",
+            "glue:CreateJob",
+            "glue:CreatePartition",
+            "glue:CreatePartitionIndex",
+            "glue:CreateTable",
+            "glue:CreateWorkflow",
+            "glue:DeleteBlueprint",
+            "glue:DeleteColumnStatisticsForPartition",
+            "glue:DeleteColumnStatisticsForTable",
+            "glue:DeleteConnection",
+            "glue:DeleteCrawler",
+            "glue:DeleteJob",
+            "glue:DeletePartition",
+            "glue:DeletePartitionIndex",
+            "glue:DeleteTable",
+            "glue:DeleteTableVersion",
+            "glue:DeleteWorkflow",
+            "glue:GetColumnStatisticsForPartition",
+            "glue:GetColumnStatisticsForTable",
+            "glue:GetConnection",
+            "glue:GetDatabase",
+            "glue:GetDatabases",
+            "glue:GetTable",
+            "glue:GetTables",
+            "glue:GetPartition",
+            "glue:GetPartitions",
+            "glue:ListSchemas",
+            "glue:ListJobs",
+            "glue:NotifyEvent",
+            "glue:PutWorkflowRunProperties",
+            "glue:ResetJobBookmark",
+            "glue:ResumeWorkflowRun",
+            "glue:SearchTables",
+            "glue:StartBlueprintRun",
+            "glue:StartCrawler",
+            "glue:StartCrawlerSchedule",
+            "glue:StartJobRun",
+            "glue:StartWorkflowRun",
+            "glue:StopCrawler",
+            "glue:StopCrawlerSchedule",
+            "glue:StopWorkflowRun",
+            "glue:UpdateBlueprint",
+            "glue:UpdateColumnStatisticsForPartition",
+            "glue:UpdateColumnStatisticsForTable",
+            "glue:UpdateConnection",
+            "glue:UpdateCrawler",
+            "glue:UpdateCrawlerSchedule",
+            "glue:UpdateDatabase",
+            "glue:UpdateJob",
+            "glue:UpdatePartition",
+            "glue:UpdateTable",
+            "glue:UpdateWorkflow"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneEnvironment": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/datazone*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "glue.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "kms:DescribeKey",
+            "kms:Decrypt",
+            "kms:ListKeys"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringNotEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "kms:DescribeKey",
+            "kms:Decrypt",
+            "kms:ListKeys",
+            "kms:Encrypt",
+            "kms:GenerateDataKey",
+            "kms:Verify",
+            "kms:Sign"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneEnvironment": "false"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "datazone:*",
+            "sqlworkbench:*"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "athena:BatchGetQueryExecution",
+            "athena:BatchGetNamedQuery",
+            "athena:BatchGetPreparedStatement",
+            "athena:CreateNamedQuery",
+            "athena:CreateNotebook",
+            "athena:CreatePreparedStatement",
+            "athena:CreatePresignedNotebookUrl",
+            "athena:DeleteNamedQuery",
+            "athena:DeleteNotebook",
+            "athena:DeletePreparedStatement",
+            "athena:ExportNotebook",
+            "athena:GetDatabase",
+            "athena:GetDataCatalog",
+            "athena:GetTableMetadata",
+            "athena:GetQueryExecution",
+            "athena:GetQueryResults",
+            "athena:GetWorkGroup",
+            "athena:ImportNotebook",
+            "athena:ListDatabases",
+            "athena:ListDataCatalogs",
+            "athena:ListTableMetadata",
+            "athena:ListWorkGroups",
+            "athena:StartCalculationExecution",
+            "athena:StartQueryExecution",
+            "athena:StartSession",
+            "athena:StopCalculationExecution",
+            "athena:StopQueryExecution",
+            "athena:TerminateSession",
+            "athena:UpdateNamedQuery",
+            "athena:UpdateNotebook",
+            "athena:UpdateNotebookMetadata",
+            "athena:UpdatePreparedStatement",
+            "ec2:CreateNetworkInterface",
+            "ec2:DeleteNetworkInterface",
+            "ec2:Describe*",
+            "glue:BatchCreatePartition",
+            "glue:BatchDeletePartition",
+            "glue:BatchDeleteTable",
+            "glue:BatchDeleteTableVersion",
+            "glue:BatchGetJobs",
+            "glue:BatchGetWorkflows",
+            "glue:BatchUpdatePartition",
+            "glue:CreateBlueprint",
+            "glue:CreateConnection",
+            "glue:CreateCrawler",
+            "glue:CreateDatabase",
+            "glue:CreateJob",
+            "glue:CreatePartition",
+            "glue:CreatePartitionIndex",
+            "glue:CreateTable",
+            "glue:CreateWorkflow",
+            "glue:DeleteColumnStatisticsForPartition",
+            "glue:DeleteColumnStatisticsForTable",
+            "glue:DeletePartition",
+            "glue:DeletePartitionIndex",
+            "glue:DeleteTable",
+            "glue:DeleteTableVersion",
+            "glue:GetColumnStatisticsForPartition",
+            "glue:GetColumnStatisticsForTable",
+            "glue:GetConnection",
+            "glue:GetDatabase",
+            "glue:GetDatabases",
+            "glue:GetTable",
+            "glue:GetTables",
+            "glue:GetPartition",
+            "glue:GetPartitions",
+            "glue:ListSchemas",
+            "glue:ListJobs",
+            "glue:NotifyEvent",
+            "glue:SearchTables",
+            "glue:UpdateColumnStatisticsForPartition",
+            "glue:UpdateColumnStatisticsForTable",
+            "glue:UpdateDatabase",
+            "glue:UpdatePartition",
+            "glue:UpdateTable",
+            "iam:GetRole",
+            "iam:GetRolePolicy",
+            "iam:ListGroups",
+            "iam:ListRolePolicies",
+            "iam:ListRoles",
+            "iam:ListUsers",
+            "logs:DescribeLogGroups",
+            "logs:DescribeLogStreams",
+            "logs:DescribeMetricFilters",
+            "logs:DescribeQueries",
+            "logs:DescribeQueryDefinitions",
+            "logs:DescribeMetricFilters",
+            "logs:StartQuery",
+            "logs:StopQuery",
+            "logs:GetLogEvents",
+            "logs:GetLogGroupFields",
+            "logs:GetQueryResults",
+            "logs:GetLogRecord",
+            "logs:PutLogEvents",
+            "logs:CreateLogStream",
+            "logs:FilterLogEvents",
+            "lakeformation:GetDataAccess",
+            "lakeformation:GetDataLakeSettings",
+            "lakeformation:GetResourceLFTags",
+            "lakeformation:ListPermissions",
+            "redshift-data:ListTables",
+            "redshift-data:DescribeTable",
+            "redshift-data:ListSchemas",
+            "redshift-data:ListDatabases",
+            "redshift-data:ExecuteStatement",
+            "redshift-data:GetStatementResult",
+            "redshift-data:DescribeStatement",
+            "redshift:CreateClusterUser",
+            "redshift:DescribeClusters",
+            "redshift:DescribeDataShares",
+            "redshift:GetClusterCredentials",
+            "redshift:JoinGroup",
+            "redshift-serverless:ListNamespaces",
+            "redshift-serverless:ListWorkgroups",
+            "redshift-serverless:GetNamespace",
+            "redshift-serverless:GetWorkgroup",
+            "redshift-serverless:GetCredentials",
+            "secretsmanager:ListSecrets",
+            "tag:GetResources"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:CreateSecret",
+            "secretsmanager:TagResource"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonDataZone-*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/AmazonDataZoneDomain": "*",
+              "aws:ResourceTag/AmazonDataZoneProject": "*"
+            },
+            "Null": {
+              "aws:TagKeys": "false"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "AmazonDataZoneDomain",
+                "AmazonDataZoneProject"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:AbortMultipartUpload",
+            "s3:PutObject",
+            "s3:GetObject"
+          ],
+          "Resource": [
+            "arn:aws:s3:::*/datazone/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetBucketLocation"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListBucket"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringLike": {
+              "s3:prefix": [
+                "*/datazone/*",
+                "datazone/*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Deny",
+          "NotAction": [
+            "datazone:*",
+            "sqlworkbench:*",
+            "athena:BatchGetQueryExecution",
+            "athena:BatchGetNamedQuery",
+            "athena:BatchGetPreparedStatement",
+            "athena:CreateNamedQuery",
+            "athena:CreateNotebook",
+            "athena:CreatePreparedStatement",
+            "athena:CreatePresignedNotebookUrl",
+            "athena:DeleteNamedQuery",
+            "athena:DeleteNotebook",
+            "athena:DeletePreparedStatement",
+            "athena:ExportNotebook",
+            "athena:GetDatabase",
+            "athena:GetDataCatalog",
+            "athena:GetTableMetadata",
+            "athena:GetQueryExecution",
+            "athena:GetQueryResults",
+            "athena:GetWorkGroup",
+            "athena:ImportNotebook",
+            "athena:ListDatabases",
+            "athena:ListDataCatalogs",
+            "athena:ListTableMetadata",
+            "athena:ListWorkGroups",
+            "athena:StartCalculationExecution",
+            "athena:StartQueryExecution",
+            "athena:StartSession",
+            "athena:StopCalculationExecution",
+            "athena:StopQueryExecution",
+            "athena:TerminateSession",
+            "athena:UpdateNamedQuery",
+            "athena:UpdateNotebook",
+            "athena:UpdateNotebookMetadata",
+            "athena:UpdatePreparedStatement",
+            "ec2:CreateNetworkInterface",
+            "ec2:CreateTags",
+            "ec2:DeleteNetworkInterface",
+            "ec2:DeleteTags",
+            "ec2:Describe*",
+            "glue:*DataQuality*",
+            "glue:BatchCreatePartition",
+            "glue:BatchDeleteConnection",
+            "glue:BatchDeletePartition",
+            "glue:BatchDeleteTable",
+            "glue:BatchDeleteTableVersion",
+            "glue:BatchGetJobs",
+            "glue:BatchGetWorkflows",
+            "glue:BatchStopJobRun",
+            "glue:BatchUpdatePartition",
+            "glue:CreateBlueprint",
+            "glue:CreateConnection",
+            "glue:CreateCrawler",
+            "glue:CreateDatabase",
+            "glue:CreateJob",
+            "glue:CreatePartition",
+            "glue:CreatePartitionIndex",
+            "glue:CreateTable",
+            "glue:CreateWorkflow",
+            "glue:DeleteBlueprint",
+            "glue:DeleteColumnStatisticsForPartition",
+            "glue:DeleteColumnStatisticsForTable",
+            "glue:DeleteConnection",
+            "glue:DeleteCrawler",
+            "glue:DeleteJob",
+            "glue:DeletePartition",
+            "glue:DeletePartitionIndex",
+            "glue:DeleteTable",
+            "glue:DeleteTableVersion",
+            "glue:DeleteWorkflow",
+            "glue:GetColumnStatisticsForPartition",
+            "glue:GetColumnStatisticsForTable",
+            "glue:GetConnection",
+            "glue:GetDatabase",
+            "glue:GetDatabases",
+            "glue:GetTable",
+            "glue:GetTables",
+            "glue:GetPartition",
+            "glue:GetPartitions",
+            "glue:ListSchemas",
+            "glue:ListJobs",
+            "glue:NotifyEvent",
+            "glue:PutWorkflowRunProperties",
+            "glue:ResetJobBookmark",
+            "glue:ResumeWorkflowRun",
+            "glue:SearchTables",
+            "glue:StartBlueprintRun",
+            "glue:StartCrawler",
+            "glue:StartCrawlerSchedule",
+            "glue:StartJobRun",
+            "glue:StartWorkflowRun",
+            "glue:StopCrawler",
+            "glue:StopCrawlerSchedule",
+            "glue:StopWorkflowRun",
+            "glue:UpdateBlueprint",
+            "glue:UpdateColumnStatisticsForPartition",
+            "glue:UpdateColumnStatisticsForTable",
+            "glue:UpdateConnection",
+            "glue:UpdateCrawler",
+            "glue:UpdateCrawlerSchedule",
+            "glue:UpdateDatabase",
+            "glue:UpdateJob",
+            "glue:UpdatePartition",
+            "glue:UpdateTable",
+            "glue:UpdateWorkflow",
+            "iam:GetRole",
+            "iam:GetRolePolicy",
+            "iam:List*",
+            "iam:PassRole",
+            "kms:DescribeKey",
+            "kms:Decrypt",
+            "kms:Encrypt",
+            "kms:GenerateDataKey",
+            "kms:ListKeys",
+            "kms:Verify",
+            "kms:Sign",
+            "logs:DescribeLogGroups",
+            "logs:DescribeLogStreams",
+            "logs:DescribeMetricFilters",
+            "logs:DescribeQueries",
+            "logs:DescribeQueryDefinitions",
+            "logs:StartQuery",
+            "logs:StopQuery",
+            "logs:GetLogEvents",
+            "logs:GetLogGroupFields",
+            "logs:GetQueryResults",
+            "logs:GetLogRecord",
+            "logs:PutLogEvents",
+            "logs:CreateLogStream",
+            "logs:FilterLogEvents",
+            "lakeformation:GetDataAccess",
+            "lakeformation:GetDataLakeSettings",
+            "lakeformation:GetResourceLFTags",
+            "lakeformation:ListPermissions",
+            "redshift-data:ListTables",
+            "redshift-data:DescribeTable",
+            "redshift-data:ListSchemas",
+            "redshift-data:ListDatabases",
+            "redshift-data:ExecuteStatement",
+            "redshift-data:GetStatementResult",
+            "redshift-data:DescribeStatement",
+            "redshift:CreateClusterUser",
+            "redshift:DescribeClusters",
+            "redshift:DescribeDataShares",
+            "redshift:GetClusterCredentials",
+            "redshift:JoinGroup",
+            "redshift-serverless:ListNamespaces",
+            "redshift-serverless:ListWorkgroups",
+            "redshift-serverless:GetNamespace",
+            "redshift-serverless:GetWorkgroup",
+            "redshift-serverless:GetCredentials",
+            "s3:AbortMultipartUpload",
+            "s3:PutObject",
+            "s3:GetObject",
+            "s3:GetBucketLocation",
+            "s3:ListBucket",
+            "secretsmanager:CreateSecret",
+            "secretsmanager:ListSecrets",
+            "secretsmanager:TagResource",
+            "tag:GetResources"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v2",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-09-14T19:33:50+00:00"
   },
   "AmazonDataZonePortalFullAccessPolicy": {
     "Document": {
@@ -51460,6 +52235,45 @@
     "VersionId": "v3",
     "IsDefaultVersion": true,
     "CreateDate": "2022-07-07T14:54:05+00:00"
+  },
+  "AmazonKeyspacesReadOnlyAccess_v2": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cassandra:Select"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "application-autoscaling:DescribeScalableTargets",
+            "application-autoscaling:DescribeScalingActivities",
+            "application-autoscaling:DescribeScalingPolicies",
+            "application-autoscaling:DescribeScheduledActions",
+            "cloudwatch:DescribeAlarms",
+            "cloudwatch:GetMetricData",
+            "kms:DescribeKey",
+            "kms:ListAliases"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeVpcEndpoints"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-09-12T17:01:45+00:00"
   },
   "AmazonKinesisAnalyticsFullAccess": {
     "Document": {
@@ -69108,6 +69922,7 @@
         {
           "Effect": "Allow",
           "Action": [
+            "application-autoscaling:DescribeScalingPolicies",
             "autoscaling:Describe*",
             "cloudwatch:Describe*",
             "cloudwatch:Get*",
@@ -69136,9 +69951,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-06T17:33:13+00:00"
+    "CreateDate": "2023-09-14T11:15:56+00:00"
   },
   "CloudWatchSyntheticsFullAccess": {
     "Document": {
@@ -75311,6 +76126,7 @@
             "appflow:ListFlows",
             "appflow:ListTagsForResource",
             "application-autoscaling:Describe*",
+            "application-autoscaling:ListTagsForResource",
             "applicationinsights:Describe*",
             "applicationinsights:List*",
             "appmesh:Describe*",
@@ -75442,6 +76258,7 @@
             "ce:GetReservationPurchaseRecommendation",
             "ce:GetReservationUtilization",
             "ce:GetRightsizingRecommendation",
+            "ce:GetSavingsPlanPurchaseRecommendationDetails",
             "ce:GetSavingsPlansCoverage",
             "ce:GetSavingsPlansPurchaseRecommendation",
             "ce:GetSavingsPlansUtilization",
@@ -75462,8 +76279,11 @@
             "chime:Retrieve*",
             "chime:Search*",
             "chime:Validate*",
+            "cleanrooms:BatchGetCollaborationAnalysisTemplate",
             "cleanrooms:BatchGetSchema",
+            "cleanrooms:GetAnalysisTemplate",
             "cleanrooms:GetCollaboration",
+            "cleanrooms:GetCollaborationAnalysisTemplate",
             "cleanrooms:GetConfiguredTable",
             "cleanrooms:GetConfiguredTableAnalysisRule",
             "cleanrooms:GetConfiguredTableAssociation",
@@ -75471,6 +76291,8 @@
             "cleanrooms:GetProtectedQuery",
             "cleanrooms:GetSchema",
             "cleanrooms:GetSchemaAnalysisRule",
+            "cleanrooms:ListAnalysisTemplates",
+            "cleanrooms:ListCollaborationAnalysisTemplates",
             "cleanrooms:ListCollaborations",
             "cleanrooms:ListConfiguredTableAssociations",
             "cleanrooms:ListConfiguredTables",
@@ -75982,6 +76804,11 @@
             "glue:QuerySchemaVersionMetadata",
             "glue:SearchTables",
             "grafana:DescribeWorkspace",
+            "grafana:DescribeWorkspaceAuthentication",
+            "grafana:DescribeWorkspaceConfiguration",
+            "grafana:ListPermissions",
+            "grafana:ListTagsForResource",
+            "grafana:ListVersions",
             "grafana:ListWorkspaces",
             "greengrass:DescribeComponent",
             "greengrass:Get*",
@@ -76251,8 +77078,6 @@
             "kms:Describe*",
             "kms:Get*",
             "kms:List*",
-            "lambda:Get*",
-            "lambda:List*",
             "lakeformation:DescribeResource",
             "lakeformation:GetDataCellsFilter",
             "lakeformation:GetDataLakeSettings",
@@ -76266,6 +77091,8 @@
             "lakeformation:ListTableStorageOptimizers",
             "lakeformation:SearchDatabasesByLfTags",
             "lakeformation:SearchTablesByLfTags",
+            "lambda:Get*",
+            "lambda:List*",
             "launchwizard:DescribeAdditionalNode",
             "launchwizard:DescribeProvisionedApp",
             "launchwizard:DescribeProvisioningEvents",
@@ -76726,15 +77553,21 @@
             "rekognition:Search*",
             "resiliencehub:DescribeApp",
             "resiliencehub:DescribeAppAssessment",
+            "resiliencehub:DescribeAppVersion",
+            "resiliencehub:DescribeAppVersionAppComponent",
+            "resiliencehub:DescribeAppVersionResource",
             "resiliencehub:DescribeAppVersionResourcesResolutionStatus",
             "resiliencehub:DescribeAppVersionTemplate",
             "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
             "resiliencehub:DescribeResiliencyPolicy",
             "resiliencehub:ListAlarmRecommendations",
+            "resiliencehub:ListAppAssessmentComplianceDrifts",
             "resiliencehub:ListAppAssessments",
             "resiliencehub:ListAppComponentCompliances",
             "resiliencehub:ListAppComponentRecommendations",
+            "resiliencehub:ListAppInputSources",
             "resiliencehub:ListApps",
+            "resiliencehub:ListAppVersionAppComponents",
             "resiliencehub:ListAppVersionResourceMappings",
             "resiliencehub:ListAppVersionResources",
             "resiliencehub:ListAppVersions",
@@ -76969,6 +77802,7 @@
             "tnb:GetSolFunctionPackage",
             "tnb:GetSolFunctionPackageContent",
             "tnb:GetSolFunctionPackageDescriptor",
+            "tnb:GetSolNetworkInstance",
             "tnb:GetSolNetworkOperation",
             "tnb:GetSolNetworkPackage",
             "tnb:GetSolNetworkPackageContent",
@@ -76991,10 +77825,6 @@
             "translate:ListTerminologies",
             "translate:ListTextTranslationJobs",
             "trustedadvisor:Describe*",
-            "verifiedpermissions:ListPolicies",
-            "verifiedpermissions:ListIdentitySources",
-            "verifiedpermissions:ListPolicyStores",
-            "verifiedpermissions:ListPolicyTemplates",
             "verifiedpermissions:GetIdentitySource",
             "verifiedpermissions:GetPolicy",
             "verifiedpermissions:GetPolicyStore",
@@ -77002,6 +77832,10 @@
             "verifiedpermissions:GetSchema",
             "verifiedpermissions:IsAuthorized",
             "verifiedpermissions:IsAuthorizedWithToken",
+            "verifiedpermissions:ListIdentitySources",
+            "verifiedpermissions:ListPolicies",
+            "verifiedpermissions:ListPolicyStores",
+            "verifiedpermissions:ListPolicyTemplates",
             "vpc-lattice:GetAccessLogSubscription",
             "vpc-lattice:GetAuthPolicy",
             "vpc-lattice:GetListener",
@@ -77061,9 +77895,9 @@
         }
       ]
     },
-    "VersionId": "v104",
+    "VersionId": "v105",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-07T14:47:52+00:00"
+    "CreateDate": "2023-09-14T19:49:29+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
