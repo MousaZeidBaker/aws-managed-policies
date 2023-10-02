@@ -98,6 +98,40 @@
       },
       {
         "Effect": "Allow",
+        "Action": [
+          "wisdom:CreateContent",
+          "wisdom:DeleteContent",
+          "wisdom:CreateKnowledgeBase",
+          "wisdom:GetAssistant",
+          "wisdom:GetKnowledgeBase",
+          "wisdom:GetContent",
+          "wisdom:GetRecommendations",
+          "wisdom:GetSession",
+          "wisdom:NotifyRecommendationsReceived",
+          "wisdom:QueryAssistant",
+          "wisdom:StartContentUpload",
+          "wisdom:UpdateContent",
+          "wisdom:UntagResource",
+          "wisdom:TagResource",
+          "wisdom:CreateSession"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/AmazonConnectEnabled": "True"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "wisdom:ListAssistants",
+          "wisdom:ListKnowledgeBases"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
         "Action": "cloudwatch:PutMetricData",
         "Resource": "*",
         "Condition": {
@@ -108,7 +142,7 @@
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-07T19:01:31+00:00"
+  "CreateDate": "2023-09-27T21:05:04+00:00"
 }

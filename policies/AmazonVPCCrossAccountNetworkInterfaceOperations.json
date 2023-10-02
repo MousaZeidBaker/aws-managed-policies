@@ -43,10 +43,20 @@
         "Resource": [
           "*"
         ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ec2:AssignIpv6Addresses",
+          "ec2:UnassignIpv6Addresses"
+        ],
+        "Resource": [
+          "*"
+        ]
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-06-16T14:16:49+00:00"
+  "CreateDate": "2023-09-25T15:12:17+00:00"
 }

@@ -29816,6 +29816,7 @@
             "securityhub:BatchDisableStandards",
             "securityhub:BatchEnableStandards",
             "securityhub:BatchUpdateStandardsControlAssociations",
+            "securityhub:BatchGetStandardsControlAssociations",
             "securityhub:CreateMembers",
             "securityhub:DeleteMembers",
             "securityhub:DescribeHub",
@@ -29859,9 +29860,9 @@
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-20T20:43:57+00:00"
+    "CreateDate": "2023-09-27T15:38:37+00:00"
   },
   "AWSServiceCatalogAdminFullAccess": {
     "Document": {
@@ -42663,6 +42664,40 @@
         },
         {
           "Effect": "Allow",
+          "Action": [
+            "wisdom:CreateContent",
+            "wisdom:DeleteContent",
+            "wisdom:CreateKnowledgeBase",
+            "wisdom:GetAssistant",
+            "wisdom:GetKnowledgeBase",
+            "wisdom:GetContent",
+            "wisdom:GetRecommendations",
+            "wisdom:GetSession",
+            "wisdom:NotifyRecommendationsReceived",
+            "wisdom:QueryAssistant",
+            "wisdom:StartContentUpload",
+            "wisdom:UpdateContent",
+            "wisdom:UntagResource",
+            "wisdom:TagResource",
+            "wisdom:CreateSession"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonConnectEnabled": "True"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "wisdom:ListAssistants",
+            "wisdom:ListKnowledgeBases"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
           "Action": "cloudwatch:PutMetricData",
           "Resource": "*",
           "Condition": {
@@ -42673,9 +42708,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-07T19:01:31+00:00"
+    "CreateDate": "2023-09-27T21:05:04+00:00"
   },
   "AmazonConnectVoiceIDFullAccess": {
     "Document": {
@@ -42954,11 +42989,127 @@
     "IsDefaultVersion": true,
     "CreateDate": "2015-09-02T00:09:20+00:00"
   },
+  "AmazonDataZoneDomainExecutionRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DomainExecutionRoleStatement",
+          "Effect": "Allow",
+          "Action": [
+            "datazone:AcceptPredictions",
+            "datazone:AcceptSubscriptionRequest",
+            "datazone:CancelSubscription",
+            "datazone:CreateAsset",
+            "datazone:CreateAssetRevision",
+            "datazone:CreateAssetType",
+            "datazone:CreateDataSource",
+            "datazone:CreateEnvironment",
+            "datazone:CreateEnvironmentBlueprint",
+            "datazone:CreateEnvironmentProfile",
+            "datazone:CreateFormType",
+            "datazone:CreateGlossary",
+            "datazone:CreateGlossaryTerm",
+            "datazone:CreateListingChangeSet",
+            "datazone:CreateProject",
+            "datazone:CreateProjectMembership",
+            "datazone:CreateSubscriptionGrant",
+            "datazone:CreateSubscriptionRequest",
+            "datazone:DeleteAsset",
+            "datazone:DeleteAssetType",
+            "datazone:DeleteDataSource",
+            "datazone:DeleteEnvironment",
+            "datazone:DeleteEnvironmentBlueprint",
+            "datazone:DeleteEnvironmentProfile",
+            "datazone:DeleteFormType",
+            "datazone:DeleteGlossary",
+            "datazone:DeleteGlossaryTerm",
+            "datazone:DeleteListing",
+            "datazone:DeleteProject",
+            "datazone:DeleteProjectMembership",
+            "datazone:DeleteSubscriptionGrant",
+            "datazone:DeleteSubscriptionRequest",
+            "datazone:DeleteSubscriptionTarget",
+            "datazone:GetAsset",
+            "datazone:GetAssetType",
+            "datazone:GetDataSource",
+            "datazone:GetDataSourceRun",
+            "datazone:GetDomain",
+            "datazone:GetEnvironment",
+            "datazone:GetEnvironmentActionLink",
+            "datazone:GetEnvironmentBlueprint",
+            "datazone:GetEnvironmentCredentials",
+            "datazone:GetEnvironmentProfile",
+            "datazone:GetFormType",
+            "datazone:GetGlossary",
+            "datazone:GetGlossaryTerm",
+            "datazone:GetGroupProfile",
+            "datazone:GetListing",
+            "datazone:GetProject",
+            "datazone:GetSubscription",
+            "datazone:GetSubscriptionEligibility",
+            "datazone:GetSubscriptionGrant",
+            "datazone:GetSubscriptionRequestDetails",
+            "datazone:GetSubscriptionTarget",
+            "datazone:GetUserProfile",
+            "datazone:ListAccountEnvironments",
+            "datazone:ListAssetRevisions",
+            "datazone:ListDataSourceRunActivities",
+            "datazone:ListDataSourceRuns",
+            "datazone:ListDataSources",
+            "datazone:ListEnvironmentBlueprintConfigurations",
+            "datazone:ListEnvironmentBlueprints",
+            "datazone:ListEnvironmentProfiles",
+            "datazone:ListEnvironments",
+            "datazone:ListGroupsForUser",
+            "datazone:ListNotifications",
+            "datazone:ListProjectMemberships",
+            "datazone:ListProjects",
+            "datazone:ListSubscriptionGrants",
+            "datazone:ListSubscriptionRequests",
+            "datazone:ListSubscriptionTargets",
+            "datazone:ListSubscriptions",
+            "datazone:ListWarehouseMetadata",
+            "datazone:RejectPredictions",
+            "datazone:RejectSubscriptionRequest",
+            "datazone:RevokeSubscription",
+            "datazone:Search",
+            "datazone:SearchGroupProfiles",
+            "datazone:SearchListings",
+            "datazone:SearchTypes",
+            "datazone:SearchUserProfiles",
+            "datazone:StartDataSourceRun",
+            "datazone:UpdateDataSource",
+            "datazone:UpdateEnvironment",
+            "datazone:UpdateEnvironmentBlueprint",
+            "datazone:UpdateEnvironmentDeploymentStatus",
+            "datazone:UpdateEnvironmentProfile",
+            "datazone:UpdateGlossary",
+            "datazone:UpdateGlossaryTerm",
+            "datazone:UpdateProject",
+            "datazone:UpdateSubscriptionGrantStatus",
+            "datazone:UpdateSubscriptionRequest"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "RAMResourceShareStatement",
+          "Effect": "Allow",
+          "Action": "ram:GetResourceShareAssociations",
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-09-27T21:55:08+00:00"
+  },
   "AmazonDataZoneEnvironmentRolePermissionsBoundary": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "CreateGlueConnection",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags",
@@ -42976,6 +43127,7 @@
           }
         },
         {
+          "Sid": "GlueOperations",
           "Effect": "Allow",
           "Action": [
             "glue:*DataQuality*",
@@ -43052,6 +43204,7 @@
           }
         },
         {
+          "Sid": "PassRole",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -43066,6 +43219,7 @@
           }
         },
         {
+          "Sid": "SameAccountKmsOperations",
           "Effect": "Allow",
           "Action": [
             "kms:DescribeKey",
@@ -43080,6 +43234,7 @@
           }
         },
         {
+          "Sid": "KmsOperationsWithResourceTag",
           "Effect": "Allow",
           "Action": [
             "kms:DescribeKey",
@@ -43098,6 +43253,7 @@
           }
         },
         {
+          "Sid": "AnalyticsOperations",
           "Effect": "Allow",
           "Action": [
             "datazone:*",
@@ -43106,11 +43262,12 @@
           "Resource": "*"
         },
         {
+          "Sid": "QueryOperations",
           "Effect": "Allow",
           "Action": [
-            "athena:BatchGetQueryExecution",
             "athena:BatchGetNamedQuery",
             "athena:BatchGetPreparedStatement",
+            "athena:BatchGetQueryExecution",
             "athena:CreateNamedQuery",
             "athena:CreateNotebook",
             "athena:CreatePreparedStatement",
@@ -43121,14 +43278,22 @@
             "athena:ExportNotebook",
             "athena:GetDatabase",
             "athena:GetDataCatalog",
-            "athena:GetTableMetadata",
+            "athena:GetNamedQuery",
+            "athena:GetPreparedStatement",
             "athena:GetQueryExecution",
             "athena:GetQueryResults",
+            "athena:GetQueryRuntimeStatistics",
+            "athena:GetTableMetadata",
             "athena:GetWorkGroup",
             "athena:ImportNotebook",
             "athena:ListDatabases",
             "athena:ListDataCatalogs",
+            "athena:ListEngineVersions",
+            "athena:ListNamedQueries",
+            "athena:ListPreparedStatements",
+            "athena:ListQueryExecutions",
             "athena:ListTableMetadata",
+            "athena:ListTagsForResource",
             "athena:ListWorkGroups",
             "athena:StartCalculationExecution",
             "athena:StartQueryExecution",
@@ -43148,6 +43313,7 @@
             "glue:BatchDeleteTable",
             "glue:BatchDeleteTableVersion",
             "glue:BatchGetJobs",
+            "glue:BatchGetPartition",
             "glue:BatchGetWorkflows",
             "glue:BatchUpdatePartition",
             "glue:CreateBlueprint",
@@ -43219,6 +43385,7 @@
             "redshift:DescribeClusters",
             "redshift:DescribeDataShares",
             "redshift:GetClusterCredentials",
+            "redshift:GetClusterCredentialsWithIAM",
             "redshift:JoinGroup",
             "redshift-serverless:ListNamespaces",
             "redshift-serverless:ListWorkgroups",
@@ -43231,6 +43398,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "SecretsManagerOperationsWithTagKeys",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:CreateSecret",
@@ -43254,17 +43422,24 @@
           }
         },
         {
+          "Sid": "DataZoneS3Buckets",
           "Effect": "Allow",
           "Action": [
             "s3:AbortMultipartUpload",
+            "s3:DeleteObject",
+            "s3:DeleteObjectVersion",
+            "s3:GetObject",
             "s3:PutObject",
-            "s3:GetObject"
+            "s3:PutObjectRetention",
+            "s3:ReplicateObject",
+            "s3:RestoreObject"
           ],
           "Resource": [
             "arn:aws:s3:::*/datazone/*"
           ]
         },
         {
+          "Sid": "DataZoneS3BucketLocation",
           "Effect": "Allow",
           "Action": [
             "s3:GetBucketLocation"
@@ -43272,6 +43447,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "ListDataZoneS3Bucket",
           "Effect": "Allow",
           "Action": [
             "s3:ListBucket"
@@ -43289,13 +43465,14 @@
           }
         },
         {
+          "Sid": "NotDeniedOperations",
           "Effect": "Deny",
           "NotAction": [
             "datazone:*",
             "sqlworkbench:*",
-            "athena:BatchGetQueryExecution",
             "athena:BatchGetNamedQuery",
             "athena:BatchGetPreparedStatement",
+            "athena:BatchGetQueryExecution",
             "athena:CreateNamedQuery",
             "athena:CreateNotebook",
             "athena:CreatePreparedStatement",
@@ -43306,14 +43483,22 @@
             "athena:ExportNotebook",
             "athena:GetDatabase",
             "athena:GetDataCatalog",
-            "athena:GetTableMetadata",
+            "athena:GetNamedQuery",
+            "athena:GetPreparedStatement",
             "athena:GetQueryExecution",
             "athena:GetQueryResults",
+            "athena:GetQueryRuntimeStatistics",
+            "athena:GetTableMetadata",
             "athena:GetWorkGroup",
             "athena:ImportNotebook",
             "athena:ListDatabases",
             "athena:ListDataCatalogs",
+            "athena:ListEngineVersions",
+            "athena:ListNamedQueries",
+            "athena:ListPreparedStatements",
+            "athena:ListQueryExecutions",
             "athena:ListTableMetadata",
+            "athena:ListTagsForResource",
             "athena:ListWorkGroups",
             "athena:StartCalculationExecution",
             "athena:StartQueryExecution",
@@ -43337,6 +43522,7 @@
             "glue:BatchDeleteTable",
             "glue:BatchDeleteTableVersion",
             "glue:BatchGetJobs",
+            "glue:BatchGetPartition",
             "glue:BatchGetWorkflows",
             "glue:BatchStopJobRun",
             "glue:BatchUpdatePartition",
@@ -43435,6 +43621,7 @@
             "redshift:DescribeClusters",
             "redshift:DescribeDataShares",
             "redshift:GetClusterCredentials",
+            "redshift:GetClusterCredentialsWithIAM",
             "redshift:JoinGroup",
             "redshift-serverless:ListNamespaces",
             "redshift-serverless:ListWorkgroups",
@@ -43442,10 +43629,15 @@
             "redshift-serverless:GetWorkgroup",
             "redshift-serverless:GetCredentials",
             "s3:AbortMultipartUpload",
-            "s3:PutObject",
+            "s3:DeleteObject",
+            "s3:DeleteObjectVersion",
             "s3:GetObject",
             "s3:GetBucketLocation",
             "s3:ListBucket",
+            "s3:PutObject",
+            "s3:PutObjectRetention",
+            "s3:ReplicateObject",
+            "s3:RestoreObject",
             "secretsmanager:CreateSecret",
             "secretsmanager:ListSecrets",
             "secretsmanager:TagResource",
@@ -43457,9 +43649,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-14T19:33:50+00:00"
+    "CreateDate": "2023-09-29T05:12:51+00:00"
   },
   "AmazonDataZoneFullAccess": {
     "Document": {
@@ -43571,6 +43763,7 @@
             "datazone:SearchGroupProfiles",
             "datazone:GetUserProfile",
             "datazone:GetGroupProfile",
+            "datazone:ListGroupsForUser",
             "datazone:DeleteFormType",
             "datazone:CreateAssetType",
             "datazone:GetAssetType",
@@ -43605,6 +43798,7 @@
             "datazone:GetDataSourceRun",
             "datazone:ListDataSourceRuns",
             "datazone:ListDataSourceRunActivities",
+            "datazone:ListEnvironmentBlueprintConfigurations",
             "datazone:CreateEnvironmentBlueprint",
             "datazone:GetEnvironmentBlueprint",
             "datazone:DeleteEnvironmentBlueprint",
@@ -43652,7 +43846,8 @@
             "datazone:DeleteSubscriptionGrant",
             "datazone:GetSubscriptionGrant",
             "datazone:ListSubscriptionGrants",
-            "datazone:UpdateSubscriptionGrantStatus"
+            "datazone:UpdateSubscriptionGrantStatus",
+            "datazone:ListNotifications"
           ],
           "Resource": "*"
         },
@@ -43663,15 +43858,16 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-22T21:06:41+00:00"
+    "CreateDate": "2023-09-26T04:10:01+00:00"
   },
   "AmazonDataZoneGlueManageAccessRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "GlueTableDatabasePermissions",
           "Effect": "Allow",
           "Action": [
             "glue:CreateTable",
@@ -43691,6 +43887,7 @@
           }
         },
         {
+          "Sid": "LakeformationResourceSharingPermissions",
           "Effect": "Allow",
           "Action": [
             "lakeformation:BatchGrantPermissions",
@@ -43708,21 +43905,27 @@
           "Resource": "*"
         },
         {
+          "Sid": "CrossAccountRAMResourceSharingPermissions",
           "Effect": "Allow",
           "Action": [
             "glue:DeleteResourcePolicy",
             "glue:PutResourcePolicy"
           ],
-          "Resource": "arn:aws:glue:*:*:catalog",
+          "Resource": [
+            "arn:aws:glue:*:*:catalog",
+            "arn:aws:glue:*:*:database/*",
+            "arn:aws:glue:*:*:table/*"
+          ],
           "Condition": {
             "ForAnyValue:StringEquals": {
               "aws:CalledVia": [
-                "lakeformation.amazonaws.com"
+                "ram.amazonaws.com"
               ]
             }
           }
         },
         {
+          "Sid": "CrossAccountLakeFormationResourceSharingPermissions",
           "Effect": "Allow",
           "Action": [
             "ram:CreateResourceShare"
@@ -43744,6 +43947,7 @@
           }
         },
         {
+          "Sid": "CrossAccountRAMResourceShareInvitationPermission",
           "Effect": "Allow",
           "Action": [
             "ram:AcceptResourceShareInvitation"
@@ -43751,6 +43955,7 @@
           "Resource": "arn:aws:ram:*:*:resource-share-invitation/*"
         },
         {
+          "Sid": "CrossAccountRAMResourceSharingViaLakeFormationPermissions",
           "Effect": "Allow",
           "Action": [
             "ram:AssociateResourceShare",
@@ -43774,6 +43979,7 @@
           }
         },
         {
+          "Sid": "KMSDecryptPermission",
           "Effect": "Allow",
           "Action": [
             "kms:Decrypt"
@@ -43787,9 +43993,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-22T20:21:53+00:00"
+    "CreateDate": "2023-09-29T01:53:41+00:00"
   },
   "AmazonDataZonePortalFullAccessPolicy": {
     "Document": {
@@ -62875,12 +63081,20 @@
             "comprehend:DetectDominantLanguage"
           ],
           "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "bedrock:InvokeModel",
+            "bedrock:ListFoundationModels"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-23T22:36:43+00:00"
+    "CreateDate": "2023-09-30T00:15:02+00:00"
   },
   "AmazonSageMakerCanvasForecastAccess": {
     "Document": {
@@ -62917,6 +63131,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "SageMakerUserDetailsAndPackageOperations",
           "Effect": "Allow",
           "Action": [
             "sagemaker:DescribeDomain",
@@ -62928,6 +63143,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "SageMakerPackageGroupOperations",
           "Effect": "Allow",
           "Action": [
             "sagemaker:CreateModelPackageGroup",
@@ -62941,6 +63157,7 @@
           ]
         },
         {
+          "Sid": "SageMakerTrainingOperations",
           "Effect": "Allow",
           "Action": [
             "sagemaker:CreateCompilationJob",
@@ -62969,6 +63186,20 @@
           ]
         },
         {
+          "Sid": "SageMakerHostingOperations",
+          "Effect": "Allow",
+          "Action": [
+            "sagemaker:DeleteEndpointConfig",
+            "sagemaker:DeleteModel",
+            "sagemaker:InvokeEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:sagemaker:*:*:*Canvas*",
+            "arn:aws:sagemaker:*:*:*canvas*"
+          ]
+        },
+        {
+          "Sid": "EC2VPCOperation",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateVpcEndpoint",
@@ -62981,6 +63212,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "ECROperations",
           "Effect": "Allow",
           "Action": [
             "ecr:BatchGetImage",
@@ -62990,6 +63222,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "IAMGetOperations",
           "Effect": "Allow",
           "Action": [
             "iam:GetRole"
@@ -62997,6 +63230,7 @@
           "Resource": "arn:aws:iam::*:role/*"
         },
         {
+          "Sid": "IAMPassOperation",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -63009,6 +63243,7 @@
           }
         },
         {
+          "Sid": "LoggingOperation",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogGroup",
@@ -63018,6 +63253,7 @@
           "Resource": "arn:aws:logs:*:*:log-group:/aws/sagemaker/*"
         },
         {
+          "Sid": "S3Operations",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject",
@@ -63034,6 +63270,24 @@
           ]
         },
         {
+          "Sid": "ReadSageMakerJumpstartArtifacts",
+          "Effect": "Allow",
+          "Action": "s3:GetObject",
+          "Resource": [
+            "arn:aws:s3:::jumpstart-cache-prod-us-west-2/*",
+            "arn:aws:s3:::jumpstart-cache-prod-us-east-1/*",
+            "arn:aws:s3:::jumpstart-cache-prod-us-east-2/*",
+            "arn:aws:s3:::jumpstart-cache-prod-eu-west-1/*",
+            "arn:aws:s3:::jumpstart-cache-prod-eu-central-1/*",
+            "arn:aws:s3:::jumpstart-cache-prod-ap-south-1/*",
+            "arn:aws:s3:::jumpstart-cache-prod-ap-northeast-2/*",
+            "arn:aws:s3:::jumpstart-cache-prod-ap-northeast-1/*",
+            "arn:aws:s3:::jumpstart-cache-prod-ap-southeast-1/*",
+            "arn:aws:s3:::jumpstart-cache-prod-ap-southeast-2/*"
+          ]
+        },
+        {
+          "Sid": "S3ListOperations",
           "Effect": "Allow",
           "Action": [
             "s3:ListBucket",
@@ -63042,6 +63296,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "GlueOperations",
           "Effect": "Allow",
           "Action": "glue:SearchTables",
           "Resource": [
@@ -63051,6 +63306,7 @@
           ]
         },
         {
+          "Sid": "SecretsManagerARNBasedOperation",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:DescribeSecret",
@@ -63063,6 +63319,7 @@
           ]
         },
         {
+          "Sid": "SecretManagerTagBasedOperation",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:DescribeSecret",
@@ -63076,6 +63333,7 @@
           }
         },
         {
+          "Sid": "RedshiftOperations",
           "Effect": "Allow",
           "Action": [
             "redshift-data:ExecuteStatement",
@@ -63089,6 +63347,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "RedshiftGetCredentialsOperation",
           "Effect": "Allow",
           "Action": [
             "redshift:GetClusterCredentials"
@@ -63099,6 +63358,7 @@
           ]
         },
         {
+          "Sid": "ForecastOperations",
           "Effect": "Allow",
           "Action": [
             "forecast:CreateExplainabilityExport",
@@ -63133,11 +63393,13 @@
           ]
         },
         {
+          "Sid": "RDSOperation",
           "Effect": "Allow",
           "Action": "rds:DescribeDBInstances",
           "Resource": "*"
         },
         {
+          "Sid": "IAMPassOperationForForecast",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -63150,6 +63412,7 @@
           }
         },
         {
+          "Sid": "AutoscalingOperations",
           "Effect": "Allow",
           "Action": [
             "application-autoscaling:PutScalingPolicy",
@@ -63165,9 +63428,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-29T19:06:22+00:00"
+    "CreateDate": "2023-09-30T00:15:42+00:00"
   },
   "AmazonSageMakerCoreServiceRolePolicy": {
     "Document": {
@@ -66969,12 +67232,22 @@
           "Resource": [
             "*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AssignIpv6Addresses",
+            "ec2:UnassignIpv6Addresses"
+          ],
+          "Resource": [
+            "*"
+          ]
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-06-16T14:16:49+00:00"
+    "CreateDate": "2023-09-25T15:12:17+00:00"
   },
   "AmazonVPCFullAccess": {
     "Document": {

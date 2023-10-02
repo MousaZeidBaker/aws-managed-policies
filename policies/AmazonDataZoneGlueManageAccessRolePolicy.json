@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "GlueTableDatabasePermissions",
         "Effect": "Allow",
         "Action": [
           "glue:CreateTable",
@@ -22,6 +23,7 @@
         }
       },
       {
+        "Sid": "LakeformationResourceSharingPermissions",
         "Effect": "Allow",
         "Action": [
           "lakeformation:BatchGrantPermissions",
@@ -39,21 +41,27 @@
         "Resource": "*"
       },
       {
+        "Sid": "CrossAccountRAMResourceSharingPermissions",
         "Effect": "Allow",
         "Action": [
           "glue:DeleteResourcePolicy",
           "glue:PutResourcePolicy"
         ],
-        "Resource": "arn:aws:glue:*:*:catalog",
+        "Resource": [
+          "arn:aws:glue:*:*:catalog",
+          "arn:aws:glue:*:*:database/*",
+          "arn:aws:glue:*:*:table/*"
+        ],
         "Condition": {
           "ForAnyValue:StringEquals": {
             "aws:CalledVia": [
-              "lakeformation.amazonaws.com"
+              "ram.amazonaws.com"
             ]
           }
         }
       },
       {
+        "Sid": "CrossAccountLakeFormationResourceSharingPermissions",
         "Effect": "Allow",
         "Action": [
           "ram:CreateResourceShare"
@@ -75,6 +83,7 @@
         }
       },
       {
+        "Sid": "CrossAccountRAMResourceShareInvitationPermission",
         "Effect": "Allow",
         "Action": [
           "ram:AcceptResourceShareInvitation"
@@ -82,6 +91,7 @@
         "Resource": "arn:aws:ram:*:*:resource-share-invitation/*"
       },
       {
+        "Sid": "CrossAccountRAMResourceSharingViaLakeFormationPermissions",
         "Effect": "Allow",
         "Action": [
           "ram:AssociateResourceShare",
@@ -105,6 +115,7 @@
         }
       },
       {
+        "Sid": "KMSDecryptPermission",
         "Effect": "Allow",
         "Action": [
           "kms:Decrypt"
@@ -118,7 +129,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-09-22T20:21:53+00:00"
+  "CreateDate": "2023-09-29T01:53:41+00:00"
 }
