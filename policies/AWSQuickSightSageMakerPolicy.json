@@ -13,17 +13,38 @@
       },
       {
         "Effect": "Allow",
-        "Action": "sagemaker:ListModels",
+        "Action": [
+          "sagemaker:ListModels",
+          "sagemaker:DescribeModel"
+        ],
         "Resource": "*"
       },
       {
         "Effect": "Allow",
         "Action": "s3:GetObject",
-        "Resource": "arn:aws:s3:::quicksight-ml.*"
+        "Resource": [
+          "arn:aws:s3:::quicksight-ml.*",
+          "arn:aws:s3:::sagemaker*"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": "s3:PutObject",
+        "Resource": "arn:aws:s3:::sagemaker*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": "s3:ListBucket",
+        "Resource": "arn:aws:s3:::sagemaker*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-01-17T17:18:13+00:00"
+  "CreateDate": "2023-10-03T23:22:22+00:00"
 }
