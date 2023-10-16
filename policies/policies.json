@@ -561,7 +561,8 @@
           "Sid": "CloudMapServiceDiscovery",
           "Effect": "Allow",
           "Action": [
-            "servicediscovery:DiscoverInstances"
+            "servicediscovery:DiscoverInstances",
+            "servicediscovery:DiscoverInstancesRevision"
           ],
           "Resource": "*"
         },
@@ -575,9 +576,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-09-10T22:44:43+00:00"
+    "CreateDate": "2023-10-10T16:46:37+00:00"
   },
   "AWSAppRunnerFullAccess": {
     "Document": {
@@ -6616,7 +6617,10 @@
         },
         {
           "Effect": "Allow",
-          "Action": "ssm:StartSession",
+          "Action": [
+            "ssm:StartSession",
+            "ssm:GetConnectionStatus"
+          ],
           "Resource": "arn:aws:ec2:*:*:instance/*",
           "Condition": {
             "StringLike": {
@@ -6638,9 +6642,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-02T08:54:40+00:00"
+    "CreateDate": "2023-10-11T12:59:29+00:00"
   },
   "AWSCloud9EnvironmentMember": {
     "Document": {
@@ -6673,7 +6677,10 @@
         },
         {
           "Effect": "Allow",
-          "Action": "ssm:StartSession",
+          "Action": [
+            "ssm:StartSession",
+            "ssm:GetConnectionStatus"
+          ],
           "Resource": "arn:aws:ec2:*:*:instance/*",
           "Condition": {
             "StringLike": {
@@ -6695,9 +6702,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-07-29T06:29:08+00:00"
+    "CreateDate": "2023-10-11T12:13:40+00:00"
   },
   "AWSCloud9SSMInstanceProfile": {
     "Document": {
@@ -6832,7 +6839,6 @@
         {
           "Effect": "Allow",
           "Action": [
-            "cloud9:ValidateEnvironmentName",
             "cloud9:UpdateUserSettings",
             "cloud9:GetUserSettings",
             "iam:GetUser",
@@ -6898,7 +6904,10 @@
         },
         {
           "Effect": "Allow",
-          "Action": "ssm:StartSession",
+          "Action": [
+            "ssm:StartSession",
+            "ssm:GetConnectionStatus"
+          ],
           "Resource": "arn:aws:ec2:*:*:instance/*",
           "Condition": {
             "StringLike": {
@@ -6920,9 +6929,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-02T08:53:58+00:00"
+    "CreateDate": "2023-10-11T13:24:10+00:00"
   },
   "AWSCloudFormationFullAccess": {
     "Document": {
@@ -19133,7 +19142,8 @@
             "s3:GetBucketLocation",
             "s3:ListBucket",
             "s3:ListAllMyBuckets",
-            "s3:GetBucketAcl"
+            "s3:GetBucketAcl",
+            "codewhisperer:GenerateRecommendations"
           ],
           "Resource": [
             "*"
@@ -19180,9 +19190,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-10-07T18:05:54+00:00"
+    "CreateDate": "2023-10-09T15:59:41+00:00"
   },
   "AWSGlueServiceRole": {
     "Document": {
@@ -25128,15 +25138,22 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "MHSRAllowS3Resources",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject",
             "s3:PutObject",
-            "s3:GetBucketAcl"
+            "s3:GetBucketAcl",
+            "s3:CreateBucket",
+            "s3:PutEncryptionConfiguration",
+            "s3:PutBucketPublicAccessBlock",
+            "s3:PutBucketVersioning",
+            "s3:PutLifecycleConfiguration"
           ],
           "Resource": "arn:aws:s3:::migrationhub-strategy-*"
         },
         {
+          "Sid": "MHSRAllowS3ListBucket",
           "Effect": "Allow",
           "Action": [
             "s3:ListAllMyBuckets"
@@ -25144,6 +25161,7 @@
           "Resource": "arn:aws:s3:::*"
         },
         {
+          "Sid": "MHSRAllowExecuteAPI",
           "Effect": "Allow",
           "Action": [
             "execute-api:Invoke",
@@ -25155,6 +25173,7 @@
           ]
         },
         {
+          "Sid": "MHSRAllowCollectorAPI",
           "Effect": "Allow",
           "Action": [
             "migrationhub-strategy:RegisterCollector",
@@ -25168,6 +25187,7 @@
           "Resource": "arn:aws:migrationhub-strategy:*:*:*"
         },
         {
+          "Sid": "MHSRAllowSecretsManager",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:GetSecretValue"
@@ -25176,9 +25196,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-02T22:08:23+00:00"
+    "CreateDate": "2023-10-12T16:44:29+00:00"
   },
   "AWSMigrationHubStrategyConsoleFullAccess": {
     "Document": {
@@ -48000,15 +48020,16 @@
           "Sid": "CloudMapResourceDiscovery",
           "Effect": "Allow",
           "Action": [
-            "servicediscovery:DiscoverInstances"
+            "servicediscovery:DiscoverInstances",
+            "servicediscovery:DiscoverInstancesRevision"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-14T18:10:03+00:00"
+    "CreateDate": "2023-10-10T16:57:39+00:00"
   },
   "AmazonECSTaskExecutionRolePolicy": {
     "Document": {
@@ -78734,6 +78755,9 @@
             "lookoutequipment:DescribeLabel",
             "lookoutequipment:DescribeLabelGroup",
             "lookoutequipment:DescribeModel",
+            "lookoutequipment:DescribeModelVersion",
+            "lookoutequipment:DescribeResourcePolicy",
+            "lookoutequipment:DescribeRetrainingScheduler",
             "lookoutequipment:ListDataIngestionJobs",
             "lookoutequipment:ListDatasets",
             "lookoutequipment:ListInferenceEvents",
@@ -78742,6 +78766,8 @@
             "lookoutequipment:ListLabelGroups",
             "lookoutequipment:ListLabels",
             "lookoutequipment:ListModels",
+            "lookoutequipment:ListModelVersions",
+            "lookoutequipment:ListRetrainingSchedulers",
             "lookoutequipment:ListSensorStatistics",
             "lookoutequipment:ListTagsForResource",
             "lookoutmetrics:Describe*",
@@ -79242,6 +79268,8 @@
             "servicecatalog:List*",
             "servicecatalog:Scan*",
             "servicecatalog:Search*",
+            "servicediscovery:DiscoverInstances",
+            "servicediscovery:DiscoverInstancesRevision",
             "servicediscovery:Get*",
             "servicediscovery:List*",
             "servicequotas:GetAssociationForServiceQuotaTemplate",
@@ -79464,9 +79492,9 @@
         }
       ]
     },
-    "VersionId": "v106",
+    "VersionId": "v107",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-19T14:57:43+00:00"
+    "CreateDate": "2023-10-13T14:16:04+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
