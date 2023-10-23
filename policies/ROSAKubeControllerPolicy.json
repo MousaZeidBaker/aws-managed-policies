@@ -6,6 +6,7 @@
         "Sid": "ReadPermissions",
         "Effect": "Allow",
         "Action": [
+          "ec2:DescribeAvailabilityZones",
           "ec2:DescribeInstances",
           "ec2:DescribeRouteTables",
           "ec2:DescribeSecurityGroups",
@@ -184,7 +185,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-07-18T21:45:19+00:00"
+  "CreateDate": "2023-10-16T18:17:05+00:00"
 }

@@ -87,10 +87,30 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "ManageEventBridgeRules",
+        "Effect": "Allow",
+        "Action": [
+          "events:DeleteRule",
+          "events:PutTargets",
+          "events:PutRule"
+        ],
+        "Resource": [
+          "arn:aws:events:*:*:rule/entity-resolution-automatic*"
+        ]
+      },
+      {
+        "Sid": "ADXReadAccess",
+        "Effect": "Allow",
+        "Action": [
+          "dataexchange:GetDataSet"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-08-17T17:54:14+00:00"
+  "CreateDate": "2023-10-16T18:46:10+00:00"
 }
