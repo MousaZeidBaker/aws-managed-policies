@@ -44,6 +44,22 @@
         ]
       },
       {
+        "Sid": "Stmt1480452973149",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:AssignIpv6Addresses"
+        ],
+        "Resource": "arn:aws:ec2:*:*:network-interface/*"
+      },
+      {
+        "Sid": "Stmt1480452973150",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:UnAssignIpv6Addresses"
+        ],
+        "Resource": "arn:aws:ec2:*:*:network-interface/*"
+      },
+      {
         "Sid": "Stmt1480452973154",
         "Effect": "Allow",
         "Action": [
@@ -177,7 +193,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-10-13T14:05:59+00:00"
+  "CreateDate": "2023-10-23T07:07:31+00:00"
 }

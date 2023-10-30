@@ -75,7 +75,10 @@
           "profile:UpdateProfile",
           "profile:AddProfileKey",
           "profile:ListProfileObjectTypes",
-          "profile:ListCalculatedAttributeDefinitions"
+          "profile:ListCalculatedAttributeDefinitions",
+          "profile:ListCalculatedAttributesForProfile",
+          "profile:GetDomain",
+          "profile:ListIntegrations"
         ],
         "Resource": "arn:aws:profile:*:*:domains/amazon-connect-*"
       },
@@ -125,7 +128,16 @@
           "wisdom:UpdateContent",
           "wisdom:UntagResource",
           "wisdom:TagResource",
-          "wisdom:CreateSession"
+          "wisdom:CreateSession",
+          "wisdom:CreateQuickResponse",
+          "wisdom:GetQuickResponse",
+          "wisdom:SearchQuickResponses",
+          "wisdom:StartImportJob",
+          "wisdom:GetImportJob",
+          "wisdom:ListImportJobs",
+          "wisdom:ListQuickResponses",
+          "wisdom:UpdateQuickResponse",
+          "wisdom:DeleteQuickResponse"
         ],
         "Resource": "*",
         "Condition": {
@@ -144,10 +156,14 @@
         "Resource": "*"
       },
       {
-        "Sid": "AllowReadCalculatedAttributesForProfile",
+        "Sid": "AllowCustomerProfilesCalculatedAttributesForConnectDomain",
         "Effect": "Allow",
         "Action": [
-          "profile:GetCalculatedAttributeForProfile"
+          "profile:GetCalculatedAttributeForProfile",
+          "profile:CreateCalculatedAttributeDefinition",
+          "profile:DeleteCalculatedAttributeDefinition",
+          "profile:GetCalculatedAttributeDefinition",
+          "profile:UpdateCalculatedAttributeDefinition"
         ],
         "Resource": [
           "arn:aws:profile:*:*:domains/amazon-connect-*/calculated-attributes/*"
@@ -166,7 +182,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v12",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-06T17:23:46+00:00"
+  "CreateDate": "2023-10-26T23:32:06+00:00"
 }
