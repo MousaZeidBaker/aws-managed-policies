@@ -61,8 +61,8 @@
           "ec2:DeleteTags"
         ],
         "Resource": [
-          "arn:*:ec2:*:*:network-insights-path/nip-*",
-          "arn:*:ec2:*:*:network-insights-analysis/nia-*"
+          "arn:*:ec2:*:*:network-insights-path/*",
+          "arn:*:ec2:*:*:network-insights-analysis/*"
         ]
       },
       {
@@ -117,7 +117,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-14T20:12:17+00:00"
+  "CreateDate": "2023-11-03T19:37:28+00:00"
 }

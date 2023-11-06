@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "SageMakerTransformJobAccess",
         "Effect": "Allow",
         "Action": [
           "sagemaker:DescribeTransformJob",
@@ -12,6 +13,7 @@
         "Resource": "arn:aws:sagemaker:*:*:transform-job/quicksight-auto-generated-*"
       },
       {
+        "Sid": "SageMakerModelReadAccess",
         "Effect": "Allow",
         "Action": [
           "sagemaker:ListModels",
@@ -20,6 +22,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "S3ObjectReadAccess",
         "Effect": "Allow",
         "Action": "s3:GetObject",
         "Resource": [
@@ -28,6 +31,7 @@
         ]
       },
       {
+        "Sid": "S3ObjectUpdateAccess",
         "Effect": "Allow",
         "Action": "s3:PutObject",
         "Resource": "arn:aws:s3:::sagemaker*",
@@ -38,13 +42,14 @@
         }
       },
       {
+        "Sid": "S3BucketReadAccess",
         "Effect": "Allow",
         "Action": "s3:ListBucket",
         "Resource": "arn:aws:s3:::sagemaker*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-03T23:22:22+00:00"
+  "CreateDate": "2023-10-30T17:57:43+00:00"
 }

@@ -39,6 +39,20 @@
       {
         "Effect": "Allow",
         "Action": [
+          "ram:AssociateResourceSharePermission"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "ram:PermissionArn": [
+              "arn:aws:ram::aws:permission/AWSRAMLFEnabled*"
+            ]
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
           "glue:PutResourcePolicy",
           "glue:DeleteResourcePolicy",
           "organizations:DescribeOrganization",
@@ -59,7 +73,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-05-20T22:19:37+00:00"
+  "CreateDate": "2023-11-01T00:50:49+00:00"
 }

@@ -12269,6 +12269,65 @@
     "IsDefaultVersion": true,
     "CreateDate": "2021-11-29T23:00:06+00:00"
   },
+  "AWSDataLifecycleManagerSSMFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowSSMReadOnlyAccess",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetCommandInvocation",
+            "ssm:ListCommands",
+            "ssm:DescribeInstanceInformation"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "AllowTaggedSSMDocumentsOnly",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:SendCommand",
+            "ssm:DescribeDocument",
+            "ssm:GetDocument"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:document/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/DLMScriptsAccess": "true"
+            }
+          }
+        },
+        {
+          "Sid": "AllowSpecificAWSOwnedSSMDocuments",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:SendCommand",
+            "ssm:DescribeDocument",
+            "ssm:GetDocument"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:document/AWSEC2-CreateVssSnapshot"
+          ]
+        },
+        {
+          "Sid": "AllowAllEC2Instances",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:SendCommand"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-10-31T20:29:44+00:00"
+  },
   "AWSDataLifecycleManagerServiceRole": {
     "Document": {
       "Version": "2012-10-17",
@@ -19782,16 +19841,24 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "IPAMDiscoveryDescribeActions",
           "Effect": "Allow",
           "Action": [
+            "ec2:DescribeAccountAttributes",
             "ec2:DescribeAddresses",
             "ec2:DescribeByoipCidrs",
             "ec2:DescribeIpv6Pools",
+            "ec2:DescribeNetworkInterfaces",
             "ec2:DescribePublicIpv4Pools",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSecurityGroupRules",
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
-            "ec2:GetIpamDiscoveredResourceCidrs",
+            "ec2:DescribeVpnConnections",
             "ec2:GetIpamDiscoveredAccounts",
+            "ec2:GetIpamDiscoveredResourceCidrs",
+            "globalaccelerator:ListAccelerators",
+            "globalaccelerator:ListByoipCidrs",
             "organizations:DescribeAccount",
             "organizations:DescribeOrganization",
             "organizations:ListAccounts",
@@ -19800,6 +19867,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "CloudWatchMetricsPublishActions",
           "Effect": "Allow",
           "Action": "cloudwatch:PutMetricData",
           "Resource": "*",
@@ -19811,9 +19879,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-25T20:13:08+00:00"
+    "CreateDate": "2023-11-01T16:27:52+00:00"
   },
   "AWSIQContractServiceRolePolicy": {
     "Document": {
@@ -21901,6 +21969,20 @@
         {
           "Effect": "Allow",
           "Action": [
+            "ram:AssociateResourceSharePermission"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "ram:PermissionArn": [
+                "arn:aws:ram::aws:permission/AWSRAMLFEnabled*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "glue:PutResourcePolicy",
             "glue:DeleteResourcePolicy",
             "organizations:DescribeOrganization",
@@ -21921,9 +22003,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-20T22:19:37+00:00"
+    "CreateDate": "2023-11-01T00:50:49+00:00"
   },
   "AWSLakeFormationDataAdmin": {
     "Document": {
@@ -27751,6 +27833,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "SageMakerTransformJobAccess",
           "Effect": "Allow",
           "Action": [
             "sagemaker:DescribeTransformJob",
@@ -27760,6 +27843,7 @@
           "Resource": "arn:aws:sagemaker:*:*:transform-job/quicksight-auto-generated-*"
         },
         {
+          "Sid": "SageMakerModelReadAccess",
           "Effect": "Allow",
           "Action": [
             "sagemaker:ListModels",
@@ -27768,6 +27852,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "S3ObjectReadAccess",
           "Effect": "Allow",
           "Action": "s3:GetObject",
           "Resource": [
@@ -27776,6 +27861,7 @@
           ]
         },
         {
+          "Sid": "S3ObjectUpdateAccess",
           "Effect": "Allow",
           "Action": "s3:PutObject",
           "Resource": "arn:aws:s3:::sagemaker*",
@@ -27786,15 +27872,16 @@
           }
         },
         {
+          "Sid": "S3BucketReadAccess",
           "Effect": "Allow",
           "Action": "s3:ListBucket",
           "Resource": "arn:aws:s3:::sagemaker*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-10-03T23:22:22+00:00"
+    "CreateDate": "2023-10-30T17:57:43+00:00"
   },
   "AWSQuickSightTimestreamPolicy": {
     "Document": {
@@ -29560,14 +29647,23 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "DescribeInstanceActions",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeInstances",
-            "ssm:GetCommandInvocation"
+            "ssm:GetCommandInvocation",
+            "ssm:DescribeInstanceInformation"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "DescribeInstanceStatus",
+          "Effect": "Allow",
+          "Action": "ec2:DescribeInstanceStatus",
+          "Resource": "*"
+        },
+        {
+          "Sid": "TargetRuleActions",
           "Effect": "Allow",
           "Action": [
             "events:DeleteRule",
@@ -29582,6 +29678,7 @@
           ]
         },
         {
+          "Sid": "DocumentActions",
           "Effect": "Allow",
           "Action": [
             "ssm:DescribeDocument",
@@ -29594,27 +29691,47 @@
           ]
         },
         {
+          "Sid": "CustomerSendCommand",
           "Effect": "Allow",
           "Action": "ssm:SendCommand",
-          "Resource": [
-            "arn:*:ec2:*:*:instance/*"
-          ],
+          "Resource": "arn:*:ec2:*:*:instance/*",
           "Condition": {
             "StringEqualsIgnoreCase": {
-              "ssm:resourceTag/SSMForSAPManaged": [
-                "True"
-              ]
+              "ssm:resourceTag/SSMForSAPManaged": "True"
             }
           }
         },
         {
+          "Sid": "InstanceTagActions",
           "Effect": "Allow",
           "Action": [
-            "servicecatalog:GetApplication"
+            "ec2:CreateTags",
+            "ec2:DeleteTags"
           ],
+          "Resource": "arn:*:ec2:*:*:instance/*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/awsApplication": "false"
+            },
+            "StringEqualsIgnoreCase": {
+              "ec2:ResourceTag/SSMForSAPManaged": "True"
+            }
+          }
+        },
+        {
+          "Sid": "DescribeTag",
+          "Effect": "Allow",
+          "Action": "ec2:DescribeTags",
+          "Resource": "*"
+        },
+        {
+          "Sid": "GetApplication",
+          "Effect": "Allow",
+          "Action": "servicecatalog:GetApplication",
           "Resource": "arn:*:servicecatalog:*:*:*"
         },
         {
+          "Sid": "DeleteApplication",
           "Effect": "Allow",
           "Action": "servicecatalog:DeleteApplication",
           "Resource": "arn:*:servicecatalog:*:*:*",
@@ -29625,6 +29742,7 @@
           }
         },
         {
+          "Sid": "CreateApplication",
           "Effect": "Allow",
           "Action": [
             "servicecatalog:TagResource",
@@ -29638,6 +29756,7 @@
           }
         },
         {
+          "Sid": "CreateServiceLinkedRole",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "arn:*:iam::*:role/aws-service-role/servicecatalog-appregistry.amazonaws.com/AWSServiceRoleForAWSServiceCatalogAppRegistry",
@@ -29648,6 +29767,7 @@
           }
         },
         {
+          "Sid": "PutMetricData",
           "Effect": "Allow",
           "Action": "cloudwatch:PutMetricData",
           "Resource": "*",
@@ -29661,6 +29781,7 @@
           }
         },
         {
+          "Sid": "CreateAttributeGroup",
           "Effect": "Allow",
           "Action": "servicecatalog:CreateAttributeGroup",
           "Resource": "arn:*:servicecatalog:*:*:/attribute-groups/*",
@@ -29671,11 +29792,13 @@
           }
         },
         {
+          "Sid": "GetAttributeGroup",
           "Effect": "Allow",
           "Action": "servicecatalog:GetAttributeGroup",
           "Resource": "arn:*:servicecatalog:*:*:/attribute-groups/*"
         },
         {
+          "Sid": "DeleteAttributeGroup",
           "Effect": "Allow",
           "Action": "servicecatalog:DeleteAttributeGroup",
           "Resource": "arn:*:servicecatalog:*:*:/attribute-groups/*",
@@ -29686,6 +29809,7 @@
           }
         },
         {
+          "Sid": "AttributeGroupActions",
           "Effect": "Allow",
           "Action": [
             "servicecatalog:AssociateAttributeGroup",
@@ -29699,11 +29823,13 @@
           }
         },
         {
+          "Sid": "ListAssociatedAttributeGroups",
           "Effect": "Allow",
           "Action": "servicecatalog:ListAssociatedAttributeGroups",
           "Resource": "arn:*:servicecatalog:*:*:*"
         },
         {
+          "Sid": "CreateGroup",
           "Effect": "Allow",
           "Action": [
             "resource-groups:CreateGroup",
@@ -29722,11 +29848,13 @@
           }
         },
         {
+          "Sid": "GetGroup",
           "Effect": "Allow",
           "Action": "resource-groups:GetGroup",
           "Resource": "arn:*:resource-groups:*:*:group/SystemsManagerForSAP-*"
         },
         {
+          "Sid": "DeleteGroup",
           "Effect": "Allow",
           "Action": "resource-groups:DeleteGroup",
           "Resource": "arn:*:resource-groups:*:*:group/SystemsManagerForSAP-*",
@@ -29738,9 +29866,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-31T22:33:25+00:00"
+    "CreateDate": "2023-10-31T23:39:16+00:00"
   },
   "AWSSSMOpsInsightsServiceRolePolicy": {
     "Document": {
@@ -32321,6 +32449,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSSupplyChain",
           "Effect": "Allow",
           "Action": [
             "scn:*"
@@ -32330,6 +32459,7 @@
           ]
         },
         {
+          "Sid": "ChimeAppInstance",
           "Effect": "Allow",
           "Action": [
             "chime:BatchCreateChannelMembership",
@@ -32362,6 +32492,7 @@
           }
         },
         {
+          "Sid": "ChimeChannel",
           "Effect": "Allow",
           "Action": [
             "chime:DescribeChannel"
@@ -32371,6 +32502,7 @@
           ]
         },
         {
+          "Sid": "ChimeMessaging",
           "Effect": "Allow",
           "Action": [
             "chime:GetMessagingSessionEndpoint"
@@ -32378,6 +32510,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "IAMIdentityCenter",
           "Effect": "Allow",
           "Action": [
             "sso:GetManagedApplicationInstance",
@@ -32385,11 +32518,13 @@
             "sso:AssociateProfile",
             "sso:DisassociateProfile",
             "sso:ListProfiles",
-            "sso:GetProfile"
+            "sso:GetProfile",
+            "sso:ListProfileAssociations"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "AppflowConnectorProfile",
           "Effect": "Allow",
           "Action": [
             "appflow:CreateConnectorProfile",
@@ -32402,6 +32537,7 @@
           ]
         },
         {
+          "Sid": "AppflowFlow",
           "Effect": "Allow",
           "Action": [
             "appflow:CreateFlow",
@@ -32420,6 +32556,7 @@
           ]
         },
         {
+          "Sid": "S3ListAllBuckets",
           "Effect": "Allow",
           "Action": [
             "s3:ListAllMyBuckets"
@@ -32427,6 +32564,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "S3ListSupplyChainBucket",
           "Effect": "Allow",
           "Action": [
             "s3:GetBucketLocation",
@@ -32438,6 +32576,7 @@
           ]
         },
         {
+          "Sid": "S3ReadWriteObject",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject",
@@ -32453,6 +32592,7 @@
           }
         },
         {
+          "Sid": "SecretsManagerCreateSecret",
           "Effect": "Allow",
           "Action": "secretsmanager:CreateSecret",
           "Resource": "arn:aws:secretsmanager:*:*:secret:*",
@@ -32468,6 +32608,7 @@
           }
         },
         {
+          "Sid": "SecretsManagerPutResourcePolicy",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:PutResourcePolicy"
@@ -32485,6 +32626,7 @@
           }
         },
         {
+          "Sid": "KMSListKeys",
           "Effect": "Allow",
           "Action": [
             "kms:ListKeys",
@@ -32493,6 +32635,7 @@
           "Resource": "arn:aws:kms:*:*:key/*"
         },
         {
+          "Sid": "KMSListGrants",
           "Effect": "Allow",
           "Action": [
             "kms:DescribeKey",
@@ -32509,6 +32652,7 @@
           }
         },
         {
+          "Sid": "KMSCreateGrant",
           "Effect": "Allow",
           "Action": [
             "kms:CreateGrant"
@@ -32528,9 +32672,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-20T20:11:53+00:00"
+    "CreateDate": "2023-11-01T18:50:13+00:00"
   },
   "AWSSupportAccess": {
     "Document": {
@@ -68689,8 +68833,8 @@
             "ec2:DeleteTags"
           ],
           "Resource": [
-            "arn:*:ec2:*:*:network-insights-access-scope/nis-*",
-            "arn:*:ec2:*:*:network-insights-access-scope-analysis/nisa-*"
+            "arn:*:ec2:*:*:network-insights-access-scope/*",
+            "arn:*:ec2:*:*:network-insights-access-scope-analysis/*"
           ]
         },
         {
@@ -68756,9 +68900,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-15T22:56:58+00:00"
+    "CreateDate": "2023-11-03T19:31:09+00:00"
   },
   "AmazonVPCReachabilityAnalyzerFullAccessPolicy": {
     "Document": {
@@ -68823,8 +68967,8 @@
             "ec2:DeleteTags"
           ],
           "Resource": [
-            "arn:*:ec2:*:*:network-insights-path/nip-*",
-            "arn:*:ec2:*:*:network-insights-analysis/nia-*"
+            "arn:*:ec2:*:*:network-insights-path/*",
+            "arn:*:ec2:*:*:network-insights-analysis/*"
           ]
         },
         {
@@ -68879,9 +69023,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-14T20:12:17+00:00"
+    "CreateDate": "2023-11-03T19:37:28+00:00"
   },
   "AmazonVPCReachabilityAnalyzerPathComponentReadPolicy": {
     "Document": {
@@ -80760,6 +80904,7 @@
             "access-analyzer:ListFindings",
             "access-analyzer:ListTagsForResource",
             "account:GetAlternateContact",
+            "account:GetRegionOptStatus",
             "acm-pca:DescribeCertificateAuthority",
             "acm-pca:DescribeCertificateAuthorityAuditReport",
             "acm-pca:GetPolicy",
@@ -80886,6 +81031,8 @@
             "config:Describe*",
             "config:Get*",
             "config:List*",
+            "config:SelectAggregateResourceConfig",
+            "config:SelectResourceConfig",
             "connect:ListInstances",
             "dataexchange:ListDataSets",
             "datapipeline:DescribeObjects",
@@ -80905,6 +81052,12 @@
             "detective:ListMembers",
             "devicefarm:ListProjects",
             "directconnect:Describe*",
+            "discovery:DescribeAgents",
+            "discovery:DescribeConfigurations",
+            "discovery:DescribeContinuousExports",
+            "discovery:DescribeExportConfigurations",
+            "discovery:DescribeExportTasks",
+            "discovery:DescribeImportTasks",
             "dms:Describe*",
             "dms:ListTagsForResource",
             "docdb-elastic:ListClusters",
@@ -80987,6 +81140,7 @@
             "events:List*",
             "events:TestEventPattern",
             "finspace:ListEnvironments",
+            "finspace:ListKxEnvironments",
             "firehose:Describe*",
             "firehose:List*",
             "fms:ListComplianceStatus",
@@ -81021,6 +81175,7 @@
             "health:DescribeEventAggregates",
             "health:DescribeEvents",
             "health:DescribeEventTypes",
+            "healthlake:ListFHIRDatastores",
             "honeycode:ListTables",
             "iam:GenerateCredentialReport",
             "iam:GenerateServiceLastAccessedDetails",
@@ -81054,9 +81209,11 @@
             "iot:List*",
             "iotanalytics:ListChannels",
             "iotevents:ListInputs",
+            "iotfleetwise:ListModelManifests",
             "iotsitewise:DescribeGatewayCapabilityConfiguration",
             "iotsitewise:ListAssetModels",
             "iotsitewise:ListGateways",
+            "iottwinmaker:ListWorkspaces",
             "kafka-cluster:Describe*",
             "kafka:Describe*",
             "kafka:GetBootstrapBrokers",
@@ -81106,8 +81263,10 @@
             "logs:ListTagsLogGroup",
             "lookoutequipment:ListDatasets",
             "lookoutmetrics:ListAnomalyDetectors",
+            "lookoutvision:ListProjects",
             "machinelearning:DescribeMLModels",
             "managedblockchain:ListNetworks",
+            "mechanicalturk:ListHITs",
             "mediaconnect:Describe*",
             "mediaconnect:List*",
             "medialive:ListChannels",
@@ -81138,12 +81297,15 @@
             "network-firewall:ListFirewallPolicies",
             "network-firewall:ListFirewalls",
             "network-firewall:ListRuleGroups",
+            "networkmanager:DescribeGlobalNetworks",
+            "nimble:ListStudios",
             "opsworks-cm:DescribeServers",
             "opsworks:DescribeStacks",
             "organizations:Describe*",
             "organizations:List*",
             "personalize:DescribeDatasetGroup",
             "personalize:ListDatasetGroups",
+            "private-networks:ListNetworks",
             "qldb:DescribeJournalS3Export",
             "qldb:DescribeLedger",
             "qldb:ListJournalS3Exports",
@@ -81151,6 +81313,7 @@
             "qldb:ListLedgers",
             "quicksight:Describe*",
             "quicksight:List*",
+            "ram:GetResourceShares",
             "ram:List*",
             "rds:Describe*",
             "rds:DownloadDBLogFilePortion",
@@ -81398,9 +81561,9 @@
         }
       ]
     },
-    "VersionId": "v39",
+    "VersionId": "v40",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-20T19:34:47+00:00"
+    "CreateDate": "2023-11-02T20:02:24+00:00"
   },
   "SecurityLakeServiceLinkedRole": {
     "Document": {
