@@ -279,6 +279,11 @@
           "networkmanager:GetLinks",
           "networkmanager:ListAttachments",
           "networkmanager:ListCoreNetworks",
+          "organizations:DescribeAccount",
+          "organizations:DescribeOrganization",
+          "organizations:ListAccounts",
+          "organizations:ListAWSServiceAccessForOrganization",
+          "organizations:ListDelegatedAdministrators",
           "panorama:ListPackages",
           "qldb:ListJournalKinesisStreamsForLedger",
           "qldb:ListLedgers",
@@ -362,7 +367,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-17T15:07:03+00:00"
+  "CreateDate": "2023-11-07T17:07:44+00:00"
 }

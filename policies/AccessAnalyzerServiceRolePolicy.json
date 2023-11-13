@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AccessAnalyzerServiceRolePolicy",
         "Effect": "Allow",
         "Action": [
           "ec2:DescribeAddresses",
@@ -16,7 +17,16 @@
           "elasticfilesystem:DescribeFileSystemPolicy",
           "elasticfilesystem:DescribeFileSystems",
           "iam:GetRole",
+          "iam:ListEntitiesForPolicy",
           "iam:ListRoles",
+          "iam:ListUsers",
+          "iam:GetUser",
+          "iam:GetGroup",
+          "iam:GenerateServiceLastAccessedDetails",
+          "iam:GetServiceLastAccessedDetails",
+          "iam:ListAccessKeys",
+          "iam:GetLoginProfile",
+          "iam:GetAccessKeyLastUsed",
           "kms:DescribeKey",
           "kms:GetKeyPolicy",
           "kms:ListGrants",
@@ -73,7 +83,7 @@
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-10-25T16:50:52+00:00"
+  "CreateDate": "2023-11-07T19:55:15+00:00"
 }
