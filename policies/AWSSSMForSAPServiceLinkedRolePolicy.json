@@ -87,9 +87,12 @@
         "Resource": "arn:*:servicecatalog:*:*:*"
       },
       {
-        "Sid": "DeleteApplication",
+        "Sid": "UpdateOrDeleteApplication",
         "Effect": "Allow",
-        "Action": "servicecatalog:DeleteApplication",
+        "Action": [
+          "servicecatalog:DeleteApplication",
+          "servicecatalog:UpdateApplication"
+        ],
         "Resource": "arn:*:servicecatalog:*:*:*",
         "Condition": {
           "StringEquals": {
@@ -222,7 +225,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-31T23:39:16+00:00"
+  "CreateDate": "2023-11-17T21:22:26+00:00"
 }

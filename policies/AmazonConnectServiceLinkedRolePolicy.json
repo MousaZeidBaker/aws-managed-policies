@@ -137,7 +137,8 @@
           "wisdom:ListImportJobs",
           "wisdom:ListQuickResponses",
           "wisdom:UpdateQuickResponse",
-          "wisdom:DeleteQuickResponse"
+          "wisdom:DeleteQuickResponse",
+          "wisdom:PutFeedback"
         ],
         "Resource": "*",
         "Condition": {
@@ -182,7 +183,7 @@
       }
     ]
   },
-  "VersionId": "v12",
+  "VersionId": "v13",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-26T23:32:06+00:00"
+  "CreateDate": "2023-11-15T22:04:36+00:00"
 }
