@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "CloudWatchLogsReadOnlyAccess",
         "Effect": "Allow",
         "Action": [
           "logs:Describe*",
@@ -13,13 +14,14 @@
           "logs:TestMetricFilter",
           "logs:FilterLogEvents",
           "logs:StartLiveTail",
-          "logs:StopLiveTail"
+          "logs:StopLiveTail",
+          "cloudwatch:GenerateQuery"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-06T17:16:08+00:00"
+  "CreateDate": "2023-11-26T18:11:33+00:00"
 }

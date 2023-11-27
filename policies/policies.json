@@ -20006,15 +20006,17 @@
             "glue:DeleteColumnStatisticsForTable",
             "glue:UpdateColumnStatisticsForPartition",
             "glue:UpdateColumnStatisticsForTable",
-            "lakeformation:GetDataAccess"
+            "lakeformation:GetDataAccess",
+            "s3:GetAccessGrantsInstanceForPrefix",
+            "s3:GetDataAccess"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-08T15:21:33+00:00"
+    "CreateDate": "2023-11-25T19:27:00+00:00"
   },
   "AWSIPAMServiceRolePolicy": {
     "Document": {
@@ -29111,6 +29113,29 @@
     "IsDefaultVersion": true,
     "CreateDate": "2022-10-29T22:15:51+00:00"
   },
+  "AWSRepostSpaceSupportOperationsPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "RepostSpaceSupportOperations",
+          "Effect": "Allow",
+          "Action": [
+            "support:AddAttachmentsToSet",
+            "support:AddCommunicationToCase",
+            "support:CreateCase",
+            "support:DescribeCases",
+            "support:DescribeCommunications",
+            "support:ResolveCase"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-11-26T21:52:15+00:00"
+  },
   "AWSResilienceHubAsssessmentExecutionPolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -30509,12 +30534,48 @@
               "aws:ResourceTag/SSMForSAPCreated": "True"
             }
           }
+        },
+        {
+          "Sid": "CreateAppTagResourceGroup",
+          "Effect": "Allow",
+          "Action": [
+            "resource-groups:CreateGroup"
+          ],
+          "Resource": "arn:*:resource-groups:*:*:group/AWS_AppRegistry_AppTag_*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/EnableAWSServiceCatalogAppRegistry": "true"
+            }
+          }
+        },
+        {
+          "Sid": "TagAppTagResourceGroup",
+          "Effect": "Allow",
+          "Action": [
+            "resource-groups:Tag"
+          ],
+          "Resource": "arn:*:resource-groups:*:*:group/AWS_AppRegistry_AppTag_*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/EnableAWSServiceCatalogAppRegistry": "true"
+            }
+          }
+        },
+        {
+          "Sid": "GetAppTagResourceGroupConfig",
+          "Effect": "Allow",
+          "Action": [
+            "resource-groups:GetGroupConfiguration"
+          ],
+          "Resource": [
+            "arn:*:resource-groups:*:*:group/AWS_AppRegistry_AppTag_*"
+          ]
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-17T21:22:26+00:00"
+    "CreateDate": "2023-11-21T03:35:14+00:00"
   },
   "AWSSSMOpsInsightsServiceRolePolicy": {
     "Document": {
@@ -31084,6 +31145,7 @@
             "securityhub:BatchDisableStandards",
             "securityhub:BatchEnableStandards",
             "securityhub:BatchUpdateStandardsControlAssociations",
+            "securityhub:BatchGetSecurityControls",
             "securityhub:BatchGetStandardsControlAssociations",
             "securityhub:CreateMembers",
             "securityhub:DeleteMembers",
@@ -31091,6 +31153,7 @@
             "securityhub:DescribeOrganizationConfiguration",
             "securityhub:DescribeStandards",
             "securityhub:DescribeStandardsControls",
+            "securityhub:DisassociateFromAdministratorAccount",
             "securityhub:DisassociateMembers",
             "securityhub:DisableSecurityHub",
             "securityhub:EnableSecurityHub",
@@ -31098,6 +31161,7 @@
             "securityhub:ListStandardsControlAssociations",
             "securityhub:ListSecurityControlDefinitions",
             "securityhub:UpdateOrganizationConfiguration",
+            "securityhub:UpdateSecurityControl",
             "securityhub:UpdateSecurityHubConfiguration",
             "securityhub:UpdateStandardsControl"
           ],
@@ -31130,9 +31194,9 @@
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-07T00:53:28+00:00"
+    "CreateDate": "2023-11-27T03:46:47+00:00"
   },
   "AWSServiceCatalogAdminFullAccess": {
     "Document": {
@@ -47070,6 +47134,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "DetectivePermissions",
           "Effect": "Allow",
           "Action": [
             "detective:BatchGetGraphMemberDatasources",
@@ -47087,11 +47152,18 @@
             "detective:ListMembers",
             "detective:ListOrganizationAdminAccount",
             "detective:ListTagsForResource",
-            "detective:SearchGraph"
+            "detective:SearchGraph",
+            "detective:StartInvestigation",
+            "detective:GetInvestigation",
+            "detective:ListInvestigations",
+            "detective:UpdateInvestigationState",
+            "detective:ListIndicators",
+            "detective:InvokeAssistant"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "OrganizationsPermissions",
           "Effect": "Allow",
           "Action": [
             "organizations:DescribeOrganization",
@@ -47100,6 +47172,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "GuardDutyPermissions",
           "Effect": "Allow",
           "Action": [
             "guardduty:ArchiveFindings",
@@ -47109,6 +47182,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "SecurityHubPermissions",
           "Effect": "Allow",
           "Action": [
             "securityHub:GetFindings"
@@ -47117,9 +47191,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-17T19:41:09+00:00"
+    "CreateDate": "2023-11-27T03:13:25+00:00"
   },
   "AmazonDetectiveMemberAccess": {
     "Document": {
@@ -50725,6 +50799,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "WorkerNodePermissions",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeInstances",
@@ -50735,15 +50810,16 @@
             "ec2:DescribeVolumes",
             "ec2:DescribeVolumesModifications",
             "ec2:DescribeVpcs",
-            "eks:DescribeCluster"
+            "eks:DescribeCluster",
+            "eks-auth:AssumeRoleForPodIdentity"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-03-21T22:39:36+00:00"
+    "CreateDate": "2023-11-27T00:06:13+00:00"
   },
   "AmazonEKS_CNI_Policy": {
     "Document": {
@@ -52979,6 +53055,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "ListResourcesAssociatedWithFSxFileSystem",
           "Effect": "Allow",
           "Action": [
             "cloudwatch:DescribeAlarms",
@@ -52997,12 +53074,14 @@
           "Resource": "*"
         },
         {
+          "Sid": "FullAccessToFSx",
           "Effect": "Allow",
           "Action": [
             "fsx:AssociateFileGateway",
             "fsx:AssociateFileSystemAliases",
             "fsx:CancelDataRepositoryTask",
             "fsx:CopyBackup",
+            "fsx:CopySnapshotAndUpdateVolume",
             "fsx:CreateBackup",
             "fsx:CreateDataRepositoryAssociation",
             "fsx:CreateDataRepositoryTask",
@@ -53027,6 +53106,7 @@
             "fsx:DescribeFileCaches",
             "fsx:DescribeFileSystemAliases",
             "fsx:DescribeFileSystems",
+            "fsx:DescribeSharedVpcConfiguration",
             "fsx:DescribeSnapshots",
             "fsx:DescribeStorageVirtualMachines",
             "fsx:DescribeVolumes",
@@ -53041,6 +53121,7 @@
             "fsx:UpdateDataRepositoryAssociation",
             "fsx:UpdateFileCache",
             "fsx:UpdateFileSystem",
+            "fsx:UpdateSharedVpcConfiguration",
             "fsx:UpdateSnapshot",
             "fsx:UpdateStorageVirtualMachine",
             "fsx:UpdateVolume"
@@ -53048,6 +53129,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "CreateFSxSLR",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -53060,6 +53142,7 @@
           }
         },
         {
+          "Sid": "CreateSLRForLustreS3Integration",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -53072,6 +53155,7 @@
           }
         },
         {
+          "Sid": "CreateTags",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags"
@@ -53092,9 +53176,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-13T18:44:50+00:00"
+    "CreateDate": "2023-11-27T06:06:43+00:00"
   },
   "AmazonFSxConsoleReadOnlyAccess": {
     "Document": {
@@ -53129,6 +53213,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "ViewAWSDSDirectories",
           "Effect": "Allow",
           "Action": [
             "ds:DescribeDirectories"
@@ -53136,12 +53221,14 @@
           "Resource": "*"
         },
         {
+          "Sid": "FullAccessToFSx",
           "Effect": "Allow",
           "Action": [
             "fsx:AssociateFileGateway",
             "fsx:AssociateFileSystemAliases",
             "fsx:CancelDataRepositoryTask",
             "fsx:CopyBackup",
+            "fsx:CopySnapshotAndUpdateVolume",
             "fsx:CreateBackup",
             "fsx:CreateDataRepositoryAssociation",
             "fsx:CreateDataRepositoryTask",
@@ -53166,6 +53253,7 @@
             "fsx:DescribeFileCaches",
             "fsx:DescribeFileSystemAliases",
             "fsx:DescribeFileSystems",
+            "fsx:DescribeSharedVpcConfiguration",
             "fsx:DescribeSnapshots",
             "fsx:DescribeStorageVirtualMachines",
             "fsx:DescribeVolumes",
@@ -53180,6 +53268,7 @@
             "fsx:UpdateDataRepositoryAssociation",
             "fsx:UpdateFileCache",
             "fsx:UpdateFileSystem",
+            "fsx:UpdateSharedVpcConfiguration",
             "fsx:UpdateSnapshot",
             "fsx:UpdateStorageVirtualMachine",
             "fsx:UpdateVolume"
@@ -53187,6 +53276,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "CreateSLRForFSx",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -53199,6 +53289,7 @@
           }
         },
         {
+          "Sid": "CreateSLRForLustreS3Integration",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -53211,6 +53302,7 @@
           }
         },
         {
+          "Sid": "CreateLogsForFSxWindowsAuditLogs",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogGroup",
@@ -53222,6 +53314,7 @@
           ]
         },
         {
+          "Sid": "WriteToAmazonKinesisDataFirehose",
           "Effect": "Allow",
           "Action": [
             "firehose:PutRecord"
@@ -53231,6 +53324,7 @@
           ]
         },
         {
+          "Sid": "CreateTags",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags"
@@ -53250,6 +53344,7 @@
           }
         },
         {
+          "Sid": "DescribeEC2VpcResources",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeSecurityGroups",
@@ -53268,9 +53363,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-13T18:41:47+00:00"
+    "CreateDate": "2023-11-27T05:55:28+00:00"
   },
   "AmazonFSxReadOnlyAccess": {
     "Document": {
@@ -54099,6 +54194,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "GuardDutyGetDescribeListPolicy",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeInstances",
@@ -54122,11 +54218,14 @@
             "eks:ListClusters",
             "eks:DescribeCluster",
             "ec2:DescribeVpcEndpointServices",
-            "ec2:DescribeSecurityGroups"
+            "ec2:DescribeSecurityGroups",
+            "ecs:ListClusters",
+            "ecs:DescribeClusters"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "GuardDutyCreateSLRPolicy",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -54137,6 +54236,7 @@
           }
         },
         {
+          "Sid": "GuardDutyCreateVpcEndpointPolicy",
           "Effect": "Allow",
           "Action": "ec2:CreateVpcEndpoint",
           "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
@@ -54153,6 +54253,7 @@
           }
         },
         {
+          "Sid": "GuardDutyModifyDeleteVpcEndpointPolicy",
           "Effect": "Allow",
           "Action": [
             "ec2:ModifyVpcEndpoint",
@@ -54166,6 +54267,7 @@
           }
         },
         {
+          "Sid": "GuardDutyCreateModifyVpcEndpointNetworkPolicy",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateVpcEndpoint",
@@ -54178,6 +54280,7 @@
           ]
         },
         {
+          "Sid": "GuardDutyCreateTagsDuringVpcEndpointCreationPolicy",
           "Effect": "Allow",
           "Action": "ec2:CreateTags",
           "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
@@ -54191,6 +54294,7 @@
           }
         },
         {
+          "Sid": "GuardDutySecurityGroupManagementPolicy",
           "Effect": "Allow",
           "Action": [
             "ec2:AuthorizeSecurityGroupIngress",
@@ -54207,6 +54311,7 @@
           }
         },
         {
+          "Sid": "GuardDutyCreateSecurityGroupPolicy",
           "Effect": "Allow",
           "Action": "ec2:CreateSecurityGroup",
           "Resource": "arn:aws:ec2:*:*:security-group/*",
@@ -54217,11 +54322,13 @@
           }
         },
         {
+          "Sid": "GuardDutyCreateSecurityGroupForVpcPolicy",
           "Effect": "Allow",
           "Action": "ec2:CreateSecurityGroup",
           "Resource": "arn:aws:ec2:*:*:vpc/*"
         },
         {
+          "Sid": "GuardDutyCreateTagsDuringSecurityGroupCreationPolicy",
           "Effect": "Allow",
           "Action": "ec2:CreateTags",
           "Resource": "arn:aws:ec2:*:*:security-group/*",
@@ -54235,6 +54342,7 @@
           }
         },
         {
+          "Sid": "GuardDutyCreateEksAddonPolicy",
           "Effect": "Allow",
           "Action": "eks:CreateAddon",
           "Resource": "arn:aws:eks:*:*:cluster/*",
@@ -54245,6 +54353,7 @@
           }
         },
         {
+          "Sid": "GuardDutyEksAddonManagementPolicy",
           "Effect": "Allow",
           "Action": [
             "eks:DeleteAddon",
@@ -54254,6 +54363,7 @@
           "Resource": "arn:aws:eks:*:*:addon/*/aws-guardduty-agent/*"
         },
         {
+          "Sid": "GuardDutyEksClusterTagResourcePolicy",
           "Effect": "Allow",
           "Action": "eks:TagResource",
           "Resource": "arn:aws:eks:*:*:cluster/*",
@@ -54262,12 +54372,25 @@
               "aws:TagKeys": "GuardDutyManaged"
             }
           }
+        },
+        {
+          "Sid": "GuardDutyEcsPutAccountSettingsDefaultPolicy",
+          "Effect": "Allow",
+          "Action": "ecs:PutAccountSettingDefault",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ecs:account-setting": [
+                "guardDutyActivate"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-08T19:59:16+00:00"
+    "CreateDate": "2023-11-26T22:03:45+00:00"
   },
   "AmazonHealthLakeFullAccess": {
     "Document": {
@@ -54463,6 +54586,163 @@
     "VersionId": "v2",
     "IsDefaultVersion": true,
     "CreateDate": "2020-12-01T17:32:49+00:00"
+  },
+  "AmazonInspector2AgentlessServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "InstanceIdentification",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeVolumes",
+            "ec2:DescribeSnapshots"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "GetSnapshotData",
+          "Effect": "Allow",
+          "Action": [
+            "ebs:ListSnapshotBlocks",
+            "ebs:GetSnapshotBlock"
+          ],
+          "Resource": "arn:aws:ec2:*:*:snapshot/*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/InspectorScan": "*"
+            }
+          }
+        },
+        {
+          "Sid": "CreateSnapshotsAnyInstanceOrVolume",
+          "Effect": "Allow",
+          "Action": "ec2:CreateSnapshots",
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*",
+            "arn:aws:ec2:*:*:volume/*"
+          ]
+        },
+        {
+          "Sid": "DenyCreateSnapshotsOnExcludedInstances",
+          "Effect": "Deny",
+          "Action": "ec2:CreateSnapshots",
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:ResourceTag/InspectorEc2Exclusion": "true"
+            }
+          }
+        },
+        {
+          "Sid": "CreateSnapshotsOnAnySnapshotOnlyWithTag",
+          "Effect": "Allow",
+          "Action": "ec2:CreateSnapshots",
+          "Resource": "arn:aws:ec2:*:*:snapshot/*",
+          "Condition": {
+            "Null": {
+              "aws:TagKeys": "false"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": "InspectorScan"
+            }
+          }
+        },
+        {
+          "Sid": "CreateOnlyInspectorScanTagOnlyUsingCreateSnapshots",
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "arn:aws:ec2:*:*:snapshot/*",
+          "Condition": {
+            "StringLike": {
+              "ec2:CreateAction": "CreateSnapshots"
+            },
+            "Null": {
+              "aws:TagKeys": "false"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": "InspectorScan"
+            }
+          }
+        },
+        {
+          "Sid": "DeleteOnlySnapshotsTaggedForScanning",
+          "Effect": "Allow",
+          "Action": "ec2:DeleteSnapshot",
+          "Resource": "arn:aws:ec2:*:*:snapshot/*",
+          "Condition": {
+            "StringLike": {
+              "ec2:ResourceTag/InspectorScan": "*"
+            }
+          }
+        },
+        {
+          "Sid": "DenyKmsDecryptForExcludedKeys",
+          "Effect": "Deny",
+          "Action": "kms:Decrypt",
+          "Resource": "arn:aws:kms:*:*:key/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/InspectorEc2Exclusion": "true"
+            }
+          }
+        },
+        {
+          "Sid": "DecryptSnapshotBlocksVolContext",
+          "Effect": "Allow",
+          "Action": "kms:Decrypt",
+          "Resource": "arn:aws:kms:*:*:key/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "StringLike": {
+              "kms:ViaService": "ec2.*.amazonaws.com",
+              "kms:EncryptionContext:aws:ebs:id": "vol-*"
+            }
+          }
+        },
+        {
+          "Sid": "DecryptSnapshotBlocksSnapContext",
+          "Effect": "Allow",
+          "Action": "kms:Decrypt",
+          "Resource": "arn:aws:kms:*:*:key/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "StringLike": {
+              "kms:ViaService": "ec2.*.amazonaws.com",
+              "kms:EncryptionContext:aws:ebs:id": "snap-*"
+            }
+          }
+        },
+        {
+          "Sid": "DescribeKeysForEbsOperations",
+          "Effect": "Allow",
+          "Action": "kms:DescribeKey",
+          "Resource": "arn:aws:kms:*:*:key/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "StringLike": {
+              "kms:ViaService": "ec2.*.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "ListKeyResourceTags",
+          "Effect": "Allow",
+          "Action": "kms:ListResourceTags",
+          "Resource": "arn:aws:kms:*:*:key/*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-11-20T15:18:32+00:00"
   },
   "AmazonInspector2FullAccess": {
     "Document": {
@@ -59376,17 +59656,46 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AllPrometheusActions",
+          "Effect": "Allow",
           "Action": [
             "aps:*"
           ],
-          "Effect": "Allow",
           "Resource": "*"
+        },
+        {
+          "Sid": "DescribeCluster",
+          "Effect": "Allow",
+          "Action": [
+            "eks:DescribeCluster",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "aps.amazonaws.com"
+              ]
+            }
+          },
+          "Resource": "*"
+        },
+        {
+          "Sid": "CreateServiceLinkedRole",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/scraper.aps.amazonaws.com/AWSServiceRoleForAmazonPrometheusScraper*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "scraper.aps.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-12-15T18:10:46+00:00"
+    "CreateDate": "2023-11-26T20:16:13+00:00"
   },
   "AmazonPrometheusQueryAccess": {
     "Document": {
@@ -59424,6 +59733,92 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2020-12-19T01:04:32+00:00"
+  },
+  "AmazonPrometheusScraperServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DeleteSLR",
+          "Effect": "Allow",
+          "Action": [
+            "iam:DeleteRole"
+          ],
+          "Resource": "arn:aws:iam::*:role/aws-service-role/scraper.aps.amazonaws.com/AWSServiceRoleForAmazonPrometheusScraper*"
+        },
+        {
+          "Sid": "NetworkDiscovery",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ENIManagement",
+          "Effect": "Allow",
+          "Action": "ec2:CreateNetworkInterface",
+          "Resource": "*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "AMPAgentlessScraper"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "TagManagement",
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "arn:*:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateNetworkInterface"
+            },
+            "Null": {
+              "aws:RequestTag/AMPAgentlessScraper": "false"
+            }
+          }
+        },
+        {
+          "Sid": "ENIUpdating",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteNetworkInterface",
+            "ec2:ModifyNetworkInterfaceAttribute"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "Null": {
+              "ec2:ResourceTag/AMPAgentlessScraper": "false"
+            }
+          }
+        },
+        {
+          "Sid": "EKSAccess",
+          "Effect": "Allow",
+          "Action": "eks:DescribeCluster",
+          "Resource": "arn:*:eks:*:*:cluster/*"
+        },
+        {
+          "Sid": "APSWriting",
+          "Effect": "Allow",
+          "Action": "aps:RemoteWrite",
+          "Resource": "arn:*:aps:*:*:workspace/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:PrincipalAccount": "${aws:ResourceAccount}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-11-26T14:19:52+00:00"
   },
   "AmazonQLDBConsoleFullAccess": {
     "Document": {
@@ -71594,6 +71989,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "NotebokAllowActions0",
           "Effect": "Allow",
           "Action": [
             "glue:CreateSession"
@@ -71613,6 +72009,18 @@
           }
         },
         {
+          "Sid": "NotebookAllowActions1",
+          "Effect": "Allow",
+          "Action": [
+            "glue:StartCompletion",
+            "glue:GetCompletion"
+          ],
+          "Resource": [
+            "arn:aws:glue:*:*:completion/*"
+          ]
+        },
+        {
+          "Sid": "NotebookAllowActions2",
           "Effect": "Allow",
           "Action": [
             "glue:RunStatement",
@@ -71633,6 +72041,7 @@
           }
         },
         {
+          "Sid": "NotebookAllowActions3",
           "Effect": "Allow",
           "Action": [
             "glue:ListSessions"
@@ -71642,6 +72051,7 @@
           ]
         },
         {
+          "Sid": "NotebookDenyActions",
           "Effect": "Deny",
           "Action": [
             "glue:TagResource",
@@ -71661,6 +72071,7 @@
           }
         },
         {
+          "Sid": "NotebookPassRole",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -71678,9 +72089,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-18T15:24:56+00:00"
+    "CreateDate": "2023-11-22T01:32:43+00:00"
   },
   "AwsGlueSessionUserRestrictedNotebookServiceRole": {
     "Document": {
@@ -72726,12 +73137,38 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "DeleteTableAccess",
+          "Effect": "Allow",
+          "Action": "glue:DeleteTable",
+          "Resource": [
+            "arn:*:glue:*:*:catalog",
+            "arn:*:glue:*:*:database/aws:cloudtrail",
+            "arn:*:glue:*:*:table/aws:cloudtrail/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "DeregisterResourceAccess",
+          "Effect": "Allow",
+          "Action": "lakeformation:DeregisterResource",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-03T20:35:01+00:00"
+    "CreateDate": "2023-11-27T01:18:10+00:00"
   },
   "CloudWatch-CrossAccountAccess": {
     "Document": {
@@ -73489,23 +73926,26 @@
       "Version": "2012-10-17",
       "Statement": [
         {
-          "Action": [
-            "logs:*"
-          ],
+          "Sid": "CloudWatchLogsFullAccess",
           "Effect": "Allow",
+          "Action": [
+            "logs:*",
+            "cloudwatch:GenerateQuery"
+          ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2015-02-06T18:40:02+00:00"
+    "CreateDate": "2023-11-26T18:12:09+00:00"
   },
   "CloudWatchLogsReadOnlyAccess": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "CloudWatchLogsReadOnlyAccess",
           "Effect": "Allow",
           "Action": [
             "logs:Describe*",
@@ -73516,15 +73956,16 @@
             "logs:TestMetricFilter",
             "logs:FilterLogEvents",
             "logs:StartLiveTail",
-            "logs:StopLiveTail"
+            "logs:StopLiveTail",
+            "cloudwatch:GenerateQuery"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-06T17:16:08+00:00"
+    "CreateDate": "2023-11-26T18:11:33+00:00"
   },
   "CloudWatchReadOnlyAccess": {
     "Document": {
@@ -74536,6 +74977,40 @@
     "VersionId": "v6",
     "IsDefaultVersion": true,
     "CreateDate": "2023-01-12T04:17:34+00:00"
+  },
+  "CostOptimizationHubServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AwsOrgsAccess",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeOrganization",
+            "organizations:ListAccounts",
+            "organizations:ListAWSServiceAccessForOrganization",
+            "organizations:ListParents",
+            "organizations:DescribeOrganizationalUnit"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "CostExplorerAccess",
+          "Effect": "Allow",
+          "Action": [
+            "ce:ListCostAllocationTags"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-11-26T08:03:59+00:00"
   },
   "CustomerProfilesServiceLinkedRolePolicy": {
     "Document": {
@@ -75645,11 +76120,16 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "Statement1",
           "Effect": "Allow",
-          "Action": "elasticloadbalancing:Describe*",
+          "Action": [
+            "elasticloadbalancing:Describe*",
+            "elasticloadbalancing:Get*"
+          ],
           "Resource": "*"
         },
         {
+          "Sid": "Statement2",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeInstances",
@@ -75659,11 +76139,13 @@
           "Resource": "*"
         },
         {
+          "Sid": "Statement3",
           "Effect": "Allow",
           "Action": "arc-zonal-shift:GetManagedResource",
           "Resource": "arn:aws:elasticloadbalancing:*:*:loadbalancer/*"
         },
         {
+          "Sid": "Statement4",
           "Effect": "Allow",
           "Action": [
             "arc-zonal-shift:ListManagedResources",
@@ -75673,9 +76155,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-29T01:44:23+00:00"
+    "CreateDate": "2023-11-26T18:15:46+00:00"
   },
   "ElementalActivationsDownloadSoftwareAccess": {
     "Document": {
@@ -76735,8 +77217,11 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "IAMAccessAnalyzerReadOnlyAccess",
           "Effect": "Allow",
           "Action": [
+            "access-analyzer:CheckAccessNotGranted",
+            "access-analyzer:CheckNoNewAccess",
             "access-analyzer:Get*",
             "access-analyzer:List*",
             "access-analyzer:ValidatePolicy"
@@ -76745,9 +77230,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-03-16T20:37:30+00:00"
+    "CreateDate": "2023-11-27T02:24:16+00:00"
   },
   "IAMFullAccess": {
     "Document": {

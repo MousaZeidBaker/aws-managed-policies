@@ -35,10 +35,36 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "DeleteTableAccess",
+        "Effect": "Allow",
+        "Action": "glue:DeleteTable",
+        "Resource": [
+          "arn:*:glue:*:*:catalog",
+          "arn:*:glue:*:*:database/aws:cloudtrail",
+          "arn:*:glue:*:*:table/aws:cloudtrail/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "DeregisterResourceAccess",
+        "Effect": "Allow",
+        "Action": "lakeformation:DeregisterResource",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-03T20:35:01+00:00"
+  "CreateDate": "2023-11-27T01:18:10+00:00"
 }
