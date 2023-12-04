@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "DRSFailbackInstallationPolicy1",
         "Effect": "Allow",
         "Action": [
           "drs:SendClientLogsForDrs",
@@ -13,6 +14,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "DRSFailbackInstallationPolicy2",
         "Effect": "Allow",
         "Action": [
           "drs:TagResource",
@@ -26,7 +28,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-06-27T09:13:40+00:00"
+  "CreateDate": "2023-11-27T13:43:08+00:00"
 }

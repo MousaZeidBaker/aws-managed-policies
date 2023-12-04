@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "DynamoDBPermissions",
         "Effect": "Allow",
         "Action": [
           "dynamodb:DescribeTable",
@@ -11,6 +12,7 @@
         "Resource": "arn:aws:dynamodb:*:*:table/*"
       },
       {
+        "Sid": "DynamoDBBackupResourcePermissions",
         "Effect": "Allow",
         "Action": [
           "dynamodb:DescribeBackup",
@@ -19,6 +21,7 @@
         "Resource": "arn:aws:dynamodb:*:*:table/*/backup/*"
       },
       {
+        "Sid": "DynamoDBBackupPermissions",
         "Effect": "Allow",
         "Action": [
           "rds:AddTagsToResource",
@@ -36,6 +39,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "RDSModifyPermissions",
         "Effect": "Allow",
         "Action": [
           "rds:ModifyDBInstance"
@@ -45,6 +49,7 @@
         ]
       },
       {
+        "Sid": "RDSClusterPermissions",
         "Effect": "Allow",
         "Action": [
           "rds:ModifyDBCluster"
@@ -54,6 +59,7 @@
         ]
       },
       {
+        "Sid": "RDSClusterBackupPermissions",
         "Effect": "Allow",
         "Action": [
           "rds:DeleteDBClusterAutomatedBackup"
@@ -61,6 +67,7 @@
         "Resource": "arn:aws:rds:*:*:cluster-auto-backup:*"
       },
       {
+        "Sid": "RDSBackupPermissions",
         "Effect": "Allow",
         "Action": [
           "rds:DeleteDBSnapshot",
@@ -71,6 +78,7 @@
         ]
       },
       {
+        "Sid": "RDSClusterModifyPermissions",
         "Effect": "Allow",
         "Action": [
           "rds:DeleteDBClusterSnapshot",
@@ -81,6 +89,7 @@
         ]
       },
       {
+        "Sid": "StorageGatewayPermissions",
         "Effect": "Allow",
         "Action": [
           "storagegateway:CreateSnapshot",
@@ -89,6 +98,7 @@
         "Resource": "arn:aws:storagegateway:*:*:gateway/*/volume/*"
       },
       {
+        "Sid": "EBSCopyPermissions",
         "Effect": "Allow",
         "Action": [
           "ec2:CopySnapshot"
@@ -96,6 +106,7 @@
         "Resource": "arn:aws:ec2:*::snapshot/*"
       },
       {
+        "Sid": "EC2CopyPermissions",
         "Effect": "Allow",
         "Action": [
           "ec2:CopyImage"
@@ -103,6 +114,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "EBSTagAndDeletePermissions",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateTags",
@@ -111,23 +123,11 @@
         "Resource": "arn:aws:ec2:*::snapshot/*"
       },
       {
+        "Sid": "EC2Permissions",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateImage",
-          "ec2:DeregisterImage"
-        ],
-        "Resource": "*"
-      },
-      {
-        "Effect": "Allow",
-        "Action": [
-          "ec2:CreateTags"
-        ],
-        "Resource": "arn:aws:ec2:*:*:image/*"
-      },
-      {
-        "Effect": "Allow",
-        "Action": [
+          "ec2:DeregisterImage",
           "ec2:DescribeSnapshots",
           "ec2:DescribeTags",
           "ec2:DescribeImages",
@@ -141,6 +141,15 @@
         "Resource": "*"
       },
       {
+        "Sid": "EC2TagPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:CreateTags"
+        ],
+        "Resource": "arn:aws:ec2:*:*:image/*"
+      },
+      {
+        "Sid": "EC2ModifyPermissions",
         "Effect": "Allow",
         "Action": [
           "ec2:ModifySnapshotAttribute",
@@ -154,6 +163,21 @@
         }
       },
       {
+        "Sid": "EBSSnapshotTierPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:ModifySnapshotTier",
+          "ec2:DescribeSnapshotTierStatus"
+        ],
+        "Resource": "arn:aws:ec2:*::snapshot/*",
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/aws:backup:source-resource": "false"
+          }
+        }
+      },
+      {
+        "Sid": "BackupVaultPermissions",
         "Effect": "Allow",
         "Action": [
           "backup:DescribeBackupVault",
@@ -162,6 +186,7 @@
         "Resource": "arn:aws:backup:*:*:backup-vault:*"
       },
       {
+        "Sid": "BackupVaultCopyPermissions",
         "Effect": "Allow",
         "Action": [
           "backup:CopyFromBackupVault"
@@ -169,6 +194,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "EFSPermissions",
         "Effect": "Allow",
         "Action": [
           "elasticfilesystem:Backup",
@@ -177,6 +203,7 @@
         "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*"
       },
       {
+        "Sid": "EBSResourcePermissions",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateSnapshot",
@@ -190,6 +217,7 @@
         ]
       },
       {
+        "Sid": "KMSDynamoDBPermissions",
         "Effect": "Allow",
         "Action": [
           "kms:Decrypt",
@@ -205,11 +233,13 @@
         }
       },
       {
+        "Sid": "KMSPermissions",
         "Effect": "Allow",
         "Action": "kms:DescribeKey",
         "Resource": "*"
       },
       {
+        "Sid": "KMSCreateGrantPermissions",
         "Effect": "Allow",
         "Action": "kms:CreateGrant",
         "Resource": "*",
@@ -220,6 +250,7 @@
         }
       },
       {
+        "Sid": "KMSDataKeyEC2Permissions",
         "Effect": "Allow",
         "Action": [
           "kms:GenerateDataKeyWithoutPlaintext"
@@ -234,6 +265,7 @@
         }
       },
       {
+        "Sid": "GetResourcesPermissions",
         "Effect": "Allow",
         "Action": [
           "tag:GetResources"
@@ -241,6 +273,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "SSMPermissions",
         "Effect": "Allow",
         "Action": [
           "ssm:CancelCommand",
@@ -249,6 +282,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "SSMSendPermissions",
         "Effect": "Allow",
         "Action": "ssm:SendCommand",
         "Resource": [
@@ -257,11 +291,13 @@
         ]
       },
       {
+        "Sid": "FsxBackupPermissions",
         "Effect": "Allow",
         "Action": "fsx:DescribeBackups",
         "Resource": "arn:aws:fsx:*:*:backup/*"
       },
       {
+        "Sid": "FsxCreateBackupPermissions",
         "Effect": "Allow",
         "Action": "fsx:CreateBackup",
         "Resource": [
@@ -271,16 +307,19 @@
         ]
       },
       {
+        "Sid": "FsxPermissions",
         "Effect": "Allow",
         "Action": "fsx:DescribeFileSystems",
         "Resource": "arn:aws:fsx:*:*:file-system/*"
       },
       {
+        "Sid": "FsxVolumePermissions",
         "Effect": "Allow",
         "Action": "fsx:DescribeVolumes",
         "Resource": "arn:aws:fsx:*:*:volume/*"
       },
       {
+        "Sid": "FsxListTagsPermissions",
         "Effect": "Allow",
         "Action": "fsx:ListTagsForResource",
         "Resource": [
@@ -289,11 +328,13 @@
         ]
       },
       {
+        "Sid": "FsxDeletePermissions",
         "Effect": "Allow",
         "Action": "fsx:DeleteBackup",
         "Resource": "arn:aws:fsx:*:*:backup/*"
       },
       {
+        "Sid": "FsxResourcePermissions",
         "Effect": "Allow",
         "Action": [
           "fsx:ListTagsForResource",
@@ -322,6 +363,7 @@
         "Resource": "arn:aws:backup-gateway:*:*:vm/*"
       },
       {
+        "Sid": "CloudformationStackPermissions",
         "Effect": "Allow",
         "Action": [
           "cloudformation:ListStacks",
@@ -332,6 +374,7 @@
         "Resource": "arn:aws:cloudformation:*:*:stack/*/*"
       },
       {
+        "Sid": "RedshiftCreatePermissions",
         "Effect": "Allow",
         "Action": [
           "redshift:CreateClusterSnapshot",
@@ -344,6 +387,7 @@
         ]
       },
       {
+        "Sid": "RedshiftSnapshotPermissions",
         "Effect": "Allow",
         "Action": [
           "redshift:DeleteClusterSnapshot"
@@ -353,6 +397,7 @@
         ]
       },
       {
+        "Sid": "RedshiftPermissions",
         "Effect": "Allow",
         "Action": [
           "redshift:DescribeClusters"
@@ -362,6 +407,7 @@
         ]
       },
       {
+        "Sid": "RedshiftResourcePermissions",
         "Effect": "Allow",
         "Action": [
           "redshift:CreateTags"
@@ -371,6 +417,7 @@
         ]
       },
       {
+        "Sid": "TimestreamResourcePermissions",
         "Effect": "Allow",
         "Action": [
           "timestream:StartAwsBackupJob",
@@ -386,6 +433,7 @@
         ]
       },
       {
+        "Sid": "TimestreamEndpointPermissions",
         "Effect": "Allow",
         "Action": [
           "timestream:DescribeEndpoints"
@@ -393,6 +441,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "SSMSAPPermissions",
         "Effect": "Allow",
         "Action": [
           "ssm-sap:GetOperation",
@@ -401,6 +450,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "SSMSAPResourcePermissions",
         "Effect": "Allow",
         "Action": [
           "ssm-sap:BackupDatabase",
@@ -412,7 +462,7 @@
       }
     ]
   },
-  "VersionId": "v16",
+  "VersionId": "v17",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-09-06T20:38:44+00:00"
+  "CreateDate": "2023-11-27T19:37:14+00:00"
 }

@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "DRSFailbackPolicy1",
         "Effect": "Allow",
         "Action": [
           "drs:SendClientMetricsForDrs",
@@ -11,6 +12,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "DRSFailbackPolicy2",
         "Effect": "Allow",
         "Action": [
           "drs:GetChannelCommandsForDrs",
@@ -19,6 +21,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "DRSFailbackPolicy3",
         "Effect": "Allow",
         "Action": [
           "drs:DescribeReplicationServerAssociationsForDrs",
@@ -27,6 +30,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "DRSFailbackPolicy4",
         "Effect": "Allow",
         "Action": [
           "drs:GetFailbackCommandForDrs",
@@ -44,7 +48,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-11-17T10:41:40+00:00"
+  "CreateDate": "2023-11-27T12:56:46+00:00"
 }

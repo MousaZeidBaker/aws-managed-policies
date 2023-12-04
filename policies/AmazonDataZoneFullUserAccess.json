@@ -98,7 +98,11 @@
           "datazone:GetSubscriptionGrant",
           "datazone:ListSubscriptionGrants",
           "datazone:UpdateSubscriptionGrantStatus",
-          "datazone:ListNotifications"
+          "datazone:ListNotifications",
+          "datazone:StartMetadataGenerationRun",
+          "datazone:GetMetadataGenerationRun",
+          "datazone:StopMetadataGenerationRun",
+          "datazone:ListMetadataGenerationRuns"
         ],
         "Resource": "*"
       },
@@ -110,7 +114,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-03T21:05:39+00:00"
+  "CreateDate": "2023-11-28T12:52:10+00:00"
 }
