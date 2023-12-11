@@ -23,7 +23,7 @@
         "Action": [
           "sagemaker:CreateProcessingJob",
           "sagemaker:DescribeProcessingJob",
-          "sagemaker:addTags"
+          "sagemaker:AddTags"
         ],
         "Resource": "arn:aws:sagemaker:*:*:processing-job/*canvas-data-prep*"
       },
@@ -125,8 +125,35 @@
           "StringEquals": {
             "iam:PassedToService": [
               "sagemaker.amazonaws.com",
-              "events.amazon.com"
+              "events.amazonaws.com"
             ]
+          }
+        }
+      },
+      {
+        "Sid": "EventBridgePutOperation",
+        "Effect": "Allow",
+        "Action": [
+          "events:PutRule"
+        ],
+        "Resource": "arn:aws:events:*:*:rule/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:RequestTag/sagemaker:is-canvas-data-prep-job": "true"
+          }
+        }
+      },
+      {
+        "Sid": "EventBridgeOperations",
+        "Effect": "Allow",
+        "Action": [
+          "events:DescribeRule",
+          "events:PutTargets"
+        ],
+        "Resource": "arn:aws:events:*:*:rule/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/sagemaker:is-canvas-data-prep-job": "true"
           }
         }
       },
@@ -134,20 +161,12 @@
         "Sid": "EventBridgeTagBasedOperations",
         "Effect": "Allow",
         "Action": [
-          "events:DescribeRule",
-          "events:PutRule",
-          "events:PutTargets",
           "events:TagResource"
         ],
         "Resource": "arn:aws:events:*:*:rule/*",
         "Condition": {
-          "ForAllValues:StringEquals": {
-            "aws:TagKeys": [
-              "sagemaker:is-canvas-data-prep-job",
-              "sm_canvas_user_profile"
-            ]
-          },
           "StringEquals": {
+            "aws:RequestTag/sagemaker:is-canvas-data-prep-job": "true",
             "aws:ResourceTag/sagemaker:is-canvas-data-prep-job": "true"
           }
         }
@@ -253,19 +272,14 @@
         "Sid": "SecretManagerTagBasedOperation",
         "Effect": "Allow",
         "Action": [
-          "secretsmanager:TagResource",
           "secretsmanager:DescribeSecret",
           "secretsmanager:GetSecretValue"
         ],
         "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonSageMaker-*",
         "Condition": {
-          "ForAllValues:StringEquals": {
-            "aws:TagKeys": [
-              "SageMaker"
-            ]
-          },
           "StringEquals": {
-            "aws:RequestTag/SageMaker": "true"
+            "aws:ResourceTag/SageMaker": "true",
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
       },
@@ -287,7 +301,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-27T22:56:13+00:00"
+  "CreateDate": "2023-12-08T02:53:24+00:00"
 }

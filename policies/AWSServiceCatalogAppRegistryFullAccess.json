@@ -3,10 +3,11 @@
     "Version": "2012-10-17",
     "Statement": [
       {
-        "Sid": "AppRegistryUpdateStack",
+        "Sid": "AppRegistryUpdateStackAndResourceGroupTagging",
         "Effect": "Allow",
         "Action": [
-          "cloudformation:UpdateStack"
+          "cloudformation:UpdateStack",
+          "tag:GetResources"
         ],
         "Resource": "*",
         "Condition": {
@@ -88,7 +89,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-10T17:06:21+00:00"
+  "CreateDate": "2023-12-07T21:50:00+00:00"
 }
