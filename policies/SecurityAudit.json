@@ -187,6 +187,7 @@
           "dynamodb:ListTagsOfResource",
           "ec2:Describe*",
           "ec2:GetEbsEncryptionByDefault",
+          "ec2:GetImageBlockPublicAccessState",
           "ec2:GetManagedPrefixListAssociations",
           "ec2:GetManagedPrefixListEntries",
           "ec2:GetNetworkInsightsAccessScopeAnalysisFindings",
@@ -208,8 +209,10 @@
           "ecr:BatchGetRepositoryScanningConfiguration",
           "ecr:DescribeImages",
           "ecr:DescribeImageScanFindings",
+          "ecr:DescribeRegistry",
           "ecr:DescribeRepositories",
           "ecr:GetLifecyclePolicy",
+          "ecr:GetRegistryPolicy",
           "ecr:GetRegistryScanningConfiguration",
           "ecr:GetRepositoryPolicy",
           "ecr:ListImages",
@@ -675,7 +678,7 @@
       }
     ]
   },
-  "VersionId": "v40",
+  "VersionId": "v41",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-02T20:02:24+00:00"
+  "CreateDate": "2023-12-14T21:45:16+00:00"
 }

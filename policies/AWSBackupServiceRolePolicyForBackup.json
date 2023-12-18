@@ -136,7 +136,8 @@
           "ec2:DescribeInstanceCreditSpecifications",
           "ec2:DescribeNetworkInterfaces",
           "ec2:DescribeElasticGpus",
-          "ec2:DescribeSpotInstanceRequests"
+          "ec2:DescribeSpotInstanceRequests",
+          "ec2:DescribeSnapshotTierStatus"
         ],
         "Resource": "*"
       },
@@ -166,8 +167,7 @@
         "Sid": "EBSSnapshotTierPermissions",
         "Effect": "Allow",
         "Action": [
-          "ec2:ModifySnapshotTier",
-          "ec2:DescribeSnapshotTierStatus"
+          "ec2:ModifySnapshotTier"
         ],
         "Resource": "arn:aws:ec2:*::snapshot/*",
         "Condition": {
@@ -462,7 +462,7 @@
       }
     ]
   },
-  "VersionId": "v17",
+  "VersionId": "v18",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-27T19:37:14+00:00"
+  "CreateDate": "2023-12-15T22:04:27+00:00"
 }

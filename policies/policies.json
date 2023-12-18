@@ -4091,6 +4091,7 @@
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeSnapshots",
+            "ec2:DescribeSnapshotTierStatus",
             "ec2:DescribeImages",
             "rds:DescribeDBSnapshots",
             "rds:DescribeDBClusterSnapshots"
@@ -4115,8 +4116,7 @@
           "Action": [
             "ec2:DeregisterImage",
             "ec2:DeleteSnapshot",
-            "ec2:ModifySnapshotTier",
-            "ec2:DescribeSnapshotTierStatus"
+            "ec2:ModifySnapshotTier"
           ],
           "Resource": "*",
           "Condition": {
@@ -4340,9 +4340,9 @@
         }
       ]
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T19:39:04+00:00"
+    "CreateDate": "2023-12-15T22:06:53+00:00"
   },
   "AWSBackupServiceLinkedRolePolicyForBackupTest": {
     "Document": {
@@ -4512,7 +4512,8 @@
             "ec2:DescribeInstanceCreditSpecifications",
             "ec2:DescribeNetworkInterfaces",
             "ec2:DescribeElasticGpus",
-            "ec2:DescribeSpotInstanceRequests"
+            "ec2:DescribeSpotInstanceRequests",
+            "ec2:DescribeSnapshotTierStatus"
           ],
           "Resource": "*"
         },
@@ -4542,8 +4543,7 @@
           "Sid": "EBSSnapshotTierPermissions",
           "Effect": "Allow",
           "Action": [
-            "ec2:ModifySnapshotTier",
-            "ec2:DescribeSnapshotTierStatus"
+            "ec2:ModifySnapshotTier"
           ],
           "Resource": "arn:aws:ec2:*::snapshot/*",
           "Condition": {
@@ -4838,9 +4838,9 @@
         }
       ]
     },
-    "VersionId": "v17",
+    "VersionId": "v18",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T19:37:14+00:00"
+    "CreateDate": "2023-12-15T22:04:27+00:00"
   },
   "AWSBackupServiceRolePolicyForRestores": {
     "Document": {
@@ -4895,7 +4895,8 @@
             "ec2:DescribeSecurityGroups",
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
-            "ec2:DescribeInternetGateways"
+            "ec2:DescribeInternetGateways",
+            "ec2:DescribeSnapshotTierStatus"
           ],
           "Resource": "*"
         },
@@ -5024,8 +5025,7 @@
           "Action": [
             "ec2:DeleteSnapshot",
             "ec2:DeleteTags",
-            "ec2:RestoreSnapshotTier",
-            "ec2:DescribeSnapshotTierStatus"
+            "ec2:RestoreSnapshotTier"
           ],
           "Resource": "arn:aws:ec2:*::snapshot/*",
           "Condition": {
@@ -5268,9 +5268,9 @@
         }
       ]
     },
-    "VersionId": "v19",
+    "VersionId": "v20",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T19:38:10+00:00"
+    "CreateDate": "2023-12-15T22:05:32+00:00"
   },
   "AWSBackupServiceRolePolicyForS3Backup": {
     "Document": {
@@ -17841,15 +17841,17 @@
             "ec2:DescribeRouteTables",
             "ec2:DescribeAvailabilityZones",
             "ec2:DescribeDhcpOptions",
-            "ec2:DescribeInstances"
+            "ec2:DescribeInstances",
+            "ec2:DescribeManagedPrefixLists",
+            "ec2:GetManagedPrefixListEntries"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T13:25:49+00:00"
+    "CreateDate": "2023-12-17T14:23:22+00:00"
   },
   "AWSElasticDisasterRecoveryReadOnlyAccess": {
     "Document": {
@@ -18208,7 +18210,9 @@
             "ec2:DescribeVpcs",
             "ec2:DescribeNetworkAcls",
             "ec2:DescribeRouteTables",
-            "ec2:DescribeDhcpOptions"
+            "ec2:DescribeDhcpOptions",
+            "ec2:DescribeManagedPrefixLists",
+            "ec2:GetManagedPrefixListEntries"
           ],
           "Resource": "*"
         },
@@ -18504,9 +18508,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T13:35:20+00:00"
+    "CreateDate": "2023-12-17T14:31:04+00:00"
   },
   "AWSElasticDisasterRecoveryStagingAccountPolicy": {
     "Document": {
@@ -43644,6 +43648,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "BaseAthenaPermissions",
           "Effect": "Allow",
           "Action": [
             "athena:*"
@@ -43653,6 +43658,7 @@
           ]
         },
         {
+          "Sid": "BaseGluePermissions",
           "Effect": "Allow",
           "Action": [
             "glue:CreateDatabase",
@@ -43673,13 +43679,17 @@
             "glue:UpdatePartition",
             "glue:GetPartition",
             "glue:GetPartitions",
-            "glue:BatchGetPartition"
+            "glue:BatchGetPartition",
+            "glue:StartColumnStatisticsTaskRun",
+            "glue:GetColumnStatisticsTaskRun",
+            "glue:GetColumnStatisticsTaskRuns"
           ],
           "Resource": [
             "*"
           ]
         },
         {
+          "Sid": "BaseQueryResultsPermissions",
           "Effect": "Allow",
           "Action": [
             "s3:GetBucketLocation",
@@ -43697,6 +43707,7 @@
           ]
         },
         {
+          "Sid": "BaseAthenaExamplesPermissions",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject",
@@ -43707,6 +43718,7 @@
           ]
         },
         {
+          "Sid": "BaseS3BucketPermissions",
           "Effect": "Allow",
           "Action": [
             "s3:ListBucket",
@@ -43718,6 +43730,7 @@
           ]
         },
         {
+          "Sid": "BaseSNSPermissions",
           "Effect": "Allow",
           "Action": [
             "sns:ListTopics",
@@ -43728,6 +43741,7 @@
           ]
         },
         {
+          "Sid": "BaseCloudWatchPermissions",
           "Effect": "Allow",
           "Action": [
             "cloudwatch:PutMetricAlarm",
@@ -43740,6 +43754,7 @@
           ]
         },
         {
+          "Sid": "BaseLakeFormationPermissions",
           "Effect": "Allow",
           "Action": [
             "lakeformation:GetDataAccess"
@@ -43749,6 +43764,7 @@
           ]
         },
         {
+          "Sid": "BasePricingPermissions",
           "Effect": "Allow",
           "Action": [
             "pricing:GetProducts"
@@ -43759,9 +43775,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-24T16:59:23+00:00"
+    "CreateDate": "2023-12-15T19:52:35+00:00"
   },
   "AmazonAugmentedAIFullAccess": {
     "Document": {
@@ -47249,10 +47265,13 @@
           "Action": [
             "lakeformation:BatchGrantPermissions",
             "lakeformation:BatchRevokePermissions",
+            "lakeformation:CreateLakeFormationOptIn",
+            "lakeformation:DeleteLakeFormationOptIn",
             "lakeformation:GrantPermissions",
-            "lakeformation:RevokePermissions",
-            "lakeformation:ListPermissions",
             "lakeformation:GetResourceLFTags",
+            "lakeformation:ListLakeFormationOptIns",
+            "lakeformation:ListPermissions",
+            "lakeformation:RevokePermissions",
             "glue:GetDatabase",
             "glue:GetTable",
             "organizations:DescribeOrganization",
@@ -47319,6 +47338,7 @@
             "ram:DeleteResourceShare",
             "ram:DisassociateResourceShare",
             "ram:GetResourceShares",
+            "ram:ListResourceSharePermissions",
             "ram:UpdateResourceShare"
           ],
           "Resource": "*",
@@ -47327,6 +47347,22 @@
               "ram:ResourceShareName": [
                 "LakeFormation*"
               ]
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "lakeformation.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "CrossAccountRAMResourceSharingViaLakeFormationHybrid",
+          "Effect": "Allow",
+          "Action": "ram:AssociateResourceSharePermission",
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "ram:PermissionArn": "arn:aws:ram::aws:permission/AWSRAMLFEnabled*"
             },
             "ForAnyValue:StringEquals": {
               "aws:CalledVia": [
@@ -47350,9 +47386,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-29T01:53:41+00:00"
+    "CreateDate": "2023-12-14T23:03:20+00:00"
   },
   "AmazonDataZonePortalFullAccessPolicy": {
     "Document": {
@@ -77034,6 +77070,28 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-01-12T04:17:34+00:00"
   },
+  "CostOptimizationHubReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CostOptimizationHubReadOnlyAccess",
+          "Effect": "Allow",
+          "Action": [
+            "cost-optimization-hub:ListEnrollmentStatuses",
+            "cost-optimization-hub:GetPreferences",
+            "cost-optimization-hub:GetRecommendation",
+            "cost-optimization-hub:ListRecommendations",
+            "cost-optimization-hub:ListRecommendationSummaries"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-12-13T18:04:15+00:00"
+  },
   "CostOptimizationHubServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -79459,6 +79517,25 @@
     "IsDefaultVersion": true,
     "CreateDate": "2015-07-09T17:08:54+00:00"
   },
+  "IVSFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "IVSFullAccess",
+          "Effect": "Allow",
+          "Action": [
+            "ivs:*",
+            "ivschat:*"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-12-13T21:20:21+00:00"
+  },
   "IVSReadOnlyAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -81425,7 +81502,8 @@
             "s3:PutLifecycleConfiguration"
           ],
           "Resource": [
-            "arn:aws:s3:::*-image-registry-${aws:RequestedRegion}-*"
+            "arn:aws:s3:::*-image-registry-${aws:RequestedRegion}-*",
+            "arn:aws:s3:::*-image-registry-${aws:RequestedRegion}"
           ]
         },
         {
@@ -81439,14 +81517,15 @@
             "s3:PutObject"
           ],
           "Resource": [
-            "arn:aws:s3:::*-image-registry-${aws:RequestedRegion}-*/*"
+            "arn:aws:s3:::*-image-registry-${aws:RequestedRegion}-*/*",
+            "arn:aws:s3:::*-image-registry-${aws:RequestedRegion}/*"
           ]
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-27T20:13:18+00:00"
+    "CreateDate": "2023-12-12T19:53:12+00:00"
   },
   "ROSAIngressOperatorPolicy": {
     "Document": {
@@ -85024,6 +85103,7 @@
             "dynamodb:ListTagsOfResource",
             "ec2:Describe*",
             "ec2:GetEbsEncryptionByDefault",
+            "ec2:GetImageBlockPublicAccessState",
             "ec2:GetManagedPrefixListAssociations",
             "ec2:GetManagedPrefixListEntries",
             "ec2:GetNetworkInsightsAccessScopeAnalysisFindings",
@@ -85045,8 +85125,10 @@
             "ecr:BatchGetRepositoryScanningConfiguration",
             "ecr:DescribeImages",
             "ecr:DescribeImageScanFindings",
+            "ecr:DescribeRegistry",
             "ecr:DescribeRepositories",
             "ecr:GetLifecyclePolicy",
+            "ecr:GetRegistryPolicy",
             "ecr:GetRegistryScanningConfiguration",
             "ecr:GetRepositoryPolicy",
             "ecr:ListImages",
@@ -85512,9 +85594,9 @@
         }
       ]
     },
-    "VersionId": "v40",
+    "VersionId": "v41",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-02T20:02:24+00:00"
+    "CreateDate": "2023-12-14T21:45:16+00:00"
   },
   "SecurityLakeServiceLinkedRole": {
     "Document": {
