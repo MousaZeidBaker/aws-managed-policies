@@ -13962,17 +13962,18 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "DenyAll",
+          "Effect": "Deny",
           "Action": [
             "*"
           ],
-          "Effect": "Deny",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-05-01T22:36:14+00:00"
+    "CreateDate": "2023-12-18T16:42:05+00:00"
   },
   "AWSDeviceFarmFullAccess": {
     "Document": {
@@ -30647,10 +30648,10 @@
         },
         {
           "Sid": "ApiGatewayAccess",
+          "Effect": "Allow",
           "Action": [
             "apigateway:GET"
           ],
-          "Effect": "Allow",
           "Resource": [
             "arn:aws:apigateway:*::/restapis",
             "arn:aws:apigateway:*::/restapis/*/deployments"
@@ -30670,6 +30671,7 @@
             "amplifyuibuilder:ListThemes",
             "app-integrations:ListEventIntegrations",
             "apprunner:ListServices",
+            "apprunner:ListVpcConnectors",
             "appstream:DescribeAppBlocks",
             "appstream:DescribeApplications",
             "appstream:DescribeFleets",
@@ -30682,6 +30684,7 @@
             "athena:ListWorkGroups",
             "autoscaling:DescribeAutoScalingGroups",
             "backup:ListBackupPlans",
+            "backup:ListReportPlans",
             "batch:DescribeComputeEnvironments",
             "batch:DescribeJobQueues",
             "batch:ListSchedulingPolicies",
@@ -30813,7 +30816,9 @@
             "elasticloadbalancing:DescribeLoadBalancers",
             "elasticloadbalancing:DescribeRules",
             "elasticloadbalancing:DescribeTargetGroups",
+            "emr-serverless:ListApplications",
             "es:ListDomainNames",
+            "events:ListEventBuses",
             "events:ListRules",
             "evidently:ListExperiments",
             "evidently:ListFeatures",
@@ -30831,6 +30836,9 @@
             "frauddetector:GetOutcomes",
             "frauddetector:GetVariables",
             "gamelift:ListAliases",
+            "geo:ListPlaceIndexes",
+            "geo:ListTrackers",
+            "greengrass:ListComponents",
             "globalaccelerator:ListAccelerators",
             "globalaccelerator:ListEndpointGroups",
             "globalaccelerator:ListListeners",
@@ -30838,6 +30846,7 @@
             "glue:GetJobs",
             "glue:GetTables",
             "glue:GetTriggers",
+            "greengrass:ListComponentVersions",
             "greengrass:ListGroups",
             "healthlake:ListFHIRDatastores",
             "iam:ListGroups",
@@ -30870,6 +30879,7 @@
             "iot:ListMitigationActions",
             "iot:ListPolicies",
             "iot:ListProvisioningTemplates",
+            "iot:ListRoleAliases",
             "iot:ListSecurityProfiles",
             "iot:ListThings",
             "iot:ListTopicRuleDestinations",
@@ -30877,12 +30887,18 @@
             "iotsitewise:ListAssetModels",
             "iotsitewise:ListAssets",
             "iotsitewise:ListGateways",
+            "iottwinmaker:ListComponentTypes",
+            "iottwinmaker:ListEntities",
+            "iottwinmaker:ListScenes",
             "iottwinmaker:ListWorkspaces",
+            "kafka:ListConfigurations",
+            "kms:ListKeys",
             "ivs:ListChannels",
             "ivs:ListStreamKeys",
             "kafka:ListClusters",
             "kinesis:ListStreamConsumers",
             "kinesis:ListStreams",
+            "kinesisanalytics:ListApplications",
             "kinesisvideo:ListStreams",
             "lambda:ListAliases",
             "lambda:ListCodeSigningConfigs",
@@ -30890,6 +30906,8 @@
             "lambda:ListFunctions",
             "lambda:ListLayers",
             "lambda:ListLayerVersions",
+            "lex:ListBots",
+            "lex:ListBotAliases",
             "logs:DescribeDestinations",
             "logs:DescribeLogGroups",
             "logs:DescribeLogStreams",
@@ -30897,6 +30915,9 @@
             "lookoutvision:ListProjects",
             "mediapackage:ListChannels",
             "mediapackage:ListOriginEndpoints",
+            "mediapackage-vod:ListPackagingConfigurations",
+            "mediapackage-vod:ListPackagingGroups",
+            "mq:ListBrokers",
             "mediatailor:ListPlaybackConfigurations",
             "memorydb:DescribeACLs",
             "memorydb:DescribeClusters",
@@ -30918,6 +30939,9 @@
             "organizations:ListAWSServiceAccessForOrganization",
             "organizations:ListDelegatedAdministrators",
             "panorama:ListPackages",
+            "personalize:ListDatasetGroups",
+            "personalize:ListDatasets",
+            "personalize:ListSchemas",
             "qldb:ListJournalKinesisStreamsForLedger",
             "qldb:ListLedgers",
             "rds:DescribeBlueGreenDeployments",
@@ -30957,6 +30981,8 @@
             "resource-explorer-2:ListIndexes",
             "resource-explorer-2:ListViews",
             "resource-groups:ListGroups",
+            "route53:ListHealthChecks",
+            "route53:ListHostedZones",
             "route53-recovery-readiness:ListRecoveryGroups",
             "route53-recovery-readiness:ListResourceSets",
             "route53resolver:ListFirewallDomainLists",
@@ -30970,6 +30996,7 @@
             "s3:ListStorageLensConfigurations",
             "sagemaker:ListModels",
             "sagemaker:ListNotebookInstances",
+            "secretsmanager:ListSecrets",
             "servicecatalog:ListApplications",
             "servicecatalog:ListAttributeGroups",
             "signer:ListSigningProfiles",
@@ -31000,9 +31027,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-07T17:07:44+00:00"
+    "CreateDate": "2023-12-20T13:58:52+00:00"
   },
   "AWSResourceGroupsReadOnlyAccess": {
     "Document": {
@@ -54774,12 +54801,29 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "ManageCrossAccountDataReplication",
+          "Effect": "Allow",
+          "Action": [
+            "fsx:PutResourcePolicy",
+            "fsx:GetResourcePolicy",
+            "fsx:DeleteResourcePolicy"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "ram.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T06:06:43+00:00"
+    "CreateDate": "2023-12-19T22:50:06+00:00"
   },
   "AmazonFSxConsoleReadOnlyAccess": {
     "Document": {
@@ -54961,12 +55005,29 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "ManageCrossAccountDataReplication",
+          "Effect": "Allow",
+          "Action": [
+            "fsx:PutResourcePolicy",
+            "fsx:GetResourcePolicy",
+            "fsx:DeleteResourcePolicy"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "ram.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T05:55:28+00:00"
+    "CreateDate": "2023-12-19T22:51:41+00:00"
   },
   "AmazonFSxReadOnlyAccess": {
     "Document": {
@@ -60730,6 +60791,27 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2023-11-28T04:59:23+00:00"
+  },
+  "AmazonOpenSearchDashboardsServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AmazonOpenSearchDashboardsServiceRoleAllowedActions",
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/AOSD"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-12-22T19:38:16+00:00"
   },
   "AmazonOpenSearchIngestionFullAccess": {
     "Document": {
@@ -76047,6 +76129,62 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-11-26T18:11:33+00:00"
   },
+  "CloudWatchNetworkMonitorServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PublishCw",
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/NetworkMonitor"
+            }
+          }
+        },
+        {
+          "Sid": "DescribeAny",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeNetworkInterfaceAttribute",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeNetworkInterfacePermissions",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "DeleteModifyEc2Resources",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AuthorizeSecurityGroupEgress",
+            "ec2:CreateNetworkInterfacePermission",
+            "ec2:DeleteNetworkInterfacePermission",
+            "ec2:RevokeSecurityGroupEgress",
+            "ec2:ModifyNetworkInterfaceAttribute",
+            "ec2:DeleteNetworkInterface",
+            "ec2:DeleteSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:network-interface/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/ManagedByCloudWatchNetworkMonitor": "true"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-12-21T18:53:19+00:00"
+  },
   "CloudWatchReadOnlyAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -77069,6 +77207,60 @@
     "VersionId": "v6",
     "IsDefaultVersion": true,
     "CreateDate": "2023-01-12T04:17:34+00:00"
+  },
+  "CostOptimizationHubAdminAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CostOptimizationHubAdminAccess",
+          "Effect": "Allow",
+          "Action": [
+            "cost-optimization-hub:ListEnrollmentStatuses",
+            "cost-optimization-hub:UpdateEnrollmentStatus",
+            "cost-optimization-hub:GetPreferences",
+            "cost-optimization-hub:UpdatePreferences",
+            "cost-optimization-hub:GetRecommendation",
+            "cost-optimization-hub:ListRecommendations",
+            "cost-optimization-hub:ListRecommendationSummaries"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "AllowCreationOfServiceLinkedRoleForCostOptimizationHub",
+          "Effect": "Allow",
+          "Action": [
+            "iam:CreateServiceLinkedRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/cost-optimization-hub.bcm.amazonaws.com/AWSServiceRoleForCostOptimizationHub"
+          ],
+          "Condition": {
+            "StringLike": {
+              "iam:AWSServiceName": "cost-optimization-hub.bcm.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowAWSServiceAccessForCostOptimizationHub",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:EnableAWSServiceAccess"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "organizations:ServicePrincipal": [
+                "cost-optimization-hub.bcm.amazonaws.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2023-12-19T00:03:51+00:00"
   },
   "CostOptimizationHubReadOnlyAccess": {
     "Document": {
