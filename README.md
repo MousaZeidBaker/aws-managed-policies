@@ -1,6 +1,6 @@
 # AWS Managed Policies
 
-![](https://shields.io/date/1703485940.svg?label=last%20run)
+![](https://shields.io/date/1704091012.svg?label=last%20run)
 ![](https://shields.io/date/1703485940.svg?label=last%20updated)
 
 All AWS managed policies are stored in the [policies](policies) directory into
