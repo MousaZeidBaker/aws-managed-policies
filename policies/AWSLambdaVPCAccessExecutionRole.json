@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AWSLambdaVPCAccessExecutionPermissions",
         "Effect": "Allow",
         "Action": [
           "logs:CreateLogGroup",
@@ -10,6 +11,7 @@
           "logs:PutLogEvents",
           "ec2:CreateNetworkInterface",
           "ec2:DescribeNetworkInterfaces",
+          "ec2:DescribeSubnets",
           "ec2:DeleteNetworkInterface",
           "ec2:AssignPrivateIpAddresses",
           "ec2:UnassignPrivateIpAddresses"
@@ -18,7 +20,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-10-15T22:53:03+00:00"
+  "CreateDate": "2024-01-05T22:38:26+00:00"
 }

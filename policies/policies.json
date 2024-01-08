@@ -2263,6 +2263,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "MgnAgentInstallation",
           "Effect": "Allow",
           "Action": [
             "mgn:SendClientLogsForMgn",
@@ -2272,6 +2273,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "MgnAgentReplication",
           "Effect": "Allow",
           "Action": [
             "mgn:SendAgentMetricsForMgn",
@@ -2288,6 +2290,7 @@
           "Resource": "arn:aws:mgn:*:*:source-server/*"
         },
         {
+          "Sid": "MgnSourceServerTagResource",
           "Effect": "Allow",
           "Action": "mgn:TagResource",
           "Resource": "arn:aws:mgn:*:*:source-server/*",
@@ -2299,9 +2302,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-22T13:19:02+00:00"
+    "CreateDate": "2024-01-03T14:19:47+00:00"
   },
   "AWSApplicationMigrationServiceRolePolicy": {
     "Document": {
@@ -2660,6 +2663,28 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2018-04-10T23:04:33+00:00"
+  },
+  "AWSArtifactReportsReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ArtifactReportActions",
+          "Effect": "Allow",
+          "Action": [
+            "artifact:Get",
+            "artifact:GetReport",
+            "artifact:GetReportMetadata",
+            "artifact:GetTermForReport",
+            "artifact:ListReports"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-01-02T22:42:58+00:00"
   },
   "AWSArtifactServiceRolePolicy": {
     "Document": {
@@ -17844,15 +17869,16 @@
             "ec2:DescribeDhcpOptions",
             "ec2:DescribeInstances",
             "ec2:DescribeManagedPrefixLists",
-            "ec2:GetManagedPrefixListEntries"
+            "ec2:GetManagedPrefixListEntries",
+            "ec2:GetManagedPrefixListAssociations"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-17T14:23:22+00:00"
+    "CreateDate": "2024-01-02T13:25:23+00:00"
   },
   "AWSElasticDisasterRecoveryReadOnlyAccess": {
     "Document": {
@@ -18213,7 +18239,8 @@
             "ec2:DescribeRouteTables",
             "ec2:DescribeDhcpOptions",
             "ec2:DescribeManagedPrefixLists",
-            "ec2:GetManagedPrefixListEntries"
+            "ec2:GetManagedPrefixListEntries",
+            "ec2:GetManagedPrefixListAssociations"
           ],
           "Resource": "*"
         },
@@ -18509,9 +18536,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-17T14:31:04+00:00"
+    "CreateDate": "2024-01-02T13:31:35+00:00"
   },
   "AWSElasticDisasterRecoveryStagingAccountPolicy": {
     "Document": {
@@ -20661,6 +20688,44 @@
     "VersionId": "v4",
     "IsDefaultVersion": true,
     "CreateDate": "2023-03-15T22:17:26+00:00"
+  },
+  "AWSGrafanaWorkspacePermissionManagementV2": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AWSGrafanaPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "grafana:DescribeWorkspace",
+            "grafana:DescribeWorkspaceAuthentication",
+            "grafana:UpdatePermissions",
+            "grafana:ListPermissions",
+            "grafana:ListWorkspaces"
+          ],
+          "Resource": "arn:aws:grafana:*:*:/workspaces*"
+        },
+        {
+          "Sid": "IAMIdentityCenterPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "sso:DescribeRegisteredRegions",
+            "sso:GetSharedSsoConfiguration",
+            "sso:ListDirectoryAssociations",
+            "sso:GetManagedApplicationInstance",
+            "sso:ListProfiles",
+            "sso:GetProfile",
+            "sso:ListProfileAssociations",
+            "sso-directory:DescribeUser",
+            "sso-directory:DescribeGroup"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-01-05T18:39:46+00:00"
   },
   "AWSGreengrassFullAccess": {
     "Document": {
@@ -23603,6 +23668,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSLambdaVPCAccessExecutionPermissions",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogGroup",
@@ -23610,6 +23676,7 @@
             "logs:PutLogEvents",
             "ec2:CreateNetworkInterface",
             "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeSubnets",
             "ec2:DeleteNetworkInterface",
             "ec2:AssignPrivateIpAddresses",
             "ec2:UnassignPrivateIpAddresses"
@@ -23618,9 +23685,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-10-15T22:53:03+00:00"
+    "CreateDate": "2024-01-05T22:38:26+00:00"
   },
   "AWSLambda_FullAccess": {
     "Document": {
@@ -33012,8 +33079,7 @@
           "Condition": {
             "StringEqualsIfExists": {
               "iam:PassedToService": [
-                "ec2.amazonaws.com",
-                "ec2.amazonaws.com.cn"
+                "ec2.amazonaws.com"
               ]
             }
           }
@@ -33070,9 +33136,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-01-14T00:33:26+00:00"
+    "CreateDate": "2024-01-04T20:37:13+00:00"
   },
   "AWSServiceRoleForCloudWatchAlarmsActionSSMServiceRolePolicy": {
     "Document": {
@@ -43791,6 +43857,18 @@
           ]
         },
         {
+          "Sid": "BaseDataZonePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "datazone:ListDomains",
+            "datazone:ListProjects",
+            "datazone:ListAccountEnvironments"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
           "Sid": "BasePricingPermissions",
           "Effect": "Allow",
           "Action": [
@@ -43802,9 +43880,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-15T19:52:35+00:00"
+    "CreateDate": "2024-01-03T19:05:55+00:00"
   },
   "AmazonAugmentedAIFullAccess": {
     "Document": {
@@ -73206,6 +73284,22 @@
           ]
         },
         {
+          "Sid": "AmplifyHotSwappableSchemaResource",
+          "Effect": "Allow",
+          "Action": [
+            "lambda:InvokeFunction",
+            "lambda:UpdateFunctionCode"
+          ],
+          "Resource": [
+            "arn:aws:lambda:*:*:function:amplify-*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
           "Sid": "AmplifySchema",
           "Effect": "Allow",
           "Action": [
@@ -73273,9 +73367,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-17T23:27:43+00:00"
+    "CreateDate": "2024-01-02T21:13:46+00:00"
   },
   "AppIntegrationsServiceLinkedRolePolicy": {
     "Document": {
@@ -75125,6 +75219,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "cfflistbuckets",
           "Action": [
             "s3:ListAllMyBuckets"
           ],
@@ -75132,9 +75227,11 @@
           "Resource": "arn:aws:s3:::*"
         },
         {
+          "Sid": "cffullaccess",
           "Action": [
             "acm:ListCertificates",
             "cloudfront:*",
+            "cloudfront-keyvaluestore:*",
             "iam:ListServerCertificates",
             "waf:ListWebACLs",
             "waf:GetWebACL",
@@ -75146,6 +75243,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "cffdescribestream",
           "Action": [
             "kinesis:DescribeStream"
           ],
@@ -75153,6 +75251,7 @@
           "Resource": "arn:aws:kinesis:*:*:*"
         },
         {
+          "Sid": "cfflistroles",
           "Action": [
             "iam:ListRoles"
           ],
@@ -75161,21 +75260,25 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-09-03T20:18:42+00:00"
+    "CreateDate": "2024-01-04T16:56:08+00:00"
   },
   "CloudFrontReadOnlyAccess": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "cfReadOnly",
           "Effect": "Allow",
           "Action": [
             "acm:ListCertificates",
-            "cloudfront:DescribeFunction",
+            "cloudfront:Describe*",
             "cloudfront:Get*",
             "cloudfront:List*",
+            "cloudfront-keyvaluestore:Describe*",
+            "cloudfront-keyvaluestore:Get*",
+            "cloudfront-keyvaluestore:List*",
             "iam:ListServerCertificates",
             "route53:List*",
             "waf:ListWebACLs",
@@ -75187,9 +75290,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-09-08T22:10:54+00:00"
+    "CreateDate": "2024-01-04T16:55:27+00:00"
   },
   "CloudHSMServiceRolePolicy": {
     "Document": {
@@ -82982,6 +83085,34 @@
             "backup:List*",
             "batch:Describe*",
             "batch:List*",
+            "bedrock:GetAgent",
+            "bedrock:GetAgentActionGroup",
+            "bedrock:GetAgentAlias",
+            "bedrock:GetAgentKnowledgeBase",
+            "bedrock:GetAgentVersion",
+            "bedrock:GetCustomModel",
+            "bedrock:GetDataSource",
+            "bedrock:GetFoundationModel",
+            "bedrock:GetFoundationModelAvailability",
+            "bedrock:GetIngestionJob",
+            "bedrock:GetKnowledgeBase",
+            "bedrock:GetModelCustomizationJob",
+            "bedrock:GetModelInvocationLoggingConfiguration",
+            "bedrock:GetProvisionedModelThroughput",
+            "bedrock:GetUseCaseForModelAccess",
+            "bedrock:ListAgentActionGroups",
+            "bedrock:ListAgentAliases",
+            "bedrock:ListAgentKnowledgeBases",
+            "bedrock:ListAgents",
+            "bedrock:ListAgentVersions",
+            "bedrock:ListCustomModels",
+            "bedrock:ListDataSources",
+            "bedrock:ListFoundationModelAgreementOffers",
+            "bedrock:ListFoundationModels",
+            "bedrock:ListIngestionJobs",
+            "bedrock:ListKnowledgeBases",
+            "bedrock:ListModelCustomizationJobs",
+            "bedrock:ListProvisionedModelThroughputs",
             "billing:GetBillingData",
             "billing:GetBillingDetails",
             "billing:GetBillingNotifications",
@@ -83427,12 +83558,17 @@
             "firehose:List*",
             "fis:GetAction",
             "fis:GetExperiment",
+            "fis:GetExperimentTargetAccountConfiguration",
             "fis:GetExperimentTemplate",
+            "fis:GetTargetAccountConfiguration",
             "fis:GetTargetResourceType",
             "fis:ListActions",
+            "fis:ListExperimentResolvedTargets",
             "fis:ListExperiments",
+            "fis:ListExperimentTargetAccountConfigurations",
             "fis:ListExperimentTemplates",
             "fis:ListTagsForResource",
+            "fis:ListTargetAccountConfigurations",
             "fis:ListTargetResourceTypes",
             "fms:GetAdminAccount",
             "fms:GetAppsList",
@@ -84771,9 +84907,9 @@
         }
       ]
     },
-    "VersionId": "v109",
+    "VersionId": "v110",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-08T16:54:31+00:00"
+    "CreateDate": "2024-01-03T15:52:00+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
