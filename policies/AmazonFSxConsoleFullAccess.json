@@ -12,6 +12,7 @@
           "ec2:DescribeNetworkInterfaceAttribute",
           "ec2:DescribeRouteTables",
           "ec2:DescribeSecurityGroups",
+          "ec2:GetSecurityGroupsForVpc",
           "ec2:DescribeSubnets",
           "ec2:DescribeVpcs",
           "firehose:ListDeliveryStreams",
@@ -141,7 +142,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-12-19T22:50:06+00:00"
+  "CreateDate": "2024-01-10T20:07:09+00:00"
 }

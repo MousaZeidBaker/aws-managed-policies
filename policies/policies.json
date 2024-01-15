@@ -42100,6 +42100,9 @@
           "Sid": "AccessAnalyzerServiceRolePolicy",
           "Effect": "Allow",
           "Action": [
+            "dynamodb:GetResourcePolicy",
+            "dynamodb:ListTables",
+            "dynamodb:ListStreams",
             "ec2:DescribeAddresses",
             "ec2:DescribeByoipCidrs",
             "ec2:DescribeSnapshotAttribute",
@@ -42179,9 +42182,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-28T19:00:40+00:00"
+    "CreateDate": "2024-01-11T20:13:34+00:00"
   },
   "AdministratorAccess-AWSElasticBeanstalk": {
     "Document": {
@@ -51112,6 +51115,91 @@
     "IsDefaultVersion": true,
     "CreateDate": "2020-04-23T19:30:49+00:00"
   },
+  "AmazonECSInfrastructureRolePolicyForVolumes": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CreateEBSManagedVolume",
+          "Effect": "Allow",
+          "Action": "ec2:CreateVolume",
+          "Resource": "arn:aws:ec2:*:*:volume/*",
+          "Condition": {
+            "ArnLike": {
+              "aws:RequestTag/AmazonECSCreated": "arn:aws:ecs:*:*:task/*"
+            },
+            "StringEquals": {
+              "aws:RequestTag/AmazonECSManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "TagOnCreateVolume",
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "arn:aws:ec2:*:*:volume/*",
+          "Condition": {
+            "ArnLike": {
+              "aws:RequestTag/AmazonECSCreated": "arn:aws:ecs:*:*:task/*"
+            },
+            "StringEquals": {
+              "ec2:CreateAction": "CreateVolume",
+              "aws:RequestTag/AmazonECSManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "DescribeVolumesForLifecycle",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVolumes",
+            "ec2:DescribeAvailabilityZones"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ManageEBSVolumeLifecycle",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AttachVolume",
+            "ec2:DetachVolume"
+          ],
+          "Resource": "arn:aws:ec2:*:*:volume/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonECSManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "ManageVolumeAttachmentsForEC2",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AttachVolume",
+            "ec2:DetachVolume"
+          ],
+          "Resource": "arn:aws:ec2:*:*:instance/*"
+        },
+        {
+          "Sid": "DeleteEBSManagedVolume",
+          "Effect": "Allow",
+          "Action": "ec2:DeleteVolume",
+          "Resource": "arn:aws:ec2:*:*:volume/*",
+          "Condition": {
+            "ArnLike": {
+              "aws:ResourceTag/AmazonECSCreated": "arn:aws:ecs:*:*:task/*"
+            },
+            "StringEquals": {
+              "aws:ResourceTag/AmazonECSManaged": "true"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-01-10T22:56:41+00:00"
+  },
   "AmazonECSServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -54770,6 +54858,7 @@
             "ec2:DescribeNetworkInterfaceAttribute",
             "ec2:DescribeRouteTables",
             "ec2:DescribeSecurityGroups",
+            "ec2:GetSecurityGroupsForVpc",
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
             "firehose:ListDeliveryStreams",
@@ -54899,15 +54988,16 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-19T22:50:06+00:00"
+    "CreateDate": "2024-01-10T20:07:09+00:00"
   },
   "AmazonFSxConsoleReadOnlyAccess": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "FSxReadOnlyPermissions",
           "Effect": "Allow",
           "Action": [
             "cloudwatch:DescribeAlarms",
@@ -54915,6 +55005,7 @@
             "ds:DescribeDirectories",
             "ec2:DescribeNetworkInterfaceAttribute",
             "ec2:DescribeSecurityGroups",
+            "ec2:GetSecurityGroupsForVpc",
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
             "firehose:ListDeliveryStreams",
@@ -54927,9 +55018,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-22T14:07:26+00:00"
+    "CreateDate": "2024-01-10T20:19:18+00:00"
   },
   "AmazonFSxFullAccess": {
     "Document": {
@@ -55071,6 +55162,7 @@
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeSecurityGroups",
+            "ec2:GetSecurityGroupsForVpc",
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
             "ec2:DescribeRouteTables"
@@ -55103,9 +55195,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-19T22:51:41+00:00"
+    "CreateDate": "2024-01-10T20:16:00+00:00"
   },
   "AmazonFSxReadOnlyAccess": {
     "Document": {
@@ -55130,6 +55222,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "CreateFileSystem",
           "Effect": "Allow",
           "Action": [
             "ds:AuthorizeApplication",
@@ -55146,11 +55239,13 @@
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
             "ec2:DisassociateAddress",
+            "ec2:GetSecurityGroupsForVpc",
             "route53:AssociateVPCWithHostedZone"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "PutMetrics",
           "Effect": "Allow",
           "Action": [
             "cloudwatch:PutMetricData"
@@ -55165,6 +55260,7 @@
           }
         },
         {
+          "Sid": "TagResourceNetworkInterface",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags"
@@ -55182,6 +55278,7 @@
           }
         },
         {
+          "Sid": "ManageNetworkInterface",
           "Effect": "Allow",
           "Action": [
             "ec2:AssignPrivateIpAddresses",
@@ -55198,6 +55295,7 @@
           }
         },
         {
+          "Sid": "ManageRouteTable",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateRoute",
@@ -55214,6 +55312,7 @@
           }
         },
         {
+          "Sid": "PutCloudWatchLogs",
           "Effect": "Allow",
           "Action": [
             "logs:DescribeLogGroups",
@@ -55223,6 +55322,7 @@
           "Resource": "arn:aws:logs:*:*:log-group:/aws/fsx/*"
         },
         {
+          "Sid": "ManageAuditLogs",
           "Effect": "Allow",
           "Action": [
             "firehose:DescribeDeliveryStream",
@@ -55233,9 +55333,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-26T17:57:34+00:00"
+    "CreateDate": "2024-01-10T20:53:47+00:00"
   },
   "AmazonForecastFullAccess": {
     "Document": {
@@ -77803,6 +77903,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "DynamoDBActionsNeededForSteadyStateReplication",
           "Effect": "Allow",
           "Action": [
             "dynamodb:GetItem",
@@ -77818,6 +77919,7 @@
             "dynamodb:DescribeTimeToLive",
             "dynamodb:UpdateTimeToLive",
             "dynamodb:DescribeLimits",
+            "dynamodb:GetResourcePolicy",
             "application-autoscaling:RegisterScalableTarget",
             "application-autoscaling:DescribeScalableTargets",
             "application-autoscaling:PutScalingPolicy",
@@ -77827,6 +77929,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "DynamoDBReplicationServiceRolePolicy",
           "Effect": "Allow",
           "Action": [
             "iam:CreateServiceLinkedRole"
@@ -77842,9 +77945,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-10T17:04:21+00:00"
+    "CreateDate": "2024-01-08T20:10:36+00:00"
   },
   "EC2FastLaunchServiceRolePolicy": {
     "Document": {
