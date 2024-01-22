@@ -5711,12 +5711,22 @@
             "billing:GetIAMAccessPreference",
             "billing:GetSellerOfRecord",
             "billing:ListBillingViews",
+            "budgets:ViewBudget",
+            "budgets:DescribeBudgetActionsForBudget",
+            "budgets:DescribeBudgetAction",
+            "budgets:DescribeBudgetActionsForAccount",
+            "budgets:DescribeBudgetActionHistories",
+            "ce:DescribeCostCategoryDefinition",
+            "ce:GetCostAndUsage",
+            "ce:ListCostCategoryDefinitions",
+            "ce:ListTagsForResource",
             "ce:ListCostAllocationTags",
             "consolidatedbilling:ListLinkedAccounts",
             "consolidatedbilling:GetAccountBillingRole",
             "cur:GetClassicReport",
             "cur:GetClassicReportPreferences",
             "cur:GetUsageReport",
+            "cur:DescribeReportDefinitions",
             "freetier:GetFreeTierAlertPreference",
             "freetier:GetFreeTierUsage",
             "invoicing:GetInvoiceEmailDeliveryPreferences",
@@ -5730,6 +5740,7 @@
             "purchase-orders:ListPurchaseOrderInvoices",
             "purchase-orders:ListPurchaseOrders",
             "purchase-orders:ListTagsForResource",
+            "sustainability:GetCarbonFootprintSummary",
             "tax:GetTaxRegistrationDocument",
             "tax:GetTaxInheritance",
             "tax:ListTaxRegistrations"
@@ -5738,9 +5749,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-26T18:05:19+00:00"
+    "CreateDate": "2024-01-17T18:15:35+00:00"
   },
   "AWSBudgetsActionsRolePolicyForResourceAdministrationWithSSM": {
     "Document": {
@@ -17393,9 +17404,11 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "CrossAccountPolicy1",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeVolumes",
+            "ec2:DescribeVolumeAttribute",
             "ec2:DescribeInstances",
             "drs:DescribeSourceServers",
             "drs:DescribeReplicationConfigurationTemplates",
@@ -17404,6 +17417,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "CrossAccountPolicy2",
           "Effect": "Allow",
           "Action": [
             "drs:TagResource"
@@ -17417,9 +17431,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-14T07:16:47+00:00"
+    "CreateDate": "2024-01-17T13:19:58+00:00"
   },
   "AWSElasticDisasterRecoveryEc2InstancePolicy": {
     "Document": {
@@ -18230,6 +18244,7 @@
             "ec2:DescribeSnapshots",
             "ec2:DescribeSubnets",
             "ec2:DescribeVolumes",
+            "ec2:DescribeVolumeAttribute",
             "ec2:GetEbsDefaultKmsKeyId",
             "ec2:GetEbsEncryptionByDefault",
             "ec2:DescribeVpcAttribute",
@@ -18536,9 +18551,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-02T13:31:35+00:00"
+    "CreateDate": "2024-01-17T13:49:07+00:00"
   },
   "AWSElasticDisasterRecoveryStagingAccountPolicy": {
     "Document": {
@@ -35256,12 +35271,17 @@
             "chime:listSipRules",
             "chime:listVoiceConnectorGroups",
             "chime:listVoiceConnectors",
+            "cleanrooms:batchGetCollaborationAnalysisTemplate",
             "cleanrooms:batchGetSchema",
+            "cleanrooms:getAnalysisTemplate",
             "cleanrooms:getCollaboration",
+            "cleanrooms:getCollaborationAnalysisTemplate",
             "cleanrooms:getConfiguredTable",
             "cleanrooms:getConfiguredTableAssociation",
             "cleanrooms:getMembership",
             "cleanrooms:getSchema",
+            "cleanrooms:listAnalysisTemplates",
+            "cleanrooms:listCollaborationAnalysisTemplates",
             "cleanrooms:listCollaborations",
             "cleanrooms:listConfiguredTableAssociations",
             "cleanrooms:listConfiguredTables",
@@ -35443,6 +35463,10 @@
             "codestar:listResources",
             "codestar:listTeamMembers",
             "codestar:listUserProfiles",
+            "codestar-connections:getConnection",
+            "codestar-connections:getHost",
+            "codestar-connections:listConnections",
+            "codestar-connections:listHosts",
             "cognito-identity:describeIdentityPool",
             "cognito-identity:getIdentityPoolRoles",
             "cognito-identity:listIdentities",
@@ -35949,6 +35973,7 @@
             "ecs:listTaskDefinitionFamilies",
             "ecs:listTaskDefinitions",
             "ecs:listTasks",
+            "eks:describeAccessEntry",
             "eks:describeAddon",
             "eks:describeAddonConfiguration",
             "eks:describeAddonVersions",
@@ -35958,7 +35983,10 @@
             "eks:describeIdentityProviderConfig",
             "eks:describeNodegroup",
             "eks:describeUpdate",
+            "eks:listAccessEntries",
+            "eks:listAccessPolicies",
             "eks:listAddons",
+            "eks:listAssociatedAccessPolicies",
             "eks:listClusters",
             "eks:listEksAnywhereSubscriptions",
             "eks:listFargateProfiles",
@@ -36396,6 +36424,8 @@
             "imagebuilder:getImageRecipe",
             "imagebuilder:getImageRecipePolicy",
             "imagebuilder:getInfrastructureConfiguration",
+            "imagebuilder:getLifecycleExecution",
+            "imagebuilder:getLifecyclePolicy",
             "imagebuilder:getWorkflowExecution",
             "imagebuilder:getWorkflowStepExecution",
             "imagebuilder:listComponentBuildVersions",
@@ -36409,6 +36439,9 @@
             "imagebuilder:listImages",
             "imagebuilder:listImageScanFindingAggregations",
             "imagebuilder:listInfrastructureConfigurations",
+            "imagebuilder:listLifecycleExecutions",
+            "imagebuilder:listLifecycleExecutionResources",
+            "imagebuilder:listLifecyclePolicies",
             "imagebuilder:listWorkflowExecutions",
             "imagebuilder:listWorkflowStepExecutions",
             "imagebuilder:listTagsForResource",
@@ -36431,12 +36464,14 @@
             "inspector2:describeOrganizationConfiguration",
             "inspector2:getDelegatedAdminAccount",
             "inspector2:getMember",
+            "inspector2:getSbomExport",
             "inspector2:listCoverage",
             "inspector2:listDelegatedAdminAccounts",
             "inspector2:listFilters",
             "inspector2:listFindings",
             "inspector2:listMembers",
             "inspector2:listUsageTotals",
+            "inspector-scan:scanSbom",
             "internetmonitor:getMonitor",
             "internetmonitor:listMonitors",
             "internetmonitor:getHealthEvent",
@@ -36756,6 +36791,9 @@
             "lightsail:getStaticIps",
             "lightsail:isVpcPeered",
             "logs:describeAccountPolicies",
+            "logs:describeDeliveries",
+            "logs:describeDeliveryDestinations",
+            "logs:describeDeliverySources",
             "logs:describeDestinations",
             "logs:describeExportTasks",
             "logs:describeLogGroups",
@@ -36766,6 +36804,10 @@
             "logs:describeResourcePolicies",
             "logs:describeSubscriptionFilters",
             "logs:getDataProtectionPolicy",
+            "logs:getDelivery",
+            "logs:getDeliveryDestination",
+            "logs:getDeliveryDestinationPolicy",
+            "logs:getDeliverySource",
             "logs:getLogDelivery",
             "logs:getLogGroupFields",
             "logs:listLogDeliveries",
@@ -37064,6 +37106,7 @@
             "outposts:getOutpostInstanceTypes",
             "outposts:getSite",
             "outposts:listAssets",
+            "outposts:listCatalogItems",
             "outposts:listOrders",
             "outposts:listOutposts",
             "outposts:listSites",
@@ -37214,6 +37257,7 @@
             "rds:describeEventSubscriptions",
             "rds:describeExportTasks",
             "rds:describeGlobalClusters",
+            "rds:describeIntegrations",
             "rds:describeOptionGroupOptions",
             "rds:describeOptionGroups",
             "rds:describeOrderableDBInstanceOptions",
@@ -37434,6 +37478,7 @@
             "s3:listMultipartUploadParts",
             "s3:listMultiRegionAccessPoints",
             "s3:listStorageLensConfigurations",
+            "s3express:listAllMyDirectoryBuckets",
             "sagemaker:describeAction",
             "sagemaker:describeAlgorithm",
             "sagemaker:describeApp",
@@ -37822,6 +37867,31 @@
             "ssm:listResourceComplianceSummaries",
             "ssm:listResourceDataSync",
             "ssm:listTagsForResource",
+            "sso:describeApplicationAssignment",
+            "sso:describeApplicationProvider",
+            "sso:describeApplication",
+            "sso:describeInstance",
+            "sso:describeTrustedTokenIssuer",
+            "sso:getApplicationAccessScope",
+            "sso:getApplicationAssignmentConfiguration",
+            "sso:getApplicationAuthenticationMethod",
+            "sso:getApplicationGrant",
+            "sso:getApplicationInstance",
+            "sso:getApplicationTemplate",
+            "sso:getManagedApplicationInstance",
+            "sso:getSharedSsoConfiguration",
+            "sso:listApplicationAccessScopes",
+            "sso:listApplicationAssignments",
+            "sso:listApplicationAuthenticationMethods",
+            "sso:listApplicationGrants",
+            "sso:listApplicationInstances",
+            "sso:listApplicationProviders",
+            "sso:listApplications",
+            "sso:listApplicationTemplates",
+            "sso:listDirectoryAssociations",
+            "sso:listInstances",
+            "sso:listProfileAssociations",
+            "sso:listTrustedTokenIssuers",
             "states:describeActivity",
             "states:describeExecution",
             "states:describeMapRun",
@@ -37923,6 +37993,14 @@
             "transfer:listUsers",
             "transfer:listWorkflows",
             "transfer:sendWorkflowStepState",
+            "trustedadvisor:getOrganizationRecommendation",
+            "trustedadvisor:getRecommendation",
+            "trustedadvisor:listChecks",
+            "trustedadvisor:listOrganizationRecommendationAccounts",
+            "trustedadvisor:listOrganizationRecommendationResources",
+            "trustedadvisor:listOrganizationRecommendations",
+            "trustedadvisor:listRecommendationResources",
+            "trustedadvisor:listRecommendations",
             "verifiedpermissions:getIdentitySource",
             "verifiedpermissions:getPolicy",
             "verifiedpermissions:getPolicyStore",
@@ -38073,9 +38151,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v33",
+    "VersionId": "v34",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-07T01:43:36+00:00"
+    "CreateDate": "2024-01-17T22:28:08+00:00"
   },
   "AWSSystemsManagerAccountDiscoveryServicePolicy": {
     "Document": {
@@ -39789,6 +39867,9 @@
             "cloudfront:ListDistributions",
             "cloudtrail:DescribeTrails",
             "cloudtrail:GetTrailStatus",
+            "cloudtrail:GetTrail",
+            "cloudtrail:ListTrails",
+            "cloudtrail:GetEventSelectors",
             "cloudwatch:GetMetricStatistics",
             "dynamodb:DescribeLimits",
             "dynamodb:DescribeTable",
@@ -39826,6 +39907,9 @@
             "kinesis:DescribeLimits",
             "kafka:ListClustersV2",
             "kafka:ListNodes",
+            "outposts:ListAssets",
+            "outposts:GetOutpost",
+            "outposts:ListOutposts",
             "rds:DescribeAccountAttributes",
             "rds:DescribeDBClusters",
             "rds:DescribeDBEngineVersions",
@@ -39873,9 +39957,9 @@
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-10T00:18:42+00:00"
+    "CreateDate": "2024-01-18T16:25:15+00:00"
   },
   "AWSUserNotificationsServiceLinkedRolePolicy": {
     "Document": {
@@ -51114,6 +51198,101 @@
     "VersionId": "v5",
     "IsDefaultVersion": true,
     "CreateDate": "2020-04-23T19:30:49+00:00"
+  },
+  "AmazonECSInfrastructureRolePolicyForServiceConnectTransportLayerSecurity": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CreateSecret",
+          "Effect": "Allow",
+          "Action": "secretsmanager:CreateSecret",
+          "Resource": "arn:aws:secretsmanager:*:*:secret:ecs-sc!*",
+          "Condition": {
+            "ArnLike": {
+              "aws:RequestTag/AmazonECSCreated": [
+                "arn:aws:ecs:*:*:service/*/*",
+                "arn:aws:ecs:*:*:task-set/*/*"
+              ]
+            },
+            "StringEquals": {
+              "aws:RequestTag/AmazonECSManaged": "true",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "TagOnCreateSecret",
+          "Effect": "Allow",
+          "Action": "secretsmanager:TagResource",
+          "Resource": "arn:aws:secretsmanager:*:*:secret:ecs-sc!*",
+          "Condition": {
+            "ArnLike": {
+              "aws:RequestTag/AmazonECSCreated": [
+                "arn:aws:ecs:*:*:service/*/*",
+                "arn:aws:ecs:*:*:task-set/*/*"
+              ]
+            },
+            "StringEquals": {
+              "aws:RequestTag/AmazonECSManaged": "true",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "RotateTLSCertificateSecret",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:UpdateSecret",
+            "secretsmanager:GetSecretValue",
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:DeleteSecret",
+            "secretsmanager:RotateSecret",
+            "secretsmanager:UpdateSecretVersionStage"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:ecs-sc!*",
+          "Condition": {
+            "StringEquals": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "ecs-sc",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "ManagePrivateCertificateAuthority",
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:GetCertificate",
+            "acm-pca:GetCertificateAuthorityCertificate",
+            "acm-pca:DescribeCertificateAuthority"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonECSManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "ManagePrivateCertificateAuthorityForIssuingEndEntityCertificate",
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:IssueCertificate"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonECSManaged": "true",
+              "acm-pca:TemplateArn": "arn:aws:acm-pca:::template/EndEntityCertificate/V1"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-01-19T20:08:36+00:00"
   },
   "AmazonECSInfrastructureRolePolicyForVolumes": {
     "Document": {
@@ -64004,6 +64183,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "CrossRegionCommunication",
           "Effect": "Allow",
           "Action": [
             "rds:CrossRegionCommunication"
@@ -64011,6 +64191,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "Ec2",
           "Effect": "Allow",
           "Action": [
             "ec2:AllocateAddress",
@@ -64050,6 +64231,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "Sns",
           "Effect": "Allow",
           "Action": [
             "sns:Publish"
@@ -64057,6 +64239,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "CloudWatchLogs",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogGroup"
@@ -64068,6 +64251,7 @@
           ]
         },
         {
+          "Sid": "CloudWatchStreams",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogStream",
@@ -64081,6 +64265,7 @@
           ]
         },
         {
+          "Sid": "Kinesis",
           "Effect": "Allow",
           "Action": [
             "kinesis:CreateStream",
@@ -64097,6 +64282,7 @@
           ]
         },
         {
+          "Sid": "CloudWatch",
           "Effect": "Allow",
           "Action": [
             "cloudwatch:PutMetricData"
@@ -64114,6 +64300,7 @@
           }
         },
         {
+          "Sid": "SecretsManagerPassword",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:GetRandomPassword"
@@ -64121,6 +64308,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "SecretsManagerSecret",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:DeleteSecret",
@@ -64141,6 +64329,7 @@
           }
         },
         {
+          "Sid": "SecretsManagerTags",
           "Effect": "Allow",
           "Action": "secretsmanager:TagResource",
           "Resource": "arn:aws:secretsmanager:*:*:secret:rds!*",
@@ -64158,9 +64347,9 @@
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-13T16:24:27+00:00"
+    "CreateDate": "2024-01-19T15:10:09+00:00"
   },
   "AmazonRedshiftAllCommandsFullAccess": {
     "Document": {
@@ -75112,17 +75301,34 @@
             "billing:RedeemCredits",
             "billing:UpdateBillingPreferences",
             "billing:UpdateIAMAccessPreference",
+            "budgets:CreateBudgetAction",
+            "budgets:DeleteBudgetAction",
+            "budgets:DescribeBudgetActionsForBudget",
+            "budgets:DescribeBudgetAction",
+            "budgets:DescribeBudgetActionsForAccount",
+            "budgets:DescribeBudgetActionHistories",
+            "budgets:ExecuteBudgetAction",
             "budgets:ModifyBudget",
+            "budgets:UpdateBudgetAction",
             "budgets:ViewBudget",
+            "ce:CreateCostCategoryDefinition",
             "ce:CreateNotificationSubscription",
             "ce:CreateReport",
+            "ce:DeleteCostCategoryDefinition",
             "ce:DeleteNotificationSubscription",
             "ce:DeleteReport",
+            "ce:DescribeCostCategoryDefinition",
+            "ce:GetCostAndUsage",
             "ce:ListCostAllocationTags",
+            "ce:ListCostCategoryDefinitions",
+            "ce:ListTagsForResource",
+            "ce:TagResource",
             "ce:UpdateCostAllocationTagsStatus",
             "ce:UpdateNotificationSubscription",
             "ce:UpdatePreferences",
             "ce:UpdateReport",
+            "ce:UpdateCostCategoryDefinition",
+            "ce:UntagResource",
             "consolidatedbilling:GetAccountBillingRole",
             "consolidatedbilling:ListLinkedAccounts",
             "cur:DeleteReportDefinition",
@@ -75148,6 +75354,7 @@
             "payments:ListPaymentPreferences",
             "payments:MakePayment",
             "payments:UpdatePaymentPreferences",
+            "pricing:DescribeServices",
             "purchase-orders:AddPurchaseOrder",
             "purchase-orders:DeletePurchaseOrder",
             "purchase-orders:GetPurchaseOrder",
@@ -75160,6 +75367,9 @@
             "purchase-orders:UpdatePurchaseOrder",
             "purchase-orders:UpdatePurchaseOrderStatus",
             "purchase-orders:ViewPurchaseOrders",
+            "support:CreateCase",
+            "support:AddAttachmentsToSet",
+            "sustainability:GetCarbonFootprintSummary",
             "tax:BatchPutTaxRegistration",
             "tax:DeleteTaxRegistration",
             "tax:GetExemptions",
@@ -75177,9 +75387,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-26T19:58:17+00:00"
+    "CreateDate": "2024-01-17T18:03:48+00:00"
   },
   "CertificateManagerServiceRolePolicy": {
     "Document": {
