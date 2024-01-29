@@ -7,14 +7,15 @@
         "Effect": "Allow",
         "Action": [
           "dynamodb:GetResourcePolicy",
-          "dynamodb:ListTables",
           "dynamodb:ListStreams",
+          "dynamodb:ListTables",
           "ec2:DescribeAddresses",
           "ec2:DescribeByoipCidrs",
           "ec2:DescribeSnapshotAttribute",
           "ec2:DescribeSnapshots",
           "ec2:DescribeVpcEndpoints",
           "ec2:DescribeVpcs",
+          "ec2:GetSnapshotBlockPublicAccessState",
           "ecr:DescribeRepositories",
           "ecr:GetRepositoryPolicy",
           "elasticfilesystem:DescribeFileSystemPolicy",
@@ -88,7 +89,7 @@
       }
     ]
   },
-  "VersionId": "v11",
+  "VersionId": "v12",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-01-11T20:13:34+00:00"
+  "CreateDate": "2024-01-22T22:34:53+00:00"
 }

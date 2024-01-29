@@ -142,7 +142,7 @@
           "ec2:DescribeSecurityGroups",
           "ec2:DescribeStaleSecurityGroups"
         ],
-        "Resource": "arn:aws:ec2:*:*:security-group*/*"
+        "Resource": "*"
       },
       {
         "Sid": "DescribeAddressesAttribute",
@@ -203,7 +203,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-01T14:36:06+00:00"
+  "CreateDate": "2024-01-22T22:46:40+00:00"
 }

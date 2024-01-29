@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AllowNeptuneCreate",
         "Effect": "Allow",
         "Action": [
           "rds:CreateDBCluster",
@@ -21,6 +22,8 @@
         }
       },
       {
+        "Sid": "AllowManagementPermissionsForRDS",
+        "Effect": "Allow",
         "Action": [
           "rds:AddRoleToDBCluster",
           "rds:AddSourceIdentifierToSubscription",
@@ -96,12 +99,13 @@
           "rds:StartDBCluster",
           "rds:StopDBCluster"
         ],
-        "Effect": "Allow",
         "Resource": [
           "*"
         ]
       },
       {
+        "Sid": "AllowOtherDepedentPermissions",
+        "Effect": "Allow",
         "Action": [
           "cloudwatch:GetMetricStatistics",
           "cloudwatch:ListMetrics",
@@ -121,14 +125,14 @@
           "sns:ListTopics",
           "sns:Publish"
         ],
-        "Effect": "Allow",
         "Resource": [
           "*"
         ]
       },
       {
-        "Action": "iam:PassRole",
+        "Sid": "AllowPassRoleForNeptune",
         "Effect": "Allow",
+        "Action": "iam:PassRole",
         "Resource": "*",
         "Condition": {
           "StringEquals": {
@@ -137,8 +141,9 @@
         }
       },
       {
-        "Action": "iam:CreateServiceLinkedRole",
+        "Sid": "AllowCreateSLRForNeptune",
         "Effect": "Allow",
+        "Action": "iam:CreateServiceLinkedRole",
         "Resource": "arn:aws:iam::*:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS",
         "Condition": {
           "StringLike": {
@@ -147,6 +152,7 @@
         }
       },
       {
+        "Sid": "AllowDataAccessForNeptune",
         "Effect": "Allow",
         "Action": [
           "neptune-db:*"
@@ -157,7 +163,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-07-28T19:58:27+00:00"
+  "CreateDate": "2024-01-22T16:32:31+00:00"
 }

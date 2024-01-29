@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "Clusters",
         "Effect": "Allow",
         "Action": [
           "ecs:DescribeClusters",
@@ -13,6 +14,7 @@
         ]
       },
       {
+        "Sid": "Tasks",
         "Effect": "Allow",
         "Action": [
           "ecs:DescribeTasks",
@@ -23,9 +25,9 @@
         ]
       },
       {
+        "Sid": "ContainerInstances",
         "Effect": "Allow",
         "Action": [
-          "ecs:ListTasks",
           "ecs:UpdateContainerInstancesState"
         ],
         "Resource": [
@@ -33,6 +35,15 @@
         ]
       },
       {
+        "Sid": "ListTasks",
+        "Effect": "Allow",
+        "Action": [
+          "ecs:ListTasks"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "SSMSend",
         "Effect": "Allow",
         "Action": "ssm:SendCommand",
         "Resource": [
@@ -41,16 +52,25 @@
         ]
       },
       {
+        "Sid": "SSMList",
         "Effect": "Allow",
         "Action": [
           "ssm:ListCommands",
           "ssm:CancelCommand"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "TargetResolutionByTags",
+        "Effect": "Allow",
+        "Action": [
+          "tag:GetResources"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-01T10:48:27+00:00"
+  "CreateDate": "2024-01-25T16:16:02+00:00"
 }
