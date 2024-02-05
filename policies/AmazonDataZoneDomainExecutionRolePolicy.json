@@ -67,6 +67,7 @@
           "datazone:ListDataSourceRuns",
           "datazone:ListDataSources",
           "datazone:ListEnvironmentBlueprintConfigurations",
+          "datazone:ListEnvironmentBlueprintConfigurationSummaries",
           "datazone:ListEnvironmentBlueprints",
           "datazone:ListEnvironmentProfiles",
           "datazone:ListEnvironments",
@@ -113,7 +114,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-28T12:48:21+00:00"
+  "CreateDate": "2024-02-01T23:12:59+00:00"
 }

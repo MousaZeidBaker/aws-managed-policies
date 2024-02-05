@@ -46847,6 +46847,7 @@
             "datazone:ListDataSourceRuns",
             "datazone:ListDataSources",
             "datazone:ListEnvironmentBlueprintConfigurations",
+            "datazone:ListEnvironmentBlueprintConfigurationSummaries",
             "datazone:ListEnvironmentBlueprints",
             "datazone:ListEnvironmentProfiles",
             "datazone:ListEnvironments",
@@ -46893,9 +46894,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-28T12:48:21+00:00"
+    "CreateDate": "2024-02-01T23:12:59+00:00"
   },
   "AmazonDataZoneEnvironmentRolePermissionsBoundary": {
     "Document": {
@@ -59606,6 +59607,100 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-01-31T19:31:41+00:00"
   },
+  "AmazonLexReplicationPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ReplicationServicePolicyStatement1",
+          "Effect": "Allow",
+          "Action": [
+            "lex:BuildBotLocale",
+            "lex:ListBotLocales",
+            "lex:CreateBotAlias",
+            "lex:UpdateBotAlias",
+            "lex:DeleteBotAlias",
+            "lex:DescribeBotAlias",
+            "lex:CreateBotVersion",
+            "lex:DeleteBotVersion",
+            "lex:DescribeBotVersion",
+            "lex:CreateExport",
+            "lex:DescribeBot",
+            "lex:UpdateExport",
+            "lex:DescribeExport",
+            "lex:DescribeBotLocale",
+            "lex:DescribeIntent",
+            "lex:ListIntents",
+            "lex:DescribeSlotType",
+            "lex:ListSlotTypes",
+            "lex:DescribeSlot",
+            "lex:ListSlots",
+            "lex:DescribeCustomVocabulary",
+            "lex:StartImport",
+            "lex:DescribeImport",
+            "lex:CreateBot",
+            "lex:UpdateBot",
+            "lex:DeleteBot",
+            "lex:CreateBotLocale",
+            "lex:UpdateBotLocale",
+            "lex:DeleteBotLocale",
+            "lex:CreateIntent",
+            "lex:UpdateIntent",
+            "lex:DeleteIntent",
+            "lex:CreateSlotType",
+            "lex:UpdateSlotType",
+            "lex:DeleteSlotType",
+            "lex:CreateSlot",
+            "lex:UpdateSlot",
+            "lex:DeleteSlot",
+            "lex:CreateCustomVocabulary",
+            "lex:UpdateCustomVocabulary",
+            "lex:DeleteCustomVocabulary",
+            "lex:DeleteBotChannel"
+          ],
+          "Resource": [
+            "arn:aws:lex:*:*:bot/*",
+            "arn:aws:lex:*:*:bot-alias/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "ReplicationServicePolicyStatement2",
+          "Effect": "Allow",
+          "Action": [
+            "lex:CreateUploadUrl",
+            "lex:ListBots"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "ReplicationServicePolicyStatement3",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "lexv2.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-01-31T23:29:42+00:00"
+  },
   "AmazonLexRunBotsOnly": {
     "Document": {
       "Version": "2012-10-17",
@@ -68009,6 +68104,38 @@
     "VersionId": "v3",
     "IsDefaultVersion": true,
     "CreateDate": "2023-11-29T14:47:09+00:00"
+  },
+  "AmazonSageMakerCanvasBedrockAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "S3CanvasAccess",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject",
+            "s3:PutObject"
+          ],
+          "Resource": [
+            "arn:aws:s3:::sagemaker-*/Canvas",
+            "arn:aws:s3:::sagemaker-*/Canvas/*"
+          ]
+        },
+        {
+          "Sid": "S3BucketAccess",
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListBucket"
+          ],
+          "Resource": [
+            "arn:aws:s3:::sagemaker-*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-02-02T18:37:25+00:00"
   },
   "AmazonSageMakerCanvasDataPrepFullAccess": {
     "Document": {
