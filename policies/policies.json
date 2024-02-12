@@ -25534,6 +25534,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "MarketplaceManagement",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace-management:uploadFiles",
@@ -25560,6 +25561,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AgreementAccess",
           "Action": [
             "aws-marketplace:SearchAgreements",
             "aws-marketplace:DescribeAgreement",
@@ -25579,6 +25581,7 @@
           }
         },
         {
+          "Sid": "IAMGetRole",
           "Effect": "Allow",
           "Action": [
             "iam:GetRole"
@@ -25586,6 +25589,7 @@
           "Resource": "arn:aws:iam::*:role/*"
         },
         {
+          "Sid": "AssetScanning",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -25598,6 +25602,7 @@
           }
         },
         {
+          "Sid": "VendorInsights",
           "Effect": "Allow",
           "Action": [
             "vendor-insights:GetDataSource",
@@ -25610,6 +25615,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "TagManagement",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace:TagResource",
@@ -25619,6 +25625,7 @@
           "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
         },
         {
+          "Sid": "SellerSettings",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace-management:GetSellerVerificationDetails",
@@ -25632,11 +25639,13 @@
             "payments:GetPaymentInstrument",
             "payments:CreatePaymentInstrument",
             "tax:GetTaxInterview",
-            "tax:PutTaxInterview"
+            "tax:PutTaxInterview",
+            "tax:GetTaxInfoReportingDocument"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "Support",
           "Effect": "Allow",
           "Action": [
             "support:CreateCase"
@@ -25644,6 +25653,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "ResourcePolicyManagement",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace:GetResourcePolicy",
@@ -25654,9 +25664,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-01T17:46:22+00:00"
+    "CreateDate": "2024-02-08T19:19:05+00:00"
   },
   "AWSMarketplaceSellerProductsFullAccess": {
     "Document": {
@@ -27099,7 +27109,12 @@
             "s3:PutBucketVersioning",
             "s3:PutLifecycleConfiguration"
           ],
-          "Resource": "arn:aws:s3:::migrationhub-strategy-*"
+          "Resource": "arn:aws:s3:::migrationhub-strategy-*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
         },
         {
           "Sid": "MHSRAllowS3ListBucket",
@@ -27107,7 +27122,21 @@
           "Action": [
             "s3:ListAllMyBuckets"
           ],
-          "Resource": "arn:aws:s3:::*"
+          "Resource": "arn:aws:s3:::*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "MHSRAllowMetricsAndLogs",
+          "Effect": "Allow",
+          "Action": [
+            "application-transformation:PutMetricData",
+            "application-transformation:PutLogData"
+          ],
+          "Resource": "*"
         },
         {
           "Sid": "MHSRAllowExecuteAPI",
@@ -27141,13 +27170,18 @@
           "Action": [
             "secretsmanager:GetSecretValue"
           ],
-          "Resource": "arn:aws:secretsmanager:*:*:secret:migrationhub-strategy-*"
+          "Resource": "arn:aws:secretsmanager:*:*:secret:migrationhub-strategy-*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-10-12T16:44:29+00:00"
+    "CreateDate": "2024-02-05T18:57:29+00:00"
   },
   "AWSMigrationHubStrategyConsoleFullAccess": {
     "Document": {
@@ -27971,11 +28005,13 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSOrganizationsFullAccess",
           "Effect": "Allow",
           "Action": "organizations:*",
           "Resource": "*"
         },
         {
+          "Sid": "AWSOrganizationsFullAccessAccount",
           "Effect": "Allow",
           "Action": [
             "account:PutAlternateContact",
@@ -27990,6 +28026,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSOrganizationsFullAccessCreateSLR",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -28001,15 +28038,16 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-22T18:22:12+00:00"
+    "CreateDate": "2024-02-06T17:49:01+00:00"
   },
   "AWSOrganizationsReadOnlyAccess": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSOrganizationsReadOnly",
           "Effect": "Allow",
           "Action": [
             "organizations:Describe*",
@@ -28018,6 +28056,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSOrganizationsReadOnlyAccount",
           "Effect": "Allow",
           "Action": [
             "account:GetAlternateContact",
@@ -28028,9 +28067,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-22T18:08:03+00:00"
+    "CreateDate": "2024-02-06T17:36:59+00:00"
   },
   "AWSOrganizationsServiceTrustPolicy": {
     "Document": {
@@ -56505,6 +56544,7 @@
             "ec2:DescribeTransitGatewayAttachments",
             "organizations:ListAccounts",
             "organizations:DescribeAccount",
+            "organizations:DescribeOrganization",
             "s3:GetBucketPublicAccessBlock",
             "s3:GetEncryptionConfiguration",
             "s3:GetBucketTagging",
@@ -56688,9 +56728,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-26T22:03:45+00:00"
+    "CreateDate": "2024-02-09T18:30:50+00:00"
   },
   "AmazonHealthLakeFullAccess": {
     "Document": {
@@ -59375,6 +59415,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonLexFullAccessStatement1",
           "Effect": "Allow",
           "Action": [
             "cloudwatch:GetMetricStatistics",
@@ -59398,6 +59439,7 @@
           ]
         },
         {
+          "Sid": "AmazonLexFullAccessStatement2",
           "Effect": "Allow",
           "Action": [
             "lambda:AddPermission",
@@ -59411,6 +59453,7 @@
           }
         },
         {
+          "Sid": "AmazonLexFullAccessStatement3",
           "Effect": "Allow",
           "Action": [
             "iam:GetRole"
@@ -59419,10 +59462,12 @@
             "arn:aws:iam::*:role/aws-service-role/lex.amazonaws.com/AWSServiceRoleForLexBots",
             "arn:aws:iam::*:role/aws-service-role/channels.lex.amazonaws.com/AWSServiceRoleForLexChannels",
             "arn:aws:iam::*:role/aws-service-role/lexv2.amazonaws.com/AWSServiceRoleForLexV2Bots*",
-            "arn:aws:iam::*:role/aws-service-role/channels.lexv2.amazonaws.com/AWSServiceRoleForLexV2Channels*"
+            "arn:aws:iam::*:role/aws-service-role/channels.lexv2.amazonaws.com/AWSServiceRoleForLexV2Channels*",
+            "arn:aws:iam::*:role/aws-service-role/replication.lexv2.amazonaws.com/AWSServiceRoleForLexV2Replication*"
           ]
         },
         {
+          "Sid": "AmazonLexFullAccessStatement4",
           "Effect": "Allow",
           "Action": [
             "iam:CreateServiceLinkedRole"
@@ -59437,6 +59482,7 @@
           }
         },
         {
+          "Sid": "AmazonLexFullAccessStatement5",
           "Effect": "Allow",
           "Action": [
             "iam:CreateServiceLinkedRole"
@@ -59451,6 +59497,7 @@
           }
         },
         {
+          "Sid": "AmazonLexFullAccessStatement6",
           "Effect": "Allow",
           "Action": [
             "iam:CreateServiceLinkedRole"
@@ -59465,6 +59512,7 @@
           }
         },
         {
+          "Sid": "AmazonLexFullAccessStatement7",
           "Effect": "Allow",
           "Action": [
             "iam:CreateServiceLinkedRole"
@@ -59479,6 +59527,22 @@
           }
         },
         {
+          "Sid": "AmazonLexFullAccessStatement8",
+          "Effect": "Allow",
+          "Action": [
+            "iam:CreateServiceLinkedRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/replication.lexv2.amazonaws.com/AWSServiceRoleForLexV2Replication*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "lexv2.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AmazonLexFullAccessStatement9",
           "Effect": "Allow",
           "Action": [
             "iam:DeleteServiceLinkedRole",
@@ -59488,10 +59552,12 @@
             "arn:aws:iam::*:role/aws-service-role/lex.amazonaws.com/AWSServiceRoleForLexBots",
             "arn:aws:iam::*:role/aws-service-role/channels.lex.amazonaws.com/AWSServiceRoleForLexChannels",
             "arn:aws:iam::*:role/aws-service-role/lexv2.amazonaws.com/AWSServiceRoleForLexV2Bots*",
-            "arn:aws:iam::*:role/aws-service-role/channels.lexv2.amazonaws.com/AWSServiceRoleForLexV2Channels*"
+            "arn:aws:iam::*:role/aws-service-role/channels.lexv2.amazonaws.com/AWSServiceRoleForLexV2Channels*",
+            "arn:aws:iam::*:role/aws-service-role/replication.lexv2.amazonaws.com/AWSServiceRoleForLexV2Replication*"
           ]
         },
         {
+          "Sid": "AmazonLexFullAccessStatement10",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -59508,6 +59574,7 @@
           }
         },
         {
+          "Sid": "AmazonLexFullAccessStatement11",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -59524,6 +59591,7 @@
           }
         },
         {
+          "Sid": "AmazonLexFullAccessStatement12",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -59538,12 +59606,29 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "AmazonLexFullAccessStatement13",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/replication.lexv2.amazonaws.com/AWSServiceRoleForLexV2Replication*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": [
+                "lexv2.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-07-26T21:48:05+00:00"
+    "CreateDate": "2024-02-07T00:55:22+00:00"
   },
   "AmazonLexReadOnly": {
     "Document": {
@@ -65909,8 +65994,10 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonRedshiftReadOnlyAccess",
           "Action": [
             "redshift:Describe*",
+            "redshift:ListRecommendations",
             "redshift:ViewQueriesInConsole",
             "ec2:DescribeAccountAttributes",
             "ec2:DescribeAddresses",
@@ -65930,9 +66017,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2015-02-06T18:40:51+00:00"
+    "CreateDate": "2024-02-08T00:24:13+00:00"
   },
   "AmazonRedshiftServiceLinkedRolePolicy": {
     "Document": {
@@ -72992,6 +73079,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonVPCFullAccess",
           "Effect": "Allow",
           "Action": [
             "ec2:AcceptVpcPeeringConnection",
@@ -73118,6 +73206,7 @@
             "ec2:EnableVgwRoutePropagation",
             "ec2:EnableVpcClassicLink",
             "ec2:EnableVpcClassicLinkDnsSupport",
+            "ec2:GetSecurityGroupsForVpc",
             "ec2:ModifyNetworkInterfaceAttribute",
             "ec2:ModifySecurityGroupRules",
             "ec2:ModifySubnetAttribute",
@@ -73149,9 +73238,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-02T19:12:14+00:00"
+    "CreateDate": "2024-02-08T16:03:24+00:00"
   },
   "AmazonVPCNetworkAccessAnalyzerFullAccessPolicy": {
     "Document": {
@@ -73436,6 +73525,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonVPCReadOnlyAccess",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeAccountAttributes",
@@ -73475,15 +73565,16 @@
             "ec2:DescribeVpcPeeringConnections",
             "ec2:DescribeVpcs",
             "ec2:DescribeVpnConnections",
-            "ec2:DescribeVpnGateways"
+            "ec2:DescribeVpnGateways",
+            "ec2:GetSecurityGroupsForVpc"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-02T15:47:38+00:00"
+    "CreateDate": "2024-02-08T17:08:19+00:00"
   },
   "AmazonWorkDocsFullAccess": {
     "Document": {
@@ -76328,19 +76419,27 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "CWACloudWatchPermissions",
           "Effect": "Allow",
           "Action": [
             "cloudwatch:PutMetricData",
             "ec2:DescribeTags",
             "logs:PutLogEvents",
+            "logs:PutRetentionPolicy",
             "logs:DescribeLogStreams",
             "logs:DescribeLogGroups",
             "logs:CreateLogStream",
-            "logs:CreateLogGroup"
+            "logs:CreateLogGroup",
+            "xray:PutTraceSegments",
+            "xray:PutTelemetryRecords",
+            "xray:GetSamplingRules",
+            "xray:GetSamplingTargets",
+            "xray:GetSamplingStatisticSummaries"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "CWASSMPermissions",
           "Effect": "Allow",
           "Action": [
             "ssm:GetParameter",
@@ -76350,29 +76449,37 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2018-03-07T00:52:31+00:00"
+    "CreateDate": "2024-02-05T20:59:57+00:00"
   },
   "CloudWatchAgentServerPolicy": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "CWACloudWatchServerPermissions",
           "Effect": "Allow",
           "Action": [
             "cloudwatch:PutMetricData",
             "ec2:DescribeVolumes",
             "ec2:DescribeTags",
             "logs:PutLogEvents",
+            "logs:PutRetentionPolicy",
             "logs:DescribeLogStreams",
             "logs:DescribeLogGroups",
             "logs:CreateLogStream",
-            "logs:CreateLogGroup"
+            "logs:CreateLogGroup",
+            "xray:PutTraceSegments",
+            "xray:PutTelemetryRecords",
+            "xray:GetSamplingRules",
+            "xray:GetSamplingTargets",
+            "xray:GetSamplingStatisticSummaries"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "CWASSMServerPermissions",
           "Effect": "Allow",
           "Action": [
             "ssm:GetParameter"
@@ -76381,9 +76488,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-10-17T23:08:51+00:00"
+    "CreateDate": "2024-02-06T16:37:37+00:00"
   },
   "CloudWatchApplicationInsightsFullAccess": {
     "Document": {
@@ -80439,6 +80546,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "HealthAPIOrganizationView0",
           "Effect": "Allow",
           "Action": [
             "organizations:ListAccounts",
@@ -80451,9 +80559,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-19T14:34:18+00:00"
+    "CreateDate": "2024-02-06T16:07:08+00:00"
   },
   "IAMAccessAdvisorReadOnly": {
     "Document": {
@@ -80903,6 +81011,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "LakeFormationDataAccessServiceRolePolicy",
           "Effect": "Allow",
           "Action": [
             "s3:ListAllMyBuckets"
@@ -80913,9 +81022,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-06-20T20:46:19+00:00"
+    "CreateDate": "2024-02-06T18:37:31+00:00"
   },
   "LexBotPolicy": {
     "Document": {
@@ -83914,6 +84023,7 @@
             "aps:ListWorkspaces",
             "aps:QueryMetrics",
             "arc-zonal-shift:GetManagedResource",
+            "arc-zonal-shift:ListAutoshifts",
             "arc-zonal-shift:ListManagedResources",
             "arc-zonal-shift:ListZonalShifts",
             "artifact:GetReport",
@@ -84002,6 +84112,7 @@
             "billing:GetIAMAccessPreference",
             "billing:GetSellerOfRecord",
             "billing:ListBillingViews",
+            "billingconductor:GetBillingGroupCostReport",
             "billingconductor:ListAccountAssociations",
             "billingconductor:ListBillingGroupCostReports",
             "billingconductor:ListBillingGroups",
@@ -84094,7 +84205,10 @@
             "cloudformation:Get*",
             "cloudformation:List*",
             "cloudformation:ValidateTemplate",
-            "cloudfront:DescribeFunction",
+            "cloudfront-keyvaluestore:Describe*",
+            "cloudfront-keyvaluestore:Get*",
+            "cloudfront-keyvaluestore:List*",
+            "cloudfront:Describe*",
             "cloudfront:Get*",
             "cloudfront:List*",
             "cloudhsm:Describe*",
@@ -84894,14 +85008,24 @@
             "launchwizard:DescribeProvisionedApp",
             "launchwizard:DescribeProvisioningEvents",
             "launchwizard:DescribeSettingsSet",
+            "launchwizard:GetDeployment",
             "launchwizard:GetInfrastructureSuggestion",
             "launchwizard:GetIpAddress",
             "launchwizard:GetResourceCostEstimate",
+            "launchwizard:GetResourceRecommendation",
+            "launchwizard:GetSettingsSet",
+            "launchwizard:GetWorkload",
+            "launchwizard:GetWorkloadAsset",
             "launchwizard:GetWorkloadAssets",
             "launchwizard:ListAdditionalNodes",
+            "launchwizard:ListAllowedResources",
+            "launchwizard:ListDeploymentEvents",
+            "launchwizard:ListDeployments",
             "launchwizard:ListProvisionedApps",
+            "launchwizard:ListResourceCostEstimates",
             "launchwizard:ListSettingsSets",
             "launchwizard:ListWorkloadDeploymentOptions",
+            "launchwizard:ListWorkloadDeploymentPatterns",
             "launchwizard:ListWorkloads",
             "lex:DescribeBot",
             "lex:DescribeBotAlias",
@@ -85787,9 +85911,9 @@
         }
       ]
     },
-    "VersionId": "v110",
+    "VersionId": "v111",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-03T15:52:00+00:00"
+    "CreateDate": "2024-02-05T15:00:23+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {

@@ -3,11 +3,13 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AWSOrganizationsFullAccess",
         "Effect": "Allow",
         "Action": "organizations:*",
         "Resource": "*"
       },
       {
+        "Sid": "AWSOrganizationsFullAccessAccount",
         "Effect": "Allow",
         "Action": [
           "account:PutAlternateContact",
@@ -22,6 +24,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AWSOrganizationsFullAccessCreateSLR",
         "Effect": "Allow",
         "Action": "iam:CreateServiceLinkedRole",
         "Resource": "*",
@@ -33,7 +36,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-12-22T18:22:12+00:00"
+  "CreateDate": "2024-02-06T17:49:01+00:00"
 }

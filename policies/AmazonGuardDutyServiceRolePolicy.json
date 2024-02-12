@@ -14,6 +14,7 @@
           "ec2:DescribeTransitGatewayAttachments",
           "organizations:ListAccounts",
           "organizations:DescribeAccount",
+          "organizations:DescribeOrganization",
           "s3:GetBucketPublicAccessBlock",
           "s3:GetEncryptionConfiguration",
           "s3:GetBucketTagging",
@@ -197,7 +198,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-26T22:03:45+00:00"
+  "CreateDate": "2024-02-09T18:30:50+00:00"
 }
