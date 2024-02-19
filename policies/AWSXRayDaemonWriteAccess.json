@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AWSXRayDaemonWriteAccess",
         "Effect": "Allow",
         "Action": [
           "xray:PutTraceSegments",
@@ -17,7 +18,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2018-08-28T23:00:33+00:00"
+  "CreateDate": "2024-02-13T21:58:30+00:00"
 }

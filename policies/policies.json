@@ -13072,6 +13072,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "DataSyncFullAccessPermissions",
           "Effect": "Allow",
           "Action": [
             "datasync:*",
@@ -13097,12 +13098,14 @@
             "s3:GetBucketLocation",
             "s3:ListAllMyBuckets",
             "s3:ListBucket",
+            "s3:ListBucketVersions",
             "s3-outposts:ListAccessPoints",
             "s3-outposts:ListRegionalBuckets"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "DataSyncPassRolePermissions",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -13118,9 +13121,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-02T16:37:43+00:00"
+    "CreateDate": "2024-02-16T17:19:28+00:00"
   },
   "AWSDataSyncReadOnlyAccess": {
     "Document": {
@@ -29032,6 +29035,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "PrivateMarketplaceRequestPermissions",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace:AssociateProductsWithPrivateMarketplace",
@@ -29044,6 +29048,7 @@
           ]
         },
         {
+          "Sid": "PrivateMarketplaceCatalogAPIPermissions",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace:ListEntities",
@@ -29056,6 +29061,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "PrivateMarketplaceCatalogTaggingPermissions",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace:TagResource",
@@ -29063,12 +29069,29 @@
             "aws-marketplace:ListTagsForResource"
           ],
           "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
+        },
+        {
+          "Sid": "PrivateMarketplaceOrganizationPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeOrganization",
+            "organizations:DescribeOrganizationalUnit",
+            "organizations:DescribeAccount",
+            "organizations:ListRoots",
+            "organizations:ListParents",
+            "organizations:ListOrganizationalUnitsForParent",
+            "organizations:ListAccountsForParent",
+            "organizations:ListAccounts",
+            "organizations:ListAWSServiceAccessForOrganization",
+            "organizations:ListDelegatedAdministrators"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-12-07T20:02:37+00:00"
+    "CreateDate": "2024-02-14T22:05:08+00:00"
   },
   "AWSPrivateMarketplaceRequests": {
     "Document": {
@@ -34206,6 +34229,78 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-11-29T14:03:36+00:00"
   },
+  "AWSServiceRoleForPrivateMarketplaceAdminPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PrivateMarketplaceCatalogDescribePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:DescribeEntity"
+          ],
+          "Resource": [
+            "arn:aws:aws-marketplace:*:*:AWSMarketplace/Experience/*",
+            "arn:aws:aws-marketplace:*:*:AWSMarketplace/Audience/*",
+            "arn:aws:aws-marketplace:*:*:AWSMarketplace/ProcurementPolicy/*",
+            "arn:aws:aws-marketplace:*:*:AWSMarketplace/BrandingSettings/*"
+          ]
+        },
+        {
+          "Sid": "PrivateMarketplaceCatalogDescribeChangeSetPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:DescribeChangeSet"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "PrivateMarketplaceCatalogListPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:ListEntities",
+            "aws-marketplace:ListChangeSets"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "PrivateMarketplaceStartChangeSetPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:StartChangeSet"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "catalog:ChangeType": [
+                "AssociateAudience",
+                "DisassociateAudience"
+              ]
+            }
+          },
+          "Resource": [
+            "arn:aws:aws-marketplace:*:*:AWSMarketplace/Experience/*",
+            "arn:aws:aws-marketplace:*:*:AWSMarketplace/ChangeSet/*"
+          ]
+        },
+        {
+          "Sid": "PrivateMarketplaceOrganizationPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeAccount",
+            "organizations:DescribeOrganizationalUnit",
+            "organizations:ListDelegatedAdministrators",
+            "organizations:ListChildren"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-02-14T22:28:01+00:00"
+  },
   "AWSServiceRoleForSMS": {
     "Document": {
       "Version": "2012-10-17",
@@ -34554,11 +34649,15 @@
           "Sid": "BackupActions",
           "Effect": "Allow",
           "Action": [
+            "backup:DescribeRecoveryPoint",
             "backup:DescribeRestoreJob",
+            "backup:DescribeProtectedResource",
             "backup:GetRecoveryPointRestoreMetadata",
             "backup:ListBackupVaults",
+            "backup:ListProtectedResources",
             "backup:ListProtectedResourcesByBackupVault",
             "backup:ListRecoveryPointsByBackupVault",
+            "backup:ListRecoveryPointsByResource",
             "backup:ListTags",
             "backup:StartRestoreJob"
           ],
@@ -34580,6 +34679,7 @@
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeInstances",
+            "ec2:DescribeSnapshotTierStatus",
             "ec2:DescribeTags",
             "ec2:DescribeVolumes",
             "elasticfilesystem:DescribeFileSystems",
@@ -34590,7 +34690,9 @@
             "rds:DescribeDBInstances",
             "rds:DescribeDBClusters",
             "rds:DescribeDBInstanceAutomatedBackups",
-            "rds:ListTagsForResource"
+            "rds:DescribeDBClusterAutomatedBackups",
+            "rds:ListTagsForResource",
+            "redshift:DescribeClusters"
           ],
           "Resource": "*"
         },
@@ -34629,6 +34731,12 @@
           }
         },
         {
+          "Sid": "RedshiftDeleteActions",
+          "Effect": "Allow",
+          "Action": "redshift:DeleteCluster",
+          "Resource": "arn:aws:redshift:*:*:cluster:awsbackup-restore-test-*"
+        },
+        {
           "Sid": "S3DeleteActions",
           "Effect": "Allow",
           "Action": [
@@ -34642,12 +34750,18 @@
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
+        },
+        {
+          "Sid": "TimestreamDeleteActions",
+          "Effect": "Allow",
+          "Action": "timestream:DeleteTable",
+          "Resource": "arn:aws:timestream:*:*:database/*/table/awsbackup-restore-test-*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-10T23:37:45+00:00"
+    "CreateDate": "2024-02-14T22:42:37+00:00"
   },
   "AWSShieldDRTAccessPolicy": {
     "Document": {
@@ -40949,6 +41063,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSXRayDaemonWriteAccess",
           "Effect": "Allow",
           "Action": [
             "xray:PutTraceSegments",
@@ -40963,9 +41078,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2018-08-28T23:00:33+00:00"
+    "CreateDate": "2024-02-13T21:58:30+00:00"
   },
   "AWSXrayCrossAccountSharingConfiguration": {
     "Document": {
@@ -41029,6 +41144,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSXrayReadOnlyAccess",
           "Effect": "Allow",
           "Action": [
             "xray:GetSamplingRules",
@@ -41056,9 +41172,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-15T23:13:57+00:00"
+    "CreateDate": "2024-02-14T00:35:02+00:00"
   },
   "AWSXrayWriteOnlyAccess": {
     "Document": {
@@ -80814,20 +80930,28 @@
           "Action": [
             "ivs:BatchGetChannel",
             "ivs:GetChannel",
+            "ivs:GetComposition",
+            "ivs:GetEncoderConfiguration",
             "ivs:GetParticipant",
             "ivs:GetPlaybackKeyPair",
+            "ivs:GetPlaybackRestrictionPolicy",
             "ivs:GetRecordingConfiguration",
             "ivs:GetStage",
             "ivs:GetStageSession",
+            "ivs:GetStorageConfiguration",
             "ivs:GetStream",
             "ivs:GetStreamSession",
             "ivs:ListChannels",
+            "ivs:ListCompositions",
+            "ivs:ListEncoderConfigurations",
             "ivs:ListParticipants",
             "ivs:ListParticipantEvents",
             "ivs:ListPlaybackKeyPairs",
+            "ivs:ListPlaybackRestrictionPolicies",
             "ivs:ListRecordingConfigurations",
             "ivs:ListStages",
             "ivs:ListStageSessions",
+            "ivs:ListStorageConfigurations",
             "ivs:ListStreamKeys",
             "ivs:ListStreams",
             "ivs:ListStreamSessions",
@@ -80837,9 +80961,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-05T18:00:37+00:00"
+    "CreateDate": "2024-02-16T18:03:24+00:00"
   },
   "IVSRecordToS3": {
     "Document": {
