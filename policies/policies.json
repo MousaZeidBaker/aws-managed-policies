@@ -10504,6 +10504,7 @@
             "appsync:GetApiCache",
             "appsync:GetGraphqlApi",
             "appsync:ListGraphqlApis",
+            "aps:DescribeAlertManagerDefinition",
             "aps:DescribeLoggingConfiguration",
             "APS:DescribeRuleGroupsNamespace",
             "APS:DescribeWorkspace",
@@ -10593,6 +10594,7 @@
             "cloudtrail:ListTags",
             "cloudtrail:ListTrails",
             "cloudwatch:DescribeAlarms",
+            "cloudwatch:DescribeAlarmsForMetric",
             "cloudwatch:DescribeAnomalyDetectors",
             "cloudwatch:GetDashboard",
             "cloudwatch:GetMetricStream",
@@ -10622,7 +10624,9 @@
             "codepipeline:GetPipeline",
             "codepipeline:GetPipelineState",
             "codepipeline:ListPipelines",
+            "cognito-identity:DescribeIdentityPool",
             "cognito-identity:GetIdentityPoolRoles",
+            "cognito-identity:GetPrincipalTagAttributeMap",
             "cognito-identity:ListIdentityPools",
             "cognito-identity:ListTagsForResource",
             "cognito-idp:DescribeIdentityProvider",
@@ -10635,9 +10639,9 @@
             "cognito-idp:ListGroups",
             "cognito-idp:ListIdentityProviders",
             "cognito-idp:ListResourceServers",
+            "cognito-idp:ListTagsForResource",
             "cognito-idp:ListUserPoolClients",
             "cognito-idp:ListUserPools",
-            "cognito-idp:ListTagsForResource",
             "config:BatchGet*",
             "config:Describe*",
             "config:Get*",
@@ -10793,9 +10797,13 @@
             "elasticache:DescribeCacheClusters",
             "elasticache:DescribeCacheParameterGroups",
             "elasticache:DescribeCacheParameters",
+            "elasticache:DescribeCacheSecurityGroups",
             "elasticache:DescribeCacheSubnetGroups",
+            "elasticache:DescribeGlobalReplicationGroups",
             "elasticache:DescribeReplicationGroups",
             "elasticache:DescribeSnapshots",
+            "elasticache:DescribeUserGroups",
+            "elasticache:DescribeUsers",
             "elasticache:ListTagsForResource",
             "elasticbeanstalk:DescribeConfigurationSettings",
             "elasticbeanstalk:DescribeEnvironments",
@@ -10892,6 +10900,7 @@
             "frauddetector:GetVariables",
             "frauddetector:ListTagsForResource",
             "fsx:DescribeBackups",
+            "fsx:DescribeDataRepositoryAssociations",
             "fsx:DescribeFileSystems",
             "fsx:DescribeSnapshots",
             "fsx:DescribeStorageVirtualMachines",
@@ -10943,6 +10952,8 @@
             "glue:GetClassifiers",
             "glue:GetCrawler",
             "glue:GetCrawlers",
+            "glue:GetDatabase",
+            "glue:GetDatabases",
             "glue:GetDevEndpoint",
             "glue:GetDevEndpoints",
             "glue:GetJob",
@@ -11035,6 +11046,7 @@
             "iam:ListSAMLProviders",
             "iam:ListServerCertificates",
             "iam:ListUserPolicies",
+            "iam:ListUsers",
             "iam:ListVirtualMFADevices",
             "imagebuilder:GetComponent",
             "imagebuilder:GetContainerRecipe",
@@ -11202,10 +11214,13 @@
             "lambda:GetCodeSigningConfig",
             "lambda:GetFunction",
             "lambda:GetFunctionCodeSigningConfig",
+            "lambda:GetLayerVersion",
             "lambda:GetPolicy",
             "lambda:ListAliases",
             "lambda:ListCodeSigningConfigs",
             "lambda:ListFunctions",
+            "lambda:ListLayers",
+            "lambda:ListLayerVersions",
             "lambda:ListTags",
             "lambda:ListVersionsByFunction",
             "lex:DescribeBot",
@@ -11240,9 +11255,9 @@
             "lightsail:GetRelationalDatabases",
             "lightsail:GetStaticIp",
             "lightsail:GetStaticIps",
-            "logs:DescribeMetricFilters",
             "logs:DescribeDestinations",
             "logs:DescribeLogGroups",
+            "logs:DescribeMetricFilters",
             "logs:GetDataProtectionPolicy",
             "logs:GetLogDelivery",
             "logs:ListLogDeliveries",
@@ -11393,8 +11408,12 @@
             "quicksight:ListTagsForResource",
             "quicksight:ListTemplates",
             "quicksight:ListThemes",
+            "ram:GetPermission",
             "ram:GetResourceShareAssociations",
             "ram:GetResourceShares",
+            "ram:ListPermissionAssociations",
+            "ram:ListPermissions",
+            "ram:ListPermissionVersions",
             "ram:ListResources",
             "ram:ListResourceSharePermissions",
             "rds:DescribeDBClusterParameterGroups",
@@ -11417,6 +11436,11 @@
             "rds:DescribeGlobalClusters",
             "rds:DescribeOptionGroups",
             "rds:ListTagsForResource",
+            "redshift-serverless:GetNamespace",
+            "redshift-serverless:GetWorkgroup",
+            "redshift-serverless:ListNamespaces",
+            "redshift-serverless:ListTagsForResource",
+            "redshift-serverless:ListWorkgroups",
             "redshift:DescribeClusterParameterGroups",
             "redshift:DescribeClusterParameters",
             "redshift:DescribeClusters",
@@ -11568,6 +11592,7 @@
             "sagemaker:DescribeFeatureGroup",
             "sagemaker:DescribeImage",
             "sagemaker:DescribeImageVersion",
+            "sagemaker:DescribeInferenceExperiment",
             "sagemaker:DescribeModel",
             "sagemaker:DescribeModelBiasJobDefinition",
             "sagemaker:DescribeModelExplainabilityJobDefinition",
@@ -11588,6 +11613,7 @@
             "sagemaker:ListFeatureGroups",
             "sagemaker:ListImages",
             "sagemaker:ListImageVersions",
+            "sagemaker:ListInferenceExperiments",
             "sagemaker:ListModelBiasJobDefinitions",
             "sagemaker:ListModelExplainabilityJobDefinitions",
             "sagemaker:ListModelQualityJobDefinitions",
@@ -11639,6 +11665,7 @@
             "signer:ListProfilePermissions",
             "signer:ListSigningProfiles",
             "sns:GetDataProtectionPolicy",
+            "sns:GetSMSSandboxAccountStatus",
             "sns:GetSubscriptionAttributes",
             "sns:GetTopicAttributes",
             "sns:ListSubscriptions",
@@ -11771,9 +11798,9 @@
         }
       ]
     },
-    "VersionId": "v49",
+    "VersionId": "v50",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-04T23:52:36+00:00"
+    "CreateDate": "2024-02-22T17:20:56+00:00"
   },
   "AWSConfigUserAccess": {
     "Document": {
@@ -21728,15 +21755,16 @@
             "cloudformation:DescribeStackResources",
             "codedeploy:BatchGetDeployments",
             "codedeploy:ListDeployments",
-            "codedeploy:ListDeploymentTargets"
+            "codedeploy:ListDeploymentTargets",
+            "autoscaling:DescribeAutoScalingInstances"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-13T00:01:23+00:00"
+    "CreateDate": "2024-02-20T23:02:11+00:00"
   },
   "AWSIncidentManagerResolverAccess": {
     "Document": {
@@ -32614,6 +32642,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSSecurityHubReadOnlyAccess",
           "Effect": "Allow",
           "Action": [
             "securityhub:Get*",
@@ -32625,9 +32654,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-04T17:46:51+00:00"
+    "CreateDate": "2024-02-22T23:45:59+00:00"
   },
   "AWSSecurityHubServiceRolePolicy": {
     "Document": {
@@ -38867,6 +38896,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSThinkboxAWSPortal1",
           "Effect": "Allow",
           "Action": [
             "ec2:AttachInternetGateway",
@@ -38937,6 +38967,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSThinkboxAWSPortal2",
           "Effect": "Allow",
           "Action": "ec2:RunInstances",
           "Resource": [
@@ -38952,6 +38983,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxAWSPortal3",
           "Effect": "Allow",
           "Action": "ec2:RunInstances",
           "Resource": "arn:aws:ec2:*:*:instance/*",
@@ -38962,6 +38994,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal4",
           "Effect": "Allow",
           "Action": "ec2:TerminateInstances",
           "Resource": "*",
@@ -38972,6 +39005,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal5",
           "Effect": "Allow",
           "Action": "ec2:TerminateInstances",
           "Resource": "*",
@@ -38982,6 +39016,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal6",
           "Effect": "Allow",
           "Action": "ec2:TerminateInstances",
           "Resource": "*",
@@ -38992,6 +39027,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal7",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags"
@@ -39004,6 +39040,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal8",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags"
@@ -39016,6 +39053,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal9",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags",
@@ -39028,10 +39066,12 @@
             "arn:aws:ec2:*:*:route-table/*",
             "arn:aws:ec2:*:*:volume/*",
             "arn:aws:ec2:*:*:vpc/*",
-            "arn:aws:ec2:*:*:natgateway/*"
+            "arn:aws:ec2:*:*:natgateway/*",
+            "arn:aws:ec2:*:*:elastic-ip/*"
           ]
         },
         {
+          "Sid": "AWSThinkboxAWSPortal10",
           "Effect": "Allow",
           "Action": [
             "iam:GetUser"
@@ -39039,6 +39079,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSThinkboxAWSPortal11",
           "Effect": "Allow",
           "Action": [
             "iam:GetInstanceProfile"
@@ -39048,6 +39089,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxAWSPortal12",
           "Effect": "Allow",
           "Action": [
             "iam:GetPolicy",
@@ -39059,6 +39101,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxAWSPortal13",
           "Effect": "Allow",
           "Action": [
             "iam:GetRole",
@@ -39070,6 +39113,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxAWSPortal14",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -39091,6 +39135,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal15",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "arn:aws:iam::*:role/aws-service-role/*",
@@ -39105,6 +39150,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal16",
           "Effect": "Allow",
           "Action": [
             "s3:CreateBucket",
@@ -39137,6 +39183,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxAWSPortal17",
           "Effect": "Allow",
           "Action": [
             "s3:PutBucketPolicy"
@@ -39146,6 +39193,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxAWSPortal18",
           "Effect": "Allow",
           "Action": [
             "s3:PutBucketOwnershipControls"
@@ -39155,6 +39203,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxAWSPortal19",
           "Effect": "Allow",
           "Action": [
             "s3:ListAllMyBuckets"
@@ -39162,6 +39211,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSThinkboxAWSPortal20",
           "Effect": "Allow",
           "Action": [
             "dynamodb:Scan"
@@ -39169,6 +39219,7 @@
           "Resource": "arn:aws:dynamodb:*:*:table/DeadlineFleetHealth*"
         },
         {
+          "Sid": "AWSThinkboxAWSPortal21",
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateStack",
@@ -39188,6 +39239,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxAWSPortal22",
           "Effect": "Allow",
           "Action": [
             "cloudformation:EstimateTemplateCost",
@@ -39197,6 +39249,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSThinkboxAWSPortal23",
           "Effect": "Allow",
           "Action": [
             "logs:DescribeLogStreams",
@@ -39207,6 +39260,7 @@
           "Resource": "arn:aws:logs:*:*:log-group:/thinkbox*"
         },
         {
+          "Sid": "AWSThinkboxAWSPortal24",
           "Effect": "Allow",
           "Action": [
             "logs:DescribeLogGroups",
@@ -39215,6 +39269,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSThinkboxAWSPortal25",
           "Effect": "Allow",
           "Action": [
             "kms:Encrypt",
@@ -39233,6 +39288,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal26",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:CreateSecret"
@@ -39247,6 +39303,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxAWSPortal27",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:DeleteSecret",
@@ -39258,9 +39315,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-18T18:24:02+00:00"
+    "CreateDate": "2024-02-23T22:25:47+00:00"
   },
   "AWSThinkboxAWSPortalGatewayPolicy": {
     "Document": {
@@ -41314,6 +41371,7 @@
             "appsync:GetApiCache",
             "appsync:GetGraphqlApi",
             "appsync:ListGraphqlApis",
+            "aps:DescribeAlertManagerDefinition",
             "aps:DescribeLoggingConfiguration",
             "APS:DescribeRuleGroupsNamespace",
             "APS:DescribeWorkspace",
@@ -41403,6 +41461,7 @@
             "cloudtrail:ListTags",
             "cloudtrail:ListTrails",
             "cloudwatch:DescribeAlarms",
+            "cloudwatch:DescribeAlarmsForMetric",
             "cloudwatch:DescribeAnomalyDetectors",
             "cloudwatch:GetDashboard",
             "cloudwatch:GetMetricStream",
@@ -41432,7 +41491,9 @@
             "codepipeline:GetPipeline",
             "codepipeline:GetPipelineState",
             "codepipeline:ListPipelines",
+            "cognito-identity:DescribeIdentityPool",
             "cognito-identity:GetIdentityPoolRoles",
+            "cognito-identity:GetPrincipalTagAttributeMap",
             "cognito-identity:ListIdentityPools",
             "cognito-identity:ListTagsForResource",
             "cognito-idp:DescribeIdentityProvider",
@@ -41445,9 +41506,9 @@
             "cognito-idp:ListGroups",
             "cognito-idp:ListIdentityProviders",
             "cognito-idp:ListResourceServers",
+            "cognito-idp:ListTagsForResource",
             "cognito-idp:ListUserPoolClients",
             "cognito-idp:ListUserPools",
-            "cognito-idp:ListTagsForResource",
             "config:BatchGet*",
             "config:Describe*",
             "config:Get*",
@@ -41603,9 +41664,13 @@
             "elasticache:DescribeCacheClusters",
             "elasticache:DescribeCacheParameterGroups",
             "elasticache:DescribeCacheParameters",
+            "elasticache:DescribeCacheSecurityGroups",
             "elasticache:DescribeCacheSubnetGroups",
+            "elasticache:DescribeGlobalReplicationGroups",
             "elasticache:DescribeReplicationGroups",
             "elasticache:DescribeSnapshots",
+            "elasticache:DescribeUserGroups",
+            "elasticache:DescribeUsers",
             "elasticache:ListTagsForResource",
             "elasticbeanstalk:DescribeConfigurationSettings",
             "elasticbeanstalk:DescribeEnvironments",
@@ -41702,6 +41767,7 @@
             "frauddetector:GetVariables",
             "frauddetector:ListTagsForResource",
             "fsx:DescribeBackups",
+            "fsx:DescribeDataRepositoryAssociations",
             "fsx:DescribeFileSystems",
             "fsx:DescribeSnapshots",
             "fsx:DescribeStorageVirtualMachines",
@@ -41753,6 +41819,8 @@
             "glue:GetClassifiers",
             "glue:GetCrawler",
             "glue:GetCrawlers",
+            "glue:GetDatabase",
+            "glue:GetDatabases",
             "glue:GetDevEndpoint",
             "glue:GetDevEndpoints",
             "glue:GetJob",
@@ -41845,6 +41913,7 @@
             "iam:ListSAMLProviders",
             "iam:ListServerCertificates",
             "iam:ListUserPolicies",
+            "iam:ListUsers",
             "iam:ListVirtualMFADevices",
             "imagebuilder:GetComponent",
             "imagebuilder:GetContainerRecipe",
@@ -42012,10 +42081,13 @@
             "lambda:GetCodeSigningConfig",
             "lambda:GetFunction",
             "lambda:GetFunctionCodeSigningConfig",
+            "lambda:GetLayerVersion",
             "lambda:GetPolicy",
             "lambda:ListAliases",
             "lambda:ListCodeSigningConfigs",
             "lambda:ListFunctions",
+            "lambda:ListLayers",
+            "lambda:ListLayerVersions",
             "lambda:ListTags",
             "lambda:ListVersionsByFunction",
             "lex:DescribeBot",
@@ -42050,9 +42122,9 @@
             "lightsail:GetRelationalDatabases",
             "lightsail:GetStaticIp",
             "lightsail:GetStaticIps",
-            "logs:DescribeMetricFilters",
             "logs:DescribeDestinations",
             "logs:DescribeLogGroups",
+            "logs:DescribeMetricFilters",
             "logs:GetDataProtectionPolicy",
             "logs:GetLogDelivery",
             "logs:ListLogDeliveries",
@@ -42203,8 +42275,12 @@
             "quicksight:ListTagsForResource",
             "quicksight:ListTemplates",
             "quicksight:ListThemes",
+            "ram:GetPermission",
             "ram:GetResourceShareAssociations",
             "ram:GetResourceShares",
+            "ram:ListPermissionAssociations",
+            "ram:ListPermissions",
+            "ram:ListPermissionVersions",
             "ram:ListResources",
             "ram:ListResourceSharePermissions",
             "rds:DescribeDBClusterParameterGroups",
@@ -42227,6 +42303,11 @@
             "rds:DescribeGlobalClusters",
             "rds:DescribeOptionGroups",
             "rds:ListTagsForResource",
+            "redshift-serverless:GetNamespace",
+            "redshift-serverless:GetWorkgroup",
+            "redshift-serverless:ListNamespaces",
+            "redshift-serverless:ListTagsForResource",
+            "redshift-serverless:ListWorkgroups",
             "redshift:DescribeClusterParameterGroups",
             "redshift:DescribeClusterParameters",
             "redshift:DescribeClusters",
@@ -42378,6 +42459,7 @@
             "sagemaker:DescribeFeatureGroup",
             "sagemaker:DescribeImage",
             "sagemaker:DescribeImageVersion",
+            "sagemaker:DescribeInferenceExperiment",
             "sagemaker:DescribeModel",
             "sagemaker:DescribeModelBiasJobDefinition",
             "sagemaker:DescribeModelExplainabilityJobDefinition",
@@ -42398,6 +42480,7 @@
             "sagemaker:ListFeatureGroups",
             "sagemaker:ListImages",
             "sagemaker:ListImageVersions",
+            "sagemaker:ListInferenceExperiments",
             "sagemaker:ListModelBiasJobDefinitions",
             "sagemaker:ListModelExplainabilityJobDefinitions",
             "sagemaker:ListModelQualityJobDefinitions",
@@ -42449,6 +42532,7 @@
             "signer:ListProfilePermissions",
             "signer:ListSigningProfiles",
             "sns:GetDataProtectionPolicy",
+            "sns:GetSMSSandboxAccountStatus",
             "sns:GetSubscriptionAttributes",
             "sns:GetTopicAttributes",
             "sns:ListSubscriptions",
@@ -42549,9 +42633,9 @@
         }
       ]
     },
-    "VersionId": "v29",
+    "VersionId": "v30",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-04T23:44:46+00:00"
+    "CreateDate": "2024-02-22T21:19:24+00:00"
   },
   "AWSrePostPrivateCloudWatchAccess": {
     "Document": {
@@ -65480,7 +65564,11 @@
         {
           "Sid": "RedshiftPermissions",
           "Effect": "Allow",
-          "Action": "redshift:DescribeClusters",
+          "Action": [
+            "redshift:DescribeClusters",
+            "redshift-serverless:ListNamespaces",
+            "redshift-serverless:ListWorkgroups"
+          ],
           "Resource": "*"
         },
         {
@@ -65524,9 +65612,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-23T17:05:06+00:00"
+    "CreateDate": "2024-02-21T17:20:52+00:00"
   },
   "AmazonRedshiftQueryEditorV2NoSharing": {
     "Document": {
@@ -65535,7 +65623,11 @@
         {
           "Sid": "RedshiftPermissions",
           "Effect": "Allow",
-          "Action": "redshift:DescribeClusters",
+          "Action": [
+            "redshift:DescribeClusters",
+            "redshift-serverless:ListNamespaces",
+            "redshift-serverless:ListWorkgroups"
+          ],
           "Resource": "*"
         },
         {
@@ -65678,9 +65770,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-16T19:24:59+00:00"
+    "CreateDate": "2024-02-21T17:25:07+00:00"
   },
   "AmazonRedshiftQueryEditorV2ReadSharing": {
     "Document": {
@@ -65689,7 +65781,11 @@
         {
           "Sid": "RedshiftPermissions",
           "Effect": "Allow",
-          "Action": "redshift:DescribeClusters",
+          "Action": [
+            "redshift:DescribeClusters",
+            "redshift-serverless:ListNamespaces",
+            "redshift-serverless:ListWorkgroups"
+          ],
           "Resource": "*"
         },
         {
@@ -65887,9 +65983,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-16T19:23:13+00:00"
+    "CreateDate": "2024-02-21T17:27:40+00:00"
   },
   "AmazonRedshiftQueryEditorV2ReadWriteSharing": {
     "Document": {
@@ -65898,7 +65994,11 @@
         {
           "Sid": "RedshiftPermissions",
           "Effect": "Allow",
-          "Action": "redshift:DescribeClusters",
+          "Action": [
+            "redshift:DescribeClusters",
+            "redshift-serverless:ListNamespaces",
+            "redshift-serverless:ListWorkgroups"
+          ],
           "Resource": "*"
         },
         {
@@ -66101,9 +66201,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-16T18:23:05+00:00"
+    "CreateDate": "2024-02-21T17:30:28+00:00"
   },
   "AmazonRedshiftReadOnlyAccess": {
     "Document": {
@@ -72267,6 +72367,7 @@
             "events:ListConnections",
             "events:ListApiDestinations",
             "iam:GetRole",
+            "iam:ListAttachedRolePolicies",
             "kms:DescribeKey"
           ],
           "Resource": "*",
@@ -72303,11 +72404,35 @@
         {
           "Sid": "AllowLambdaCreateFunction",
           "Effect": "Allow",
-          "Action": "lambda:CreateFunction",
-          "Resource": "arn:aws:lambda:*:*:function:SecurityLake_Glue_Partition_Updater_Lambda*",
+          "Action": [
+            "lambda:CreateFunction"
+          ],
+          "Resource": [
+            "arn:aws:lambda:*:*:function:SecurityLake_Glue_Partition_Updater_Lambda*",
+            "arn:aws:lambda:*:*:function:AmazonSecurityLake*"
+          ],
           "Condition": {
             "ForAnyValue:StringEquals": {
               "aws:CalledVia": "securitylake.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowLambdaAddPermission",
+          "Effect": "Allow",
+          "Action": [
+            "lambda:AddPermission"
+          ],
+          "Resource": [
+            "arn:aws:lambda:*:*:function:SecurityLake_Glue_Partition_Updater_Lambda*",
+            "arn:aws:lambda:*:*:function:AmazonSecurityLake*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "securitylake.amazonaws.com"
+            },
+            "StringEquals": {
+              "lambda:Principal": "securitylake.amazonaws.com"
             }
           }
         },
@@ -72396,7 +72521,8 @@
             "ForAllValues:StringEquals": {
               "kms:GrantOperations": [
                 "GenerateDataKey",
-                "RetireGrant"
+                "RetireGrant",
+                "Decrypt"
               ]
             }
           }
@@ -72460,7 +72586,10 @@
           "Sid": "AllowPassRoleForUpdatingGluePartitionsSecLakeArn",
           "Effect": "Allow",
           "Action": "iam:PassRole",
-          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeMetaStoreManager",
+          "Resource": [
+            "arn:aws:iam::*:role/service-role/AmazonSecurityLakeMetaStoreManager",
+            "arn:aws:iam::*:role/service-role/AmazonSecurityLakeMetaStoreManagerV2"
+          ],
           "Condition": {
             "StringEquals": {
               "iam:PassedToService": "lambda.amazonaws.com"
@@ -72474,13 +72603,19 @@
           "Sid": "AllowPassRoleForUpdatingGluePartitionsLambdaArn",
           "Effect": "Allow",
           "Action": "iam:PassRole",
-          "Resource": "arn:aws:iam::*:role/service-role/AmazonSecurityLakeMetaStoreManager",
+          "Resource": [
+            "arn:aws:iam::*:role/service-role/AmazonSecurityLakeMetaStoreManager",
+            "arn:aws:iam::*:role/service-role/AmazonSecurityLakeMetaStoreManagerV2"
+          ],
           "Condition": {
             "StringEquals": {
               "iam:PassedToService": "lambda.amazonaws.com"
             },
             "StringLike": {
-              "iam:AssociatedResourceARN": "arn:aws:lambda:*:*:function:SecurityLake_Glue_Partition_Updater_Lambda*"
+              "iam:AssociatedResourceARN": [
+                "arn:aws:lambda:*:*:function:SecurityLake_Glue_Partition_Updater_Lambda*",
+                "arn:aws:lambda:*:*:function:AmazonSecurityLake*"
+              ]
             },
             "ForAnyValue:StringEquals": {
               "aws:CalledVia": "securitylake.amazonaws.com"
@@ -72652,6 +72787,15 @@
           "Resource": "arn:aws:s3:::aws-security-data-lake-*"
         },
         {
+          "Sid": "S3ReadAccessToSecurityLakeMetastoreObject",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject",
+            "s3:GetObjectVersion"
+          ],
+          "Resource": "arn:aws:s3:::security-lake-meta-store-manager-*"
+        },
+        {
           "Sid": "S3ResourcelessReadOnly",
           "Effect": "Allow",
           "Action": [
@@ -72663,9 +72807,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-30T22:04:10+00:00"
+    "CreateDate": "2024-02-23T16:01:57+00:00"
   },
   "AmazonSecurityLakeMetastoreManager": {
     "Document": {
@@ -86311,6 +86455,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "BasePermissions",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:*",
@@ -86331,11 +86476,14 @@
             "rds:DescribeDBClusters",
             "rds:DescribeDBInstances",
             "redshift:DescribeClusters",
+            "redshift-serverless:ListWorkgroups",
+            "redshift-serverless:GetNamespace",
             "tag:GetResources"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "LambdaPermissions",
           "Effect": "Allow",
           "Action": [
             "lambda:AddPermission",
@@ -86347,6 +86495,7 @@
           "Resource": "arn:aws:lambda:*:*:function:SecretsManager*"
         },
         {
+          "Sid": "SARPermissions",
           "Effect": "Allow",
           "Action": [
             "serverlessrepo:CreateCloudFormationChangeSet",
@@ -86355,6 +86504,7 @@
           "Resource": "arn:aws:serverlessrepo:*:*:applications/SecretsManager*"
         },
         {
+          "Sid": "S3Permissions",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject"
@@ -86366,9 +86516,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-08-29T20:42:39+00:00"
+    "CreateDate": "2024-02-22T18:12:06+00:00"
   },
   "SecurityAudit": {
     "Document": {

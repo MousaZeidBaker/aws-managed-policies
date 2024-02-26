@@ -10,13 +10,14 @@
           "cloudformation:DescribeStackResources",
           "codedeploy:BatchGetDeployments",
           "codedeploy:ListDeployments",
-          "codedeploy:ListDeploymentTargets"
+          "codedeploy:ListDeploymentTargets",
+          "autoscaling:DescribeAutoScalingInstances"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-13T00:01:23+00:00"
+  "CreateDate": "2024-02-20T23:02:11+00:00"
 }
