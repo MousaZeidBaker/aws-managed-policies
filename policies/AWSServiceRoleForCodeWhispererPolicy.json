@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "sid1",
         "Effect": "Allow",
         "Action": [
           "sso-directory:ListMembersInGroup"
@@ -12,6 +13,7 @@
         ]
       },
       {
+        "Sid": "sid2",
         "Effect": "Allow",
         "Action": [
           "sso:ListProfileAssociations",
@@ -19,13 +21,16 @@
           "sso:ListDirectoryAssociations",
           "sso:DescribeRegisteredRegions",
           "sso:GetProfile",
-          "sso:GetManagedApplicationInstance"
+          "sso:GetManagedApplicationInstance",
+          "sso:ListApplicationAssignments",
+          "sso:DescribeInstance"
         ],
         "Resource": [
           "*"
         ]
       },
       {
+        "Sid": "sid3",
         "Effect": "Allow",
         "Action": [
           "codeguru-security:CreateUploadUrl"
@@ -35,6 +40,7 @@
         ]
       },
       {
+        "Sid": "sid4",
         "Effect": "Allow",
         "Action": [
           "codeguru-security:CreateScan",
@@ -47,6 +53,7 @@
         ]
       },
       {
+        "Sid": "sid5",
         "Effect": "Allow",
         "Action": [
           "cloudwatch:PutMetricData"
@@ -62,7 +69,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-28T16:57:20+00:00"
+  "CreateDate": "2024-03-01T23:35:24+00:00"
 }
