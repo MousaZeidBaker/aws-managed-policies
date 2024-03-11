@@ -25560,6 +25560,105 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-01-19T23:30:25+00:00"
   },
+  "AWSMarketplaceResaleAuthorizationServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowResaleAuthorizationShareActionsRAMCreate",
+          "Effect": "Allow",
+          "Action": [
+            "ram:CreateResourceShare"
+          ],
+          "Resource": [
+            "arn:aws:ram:*:*:*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ram:RequestedResourceType": "aws-marketplace:Entity"
+            },
+            "ArnLike": {
+              "ram:ResourceArn": "arn:aws:aws-marketplace:*:*:AWSMarketplace/ResaleAuthorization/*"
+            },
+            "Null": {
+              "ram:Principal": "true"
+            }
+          }
+        },
+        {
+          "Sid": "AllowResaleAuthorizationShareActionsRAMAssociate",
+          "Effect": "Allow",
+          "Action": [
+            "ram:AssociateResourceShare"
+          ],
+          "Resource": [
+            "arn:aws:ram:*:*:*"
+          ],
+          "Condition": {
+            "Null": {
+              "ram:Principal": "false"
+            },
+            "StringEquals": {
+              "ram:ResourceShareName": "AWSMarketplaceResaleAuthorization"
+            }
+          }
+        },
+        {
+          "Sid": "AllowResaleAuthorizationShareActionsRAMAccept",
+          "Effect": "Allow",
+          "Action": [
+            "ram:AcceptResourceShareInvitation"
+          ],
+          "Resource": [
+            "arn:aws:ram:*:*:*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ram:ResourceShareName": "AWSMarketplaceResaleAuthorization"
+            }
+          }
+        },
+        {
+          "Sid": "AllowResaleAuthorizationShareActionsRAMGet",
+          "Effect": "Allow",
+          "Action": [
+            "ram:GetResourceShareInvitations",
+            "ram:GetResourceShareAssociations"
+          ],
+          "Resource": [
+            "arn:aws:ram:*:*:*"
+          ]
+        },
+        {
+          "Sid": "AllowResaleAuthorizationShareActionsMarketplace",
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:PutResourcePolicy",
+            "aws-marketplace:GetResourcePolicy"
+          ],
+          "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/ResaleAuthorization/*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "ram.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllowResaleAuthorizationShareActionsMarketplaceDescribe",
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:DescribeEntity"
+          ],
+          "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/ResaleAuthorization/*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-03-05T18:47:54+00:00"
+  },
   "AWSMarketplaceSellerFullAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -26261,6 +26360,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "ApplicationDiscoveryService",
           "Effect": "Allow",
           "Action": [
             "discovery:DescribeConfigurations",
@@ -26269,14 +26369,18 @@
           "Resource": "*"
         },
         {
+          "Sid": "LaunchWizard",
           "Effect": "Allow",
           "Action": [
             "launchwizard:ListProvisionedApps",
-            "launchwizard:DescribeProvisionedApp"
+            "launchwizard:DescribeProvisionedApp",
+            "launchwizard:ListDeployments",
+            "launchwizard:GetDeployment"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "EC2instances",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeInstances"
@@ -26284,6 +26388,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "ec2MGNLaunchTemplate",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateLaunchTemplateVersion",
@@ -26297,6 +26402,7 @@
           }
         },
         {
+          "Sid": "ec2LaunchTemplates",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeLaunchTemplates"
@@ -26304,6 +26410,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "getHomeRegion",
           "Action": [
             "mgh:GetHomeRegion"
           ],
@@ -26311,6 +26418,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "SSMcommand",
           "Effect": "Allow",
           "Action": [
             "ssm:SendCommand",
@@ -26325,6 +26433,7 @@
           ]
         },
         {
+          "Sid": "SSM",
           "Effect": "Allow",
           "Action": [
             "ssm:DescribeInstanceInformation",
@@ -26335,6 +26444,7 @@
           ]
         },
         {
+          "Sid": "s3GetObject",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject"
@@ -26345,6 +26455,7 @@
           ]
         },
         {
+          "Sid": "EventBridge",
           "Effect": "Allow",
           "Action": [
             "events:PutTargets",
@@ -26356,6 +26467,7 @@
           "Resource": "arn:aws:events:*:*:rule/MigrationHubOrchestratorManagedRule*"
         },
         {
+          "Sid": "MGN",
           "Effect": "Allow",
           "Action": [
             "mgn:GetReplicationConfiguration",
@@ -26371,6 +26483,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "ec2DescribeImportImage",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeImportImageTasks"
@@ -26378,6 +26491,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "s3ListBucket",
           "Effect": "Allow",
           "Action": "s3:ListBucket",
           "Resource": "arn:aws:s3:::*",
@@ -26389,9 +26503,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-24T20:28:36+00:00"
+    "CreateDate": "2024-03-04T18:25:12+00:00"
   },
   "AWSMigrationHubRefactorSpaces-EnvironmentsWithoutBridgesFullAccess": {
     "Document": {
@@ -53177,6 +53291,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonEKSCNIPolicy",
           "Effect": "Allow",
           "Action": [
             "ec2:AssignPrivateIpAddresses",
@@ -53187,6 +53302,7 @@
             "ec2:DescribeTags",
             "ec2:DescribeNetworkInterfaces",
             "ec2:DescribeInstanceTypes",
+            "ec2:DescribeSubnets",
             "ec2:DetachNetworkInterface",
             "ec2:ModifyNetworkInterfaceAttribute",
             "ec2:UnassignPrivateIpAddresses"
@@ -53194,6 +53310,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AmazonEKSCNIPolicyENITag",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags"
@@ -53204,9 +53321,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-04-20T20:52:01+00:00"
+    "CreateDate": "2024-03-04T20:20:55+00:00"
   },
   "AmazonEMRCleanupPolicy": {
     "Document": {
@@ -59948,7 +60065,8 @@
             "lex:CreateCustomVocabulary",
             "lex:UpdateCustomVocabulary",
             "lex:DeleteCustomVocabulary",
-            "lex:DeleteBotChannel"
+            "lex:DeleteBotChannel",
+            "lex:DeleteResourcePolicy"
           ],
           "Resource": [
             "arn:aws:lex:*:*:bot/*",
@@ -59989,9 +60107,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-31T23:29:42+00:00"
+    "CreateDate": "2024-03-08T17:11:32+00:00"
   },
   "AmazonLexRunBotsOnly": {
     "Document": {
@@ -77176,8 +77294,7 @@
             "logs:GetQueryResults"
           ],
           "Resource": [
-            "arn:aws:logs:*:*:log-group:/aws/appsignals/eks:*",
-            "arn:aws:logs:*:*:log-group:/aws/appsignals/generic:*"
+            "arn:aws:logs:*:*:log-group:/aws/appsignals/*:*"
           ],
           "Condition": {
             "StringEquals": {
@@ -77218,9 +77335,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-09T18:09:57+00:00"
+    "CreateDate": "2024-03-07T00:04:01+00:00"
   },
   "CloudWatchAutomaticDashboardsAccess": {
     "Document": {
