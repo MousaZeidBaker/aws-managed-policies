@@ -5,6 +5,7 @@
         "Action": [
           "codepipeline:*",
           "cloudformation:DescribeStacks",
+          "cloudformation:ListStacks",
           "cloudformation:ListChangeSets",
           "cloudtrail:DescribeTrails",
           "codebuild:BatchGetProjects",
@@ -44,7 +45,8 @@
           "states:ListStateMachines"
         ],
         "Effect": "Allow",
-        "Resource": "*"
+        "Resource": "*",
+        "Sid": "CodePipelineAuthoringAccess"
       },
       {
         "Action": [
@@ -57,7 +59,8 @@
           "s3:PutBucketPolicy"
         ],
         "Effect": "Allow",
-        "Resource": "arn:aws:s3::*:codepipeline-*"
+        "Resource": "arn:aws:s3::*:codepipeline-*",
+        "Sid": "CodePipelineArtifactsReadWriteAccess"
       },
       {
         "Action": [
@@ -67,7 +70,8 @@
           "cloudtrail:StartLogging"
         ],
         "Effect": "Allow",
-        "Resource": "arn:aws:cloudtrail:*:*:trail/codepipeline-source-trail"
+        "Resource": "arn:aws:cloudtrail:*:*:trail/codepipeline-source-trail",
+        "Sid": "CodePipelineSourceTrailReadWriteAccess"
       },
       {
         "Action": [
@@ -83,7 +87,8 @@
               "events.amazonaws.com"
             ]
           }
-        }
+        },
+        "Sid": "EventsIAMPassRole"
       },
       {
         "Action": [
@@ -97,7 +102,8 @@
               "codepipeline.amazonaws.com"
             ]
           }
-        }
+        },
+        "Sid": "CodePipelineIAMPassRole"
       },
       {
         "Action": [
@@ -110,7 +116,8 @@
         "Effect": "Allow",
         "Resource": [
           "arn:aws:events:*:*:rule/codepipeline-*"
-        ]
+        ],
+        "Sid": "CodePipelineEventsReadWriteAccess"
       },
       {
         "Sid": "CodeStarNotificationsReadWriteAccess",
@@ -151,7 +158,7 @@
     ],
     "Version": "2012-10-17"
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-21T22:46:59+00:00"
+  "CreateDate": "2024-03-14T17:06:23+00:00"
 }

@@ -9327,6 +9327,7 @@
           "Action": [
             "codepipeline:*",
             "cloudformation:DescribeStacks",
+            "cloudformation:ListStacks",
             "cloudformation:ListChangeSets",
             "cloudtrail:DescribeTrails",
             "codebuild:BatchGetProjects",
@@ -9366,7 +9367,8 @@
             "states:ListStateMachines"
           ],
           "Effect": "Allow",
-          "Resource": "*"
+          "Resource": "*",
+          "Sid": "CodePipelineAuthoringAccess"
         },
         {
           "Action": [
@@ -9379,7 +9381,8 @@
             "s3:PutBucketPolicy"
           ],
           "Effect": "Allow",
-          "Resource": "arn:aws:s3::*:codepipeline-*"
+          "Resource": "arn:aws:s3::*:codepipeline-*",
+          "Sid": "CodePipelineArtifactsReadWriteAccess"
         },
         {
           "Action": [
@@ -9389,7 +9392,8 @@
             "cloudtrail:StartLogging"
           ],
           "Effect": "Allow",
-          "Resource": "arn:aws:cloudtrail:*:*:trail/codepipeline-source-trail"
+          "Resource": "arn:aws:cloudtrail:*:*:trail/codepipeline-source-trail",
+          "Sid": "CodePipelineSourceTrailReadWriteAccess"
         },
         {
           "Action": [
@@ -9405,7 +9409,8 @@
                 "events.amazonaws.com"
               ]
             }
-          }
+          },
+          "Sid": "EventsIAMPassRole"
         },
         {
           "Action": [
@@ -9419,7 +9424,8 @@
                 "codepipeline.amazonaws.com"
               ]
             }
-          }
+          },
+          "Sid": "CodePipelineIAMPassRole"
         },
         {
           "Action": [
@@ -9432,7 +9438,8 @@
           "Effect": "Allow",
           "Resource": [
             "arn:aws:events:*:*:rule/codepipeline-*"
-          ]
+          ],
+          "Sid": "CodePipelineEventsReadWriteAccess"
         },
         {
           "Sid": "CodeStarNotificationsReadWriteAccess",
@@ -9473,9 +9480,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-21T22:46:59+00:00"
+    "CreateDate": "2024-03-14T17:06:23+00:00"
   },
   "AWSCodePipeline_ReadOnlyAccess": {
     "Document": {
@@ -25692,12 +25699,12 @@
         },
         {
           "Sid": "AgreementAccess",
+          "Effect": "Allow",
           "Action": [
             "aws-marketplace:SearchAgreements",
             "aws-marketplace:DescribeAgreement",
             "aws-marketplace:GetAgreementTerms"
           ],
-          "Effect": "Allow",
           "Resource": "*",
           "Condition": {
             "StringEquals": {
@@ -25791,12 +25798,23 @@
             "aws-marketplace:DeleteResourcePolicy"
           ],
           "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
+        },
+        {
+          "Sid": "CreateServiceLinkedRole",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "resale-authorization.marketplace.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-08T19:19:05+00:00"
+    "CreateDate": "2024-03-15T16:09:02+00:00"
   },
   "AWSMarketplaceSellerProductsFullAccess": {
     "Document": {
@@ -47241,7 +47259,7 @@
             "datazone:UpdateSubscriptionRequest",
             "datazone:StartMetadataGenerationRun",
             "datazone:GetMetadataGenerationRun",
-            "datazone:StopMetadataGenerationRun",
+            "datazone:CancelMetadataGenerationRun",
             "datazone:ListMetadataGenerationRuns"
           ],
           "Resource": "*"
@@ -47254,9 +47272,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-01T23:12:59+00:00"
+    "CreateDate": "2024-03-12T23:48:00+00:00"
   },
   "AmazonDataZoneEnvironmentRolePermissionsBoundary": {
     "Document": {
@@ -47826,6 +47844,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonDataZoneStatement",
           "Effect": "Allow",
           "Action": [
             "datazone:*"
@@ -47835,19 +47854,26 @@
           ]
         },
         {
+          "Sid": "ReadOnlyStatement",
           "Effect": "Allow",
           "Action": [
             "kms:DescribeKey",
             "kms:ListAliases",
             "iam:ListRoles",
             "sso:DescribeRegisteredRegions",
-            "s3:ListAllMyBuckets"
+            "s3:ListAllMyBuckets",
+            "redshift:DescribeClusters",
+            "redshift-serverless:ListWorkgroups",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcs",
+            "secretsmanager:ListSecrets"
           ],
           "Resource": [
             "*"
           ]
         },
         {
+          "Sid": "BucketReadOnlyStatement",
           "Effect": "Allow",
           "Action": [
             "s3:ListBucket",
@@ -47856,11 +47882,13 @@
           "Resource": "arn:aws:s3:::*"
         },
         {
+          "Sid": "CreateBucketStatement",
           "Effect": "Allow",
           "Action": "s3:CreateBucket",
           "Resource": "arn:aws:s3:::amazon-datazone*"
         },
         {
+          "Sid": "RamCreateResourceStatement",
           "Effect": "Allow",
           "Action": [
             "ram:CreateResourceShare"
@@ -47873,6 +47901,7 @@
           }
         },
         {
+          "Sid": "RamResourceStatement",
           "Effect": "Allow",
           "Action": [
             "ram:DeleteResourceShare",
@@ -47890,6 +47919,7 @@
           }
         },
         {
+          "Sid": "RamResourceReadOnlyStatement",
           "Effect": "Allow",
           "Action": [
             "ram:GetResourceShares",
@@ -47899,6 +47929,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "IAMPassRoleStatement",
           "Effect": "Allow",
           "Action": "iam:PassRole",
           "Resource": [
@@ -47910,12 +47941,47 @@
               "iam:passedToService": "datazone.amazonaws.com"
             }
           }
+        },
+        {
+          "Sid": "DataZoneTagOnCreate",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:TagResource"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonDataZone-*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "AmazonDataZoneDomain"
+              ]
+            },
+            "StringLike": {
+              "aws:RequestTag/AmazonDataZoneDomain": "dzd_*",
+              "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*"
+            },
+            "Null": {
+              "aws:TagKeys": "false"
+            }
+          }
+        },
+        {
+          "Sid": "CreateSecretStatement",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:CreateSecret"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonDataZone-*",
+          "Condition": {
+            "StringLike": {
+              "aws:RequestTag/AmazonDataZoneDomain": "dzd_*"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-22T20:06:52+00:00"
+    "CreateDate": "2024-03-12T16:34:41+00:00"
   },
   "AmazonDataZoneFullUserAccess": {
     "Document": {
@@ -48020,7 +48086,7 @@
             "datazone:ListNotifications",
             "datazone:StartMetadataGenerationRun",
             "datazone:GetMetadataGenerationRun",
-            "datazone:StopMetadataGenerationRun",
+            "datazone:CancelMetadataGenerationRun",
             "datazone:ListMetadataGenerationRuns"
           ],
           "Resource": "*"
@@ -48033,9 +48099,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-28T12:52:10+00:00"
+    "CreateDate": "2024-03-12T23:47:37+00:00"
   },
   "AmazonDataZoneGlueManageAccessRolePolicy": {
     "Document": {
@@ -48974,6 +49040,7 @@
           }
         },
         {
+          "Sid": "IamPassRolePermissions",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -49243,12 +49310,45 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "RedshiftDataPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "redshift-data:ListSchemas",
+            "redshift-data:ExecuteStatement"
+          ],
+          "Resource": [
+            "arn:aws:redshift-serverless:*:*:workgroup/*",
+            "arn:aws:redshift:*:*:cluster:*"
+          ]
+        },
+        {
+          "Sid": "DescribeStatementPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "redshift-data:DescribeStatement"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "GetSecretValuePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:GetSecretValue"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "secretsmanager:ResourceTag/AmazonDataZoneDomain": "dzd*"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-23T00:50:47+00:00"
+    "CreateDate": "2024-03-12T16:44:23+00:00"
   },
   "AmazonDataZoneRedshiftManageAccessRolePolicy": {
     "Document": {
@@ -66679,6 +66779,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "Ec2VpcPermissions",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeVpcs",
@@ -66698,6 +66799,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "PublicAccessCreateEip",
           "Effect": "Allow",
           "Action": [
             "ec2:AllocateAddress"
@@ -66712,6 +66814,7 @@
           }
         },
         {
+          "Sid": "PublicAccessReleaseEip",
           "Effect": "Allow",
           "Action": [
             "ec2:ReleaseAddress"
@@ -66750,6 +66853,7 @@
           ]
         },
         {
+          "Sid": "CreateSecurityGroupWithTags",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateSecurityGroup"
@@ -66764,6 +66868,7 @@
           }
         },
         {
+          "Sid": "SecurityGroupPermissions",
           "Effect": "Allow",
           "Action": [
             "ec2:AuthorizeSecurityGroupEgress",
@@ -66783,6 +66888,7 @@
           }
         },
         {
+          "Sid": "CreateSecurityGroup",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateSecurityGroup"
@@ -66792,6 +66898,7 @@
           ]
         },
         {
+          "Sid": "CreateTagsOnResources",
           "Effect": "Allow",
           "Action": "ec2:CreateTags",
           "Resource": [
@@ -66816,6 +66923,7 @@
           }
         },
         {
+          "Sid": "VPCPermissions",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeVpcAttribute",
@@ -66829,6 +66937,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "CloudWatch",
           "Effect": "Allow",
           "Action": [
             "cloudwatch:PutMetricData"
@@ -66844,6 +66953,7 @@
           }
         },
         {
+          "Sid": "SecretManager",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:DescribeSecret",
@@ -66864,6 +66974,7 @@
           }
         },
         {
+          "Sid": "SecretsManagerRandomPassword",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:GetRandomPassword"
@@ -66871,6 +66982,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "IPV6Permissions",
           "Effect": "Allow",
           "Action": [
             "ec2:AssignIpv6Addresses",
@@ -66879,12 +66991,23 @@
           "Resource": [
             "arn:aws:ec2:*:*:network-interface/*"
           ]
+        },
+        {
+          "Sid": "ServiceQuotasToCheckCustomerLimits",
+          "Effect": "Allow",
+          "Action": [
+            "servicequotas:GetServiceQuota"
+          ],
+          "Resource": [
+            "arn:aws:servicequotas:*:*:ec2/L-0263D0A3",
+            "arn:aws:servicequotas:*:*:vpc/L-29B6F2EB"
+          ]
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-10-27T16:20:17+00:00"
+    "CreateDate": "2024-03-15T20:00:47+00:00"
   },
   "AmazonRekognitionCustomLabelsFullAccess": {
     "Document": {
@@ -73634,6 +73757,197 @@
     "VersionId": "v2",
     "IsDefaultVersion": true,
     "CreateDate": "2021-11-26T23:42:00+00:00"
+  },
+  "AmazonTimestreamInfluxDBFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "TimestreamInfluxDBStatement",
+          "Effect": "Allow",
+          "Action": [
+            "timestream-influxdb:CreateDbParameterGroup",
+            "timestream-influxdb:GetDbParameterGroup",
+            "timestream-influxdb:ListDbParameterGroups",
+            "timestream-influxdb:CreateDbInstance",
+            "timestream-influxdb:DeleteDbInstance",
+            "timestream-influxdb:GetDbInstance",
+            "timestream-influxdb:ListDbInstances",
+            "timestream-influxdb:TagResource",
+            "timestream-influxdb:UntagResource",
+            "timestream-influxdb:ListTagsForResource",
+            "timestream-influxdb:UpdateDbInstance"
+          ],
+          "Resource": [
+            "arn:aws:timestream-influxdb:*:*:*"
+          ]
+        },
+        {
+          "Sid": "ServiceLinkedRoleStatement",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/timestream-influxdb.amazonaws.com/AWSServiceRoleForTimestreamInfluxDB",
+          "Condition": {
+            "StringLike": {
+              "iam:AWSServiceName": "timestream-influxdb.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "NetworkValidationStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeSecurityGroups"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "CreateEniInSubnetStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:network-interface/*",
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "BucketValidationStatement",
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListBucket",
+            "s3:GetBucketPolicy"
+          ],
+          "Resource": [
+            "arn:aws:s3:::*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-03-14T22:53:22+00:00"
+  },
+  "AmazonTimestreamInfluxDBServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DescribeNetworkStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeNetworkInterfaces"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CreateEniInSubnetStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ]
+        },
+        {
+          "Sid": "CreateEniStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/AmazonTimestreamInfluxDBManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "CreateTagWithEniStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/AmazonTimestreamInfluxDBManaged": "false"
+            },
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "CreateNetworkInterface"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManageEniStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterfacePermission",
+            "ec2:DeleteNetworkInterface"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonTimestreamInfluxDBManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "PutCloudWatchMetricsStatement",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": [
+                "AWS/Timestream/InfluxDB",
+                "AWS/Usage"
+              ]
+            }
+          },
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "ManageSecretStatement",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:CreateSecret",
+            "secretsmanager:DeleteSecret"
+          ],
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:READONLY-InfluxDB-auth-parameters-*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-03-14T18:53:21+00:00"
   },
   "AmazonTimestreamReadOnlyAccess": {
     "Document": {
