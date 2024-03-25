@@ -6371,7 +6371,7 @@
           "Resource": "*"
         },
         {
-          "Sid": "ConsolePickQueryResultsBucket",
+          "Sid": "SetQueryResultsBucket",
           "Effect": "Allow",
           "Action": [
             "s3:GetBucketLocation",
@@ -6476,9 +6476,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-12T16:10:54+00:00"
+    "CreateDate": "2024-03-21T15:35:13+00:00"
   },
   "AWSCleanRoomsFullAccessNoQuerying": {
     "Document": {
@@ -20501,6 +20501,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "GlueDataPermissions",
           "Effect": "Allow",
           "Action": [
             "glue:GetDatabases",
@@ -20514,15 +20515,18 @@
           ]
         },
         {
+          "Sid": "GluePIIPermissions",
           "Effect": "Allow",
           "Action": [
-            "glue:BatchGetCustomEntityTypes"
+            "glue:BatchGetCustomEntityTypes",
+            "glue:GetCustomEntityType"
           ],
           "Resource": [
             "*"
           ]
         },
         {
+          "Sid": "S3PublicDatasetAccess",
           "Effect": "Allow",
           "Action": [
             "s3:ListBucket",
@@ -20533,6 +20537,7 @@
           ]
         },
         {
+          "Sid": "EC2NetworkingPermissions",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeVpcEndpoints",
@@ -20548,6 +20553,7 @@
           ]
         },
         {
+          "Sid": "EC2DeleteGlueNetworkInterfacePermissions",
           "Effect": "Allow",
           "Action": "ec2:DeleteNetworkInterface",
           "Condition": {
@@ -20560,6 +20566,7 @@
           ]
         },
         {
+          "Sid": "EC2GlueTaggingPermissions",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags",
@@ -20578,6 +20585,7 @@
           ]
         },
         {
+          "Sid": "GlueDatabrewLogGroupPermissions",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogGroup",
@@ -20589,6 +20597,7 @@
           ]
         },
         {
+          "Sid": "LakeFormationPermissions",
           "Effect": "Allow",
           "Action": [
             "lakeformation:GetDataAccess"
@@ -20596,6 +20605,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "SecretsManagerPermissions",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:GetSecretValue"
@@ -20604,9 +20614,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-09T23:06:36+00:00"
+    "CreateDate": "2024-03-20T23:28:52+00:00"
   },
   "AWSGlueSchemaRegistryFullAccess": {
     "Document": {
@@ -23578,6 +23588,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AllowCreateResourceShare",
           "Effect": "Allow",
           "Action": [
             "ram:CreateResourceShare"
@@ -23594,6 +23605,7 @@
           }
         },
         {
+          "Sid": "AllowManageResourceShare",
           "Effect": "Allow",
           "Action": [
             "ram:UpdateResourceShare",
@@ -23612,6 +23624,7 @@
           }
         },
         {
+          "Sid": "AllowManageResourceSharePermissions",
           "Effect": "Allow",
           "Action": [
             "ram:AssociateResourceSharePermission"
@@ -23626,6 +23639,7 @@
           }
         },
         {
+          "Sid": "AllowXAcctManagerPermissions",
           "Effect": "Allow",
           "Action": [
             "glue:PutResourcePolicy",
@@ -23638,6 +23652,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowOrganizationsPermissions",
           "Effect": "Allow",
           "Action": [
             "organizations:ListRoots",
@@ -23648,15 +23663,16 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-01T00:50:49+00:00"
+    "CreateDate": "2024-03-22T18:51:56+00:00"
   },
   "AWSLakeFormationDataAdmin": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSLakeFormationDataAdminAllow",
           "Effect": "Allow",
           "Action": [
             "lakeformation:*",
@@ -23676,7 +23692,6 @@
             "glue:GetTableVersions",
             "glue:GetPartitions",
             "glue:GetTables",
-            "glue:GetWorkflow",
             "glue:ListWorkflows",
             "glue:BatchGetWorkflows",
             "glue:DeleteWorkflow",
@@ -23695,6 +23710,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSLakeFormationDataAdminDeny",
           "Effect": "Deny",
           "Action": [
             "lakeformation:PutDataLakeSettings"
@@ -23703,9 +23719,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-12-16T22:41:40+00:00"
+    "CreateDate": "2024-03-22T18:27:42+00:00"
   },
   "AWSLambdaBasicExecutionRole": {
     "Document": {
@@ -30809,12 +30825,16 @@
             "cloudwatch:DescribeAlarms",
             "cloudwatch:GetMetricData",
             "cloudwatch:GetMetricStatistics",
+            "datasync:DescribeTask",
+            "datasync:ListLocations",
+            "datasync:ListTasks",
             "devops-guru:ListMonitoredResources",
             "dlm:GetLifecyclePolicies",
             "dlm:GetLifecyclePolicy",
             "drs:DescribeJobs",
             "drs:DescribeSourceServers",
             "drs:GetReplicationConfiguration",
+            "ds:DescribeDirectories",
             "dynamodb:DescribeContinuousBackups",
             "dynamodb:DescribeGlobalTable",
             "dynamodb:DescribeLimits",
@@ -30861,6 +30881,7 @@
             "fis:GetExperimentTemplate",
             "fis:ListExperimentTemplates",
             "fis:ListExperiments",
+            "fsx:DescribeFileSystems",
             "lambda:GetFunctionConcurrency",
             "lambda:GetFunctionConfiguration",
             "lambda:ListAliases",
@@ -30885,7 +30906,10 @@
             "route53:ListHealthChecks",
             "route53:ListHostedZones",
             "route53:ListResourceRecordSets",
+            "route53resolver:ListResolverEndpoints",
+            "route53resolver:ListResolverEndpointIpAddresses",
             "s3:GetBucketLocation",
+            "s3:GetBucketLogging",
             "s3:GetBucketObjectLockConfiguration",
             "s3:GetBucketPolicyStatus",
             "s3:GetBucketTagging",
@@ -30955,9 +30979,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-10-29T16:17:40+00:00"
+    "CreateDate": "2024-03-24T18:05:06+00:00"
   },
   "AWSResourceAccessManagerFullAccess": {
     "Document": {
@@ -50943,6 +50967,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "GeneralReadOnlyAccess",
           "Action": [
             "application-autoscaling:DescribeScalableTargets",
             "application-autoscaling:DescribeScalingActivities",
@@ -50962,6 +50987,7 @@
             "dynamodb:Describe*",
             "dynamodb:List*",
             "dynamodb:GetItem",
+            "dynamodb:GetResourcePolicy",
             "dynamodb:Query",
             "dynamodb:Scan",
             "dynamodb:PartiQLSelect",
@@ -50996,15 +51022,16 @@
           "Resource": "*"
         },
         {
+          "Sid": "CCIAccess",
           "Action": "cloudwatch:GetInsightRuleReport",
           "Effect": "Allow",
           "Resource": "arn:aws:cloudwatch:*:*:insight-rule/DynamoDBContributorInsights*"
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-01-27T01:01:47+00:00"
+    "CreateDate": "2024-03-20T15:45:01+00:00"
   },
   "AmazonEBSCSIDriverPolicy": {
     "Document": {

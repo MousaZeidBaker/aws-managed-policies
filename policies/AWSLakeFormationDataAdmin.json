@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AWSLakeFormationDataAdminAllow",
         "Effect": "Allow",
         "Action": [
           "lakeformation:*",
@@ -22,7 +23,6 @@
           "glue:GetTableVersions",
           "glue:GetPartitions",
           "glue:GetTables",
-          "glue:GetWorkflow",
           "glue:ListWorkflows",
           "glue:BatchGetWorkflows",
           "glue:DeleteWorkflow",
@@ -41,6 +41,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AWSLakeFormationDataAdminDeny",
         "Effect": "Deny",
         "Action": [
           "lakeformation:PutDataLakeSettings"
@@ -49,7 +50,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2019-12-16T22:41:40+00:00"
+  "CreateDate": "2024-03-22T18:27:42+00:00"
 }
