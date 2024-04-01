@@ -18,6 +18,21 @@
         ]
       },
       {
+        "Sid": "AllowAddTagsForSpace",
+        "Effect": "Allow",
+        "Action": [
+          "sagemaker:AddTags"
+        ],
+        "Resource": [
+          "arn:aws:sagemaker:*:*:space/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "sagemaker:TaggingAction": "CreateSpace"
+          }
+        }
+      },
+      {
         "Sid": "AllowAddTagsForApp",
         "Effect": "Allow",
         "Action": [
@@ -678,7 +693,7 @@
       }
     ]
   },
-  "VersionId": "v25",
+  "VersionId": "v26",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-30T13:40:20+00:00"
+  "CreateDate": "2024-03-29T17:35:49+00:00"
 }

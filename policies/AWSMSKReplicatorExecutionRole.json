@@ -17,7 +17,8 @@
           "kafka-cluster:AlterGroup",
           "kafka-cluster:DescribeGroup",
           "kafka-cluster:DescribeTopicDynamicConfiguration",
-          "kafka-cluster:AlterTopicDynamicConfiguration"
+          "kafka-cluster:AlterTopicDynamicConfiguration",
+          "kafka-cluster:WriteDataIdempotently"
         ],
         "Resource": [
           "arn:aws:kafka:*:*:cluster/*"
@@ -53,7 +54,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-12-06T00:07:52+00:00"
+  "CreateDate": "2024-03-25T21:36:08+00:00"
 }

@@ -23,7 +23,8 @@
           "sso:GetProfile",
           "sso:GetManagedApplicationInstance",
           "sso:ListApplicationAssignments",
-          "sso:DescribeInstance"
+          "sso:DescribeInstance",
+          "sso:DescribeApplication"
         ],
         "Resource": [
           "*"
@@ -69,7 +70,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-01T23:35:24+00:00"
+  "CreateDate": "2024-03-29T22:13:56+00:00"
 }
