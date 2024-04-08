@@ -3,6 +3,8 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "DirectoryServiceFullAccess",
+        "Effect": "Allow",
         "Action": [
           "ds:*",
           "ec2:AuthorizeSecurityGroupEgress",
@@ -30,10 +32,11 @@
           "organizations:ListOrganizationalUnitsForParent",
           "organizations:ListAWSServiceAccessForOrganization"
         ],
-        "Effect": "Allow",
         "Resource": "*"
       },
       {
+        "Sid": "DirectoryServiceEventTopic",
+        "Effect": "Allow",
         "Action": [
           "sns:CreateTopic",
           "sns:DeleteTopic",
@@ -41,15 +44,15 @@
           "sns:Subscribe",
           "sns:Unsubscribe"
         ],
-        "Effect": "Allow",
         "Resource": "arn:aws:sns:*:*:DirectoryMonitoring*"
       },
       {
+        "Sid": "DirectoryServiceOrganizations",
+        "Effect": "Allow",
         "Action": [
           "organizations:EnableAWSServiceAccess",
           "organizations:DisableAWSServiceAccess"
         ],
-        "Effect": "Allow",
         "Resource": "*",
         "Condition": {
           "StringEquals": {
@@ -58,11 +61,12 @@
         }
       },
       {
+        "Sid": "DirectoryServiceTags",
+        "Effect": "Allow",
         "Action": [
           "ec2:CreateTags",
           "ec2:DeleteTags"
         ],
-        "Effect": "Allow",
         "Resource": [
           "arn:aws:ec2:*:*:network-interface/*",
           "arn:aws:ec2:*:*:security-group/*"
@@ -70,7 +74,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-11-24T23:24:10+00:00"
+  "CreateDate": "2024-04-02T20:38:17+00:00"
 }

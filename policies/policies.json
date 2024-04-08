@@ -13188,6 +13188,814 @@
     "IsDefaultVersion": true,
     "CreateDate": "2020-06-30T17:59:22+00:00"
   },
+  "AWSDeadlineCloud-FleetWorker": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "RunTasksPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssumeFleetRoleForWorker",
+            "deadline:UpdateWorker",
+            "deadline:UpdateWorkerSchedule",
+            "deadline:BatchGetJobEntity",
+            "deadline:AssumeQueueRoleForWorker"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:PrincipalAccount": "${aws:ResourceAccount}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-01T17:21:47+00:00"
+  },
+  "AWSDeadlineCloud-UserAccessFarms": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AdditionalPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "identitystore:DescribeGroup",
+            "identitystore:DescribeUser",
+            "identitystore:ListGroupMembershipsForMember",
+            "deadline:GetApplicationVersion",
+            "ec2:DescribeInstanceTypes",
+            "identitystore:ListUsers"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "OwnerLevelPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssociateMemberToFarm",
+            "deadline:AssociateMemberToFleet",
+            "deadline:AssociateMemberToJob",
+            "deadline:AssociateMemberToQueue",
+            "deadline:CreateBudget",
+            "deadline:DeleteBudget",
+            "deadline:DisassociateMemberFromFarm",
+            "deadline:DisassociateMemberFromFleet",
+            "deadline:DisassociateMemberFromJob",
+            "deadline:DisassociateMemberFromQueue",
+            "deadline:GetBudget",
+            "deadline:GetSessionsStatisticsAggregation",
+            "deadline:ListBudgets",
+            "deadline:StartSessionsStatisticsAggregation",
+            "deadline:UpdateBudget"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FarmMembershipLevels": [
+                "OWNER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManagerLevelMemberAssociation",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssociateMemberToFarm",
+            "deadline:AssociateMemberToFleet",
+            "deadline:AssociateMemberToJob",
+            "deadline:AssociateMemberToQueue"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FarmMembershipLevels": [
+                "MANAGER"
+              ]
+            },
+            "StringEquals": {
+              "deadline:AssociatedMembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER",
+                ""
+              ],
+              "deadline:MembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManagerLevelMemberDisassociation",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:DisassociateMemberFromFarm",
+            "deadline:DisassociateMemberFromFleet",
+            "deadline:DisassociateMemberFromJob",
+            "deadline:DisassociateMemberFromQueue"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FarmMembershipLevels": [
+                "MANAGER"
+              ]
+            },
+            "StringEquals": {
+              "deadline:AssociatedMembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "OwnerManagerPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:ListFarmMembers",
+            "deadline:ListFleetMembers",
+            "deadline:ListJobMembers",
+            "deadline:ListQueueMembers",
+            "deadline:UpdateJob",
+            "deadline:UpdateSession",
+            "deadline:UpdateStep",
+            "deadline:UpdateTask"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FarmMembershipLevels": [
+                "OWNER",
+                "MANAGER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "OwnerManagerContributorPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssumeQueueRoleForUser",
+            "deadline:CreateJob"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FarmMembershipLevels": [
+                "OWNER",
+                "MANAGER",
+                "CONTRIBUTOR"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllLevelsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssumeFleetRoleForRead",
+            "deadline:AssumeQueueRoleForRead",
+            "deadline:GetFarm",
+            "deadline:GetFleet",
+            "deadline:GetJob",
+            "deadline:GetQueue",
+            "deadline:GetQueueEnvironment",
+            "deadline:GetQueueFleetAssociation",
+            "deadline:GetSession",
+            "deadline:GetSessionAction",
+            "deadline:GetStep",
+            "deadline:GetStorageProfile",
+            "deadline:GetStorageProfileForQueue",
+            "deadline:GetTask",
+            "deadline:GetWorker",
+            "deadline:ListQueueEnvironments",
+            "deadline:ListQueueFleetAssociations",
+            "deadline:ListSessionActions",
+            "deadline:ListSessions",
+            "deadline:ListSessionsForWorker",
+            "deadline:ListStepConsumers",
+            "deadline:ListStepDependencies",
+            "deadline:ListSteps",
+            "deadline:ListStorageProfiles",
+            "deadline:ListStorageProfilesForQueue",
+            "deadline:ListTasks",
+            "deadline:ListWorkers",
+            "deadline:SearchJobs",
+            "deadline:SearchSteps",
+            "deadline:SearchTasks",
+            "deadline:SearchWorkers"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FarmMembershipLevels": [
+                "OWNER",
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ListBasedOnMembership",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:ListFarms",
+            "deadline:ListFleets",
+            "deadline:ListJobs",
+            "deadline:ListQueues"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "deadline:RequesterPrincipalId": "${deadline:PrincipalId}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-01T16:54:00+00:00"
+  },
+  "AWSDeadlineCloud-UserAccessFleets": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AdditionalPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "identitystore:DescribeGroup",
+            "identitystore:DescribeUser",
+            "identitystore:ListGroupMembershipsForMember",
+            "deadline:GetApplicationVersion",
+            "ec2:DescribeInstanceTypes",
+            "identitystore:ListUsers"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "OwnerLevelPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssociateMemberToFleet",
+            "deadline:DisassociateMemberFromFleet"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FleetMembershipLevels": [
+                "OWNER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManagerLevelMemberAssociation",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssociateMemberToFleet"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FleetMembershipLevels": [
+                "MANAGER"
+              ]
+            },
+            "StringEquals": {
+              "deadline:AssociatedMembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER",
+                ""
+              ],
+              "deadline:MembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManagerLevelMemberDisassociation",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:DisassociateMemberFromFleet"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FleetMembershipLevels": [
+                "MANAGER"
+              ]
+            },
+            "StringEquals": {
+              "deadline:AssociatedMembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "OwnerManagerPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:ListFleetMembers"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FleetMembershipLevels": [
+                "OWNER",
+                "MANAGER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllLevelsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssumeFleetRoleForRead",
+            "deadline:GetFleet",
+            "deadline:GetQueueFleetAssociation",
+            "deadline:GetWorker",
+            "deadline:ListQueueFleetAssociations",
+            "deadline:ListSessionsForWorker",
+            "deadline:ListWorkers",
+            "deadline:SearchWorkers"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:FleetMembershipLevels": [
+                "OWNER",
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ListBasedOnMembership",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:ListFleets"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "deadline:RequesterPrincipalId": "${deadline:PrincipalId}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-01T17:01:50+00:00"
+  },
+  "AWSDeadlineCloud-UserAccessJobs": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AdditionalPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "identitystore:DescribeGroup",
+            "identitystore:DescribeUser",
+            "identitystore:ListGroupMembershipsForMember",
+            "deadline:GetApplicationVersion",
+            "ec2:DescribeInstanceTypes",
+            "identitystore:ListUsers"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "OwnerLevelPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssociateMemberToJob",
+            "deadline:DisassociateMemberFromJob"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:JobMembershipLevels": [
+                "OWNER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManagerLevelMemberAssociation",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssociateMemberToJob"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:JobMembershipLevels": [
+                "MANAGER"
+              ]
+            },
+            "StringEquals": {
+              "deadline:AssociatedMembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER",
+                ""
+              ],
+              "deadline:MembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManagerLevelMemberDisassociation",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:DisassociateMemberFromJob"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:JobMembershipLevels": [
+                "MANAGER"
+              ]
+            },
+            "StringEquals": {
+              "deadline:AssociatedMembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "OwnerManagerPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:ListJobMembers",
+            "deadline:UpdateJob",
+            "deadline:UpdateSession",
+            "deadline:UpdateStep",
+            "deadline:UpdateTask"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:JobMembershipLevels": [
+                "OWNER",
+                "MANAGER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllLevelsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:GetJob",
+            "deadline:GetSession",
+            "deadline:GetSessionAction",
+            "deadline:GetStep",
+            "deadline:GetTask",
+            "deadline:ListSessionActions",
+            "deadline:ListSessions",
+            "deadline:ListStepConsumers",
+            "deadline:ListStepDependencies",
+            "deadline:ListSteps",
+            "deadline:ListTasks",
+            "deadline:SearchSteps",
+            "deadline:SearchTasks"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:JobMembershipLevels": [
+                "OWNER",
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ListBasedOnMembership",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:ListJobs"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "deadline:RequesterPrincipalId": "${deadline:PrincipalId}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-01T17:05:38+00:00"
+  },
+  "AWSDeadlineCloud-UserAccessQueues": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AdditionalPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "identitystore:DescribeGroup",
+            "identitystore:DescribeUser",
+            "identitystore:ListGroupMembershipsForMember",
+            "deadline:GetApplicationVersion",
+            "ec2:DescribeInstanceTypes",
+            "identitystore:ListUsers"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "OwnerLevelPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssociateMemberToJob",
+            "deadline:AssociateMemberToQueue",
+            "deadline:DisassociateMemberFromJob",
+            "deadline:DisassociateMemberFromQueue"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:QueueMembershipLevels": [
+                "OWNER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManagerLevelMemberAssociation",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssociateMemberToJob",
+            "deadline:AssociateMemberToQueue"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:QueueMembershipLevels": [
+                "MANAGER"
+              ]
+            },
+            "StringEquals": {
+              "deadline:AssociatedMembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER",
+                ""
+              ],
+              "deadline:MembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManagerLevelMemberDisassociation",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:DisassociateMemberFromJob",
+            "deadline:DisassociateMemberFromQueue"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:QueueMembershipLevels": [
+                "MANAGER"
+              ]
+            },
+            "StringEquals": {
+              "deadline:AssociatedMembershipLevel": [
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "OwnerManagerPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:ListJobMembers",
+            "deadline:ListQueueMembers",
+            "deadline:UpdateJob",
+            "deadline:UpdateSession",
+            "deadline:UpdateStep",
+            "deadline:UpdateTask"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:QueueMembershipLevels": [
+                "OWNER",
+                "MANAGER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "OwnerManagerContributorPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssumeQueueRoleForUser",
+            "deadline:CreateJob"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:QueueMembershipLevels": [
+                "OWNER",
+                "MANAGER",
+                "CONTRIBUTOR"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllLevelsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:AssumeQueueRoleForRead",
+            "deadline:GetJob",
+            "deadline:GetQueue",
+            "deadline:GetQueueEnvironment",
+            "deadline:GetQueueFleetAssociation",
+            "deadline:GetSession",
+            "deadline:GetSessionAction",
+            "deadline:GetStep",
+            "deadline:GetStorageProfileForQueue",
+            "deadline:GetTask",
+            "deadline:ListQueueEnvironments",
+            "deadline:ListQueueFleetAssociations",
+            "deadline:ListSessionActions",
+            "deadline:ListSessions",
+            "deadline:ListStepConsumers",
+            "deadline:ListStepDependencies",
+            "deadline:ListSteps",
+            "deadline:ListStorageProfilesForQueue",
+            "deadline:ListTasks",
+            "deadline:SearchJobs",
+            "deadline:SearchSteps",
+            "deadline:SearchTasks"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "deadline:QueueMembershipLevels": [
+                "OWNER",
+                "MANAGER",
+                "CONTRIBUTOR",
+                "VIEWER"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ListBasedOnMembership",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:ListJobs",
+            "deadline:ListQueues"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "deadline:RequesterPrincipalId": "${deadline:PrincipalId}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-01T17:10:03+00:00"
+  },
+  "AWSDeadlineCloud-WorkerHost": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "JoinFleetPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "deadline:CreateWorker",
+            "deadline:AssumeFleetRoleForWorker"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:PrincipalAccount": "${aws:ResourceAccount}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-01T17:28:28+00:00"
+  },
   "AWSDeepLensLambdaFunctionAccessPolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -14312,6 +15120,8 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "DirectoryServiceFullAccess",
+          "Effect": "Allow",
           "Action": [
             "ds:*",
             "ec2:AuthorizeSecurityGroupEgress",
@@ -14339,10 +15149,11 @@
             "organizations:ListOrganizationalUnitsForParent",
             "organizations:ListAWSServiceAccessForOrganization"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         },
         {
+          "Sid": "DirectoryServiceEventTopic",
+          "Effect": "Allow",
           "Action": [
             "sns:CreateTopic",
             "sns:DeleteTopic",
@@ -14350,15 +15161,15 @@
             "sns:Subscribe",
             "sns:Unsubscribe"
           ],
-          "Effect": "Allow",
           "Resource": "arn:aws:sns:*:*:DirectoryMonitoring*"
         },
         {
+          "Sid": "DirectoryServiceOrganizations",
+          "Effect": "Allow",
           "Action": [
             "organizations:EnableAWSServiceAccess",
             "organizations:DisableAWSServiceAccess"
           ],
-          "Effect": "Allow",
           "Resource": "*",
           "Condition": {
             "StringEquals": {
@@ -14367,11 +15178,12 @@
           }
         },
         {
+          "Sid": "DirectoryServiceTags",
+          "Effect": "Allow",
           "Action": [
             "ec2:CreateTags",
             "ec2:DeleteTags"
           ],
-          "Effect": "Allow",
           "Resource": [
             "arn:aws:ec2:*:*:network-interface/*",
             "arn:aws:ec2:*:*:security-group/*"
@@ -14379,9 +15191,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-11-24T23:24:10+00:00"
+    "CreateDate": "2024-04-02T20:38:17+00:00"
   },
   "AWSDirectoryServiceReadOnlyAccess": {
     "Document": {
@@ -24923,6 +25735,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AMSCDKToolkitS3Permissions",
           "Effect": "Allow",
           "Action": [
             "s3:CreateBucket",
@@ -24964,6 +25777,7 @@
           "Resource": "arn:aws:s3:::ams-cdktoolkit*"
         },
         {
+          "Sid": "AMSCDKToolkitCloudFormationPermissions",
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateChangeSet",
@@ -24983,8 +25797,10 @@
           "Resource": "arn:aws:cloudformation:*:*:stack/ams-cdk-toolkit*"
         },
         {
+          "Sid": "AMSCDKToolkitECRPermissions",
           "Effect": "Allow",
           "Action": [
+            "ecr:BatchGetRepositoryScanningConfiguration",
             "ecr:CreateRepository",
             "ecr:DeleteLifecyclePolicy",
             "ecr:DeleteRepository",
@@ -24992,6 +25808,7 @@
             "ecr:DescribeRepositories",
             "ecr:GetLifecyclePolicy",
             "ecr:ListTagsForResource",
+            "ecr:PutImageScanningConfiguration",
             "ecr:PutImageTagMutability",
             "ecr:PutLifecyclePolicy",
             "ecr:SetRepositoryPolicy",
@@ -25002,9 +25819,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-10T17:48:44+00:00"
+    "CreateDate": "2024-04-04T20:41:54+00:00"
   },
   "AWSManagedServices_ContactsServiceRolePolicy": {
     "Document": {
@@ -25369,17 +26186,18 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSMarketplaceGetEntitlements",
+          "Effect": "Allow",
           "Action": [
             "aws-marketplace:GetEntitlements"
           ],
-          "Effect": "Allow",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2017-03-27T19:37:24+00:00"
+    "CreateDate": "2024-04-05T01:27:20+00:00"
   },
   "AWSMarketplaceImageBuildFullAccess": {
     "Document": {
@@ -27429,7 +28247,9 @@
             "s3:PutEncryptionConfiguration",
             "s3:PutBucketPublicAccessBlock",
             "s3:PutBucketVersioning",
-            "s3:PutLifecycleConfiguration"
+            "s3:PutLifecycleConfiguration",
+            "s3:ListBucket",
+            "s3:GetBucketLocation"
           ],
           "Resource": "arn:aws:s3:::migrationhub-strategy-*",
           "Condition": {
@@ -27456,7 +28276,11 @@
           "Effect": "Allow",
           "Action": [
             "application-transformation:PutMetricData",
-            "application-transformation:PutLogData"
+            "application-transformation:PutLogData",
+            "application-transformation:StartPortingCompatibilityAssessment",
+            "application-transformation:GetPortingCompatibilityAssessment",
+            "application-transformation:StartPortingRecommendationAssessment",
+            "application-transformation:GetPortingRecommendationAssessment"
           ],
           "Resource": "*"
         },
@@ -27482,7 +28306,9 @@
             "migrationhub-strategy:SendMessage",
             "migrationhub-strategy:ListAntiPatterns",
             "migrationhub-strategy:ListJarArtifacts",
-            "migrationhub-strategy:UpdateCollectorConfiguration"
+            "migrationhub-strategy:UpdateCollectorConfiguration",
+            "migrationhub-strategy:PutLogData",
+            "migrationhub-strategy:PutMetricData"
           ],
           "Resource": "arn:aws:migrationhub-strategy:*:*:*"
         },
@@ -27501,9 +28327,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-05T18:57:29+00:00"
+    "CreateDate": "2024-04-01T16:21:02+00:00"
   },
   "AWSMigrationHubStrategyConsoleFullAccess": {
     "Document": {
@@ -43679,7 +44505,9 @@
             "cloudformation:ListStackResources",
             "cloudformation:DeleteStackSet",
             "cloudformation:DescribeStackSet",
-            "cloudformation:UpdateStackSet"
+            "cloudformation:UpdateStackSet",
+            "cloudformation:TagResource",
+            "cloudformation:UntagResource"
           ],
           "Resource": [
             "arn:aws:cloudformation:*:*:stack/amplify-*"
@@ -44106,9 +44934,9 @@
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-05-31T17:08:15+00:00"
+    "CreateDate": "2024-04-04T20:35:31+00:00"
   },
   "AdministratorAccess": {
     "Document": {
@@ -47569,6 +48397,9 @@
           "Sid": "DomainExecutionRoleStatement",
           "Effect": "Allow",
           "Action": [
+            "datazone:ListTimeSeriesDataPoints",
+            "datazone:GetTimeSeriesDataPoint",
+            "datazone:DeleteTimeSeriesDataPoints",
             "datazone:AcceptPredictions",
             "datazone:AcceptSubscriptionRequest",
             "datazone:CancelSubscription",
@@ -47677,9 +48508,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-03-12T23:48:00+00:00"
+    "CreateDate": "2024-04-01T19:25:31+00:00"
   },
   "AmazonDataZoneEnvironmentRolePermissionsBoundary": {
     "Document": {
@@ -48396,6 +49227,10 @@
           "Sid": "AmazonDataZoneUserOperations",
           "Effect": "Allow",
           "Action": [
+            "datazone:PostTimeSeriesDataPoints",
+            "datazone:ListTimeSeriesDataPoints",
+            "datazone:GetTimeSeriesDataPoint",
+            "datazone:DeleteTimeSeriesDataPoints",
             "datazone:GetDomain",
             "datazone:CreateFormType",
             "datazone:GetFormType",
@@ -48504,14 +49339,28 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-03-12T23:47:37+00:00"
+    "CreateDate": "2024-04-01T19:27:32+00:00"
   },
   "AmazonDataZoneGlueManageAccessRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
+        {
+          "Sid": "GlueDataQualityPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "glue:ListDataQualityResults",
+            "glue:GetDataQualityResult"
+          ],
+          "Resource": "arn:aws:glue:*:*:dataQualityRuleset/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
         {
           "Sid": "GlueTableDatabasePermissions",
           "Effect": "Allow",
@@ -48544,6 +49393,7 @@
             "lakeformation:GetResourceLFTags",
             "lakeformation:ListLakeFormationOptIns",
             "lakeformation:ListPermissions",
+            "lakeformation:RegisterResource",
             "lakeformation:RevokePermissions",
             "glue:GetDatabase",
             "glue:GetTable",
@@ -48656,12 +49506,41 @@
               "aws:ResourceTag/datazone:projectId": "proj-all"
             }
           }
+        },
+        {
+          "Sid": "GetRoleForDataZone",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/AmazonDataZone*",
+            "arn:aws:iam::*:role/service-role/AmazonDataZone*"
+          ]
+        },
+        {
+          "Sid": "PassRoleForDataLocationRegistration",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/AmazonDataZone*",
+            "arn:aws:iam::*:role/service-role/AmazonDataZone*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": [
+                "lakeformation.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-14T23:03:20+00:00"
+    "CreateDate": "2024-04-01T19:05:41+00:00"
   },
   "AmazonDataZonePortalFullAccessPolicy": {
     "Document": {
@@ -73928,12 +74807,28 @@
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
+        },
+        {
+          "Sid": "AllowMetaDataCleanup",
+          "Effect": "Allow",
+          "Action": [
+            "s3:DeleteObject"
+          ],
+          "Resource": [
+            "arn:aws:s3:::aws-security-data-lake*/metadata/*.avro",
+            "arn:aws:s3:::aws-security-data-lake*/metadata/*.metadata.json"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-23T15:26:57+00:00"
+    "CreateDate": "2024-04-01T20:04:24+00:00"
   },
   "AmazonSecurityLakePermissionsBoundary": {
     "Document": {
@@ -75672,12 +76567,18 @@
             "cloudformation:DescribeStackEvents",
             "cloudformation:GetTemplate",
             "cloudformation:ListStackResources",
-            "cloudformation:GetTemplateSummary"
+            "cloudformation:GetTemplateSummary",
+            "cloudformation:DeleteStack"
           ],
           "Resource": [
             "arn:aws:cloudformation:*:*:stack/amplify-*",
             "arn:aws:cloudformation:*:*:stack/CDKToolkit/*"
-          ]
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
         },
         {
           "Sid": "AmplifyMetadata",
@@ -75709,11 +76610,13 @@
           ]
         },
         {
-          "Sid": "AmplifyHotSwappableSchemaResource",
+          "Sid": "AmplifyHotSwappableFunctionResource",
           "Effect": "Allow",
           "Action": [
             "lambda:InvokeFunction",
-            "lambda:UpdateFunctionCode"
+            "lambda:UpdateFunctionCode",
+            "lambda:GetFunction",
+            "lambda:UpdateFunctionConfiguration"
           ],
           "Resource": [
             "arn:aws:lambda:*:*:function:amplify-*"
@@ -75792,9 +76695,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-02T21:13:46+00:00"
+    "CreateDate": "2024-04-05T18:24:13+00:00"
   },
   "AppIntegrationsServiceLinkedRolePolicy": {
     "Document": {
@@ -87759,9 +88662,8 @@
       "Version": "2012-10-17",
       "Statement": [
         {
-          "Effect": "Allow",
-          "Resource": "*",
           "Sid": "BaseSecurityAuditStatement",
+          "Effect": "Allow",
           "Action": [
             "a4b:ListSkills",
             "access-analyzer:GetAnalyzedResource",
@@ -87783,6 +88685,7 @@
             "acm-pca:ListTags",
             "acm:Describe*",
             "acm:List*",
+            "airflow:GetEnvironment",
             "airflow:ListEnvironments",
             "appflow:ListFlows",
             "appflow:ListTagsForResource",
@@ -87809,8 +88712,8 @@
             "athena:List*",
             "auditmanager:GetAccountStatus",
             "auditmanager:ListAssessmentControlInsightsByControlDomain",
-            "auditmanager:ListAssessmentFrameworks",
             "auditmanager:ListAssessmentFrameworkShareRequests",
+            "auditmanager:ListAssessmentFrameworks",
             "auditmanager:ListAssessmentReports",
             "auditmanager:ListAssessments",
             "auditmanager:ListControlDomainInsights",
@@ -87821,11 +88724,18 @@
             "auditmanager:ListTagsForResource",
             "autoscaling-plans:DescribeScalingPlans",
             "autoscaling:Describe*",
+            "backup:DescribeGlobalSettings",
             "backup:DescribeRegionSettings",
             "backup:GetBackupVaultAccessPolicy",
+            "backup:GetBackupVaultNotifications",
             "backup:ListBackupVaults",
+            "backup:ListTags",
             "batch:DescribeComputeEnvironments",
             "batch:DescribeJobDefinitions",
+            "bedrock:GetCustomModel",
+            "bedrock:GetModelInvocationLoggingConfiguration",
+            "bedrock:ListCustomModels",
+            "bedrock:ListTagsForResource",
             "braket:SearchJobs",
             "braket:SearchQuantumTasks",
             "chime:List*",
@@ -87843,18 +88753,21 @@
             "cloudsearch:DescribeServiceAccessPolicies",
             "cloudtrail:DescribeTrails",
             "cloudtrail:GetEventSelectors",
+            "cloudtrail:GetInsightSelectors",
             "cloudtrail:GetTrail",
             "cloudtrail:GetTrailStatus",
             "cloudtrail:ListTags",
+            "cloudtrail:ListTrails",
             "cloudtrail:LookupEvents",
             "cloudwatch:Describe*",
             "cloudwatch:GetDashboard",
-            "cloudwatch:ListTagsForResource",
             "cloudwatch:ListDashboards",
+            "cloudwatch:ListTagsForResource",
             "codeartifact:GetDomainPermissionsPolicy",
             "codeartifact:GetRepositoryPermissionsPolicy",
             "codeartifact:ListRepositories",
             "codebuild:BatchGetProjects",
+            "codebuild:GetResourcePolicy",
             "codebuild:ListProjects",
             "codecommit:BatchGetRepositories",
             "codecommit:GetBranch",
@@ -87903,7 +88816,18 @@
             "config:List*",
             "config:SelectAggregateResourceConfig",
             "config:SelectResourceConfig",
+            "connect:ListApprovedOrigins",
+            "connect:ListInstanceAttributes",
+            "connect:ListInstanceStorageConfigs",
             "connect:ListInstances",
+            "connect:ListIntegrationAssociations",
+            "connect:ListLambdaFunctions",
+            "connect:ListLexBots",
+            "connect:ListSecurityKeys",
+            "databrew:DescribeDataset",
+            "databrew:DescribeProject",
+            "databrew:ListJobs",
+            "databrew:ListProjects",
             "dataexchange:ListDataSets",
             "datapipeline:DescribeObjects",
             "datapipeline:DescribePipelines",
@@ -87933,10 +88857,13 @@
             "docdb-elastic:ListClusters",
             "ds:DescribeDirectories",
             "dynamodb:DescribeContinuousBackups",
+            "dynamodb:DescribeExport",
             "dynamodb:DescribeGlobalTable",
+            "dynamodb:DescribeKinesisStreamingDestination",
             "dynamodb:DescribeTable",
             "dynamodb:DescribeTimeToLive",
             "dynamodb:ListBackups",
+            "dynamodb:ListExports",
             "dynamodb:ListGlobalTables",
             "dynamodb:ListStreams",
             "dynamodb:ListTables",
@@ -87954,8 +88881,8 @@
             "ec2:GetTransitGatewayRouteTableAssociations",
             "ec2:GetTransitGatewayRouteTablePropagations",
             "ec2:SearchTransitGatewayRoutes",
-            "ecr-public:DescribeImages",
             "ecr-public:DescribeImageTags",
+            "ecr-public:DescribeImages",
             "ecr-public:DescribeRegistries",
             "ecr-public:DescribeRepositories",
             "ecr-public:GetRegistryCatalogData",
@@ -87963,8 +88890,8 @@
             "ecr-public:GetRepositoryPolicy",
             "ecr-public:ListTagsForResource",
             "ecr:BatchGetRepositoryScanningConfiguration",
-            "ecr:DescribeImages",
             "ecr:DescribeImageScanFindings",
+            "ecr:DescribeImages",
             "ecr:DescribeRegistry",
             "ecr:DescribeRepositories",
             "ecr:GetLifecyclePolicy",
@@ -87981,28 +88908,35 @@
             "eks:ListClusters",
             "eks:ListFargateProfiles",
             "eks:ListNodeGroups",
+            "eks:ListTagsForResource",
             "eks:ListUpdates",
             "elastic-inference:DescribeAccelerators",
             "elasticache:Describe*",
             "elasticache:ListTagsForResource",
             "elasticbeanstalk:Describe*",
             "elasticbeanstalk:ListTagsForResource",
+            "elasticfilesystem:DescribeAccessPoints",
             "elasticfilesystem:DescribeAccountPreferences",
             "elasticfilesystem:DescribeBackupPolicy",
             "elasticfilesystem:DescribeFileSystemPolicy",
             "elasticfilesystem:DescribeFileSystems",
             "elasticfilesystem:DescribeLifecycleConfiguration",
-            "elasticfilesystem:DescribeMountTargets",
             "elasticfilesystem:DescribeMountTargetSecurityGroups",
+            "elasticfilesystem:DescribeMountTargets",
             "elasticfilesystem:DescribeReplicationConfigurations",
             "elasticfilesystem:DescribeTags",
             "elasticloadbalancing:Describe*",
             "elasticmapreduce:Describe*",
+            "elasticmapreduce:GetAutoTerminationPolicy",
             "elasticmapreduce:GetBlockPublicAccessConfiguration",
+            "elasticmapreduce:GetManagedScalingPolicy",
             "elasticmapreduce:ListClusters",
             "elasticmapreduce:ListInstances",
             "elasticmapreduce:ListSecurityConfigurations",
             "elastictranscoder:ListPipelines",
+            "emr-serverless:GetApplication",
+            "emr-serverless:ListApplications",
+            "emr-serverless:ListJobRuns",
             "es:Describe*",
             "es:GetCompatibleVersions",
             "es:ListDomainNames",
@@ -88026,28 +88960,37 @@
             "gamelift:ListFleets",
             "geo:ListMaps",
             "glacier:DescribeVault",
+            "glacier:GetDataRetrievalPolicy",
             "glacier:GetVaultAccessPolicy",
             "glacier:GetVaultLock",
             "glacier:ListVaults",
             "globalaccelerator:Describe*",
             "globalaccelerator:List*",
             "glue:GetCrawlers",
-            "glue:GetDatabases",
             "glue:GetDataCatalogEncryptionSettings",
+            "glue:GetDatabases",
             "glue:GetDevEndpoints",
             "glue:GetJobs",
             "glue:GetResourcePolicy",
+            "glue:GetSecurityConfiguration",
             "glue:GetSecurityConfigurations",
+            "glue:GetTags",
             "grafana:ListWorkspaces",
             "greengrass:List*",
             "guardduty:DescribePublishingDestination",
             "guardduty:Get*",
             "guardduty:List*",
+            "health:DescribeAffectedAccountsForOrganization",
             "health:DescribeAffectedEntities",
+            "health:DescribeAffectedEntitiesForOrganization",
             "health:DescribeEntityAggregates",
             "health:DescribeEventAggregates",
-            "health:DescribeEvents",
+            "health:DescribeEventDetails",
+            "health:DescribeEventDetailsForOrganization",
             "health:DescribeEventTypes",
+            "health:DescribeEvents",
+            "health:DescribeEventsForOrganization",
+            "health:DescribeHealthServiceStatusForOrganization",
             "healthlake:ListFHIRDatastores",
             "honeycode:ListTables",
             "iam:GenerateCredentialReport",
@@ -88056,10 +88999,10 @@
             "iam:List*",
             "iam:SimulateCustomPolicy",
             "iam:SimulatePrincipalPolicy",
-            "inspector:Describe*",
-            "inspector:Get*",
-            "inspector:List*",
-            "inspector:Preview*",
+            "identitystore:ListGroupMemberships",
+            "identitystore:ListGroupMembershipsForMember",
+            "identitystore:ListGroups",
+            "identitystore:ListUsers",
             "inspector2:BatchGetAccountStatus",
             "inspector2:BatchGetFreeTrialInfo",
             "inspector2:DescribeOrganizationConfiguration",
@@ -88076,6 +89019,10 @@
             "inspector2:ListFindings",
             "inspector2:ListTagsForResource",
             "inspector2:ListUsageTotals",
+            "inspector:Describe*",
+            "inspector:Get*",
+            "inspector:List*",
+            "inspector:Preview*",
             "iot:Describe*",
             "iot:GetPolicy",
             "iot:GetPolicyVersion",
@@ -88095,7 +89042,9 @@
             "kafkaconnect:Describe*",
             "kafkaconnect:List*",
             "kendra:DescribeIndex",
+            "kendra:ListDataSources",
             "kendra:ListIndices",
+            "kendra:ListTagsForResource",
             "kinesis:DescribeLimits",
             "kinesis:DescribeStream",
             "kinesis:DescribeStreamConsumer",
@@ -88105,6 +89054,7 @@
             "kinesis:ListStreams",
             "kinesis:ListTagsForStream",
             "kinesisanalytics:ListApplications",
+            "kinesisanalytics:ListTagsForResource",
             "kinesisvideo:DescribeEdgeConfiguration",
             "kinesisvideo:DescribeMappedResourceConfiguration",
             "kinesisvideo:DescribeMediaStorageConfiguration",
@@ -88128,16 +89078,20 @@
             "lex:DescribeResourcePolicy",
             "lex:ListBots",
             "license-manager:List*",
-            "lightsail:GetDisks",
+            "lightsail:GetBuckets",
+            "lightsail:GetContainerServices",
             "lightsail:GetDiskSnapshots",
+            "lightsail:GetDisks",
             "lightsail:GetInstances",
             "lightsail:GetLoadBalancers",
             "logs:Describe*",
+            "logs:ListTagsForResource",
             "logs:ListTagsLogGroup",
             "lookoutequipment:ListDatasets",
             "lookoutmetrics:ListAnomalyDetectors",
             "lookoutvision:ListProjects",
             "machinelearning:DescribeMLModels",
+            "macie2:ListFindings",
             "managedblockchain:ListNetworks",
             "mechanicalturk:ListHITs",
             "mediaconnect:Describe*",
@@ -88179,6 +89133,9 @@
             "personalize:DescribeDatasetGroup",
             "personalize:ListDatasetGroups",
             "private-networks:ListNetworks",
+            "profile:GetDomain",
+            "profile:ListDomains",
+            "profile:ListIntegrations",
             "qldb:DescribeJournalS3Export",
             "qldb:DescribeLedger",
             "qldb:ListJournalS3Exports",
@@ -88191,6 +89148,9 @@
             "rds:Describe*",
             "rds:DownloadDBLogFilePortion",
             "rds:ListTagsForResource",
+            "redshift-serverless:GetNamespace",
+            "redshift-serverless:ListTagsForResource",
+            "redshift-serverless:ListWorkgroups",
             "redshift:Describe*",
             "rekognition:Describe*",
             "rekognition:List*",
@@ -88220,11 +89180,13 @@
             "s3:GetInventoryConfiguration",
             "s3:GetLifecycleConfiguration",
             "s3:GetMetricsConfiguration",
+            "s3:GetMultiRegionAccessPointPolicy",
             "s3:GetObjectAcl",
             "s3:GetObjectVersionAcl",
             "s3:GetReplicationConfiguration",
             "s3:ListAccessPoints",
             "s3:ListAllMyBuckets",
+            "s3:ListMultiRegionAccessPoints",
             "sagemaker:Describe*",
             "sagemaker:List*",
             "schemas:DescribeCodeBinding",
@@ -88234,22 +89196,22 @@
             "schemas:GetResourcePolicy",
             "schemas:ListDiscoverers",
             "schemas:ListRegistries",
-            "schemas:ListSchemas",
             "schemas:ListSchemaVersions",
+            "schemas:ListSchemas",
             "schemas:ListTagsForResource",
             "sdb:DomainMetadata",
             "sdb:ListDomains",
             "secretsmanager:DescribeSecret",
             "secretsmanager:GetResourcePolicy",
-            "secretsmanager:ListSecrets",
             "secretsmanager:ListSecretVersionIds",
+            "secretsmanager:ListSecrets",
             "securityhub:Describe*",
             "securityhub:Get*",
             "securityhub:List*",
             "serverlessrepo:GetApplicationPolicy",
             "serverlessrepo:List*",
-            "servicequotas:GetAssociationForServiceQuotaTemplate",
             "servicequotas:GetAWSDefaultServiceQuota",
+            "servicequotas:GetAssociationForServiceQuotaTemplate",
             "servicequotas:GetRequestedServiceQuotaChange",
             "servicequotas:GetServiceQuota",
             "servicequotas:GetServiceQuotaIncreaseRequestFromTemplate",
@@ -88261,13 +89223,20 @@
             "servicequotas:ListServices",
             "servicequotas:ListTagsForResource",
             "ses:Describe*",
+            "ses:GetAccount",
             "ses:GetAccountSendingEnabled",
+            "ses:GetConfigurationSet",
+            "ses:GetConfigurationSetEventDestinations",
+            "ses:GetDedicatedIps",
+            "ses:GetEmailIdentity",
             "ses:GetIdentityDkimAttributes",
             "ses:GetIdentityPolicies",
             "ses:GetIdentityVerificationAttributes",
             "ses:ListConfigurationSets",
+            "ses:ListDedicatedIpPools",
             "ses:ListIdentities",
             "ses:ListIdentityPolicies",
+            "ses:ListReceiptFilters",
             "ses:ListReceiptRuleSets",
             "ses:ListVerifiedEmailAddresses",
             "shield:Describe*",
@@ -88283,18 +89252,19 @@
             "sns:ListTopics",
             "sqs:GetQueueAttributes",
             "sqs:ListDeadLetterSourceQueues",
-            "sqs:ListQueues",
             "sqs:ListQueueTags",
+            "sqs:ListQueues",
             "ssm:Describe*",
             "ssm:GetAutomationExecution",
-            "ssm:ListAssociations",
+            "ssm:GetServiceSetting",
             "ssm:ListAssociationVersions",
+            "ssm:ListAssociations",
             "ssm:ListCommands",
             "ssm:ListComplianceItems",
             "ssm:ListComplianceSummaries",
             "ssm:ListDocumentMetadataHistory",
-            "ssm:ListDocuments",
             "ssm:ListDocumentVersions",
+            "ssm:ListDocuments",
             "ssm:ListInventoryEntries",
             "ssm:ListOpsMetadata",
             "ssm:ListResourceComplianceSummaries",
@@ -88324,8 +89294,8 @@
             "sts:GetAccessKeyInfo",
             "support:DescribeTrustedAdvisorCheckRefreshStatuses",
             "support:DescribeTrustedAdvisorCheckResult",
-            "support:DescribeTrustedAdvisorChecks",
             "support:DescribeTrustedAdvisorCheckSummaries",
+            "support:DescribeTrustedAdvisorChecks",
             "synthetics:DescribeCanaries",
             "synthetics:DescribeCanariesLastRun",
             "synthetics:DescribeRuntimeVersions",
@@ -88355,6 +89325,7 @@
             "transfer:List*",
             "translate:List*",
             "trustedadvisor:Describe*",
+            "voiceid:DescribeDomain",
             "waf-regional:GetWebACL",
             "waf-regional:ListResourcesForWebACL",
             "waf-regional:ListTagsForResource",
@@ -88362,8 +89333,9 @@
             "waf:GetWebACL",
             "waf:ListTagsForResource",
             "waf:ListWebACLs",
+            "wafv2:GetLoggingConfiguration",
             "wafv2:GetWebACL",
-            "wafv2:GetWebACLforResource",
+            "wafv2:GetWebACLForResource",
             "wafv2:ListAvailableManagedRuleGroups",
             "wafv2:ListIPSets",
             "wafv2:ListLoggingConfigurations",
@@ -88372,6 +89344,7 @@
             "wafv2:ListRuleGroups",
             "wafv2:ListTagsForResource",
             "wafv2:ListWebACLs",
+            "wisdom:GetAssistant",
             "workdocs:DescribeResourcePermissions",
             "workspaces:Describe*",
             "xray:GetEncryptionConfig",
@@ -88381,11 +89354,12 @@
             "xray:GetSamplingTargets",
             "xray:GetTraceSummaries",
             "xray:ListTagsForResource"
-          ]
+          ],
+          "Resource": "*"
         },
         {
-          "Effect": "Allow",
           "Sid": "APIGatewayAccess",
+          "Effect": "Allow",
           "Action": [
             "apigateway:GET"
           ],
@@ -88434,9 +89408,9 @@
         }
       ]
     },
-    "VersionId": "v41",
+    "VersionId": "v42",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-14T21:45:16+00:00"
+    "CreateDate": "2024-04-05T17:32:58+00:00"
   },
   "SecurityLakeServiceLinkedRole": {
     "Document": {
