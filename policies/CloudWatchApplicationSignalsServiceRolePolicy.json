@@ -34,10 +34,9 @@
         }
       },
       {
-        "Sid": "CWMetricsPermission",
+        "Sid": "CWListMetricsPermission",
         "Effect": "Allow",
         "Action": [
-          "cloudwatch:GetMetricData",
           "cloudwatch:ListMetrics"
         ],
         "Resource": [
@@ -48,6 +47,16 @@
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
+      },
+      {
+        "Sid": "CWGetMetricDataPermission",
+        "Effect": "Allow",
+        "Action": [
+          "cloudwatch:GetMetricData"
+        ],
+        "Resource": [
+          "*"
+        ]
       },
       {
         "Sid": "TagsPermission",
@@ -66,7 +75,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-07T00:04:01+00:00"
+  "CreateDate": "2024-04-08T16:03:52+00:00"
 }

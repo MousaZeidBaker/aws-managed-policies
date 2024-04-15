@@ -305,10 +305,24 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "ListPoliciesAttachedToRoles",
+        "Effect": "Allow",
+        "Action": [
+          "iam:ListAttachedRolePolicies",
+          "iam:ListRolePolicies"
+        ],
+        "Resource": "arn:aws:iam::*:role/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/red-hat-managed": "true"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-01-26T21:04:47+00:00"
+  "CreateDate": "2024-04-10T20:52:53+00:00"
 }

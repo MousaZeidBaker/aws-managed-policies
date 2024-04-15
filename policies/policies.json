@@ -22341,15 +22341,20 @@
             "glue:UpdateColumnStatisticsForTable",
             "lakeformation:GetDataAccess",
             "s3:GetAccessGrantsInstanceForPrefix",
-            "s3:GetDataAccess"
+            "s3:GetDataAccess",
+            "qbusiness:Chat",
+            "qbusiness:ChatSync",
+            "qbusiness:ListConversations",
+            "qbusiness:ListMessages",
+            "qbusiness:DeleteConversation"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-25T19:27:00+00:00"
+    "CreateDate": "2024-04-11T18:33:06+00:00"
   },
   "AWSIPAMServiceRolePolicy": {
     "Document": {
@@ -27515,6 +27520,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "EC2Describe",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeSubnets",
@@ -27527,6 +27533,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "VpcEndpointServiceConfigurationCreate",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateVpcEndpointServiceConfiguration"
@@ -27534,6 +27541,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "EC2TagsDelete",
           "Effect": "Allow",
           "Action": [
             "ec2:DeleteTags"
@@ -27546,6 +27554,7 @@
           }
         },
         {
+          "Sid": "VpcEndpointServiceConfigurationDelete",
           "Effect": "Allow",
           "Action": "ec2:DeleteVpcEndpointServiceConfigurations",
           "Resource": "*",
@@ -27556,6 +27565,7 @@
           }
         },
         {
+          "Sid": "ELBLoadBalancerCreate",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:AddTags",
@@ -27569,6 +27579,7 @@
           }
         },
         {
+          "Sid": "ELBDescribe",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:DescribeLoadBalancers",
@@ -27580,6 +27591,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "ELBModify",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:RegisterTargets",
@@ -27598,11 +27610,13 @@
           }
         },
         {
+          "Sid": "ELBLoadBalancerDelete",
           "Effect": "Allow",
           "Action": "elasticloadbalancing:DeleteLoadBalancer",
           "Resource": "arn:*:elasticloadbalancing:*:*:loadbalancer/net/refactor-spaces-nlb-*"
         },
         {
+          "Sid": "ELBListenerCreate",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:AddTags",
@@ -27619,11 +27633,13 @@
           }
         },
         {
+          "Sid": "ELBListenerDelete",
           "Effect": "Allow",
           "Action": "elasticloadbalancing:DeleteListener",
           "Resource": "arn:*:elasticloadbalancing:*:*:listener/net/refactor-spaces-nlb-*"
         },
         {
+          "Sid": "ELBTargetGroupModify",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:DeleteTargetGroup",
@@ -27632,6 +27648,7 @@
           "Resource": "arn:*:elasticloadbalancing:*:*:targetgroup/refactor-spaces-tg-*"
         },
         {
+          "Sid": "ELBTargetGroupCreate",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:AddTags",
@@ -27645,6 +27662,7 @@
           }
         },
         {
+          "Sid": "APIGatewayModify",
           "Effect": "Allow",
           "Action": [
             "apigateway:GET",
@@ -27669,6 +27687,7 @@
           }
         },
         {
+          "Sid": "APIGatewayVpcLinksGet",
           "Effect": "Allow",
           "Action": "apigateway:GET",
           "Resource": [
@@ -27677,6 +27696,7 @@
           ]
         },
         {
+          "Sid": "OrganizationDescribe",
           "Effect": "Allow",
           "Action": [
             "organizations:DescribeOrganization"
@@ -27684,6 +27704,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "CloudformationStackCreate",
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateStack"
@@ -27691,6 +27712,15 @@
           "Resource": "*"
         },
         {
+          "Sid": "CloudformationStackTag",
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:TagResource"
+          ],
+          "Resource": "arn:aws:cloudformation:*:*:stack/*"
+        },
+        {
+          "Sid": "CreateRefactorSpacesSLR",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -27701,6 +27731,7 @@
           }
         },
         {
+          "Sid": "CreateELBSLR",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -27712,9 +27743,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-20T15:39:19+00:00"
+    "CreateDate": "2024-04-11T18:16:48+00:00"
   },
   "AWSMigrationHubRefactorSpaces-SSMAutomationPolicy": {
     "Document": {
@@ -27787,6 +27818,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "EC2Describe",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeNetworkInterfaces",
@@ -27804,6 +27836,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "RequestTagTransitGatewayCreate",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTransitGateway",
@@ -27818,6 +27851,7 @@
           }
         },
         {
+          "Sid": "ResourceTagTransitGatewayCreate",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTransitGateway",
@@ -27832,6 +27866,7 @@
           }
         },
         {
+          "Sid": "VpcEndpointServiceConfigurationCreate",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateVpcEndpointServiceConfiguration"
@@ -27839,6 +27874,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "EC2NetworkingModify",
           "Effect": "Allow",
           "Action": [
             "ec2:DeleteTransitGateway",
@@ -27858,6 +27894,7 @@
           }
         },
         {
+          "Sid": "VpcEndpointServiceConfigurationDelete",
           "Effect": "Allow",
           "Action": "ec2:DeleteVpcEndpointServiceConfigurations",
           "Resource": "*",
@@ -27868,6 +27905,7 @@
           }
         },
         {
+          "Sid": "ELBLoadBalancerCreate",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:AddTags",
@@ -27881,6 +27919,7 @@
           }
         },
         {
+          "Sid": "ELBDescribe",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:DescribeLoadBalancers",
@@ -27892,6 +27931,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "ELBModify",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:RegisterTargets",
@@ -27910,11 +27950,13 @@
           }
         },
         {
+          "Sid": "ELBLoadBalancerDelete",
           "Effect": "Allow",
           "Action": "elasticloadbalancing:DeleteLoadBalancer",
           "Resource": "arn:*:elasticloadbalancing:*:*:loadbalancer/net/refactor-spaces-nlb-*"
         },
         {
+          "Sid": "ELBListenerCreate",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:AddTags",
@@ -27931,11 +27973,13 @@
           }
         },
         {
+          "Sid": "ELBListenerDelete",
           "Effect": "Allow",
           "Action": "elasticloadbalancing:DeleteListener",
           "Resource": "arn:*:elasticloadbalancing:*:*:listener/net/refactor-spaces-nlb-*"
         },
         {
+          "Sid": "ELBTargetGroupModify",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:DeleteTargetGroup",
@@ -27944,6 +27988,7 @@
           "Resource": "arn:*:elasticloadbalancing:*:*:targetgroup/refactor-spaces-tg-*"
         },
         {
+          "Sid": "ELBTargetGroupCreate",
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:AddTags",
@@ -27957,6 +28002,7 @@
           }
         },
         {
+          "Sid": "APIGatewayModify",
           "Effect": "Allow",
           "Action": [
             "apigateway:GET",
@@ -27981,6 +28027,7 @@
           }
         },
         {
+          "Sid": "APIGatewayVpcLinksGet",
           "Effect": "Allow",
           "Action": "apigateway:GET",
           "Resource": [
@@ -27989,6 +28036,7 @@
           ]
         },
         {
+          "Sid": "OrganizationDescribe",
           "Effect": "Allow",
           "Action": [
             "organizations:DescribeOrganization"
@@ -27996,6 +28044,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "CloudformationStackCreate",
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateStack"
@@ -28003,6 +28052,15 @@
           "Resource": "*"
         },
         {
+          "Sid": "CloudformationStackTag",
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:TagResource"
+          ],
+          "Resource": "arn:aws:cloudformation:*:*:stack/*"
+        },
+        {
+          "Sid": "CreateRefactorSpacesSLR",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -28013,6 +28071,7 @@
           }
         },
         {
+          "Sid": "CreateELBSLR",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "*",
@@ -28024,9 +28083,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-19T19:07:24+00:00"
+    "CreateDate": "2024-04-11T17:45:46+00:00"
   },
   "AWSMigrationHubRefactorSpacesServiceRolePolicy": {
     "Document": {
@@ -33461,12 +33520,26 @@
           "Resource": [
             "arn:*:resource-groups:*:*:group/AWS_AppRegistry_AppTag_*"
           ]
+        },
+        {
+          "Sid": "StartStopInstances",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:StartInstances",
+            "ec2:StopInstances"
+          ],
+          "Resource": "arn:*:ec2:*:*:instance/*",
+          "Condition": {
+            "StringEqualsIgnoreCase": {
+              "ec2:resourceTag/SSMForSAPManaged": "True"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-21T03:35:14+00:00"
+    "CreateDate": "2024-04-11T18:31:07+00:00"
   },
   "AWSSSMOpsInsightsServiceRolePolicy": {
     "Document": {
@@ -40601,7 +40674,9 @@
             "cloudformation:CreateChangeSet",
             "cloudformation:DescribeChangeSet",
             "cloudformation:ExecuteChangeSet",
-            "cloudformation:UpdateTerminationProtection"
+            "cloudformation:UpdateTerminationProtection",
+            "cloudformation:TagResource",
+            "cloudformation:UntagResource"
           ],
           "Resource": [
             "arn:aws:cloudformation:*:*:stack/stack*/*",
@@ -40685,9 +40760,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-23T22:25:47+00:00"
+    "CreateDate": "2024-04-12T20:07:12+00:00"
   },
   "AWSThinkboxAWSPortalGatewayPolicy": {
     "Document": {
@@ -41005,6 +41080,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker1",
           "Effect": "Allow",
           "Action": [
             "application-autoscaling:DeleteScalingPolicy",
@@ -41019,6 +41095,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker2",
           "Effect": "Allow",
           "Action": [
             "cloudformation:ListStacks"
@@ -41028,19 +41105,23 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker3",
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateStack",
             "cloudformation:DeleteStack",
             "cloudformation:UpdateStack",
             "cloudformation:DescribeStacks",
-            "cloudformation:UpdateTerminationProtection"
+            "cloudformation:UpdateTerminationProtection",
+            "cloudformation:TagResource",
+            "cloudformation:UntagResource"
           ],
           "Resource": [
             "arn:aws:cloudformation:*:*:stack/DeadlineResourceTracker*"
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker4",
           "Effect": "Allow",
           "Action": [
             "dynamodb:CreateTable",
@@ -41057,6 +41138,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker5",
           "Effect": "Allow",
           "Action": [
             "dynamodb:BatchWriteItem",
@@ -41067,6 +41149,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker6",
           "Effect": "Allow",
           "Action": [
             "events:DeleteRule",
@@ -41080,6 +41163,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker7",
           "Effect": "Allow",
           "Action": [
             "iam:GetRole",
@@ -41090,6 +41174,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker8",
           "Effect": "Allow",
           "Action": [
             "iam:GetUser"
@@ -41099,6 +41184,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker9",
           "Effect": "Allow",
           "Action": [
             "iam:CreateServiceLinkedRole"
@@ -41115,6 +41201,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker10",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -41131,6 +41218,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker11",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -41147,6 +41235,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker12",
           "Effect": "Allow",
           "Action": [
             "lambda:GetEventSourceMapping"
@@ -41156,6 +41245,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker13",
           "Effect": "Allow",
           "Action": [
             "lambda:CreateEventSourceMapping",
@@ -41173,6 +41263,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker14",
           "Effect": "Allow",
           "Action": [
             "lambda:AddPermission",
@@ -41188,6 +41279,7 @@
           }
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker15",
           "Effect": "Allow",
           "Action": [
             "lambda:CreateFunction",
@@ -41207,6 +41299,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker16",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject"
@@ -41217,6 +41310,7 @@
           ]
         },
         {
+          "Sid": "AWSThinkboxDeadlineResourceTracker17",
           "Effect": "Allow",
           "Action": [
             "sqs:CreateQueue",
@@ -41233,9 +41327,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-22T18:08:40+00:00"
+    "CreateDate": "2024-04-12T20:55:58+00:00"
   },
   "AWSThinkboxDeadlineSpotEventPluginAdminPolicy": {
     "Document": {
@@ -42552,6 +42646,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AWSXrayFullAccess",
           "Effect": "Allow",
           "Action": [
             "xray:*"
@@ -42562,9 +42657,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2016-12-01T18:30:55+00:00"
+    "CreateDate": "2024-04-11T17:07:36+00:00"
   },
   "AWSXrayReadOnlyAccess": {
     "Document": {
@@ -65538,6 +65633,7 @@
             "ec2:DescribeNetworkInterfaces",
             "ec2:DescribeVolumes",
             "ec2:DescribeInstanceStatus",
+            "ec2:DescribeInstanceTypes",
             "ec2:DescribeIamInstanceProfileAssociations",
             "ec2:DescribeImages",
             "ec2:DescribeVpcs",
@@ -65687,6 +65783,24 @@
                 "custom-oracle-rac",
                 "custom-oracle"
               ]
+            }
+          }
+        },
+        {
+          "Sid": "eccModifyInstanceAttribute1",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyInstanceAttribute"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AWSRDSCustom": [
+                "custom-sqlserver"
+              ],
+              "ec2:Attribute": "InstanceType"
             }
           }
         },
@@ -66256,9 +66370,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-20T19:16:42+00:00"
+    "CreateDate": "2024-04-08T19:39:46+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
@@ -79002,10 +79116,9 @@
           }
         },
         {
-          "Sid": "CWMetricsPermission",
+          "Sid": "CWListMetricsPermission",
           "Effect": "Allow",
           "Action": [
-            "cloudwatch:GetMetricData",
             "cloudwatch:ListMetrics"
           ],
           "Resource": [
@@ -79016,6 +79129,16 @@
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
+        },
+        {
+          "Sid": "CWGetMetricDataPermission",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:GetMetricData"
+          ],
+          "Resource": [
+            "*"
+          ]
         },
         {
           "Sid": "TagsPermission",
@@ -79034,9 +79157,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-03-07T00:04:01+00:00"
+    "CreateDate": "2024-04-08T16:03:52+00:00"
   },
   "CloudWatchAutomaticDashboardsAccess": {
     "Document": {
@@ -85556,12 +85679,26 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "ListPoliciesAttachedToRoles",
+          "Effect": "Allow",
+          "Action": [
+            "iam:ListAttachedRolePolicies",
+            "iam:ListRolePolicies"
+          ],
+          "Resource": "arn:aws:iam::*:role/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-26T21:04:47+00:00"
+    "CreateDate": "2024-04-10T20:52:53+00:00"
   },
   "ROSAKMSProviderPolicy": {
     "Document": {
@@ -86215,7 +86352,7 @@
           "Action": [
             "iam:GetInstanceProfile"
           ],
-          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Resource": "arn:aws:iam::*:instance-profile/*",
           "Condition": {
             "StringEquals": {
               "aws:ResourceTag/red-hat-managed": "true"
@@ -86262,9 +86399,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-22T22:46:40+00:00"
+    "CreateDate": "2024-04-10T20:51:37+00:00"
   },
   "ROSAWorkerInstancePolicy": {
     "Document": {
