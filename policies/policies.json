@@ -22346,15 +22346,16 @@
             "qbusiness:ChatSync",
             "qbusiness:ListConversations",
             "qbusiness:ListMessages",
-            "qbusiness:DeleteConversation"
+            "qbusiness:DeleteConversation",
+            "sts:SetContext"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-11T18:33:06+00:00"
+    "CreateDate": "2024-04-19T18:58:23+00:00"
   },
   "AWSIPAMServiceRolePolicy": {
     "Document": {
@@ -36333,6 +36334,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "ReadOnlyAccess",
           "Effect": "Allow",
           "Action": [
             "states:ListStateMachines",
@@ -36342,15 +36344,21 @@
             "states:ListExecutions",
             "states:DescribeExecution",
             "states:GetExecutionHistory",
-            "states:DescribeActivity"
+            "states:DescribeActivity",
+            "states:ListTagsForResource",
+            "states:DescribeMapRun",
+            "states:ListMapRuns",
+            "states:DescribeStateMachineAlias",
+            "states:ListStateMachineAliases",
+            "states:ListStateMachineVersions"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2017-11-10T22:03:49+00:00"
+    "CreateDate": "2024-04-16T22:09:29+00:00"
   },
   "AWSStorageGatewayFullAccess": {
     "Document": {
@@ -61402,7 +61410,7 @@
           ],
           "Condition": {
             "StringEquals": {
-              "iam:AWSServiceName": "lexv2.amazonaws.com"
+              "iam:AWSServiceName": "replication.lexv2.amazonaws.com"
             }
           }
         },
@@ -61491,9 +61499,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-07T00:55:22+00:00"
+    "CreateDate": "2024-04-16T20:06:39+00:00"
   },
   "AmazonLexReadOnly": {
     "Document": {
@@ -66082,7 +66090,10 @@
           "Sid": "iam2",
           "Effect": "Allow",
           "Action": "iam:PassRole",
-          "Resource": "arn:aws:iam::*:role/AWSRDSCustom*",
+          "Resource": [
+            "arn:aws:iam::*:role/AWSRDSCustom*",
+            "arn:aws:iam::*:role/service-role/AWSRDSCustom*"
+          ],
           "Condition": {
             "StringLike": {
               "iam:PassedToService": "ec2.amazonaws.com"
@@ -66370,9 +66381,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-08T19:39:46+00:00"
+    "CreateDate": "2024-04-19T15:15:23+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
@@ -76806,12 +76817,35 @@
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
+        },
+        {
+          "Sid": "AmplifyDiscoverRDSVpcConfig",
+          "Effect": "Allow",
+          "Action": [
+            "rds:DescribeDBProxies",
+            "rds:DescribeDBInstances",
+            "rds:DescribeDBClusters",
+            "ec2:DescribeSubnets",
+            "rds:DescribeDBSubnetGroups"
+          ],
+          "Resource": [
+            "arn:aws:rds:*:*:db:*",
+            "arn:aws:rds:*:*:cluster:*",
+            "arn:aws:rds:*:*:db-proxy:*",
+            "arn:aws:rds:*:*:subgrp:*",
+            "arn:aws:ec2:*:*:subnet/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-05T18:24:13+00:00"
+    "CreateDate": "2024-04-17T16:00:59+00:00"
   },
   "AppIntegrationsServiceLinkedRolePolicy": {
     "Document": {
@@ -79107,7 +79141,8 @@
             "logs:GetQueryResults"
           ],
           "Resource": [
-            "arn:aws:logs:*:*:log-group:/aws/appsignals/*:*"
+            "arn:aws:logs:*:*:log-group:/aws/appsignals/*:*",
+            "arn:aws:logs:*:*:log-group:/aws/application-signals/data:*"
           ],
           "Condition": {
             "StringEquals": {
@@ -79157,9 +79192,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-08T16:03:52+00:00"
+    "CreateDate": "2024-04-18T22:52:11+00:00"
   },
   "CloudWatchAutomaticDashboardsAccess": {
     "Document": {
@@ -86471,6 +86506,7 @@
             "amplify:ListDomainAssociations",
             "amplify:ListJobs",
             "aoss:BatchGetCollection",
+            "aoss:BatchGetLifecyclePolicy",
             "aoss:BatchGetVpcEndpoint",
             "aoss:GetAccessPolicy",
             "aoss:GetAccountSettings",
@@ -86479,6 +86515,7 @@
             "aoss:GetSecurityPolicy",
             "aoss:ListAccessPolicies",
             "aoss:ListCollections",
+            "aoss:ListLifecyclePolicies",
             "aoss:ListSecurityConfigs",
             "aoss:ListSecurityPolicies",
             "aoss:ListTagsForResource",
@@ -86533,11 +86570,14 @@
             "apprunner:DescribeService",
             "apprunner:DescribeVpcConnector",
             "apprunner:DescribeVpcIngressConnection",
+            "apprunner:DescribeWebAclForService",
+            "apprunner:ListAssociatedServicesForWebAcl",
             "apprunner:ListAutoScalingConfigurations",
             "apprunner:ListConnections",
             "apprunner:ListObservabilityConfigurations",
             "apprunner:ListOperations",
             "apprunner:ListServices",
+            "apprunner:ListServicesForAutoScalingConfiguration",
             "apprunner:ListTagsForResource",
             "apprunner:ListVpcConnectors",
             "apprunner:ListVpcIngressConnections",
@@ -86548,9 +86588,11 @@
             "aps:DescribeAlertManagerDefinition",
             "aps:DescribeLoggingConfiguration",
             "aps:DescribeRuleGroupsNamespace",
+            "aps:DescribeScraper",
             "aps:DescribeWorkspace",
             "aps:GetAlertManagerSilence",
             "aps:GetAlertManagerStatus",
+            "aps:GetDefaultScraperConfiguration",
             "aps:GetLabels",
             "aps:GetMetricMetadata",
             "aps:GetSeries",
@@ -86561,6 +86603,7 @@
             "aps:ListAlerts",
             "aps:ListRuleGroupsNamespaces",
             "aps:ListRules",
+            "aps:ListScrapers",
             "aps:ListTagsForResource",
             "aps:ListWorkspaces",
             "aps:QueryMetrics",
@@ -86700,6 +86743,7 @@
             "ce:GetTags",
             "ce:GetUsageForecast",
             "ce:ListCostAllocationTags",
+            "ce:ListCostAllocationTagBackfillHistory",
             "ce:ListCostCategoryDefinitions",
             "ce:ListSavingsPlansPurchaseRecommendationGeneration",
             "ce:ListTagsForResource",
@@ -86718,6 +86762,7 @@
             "cleanrooms:GetAnalysisTemplate",
             "cleanrooms:GetCollaboration",
             "cleanrooms:GetCollaborationAnalysisTemplate",
+            "cleanrooms:GetConfiguredAudienceModelAssociation",
             "cleanrooms:GetConfiguredTable",
             "cleanrooms:GetConfiguredTableAnalysisRule",
             "cleanrooms:GetConfiguredTableAssociation",
@@ -86727,6 +86772,7 @@
             "cleanrooms:GetSchemaAnalysisRule",
             "cleanrooms:ListAnalysisTemplates",
             "cleanrooms:ListCollaborationAnalysisTemplates",
+            "cleanrooms:ListCollaborationConfiguredAudienceModelAssociations",
             "cleanrooms:ListCollaborations",
             "cleanrooms:ListConfiguredTableAssociations",
             "cleanrooms:ListConfiguredTables",
@@ -86735,6 +86781,17 @@
             "cleanrooms:ListProtectedQueries",
             "cleanrooms:ListSchemas",
             "cleanrooms:ListTagsForResource",
+            "cleanrooms-ml:GetTrainingDataset",
+            "cleanrooms-ml:GetAudienceGenerationJob",
+            "cleanrooms-ml:GetAudienceModel",
+            "cleanrooms-ml:GetConfiguredAudienceModel",
+            "cleanrooms-ml:GetConfiguredAudienceModelPolicy",
+            "cleanrooms-ml:ListAudienceExportJobs",
+            "cleanrooms-ml:ListAudienceGenerationJobs",
+            "cleanrooms-ml:ListAudienceModels",
+            "cleanrooms-ml:ListConfiguredAudienceModels",
+            "cleanrooms-ml:ListTrainingDatasets",
+            "cleanrooms-ml:ListTagsForResource",
             "cloud9:Describe*",
             "cloud9:List*",
             "clouddirectory:BatchRead",
@@ -87329,6 +87386,7 @@
             "inspector2:GetFindingsReportStatus",
             "inspector2:GetMember",
             "inspector2:ListAccountPermissions",
+            "inspector2:ListCisScans",
             "inspector2:ListCoverage",
             "inspector2:ListCoverageStatistics",
             "inspector2:ListDelegatedAdminAccounts",
@@ -87339,8 +87397,10 @@
             "inspector2:ListTagsForResource",
             "inspector2:ListUsageTotals",
             "internetmonitor:GetHealthEvent",
+            "internetmonitor:GetInternetEvent",
             "internetmonitor:GetMonitor",
             "internetmonitor:ListHealthEvents",
+            "internetmonitor:ListInternetEvents",
             "internetmonitor:ListMonitors",
             "internetmonitor:ListTagsForResource",
             "invoicing:GetInvoiceEmailDeliveryPreferences",
@@ -87417,6 +87477,8 @@
             "iotwireless:GetEventConfigurationByResourceTypes",
             "iotwireless:GetFuotaTask",
             "iotwireless:GetLogLevelsByResourceTypes",
+            "iotwireless:GetMetrics",
+            "iotwireless:GetMetricConfiguration",
             "iotwireless:GetMulticastGroup",
             "iotwireless:GetMulticastGroupSession",
             "iotwireless:GetNetworkAnalyzerConfiguration",
@@ -87457,13 +87519,27 @@
             "iotwireless:ListWirelessGatewayTaskDefinitions",
             "ivs:BatchGetChannel",
             "ivs:GetChannel",
+            "ivs:GetComposition",
+            "ivs:GetEncoderConfiguration",
+            "ivs:GetStage",
+            "ivs:GetStageSession",
+            "ivs:GetParticipant",
             "ivs:GetPlaybackKeyPair",
+            "ivs:GetPlaybackRestrictionPolicy",
             "ivs:GetRecordingConfiguration",
             "ivs:GetStreamSession",
             "ivs:ListChannels",
+            "ivs:ListCompositions",
+            "ivs:ListEncoderConfigurations",
+            "ivs:ListParticipants",
+            "ivs:ListParticipantEvents",
             "ivs:ListPlaybackKeyPairs",
+            "ivs:ListPlaybackRestrictionPolicies",
             "ivs:ListRecordingConfigurations",
+            "ivs:ListStages",
+            "ivs:ListStageSessions",
             "ivs:ListStreams",
+            "ivs:ListStreamKeys",
             "ivs:ListStreamSessions",
             "ivs:ListTagsForResource",
             "ivschat:GetLoggingConfiguration",
@@ -87790,7 +87866,16 @@
             "medialive:DescribeOffering",
             "medialive:DescribeReservation",
             "medialive:DescribeSchedule",
+            "medialive:GetCloudWatchAlarmTemplate",
+            "medialive:GetCloudWatchAlarmTemplateGroup",
+            "medialive:GetEventBridgeRuleTemplate",
+            "medialive:GetEventBridgeRuleTemplateGroup",
+            "medialive:GetSignalMap",
             "medialive:ListChannels",
+            "medialive:ListCloudWatchAlarmTemplateGroups",
+            "medialive:ListCloudWatchAlarmTemplates",
+            "medialive:ListEventBridgeRuleTemplateGroups",
+            "medialive:ListEventBridgeRuleTemplates",
             "medialive:ListInputDevices",
             "medialive:ListInputDeviceTransfers",
             "medialive:ListInputs",
@@ -87799,6 +87884,7 @@
             "medialive:ListMultiplexPrograms",
             "medialive:ListOfferings",
             "medialive:ListReservations",
+            "medialive:ListSignalMaps",
             "medialive:ListTagsForResource",
             "mediapackage-vod:Describe*",
             "mediapackage-vod:List*",
@@ -88188,6 +88274,15 @@
             "securityhub:Describe*",
             "securityhub:Get*",
             "securityhub:List*",
+            "securitylake:GetDataLakeExceptionSubscription",
+            "securitylake:GetDataLakeOrganizationConfiguration",
+            "securitylake:GetDataLakeSources",
+            "securitylake:GetSubscriber",
+            "securitylake:ListDataLakeExceptions",
+            "securitylake:ListDataLakes",
+            "securitylake:ListLogSources",
+            "securitylake:ListSubscribers",
+            "securitylake:ListTagsForResource",
             "serverlessrepo:Get*",
             "serverlessrepo:List*",
             "serverlessrepo:SearchApplications",
@@ -88453,9 +88548,9 @@
         }
       ]
     },
-    "VersionId": "v111",
+    "VersionId": "v112",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-05T15:00:23+00:00"
+    "CreateDate": "2024-04-17T21:17:05+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
@@ -89650,12 +89745,28 @@
             "wafv2:ListWebACLs"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "LogDelivery",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogDelivery",
+            "logs:DeleteLogDelivery"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "wafv2.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-29T19:14:11+00:00"
+    "CreateDate": "2024-04-19T16:00:05+00:00"
   },
   "ServerMigrationConnector": {
     "Document": {
@@ -90283,6 +90394,36 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2015-02-06T18:41:04+00:00"
+  },
+  "SplitCostAllocationDataServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AwsOrganizationsAccess",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeOrganization",
+            "organizations:ListAccounts",
+            "organizations:ListAWSServiceAccessForOrganization",
+            "organizations:ListParents"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "AmazonManagedServiceForPrometheusAccess",
+          "Effect": "Allow",
+          "Action": [
+            "aps:ListWorkspaces",
+            "aps:QueryMetrics"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-16T16:05:16+00:00"
   },
   "SupportUser": {
     "Document": {
