@@ -7838,7 +7838,10 @@
             "codestar-connections:StartOAuthHandshake",
             "codestar-connections:UseConnection"
           ],
-          "Resource": "arn:aws:codestar-connections:*:*:connection/*"
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*",
+            "arn:aws:codeconnections:*:*:connection/*"
+          ]
         },
         {
           "Sid": "CodeStarNotificationsReadWriteAccess",
@@ -7898,9 +7901,9 @@
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-31T23:06:23+00:00"
+    "CreateDate": "2024-05-02T01:45:44+00:00"
   },
   "AWSCodeBuildDeveloperAccess": {
     "Document": {
@@ -7957,7 +7960,10 @@
             "codestar-connections:ListConnections",
             "codestar-connections:GetConnection"
           ],
-          "Resource": "arn:aws:codestar-connections:*:*:connection/*"
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*",
+            "arn:aws:codeconnections:*:*:connection/*"
+          ]
         },
         {
           "Sid": "CodeStarNotificationsReadWriteAccess",
@@ -8008,14 +8014,15 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-31T23:06:10+00:00"
+    "CreateDate": "2024-05-02T01:36:55+00:00"
   },
   "AWSCodeBuildReadOnlyAccess": {
     "Document": {
       "Statement": [
         {
+          "Sid": "AWSServicesAccess",
           "Action": [
             "codebuild:BatchGet*",
             "codebuild:GetResourcePolicy",
@@ -8041,7 +8048,10 @@
             "codestar-connections:ListConnections",
             "codestar-connections:GetConnection"
           ],
-          "Resource": "arn:aws:codestar-connections:*:*:connection/*"
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*",
+            "arn:aws:codeconnections:*:*:connection/*"
+          ]
         },
         {
           "Sid": "CodeStarNotificationsPowerUserAccess",
@@ -8069,9 +8079,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-09-14T16:04:04+00:00"
+    "CreateDate": "2024-05-02T01:23:27+00:00"
   },
   "AWSCodeCommitFullAccess": {
     "Document": {
@@ -15857,7 +15867,9 @@
             "cloudformation:ExecuteChangeSet",
             "cloudformation:DeleteChangeSet",
             "cloudformation:ListChangeSets",
-            "cloudformation:DescribeStacks"
+            "cloudformation:DescribeStacks",
+            "cloudformation:TagResource",
+            "cloudformation:UntagResource"
           ],
           "Resource": [
             "arn:aws:cloudformation:*:*:stack/awseb-*",
@@ -15872,9 +15884,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-06-04T17:48:27+00:00"
+    "CreateDate": "2024-04-29T21:48:04+00:00"
   },
   "AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy": {
     "Document": {
@@ -16271,7 +16283,9 @@
             "cloudformation:CancelUpdateStack",
             "cloudformation:DeleteStack",
             "cloudformation:GetTemplate",
-            "cloudformation:UpdateStack"
+            "cloudformation:UpdateStack",
+            "cloudformation:TagResource",
+            "cloudformation:UntagResource"
           ],
           "Resource": [
             "arn:aws:cloudformation:*:*:stack/awseb-e-*",
@@ -16393,9 +16407,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-24T00:18:43+00:00"
+    "CreateDate": "2024-04-29T23:11:34+00:00"
   },
   "AWSElasticBeanstalkMulticontainerDocker": {
     "Document": {
@@ -16678,7 +16692,9 @@
             "cloudformation:ListStackResources",
             "cloudformation:UpdateStack",
             "cloudformation:ContinueUpdateRollback",
-            "cloudformation:CancelUpdateStack"
+            "cloudformation:CancelUpdateStack",
+            "cloudformation:TagResource",
+            "cloudformation:UntagResource"
           ],
           "Resource": "arn:aws:cloudformation:*:*:stack/awseb-e-*"
         },
@@ -16757,9 +16773,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-09-09T20:31:14+00:00"
+    "CreateDate": "2024-04-30T00:01:53+00:00"
   },
   "AWSElasticBeanstalkRoleECS": {
     "Document": {
@@ -22354,6 +22370,26 @@
             "q:GetTroubleshootingResults",
             "q:StartTroubleshootingResolutionExplanation",
             "q:UpdateTroubleshootingCommandResult",
+            "qapps:CreateQApp",
+            "qapps:PredictProblemStatementFromConversation",
+            "qapps:PredictQAppFromProblemStatement",
+            "qapps:CopyQApp",
+            "qapps:GetQApp",
+            "qapps:ListQApps",
+            "qapps:UpdateQApp",
+            "qapps:DeleteQApp",
+            "qapps:AssociateQAppWithUser",
+            "qapps:DisassociateQAppFromUser",
+            "qapps:ImportDocumentToQApp",
+            "qapps:ImportDocumentToQAppSession",
+            "qapps:CreateLibraryItem",
+            "qapps:GetLibraryItem",
+            "qapps:UpdateLibraryItem",
+            "qapps:CreateLibraryItemReview",
+            "qapps:ListLibraryItems",
+            "qapps:CreateSubscriptionToken",
+            "qapps:StartQAppSession",
+            "qapps:StopQAppSession",
             "qbusiness:Chat",
             "qbusiness:ChatSync",
             "qbusiness:ListConversations",
@@ -22366,9 +22402,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-26T20:13:15+00:00"
+    "CreateDate": "2024-04-30T09:31:36+00:00"
   },
   "AWSIPAMServiceRolePolicy": {
     "Document": {
@@ -30710,15 +30746,19 @@
           "Sid": "AccessGitRepos",
           "Effect": "Allow",
           "Action": [
-            "codestar-connections:UseConnection"
+            "codestar-connections:UseConnection",
+            "codeconnections:UseConnection"
           ],
-          "Resource": "arn:aws:codestar-connections:*:*:connection/*"
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*",
+            "arn:aws:codeconnections:*:*:connection/*"
+          ]
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-23T21:14:36+00:00"
+    "CreateDate": "2024-05-05T01:49:07+00:00"
   },
   "AWSPurchaseOrdersServiceRolePolicy": {
     "Document": {
@@ -34737,9 +34777,13 @@
           "Sid": "AccessArtifactRepositories",
           "Effect": "Allow",
           "Action": [
-            "codestar-connections:UseConnection"
+            "codestar-connections:UseConnection",
+            "codeconnections:UseConnection"
           ],
-          "Resource": "arn:aws:codestar-connections:*:*:connection/*"
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*",
+            "arn:aws:codeconnections:*:*:connection/*"
+          ]
         },
         {
           "Sid": "ValidateTemplate",
@@ -34751,9 +34795,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-15T21:20:15+00:00"
+    "CreateDate": "2024-05-03T17:12:41+00:00"
   },
   "AWSServiceRoleForAmazonEKSNodegroup": {
     "Document": {
@@ -37137,6 +37181,10 @@
             "backup:getBackupVaultNotifications",
             "backup:getLegalHold",
             "backup:getRecoveryPointRestoreMetadata",
+            "backup:getRestoreJobMetadata",
+            "backup:getRestoreTestingInferredMetadata",
+            "backup:getRestoreTestingPlan",
+            "backup:getRestoreTestingSelection",
             "backup:getSupportedResourceTypes",
             "backup:listBackupJobs",
             "backup:listBackupPlans",
@@ -37154,6 +37202,9 @@
             "backup:listReportJobs",
             "backup:listReportPlans",
             "backup:listRestoreJobs",
+            "backup:listRestoreJobsByProtectedResource",
+            "backup:listRestoreTestingPlans",
+            "backup:listRestoreTestingSelections",
             "backup:listTags",
             "backup-gateway:getGateway",
             "backup-gateway:getHypervisor",
@@ -37281,6 +37332,8 @@
             "cloudfront:getPublicKey",
             "cloudfront:getPublicKeyConfig",
             "cloudfront:getRealtimeLogConfig",
+            "cloudfront:getResponseHeadersPolicy",
+            "cloudfront:getResponseHeadersPolicyConfig",
             "cloudfront:getStreamingDistribution",
             "cloudfront:getStreamingDistributionConfig",
             "cloudfront:listCachePolicies",
@@ -37300,6 +37353,7 @@
             "cloudfront:listOriginRequestPolicies",
             "cloudfront:listPublicKeys",
             "cloudfront:listRealtimeLogConfigs",
+            "cloudfront:listResponseHeadersPolicies",
             "cloudfront:listStreamingDistributions",
             "cloudhsm:describeBackups",
             "cloudhsm:describeClusters",
@@ -37349,12 +37403,14 @@
             "codeartifact:listRepositoriesInDomain",
             "codebuild:batchGetBuildBatches",
             "codebuild:batchGetBuilds",
+            "codebuild:batchGetFleets",
             "codebuild:batchGetProjects",
             "codebuild:listBuildBatches",
             "codebuild:listBuildBatchesForProject",
             "codebuild:listBuilds",
             "codebuild:listBuildsForProject",
             "codebuild:listCuratedEnvironmentImages",
+            "codebuild:listFleets",
             "codebuild:listProjects",
             "codebuild:listSourceCredentials",
             "codecommit:batchGetRepositories",
@@ -37535,15 +37591,23 @@
             "controltower:describeSingleSignOn",
             "controltower:getAvailableUpdates",
             "controltower:getHomeRegion",
+            "controltower:getLandingZone",
             "controltower:getLandingZoneStatus",
             "controltower:listDirectoryGroups",
+            "controltower:listEnabledControls",
             "controltower:listGuardrailsForTarget",
             "controltower:listGuardrailViolations",
+            "controltower:listLandingZones",
             "controltower:listManagedAccounts",
             "controltower:listManagedAccountsForGuardrail",
             "controltower:listManagedAccountsForParent",
             "controltower:listManagedOrganizationalUnits",
             "controltower:listManagedOrganizationalUnitsForGuardrail",
+            "cost-optimization-hub:getPreferences",
+            "cost-optimization-hub:getRecommendation",
+            "cost-optimization-hub:listEnrollmentStatuses",
+            "cost-optimization-hub:listRecommendations",
+            "cost-optimization-hub:listRecommendationSummaries",
             "databrew:describeDataset",
             "databrew:describeJob",
             "databrew:describeProject",
@@ -38246,6 +38310,11 @@
             "glue:listSessions",
             "glue:listStatements",
             "glue:querySchemaVersionMetadata",
+            "grafana:describeWorkspace",
+            "grafana:describeWorkspaceAuthentication",
+            "grafana:listPermissions",
+            "grafana:listVersions",
+            "grafana:listWorkspaces",
             "greengrass:getConnectivityInfo",
             "greengrass:getCoreDefinition",
             "greengrass:getCoreDefinitionVersion",
@@ -38364,6 +38433,7 @@
             "imagebuilder:getInfrastructureConfiguration",
             "imagebuilder:getLifecycleExecution",
             "imagebuilder:getLifecyclePolicy",
+            "imagebuilder:getWorkflow",
             "imagebuilder:getWorkflowExecution",
             "imagebuilder:getWorkflowStepExecution",
             "imagebuilder:listComponentBuildVersions",
@@ -38380,7 +38450,9 @@
             "imagebuilder:listLifecycleExecutions",
             "imagebuilder:listLifecycleExecutionResources",
             "imagebuilder:listLifecyclePolicies",
+            "imagebuilder:listWorkflowBuildVersions",
             "imagebuilder:listWorkflowExecutions",
+            "imagebuilder:listWorkflows",
             "imagebuilder:listWorkflowStepExecutions",
             "imagebuilder:listTagsForResource",
             "inspector:describeAssessmentRuns",
@@ -38403,6 +38475,10 @@
             "inspector2:getDelegatedAdminAccount",
             "inspector2:getMember",
             "inspector2:getSbomExport",
+            "inspector2:listCisScanConfigurations",
+            "inspector2:listCisScanResultsAggregatedByChecks",
+            "inspector2:listCisScanResultsAggregatedByTargetResource",
+            "inspector2:listCisScans",
             "inspector2:listCoverage",
             "inspector2:listDelegatedAdminAccounts",
             "inspector2:listFilters",
@@ -39110,6 +39186,17 @@
             "private-networks:listDeviceIdentifiers",
             "private-networks:listNetworks",
             "private-networks:listNetworkResources",
+            "qbusiness:getApplication",
+            "qbusiness:getDataSource",
+            "qbusiness:getIndex",
+            "qbusiness:getRetriever",
+            "qbusiness:getWebExperience",
+            "qbusiness:listApplications",
+            "qbusiness:listDataSources",
+            "qbusiness:listDataSourceSyncJobs",
+            "qbusiness:listIndices",
+            "qbusiness:listRetrievers",
+            "qbusiness:listWebExperiences",
             "quicksight:describeAccountCustomization",
             "quicksight:describeAccountSettings",
             "quicksight:describeAccountSubscription",
@@ -39431,6 +39518,7 @@
             "s3:listMultipartUploadParts",
             "s3:listMultiRegionAccessPoints",
             "s3:listStorageLensConfigurations",
+            "s3express:getBucketPolicy",
             "s3express:listAllMyDirectoryBuckets",
             "sagemaker:describeAction",
             "sagemaker:describeAlgorithm",
@@ -39438,6 +39526,8 @@
             "sagemaker:describeAppImageConfig",
             "sagemaker:describeArtifact",
             "sagemaker:describeAutoMLJob",
+            "sagemaker:describeCluster",
+            "sagemaker:describeClusterNode",
             "sagemaker:describeCodeRepository",
             "sagemaker:describeCompilationJob",
             "sagemaker:describeContext",
@@ -39459,6 +39549,7 @@
             "sagemaker:describeHyperParameterTuningJob",
             "sagemaker:describeImage",
             "sagemaker:describeImageVersion",
+            "sagemaker:describeInferenceComponent",
             "sagemaker:describeInferenceExperiment",
             "sagemaker:describeInferenceRecommendationsJob",
             "sagemaker:describeLabelingJob",
@@ -39500,6 +39591,8 @@
             "sagemaker:listAssociations",
             "sagemaker:listAutoMLJobs",
             "sagemaker:listCandidatesForAutoMLJob",
+            "sagemaker:listClusterNodes",
+            "sagemaker:listClusters",
             "sagemaker:listCodeRepositories",
             "sagemaker:listCompilationJobs",
             "sagemaker:listContexts",
@@ -39521,6 +39614,7 @@
             "sagemaker:listHyperParameterTuningJobs",
             "sagemaker:listImages",
             "sagemaker:listImageVersions",
+            "sagemaker:listInferenceComponents",
             "sagemaker:listInferenceExperiments",
             "sagemaker:listInferenceRecommendationsJobs",
             "sagemaker:listInferenceRecommendationsJobSteps",
@@ -40094,7 +40188,12 @@
             "workspaces:describeWorkspaceDirectories",
             "workspaces:describeWorkspaceImages",
             "workspaces:describeWorkspaces",
-            "workspaces:describeWorkspacesConnectionStatus"
+            "workspaces:describeWorkspacesConnectionStatus",
+            "xray:getEncryptionConfig",
+            "xray:getGroup",
+            "xray:getGroups",
+            "xray:getSamplingRules",
+            "xray:listResourcePolicies"
           ],
           "Effect": "Allow",
           "Resource": [
@@ -40104,9 +40203,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v35",
+    "VersionId": "v36",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-03-25T16:28:02+00:00"
+    "CreateDate": "2024-05-02T02:47:48+00:00"
   },
   "AWSSystemsManagerAccountDiscoveryServicePolicy": {
     "Document": {
@@ -50938,9 +51037,10 @@
           "Action": [
             "sagemaker:CreateUserProfile",
             "sagemaker:DescribeUserProfile",
+            "sagemaker:UpdateUserProfile",
             "sagemaker:CreatePresignedDomainUrl"
           ],
-          "Resource": "arn:aws:sagemaker:*:*:*/${sagemaker:DomainId}/*"
+          "Resource": "arn:aws:sagemaker:*:*:*/*"
         },
         {
           "Sid": "AllowLakeFormation",
@@ -51129,7 +51229,6 @@
             "ec2:DescribeVpcs",
             "ecr:BatchCheckLayerAvailability",
             "ecr:BatchGetImage",
-            "ecr:CreateRepository",
             "ecr:Describe*",
             "ecr:GetAuthorizationToken",
             "ecr:GetDownloadUrlForLayer",
@@ -51139,6 +51238,7 @@
             "elasticfilesystem:DescribeMountTargets",
             "fsx:DescribeFileSystems",
             "groundtruthlabeling:*",
+            "iam:GetRole",
             "iam:ListRoles",
             "kms:DescribeKey",
             "kms:ListAliases",
@@ -51179,20 +51279,35 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowRAMInvitation",
+          "Effect": "Allow",
+          "Action": "ram:AcceptResourceShareInvitation",
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "ram:ResourceShareName": "dzd_*"
+            }
+          }
+        },
+        {
           "Sid": "AllowECRActions",
           "Effect": "Allow",
           "Action": [
             "ecr:SetRepositoryPolicy",
             "ecr:CompleteLayerUpload",
+            "ecr:CreateRepository",
             "ecr:BatchDeleteImage",
             "ecr:UploadLayerPart",
             "ecr:DeleteRepositoryPolicy",
             "ecr:InitiateLayerUpload",
             "ecr:DeleteRepository",
-            "ecr:PutImage"
+            "ecr:PutImage",
+            "ecr:TagResource",
+            "ecr:UntagResource"
           ],
           "Resource": [
-            "arn:aws:ecr:*:*:repository/*"
+            "arn:aws:ecr:*:*:repository/sagemaker*",
+            "arn:aws:ecr:*:*:repository/datazone*"
           ]
         },
         {
@@ -51559,8 +51674,11 @@
             "glue:BatchCreatePartition",
             "glue:CreatePartitionIndex",
             "glue:CreateTable",
+            "glue:BatchGetWorkflows",
             "glue:BatchUpdatePartition",
             "glue:BatchDeletePartition",
+            "glue:GetPartition",
+            "glue:GetPartitions",
             "glue:UpdateTable",
             "glue:DeleteTableVersion",
             "glue:DeleteTable",
@@ -51578,7 +51696,17 @@
             "glue:CreateJob",
             "glue:CreateConnection",
             "glue:CreateCrawler",
-            "glue:CreateDataQualityRuleset"
+            "glue:CreateDataQualityRuleset",
+            "glue:CreateWorkflow",
+            "glue:GetDatabases",
+            "glue:GetTables",
+            "glue:GetTable",
+            "glue:SearchTables",
+            "glue:NotifyEvent",
+            "glue:ListSchemas",
+            "glue:BatchGetJobs",
+            "glue:GetConnection",
+            "glue:GetDatabase"
           ],
           "Resource": [
             "*"
@@ -51616,9 +51744,7 @@
             "glue:UpdateConnection",
             "glue:GetConnection",
             "glue:GetDatabase",
-            "glue:GetDatabases",
             "glue:GetTable",
-            "glue:GetTables",
             "glue:GetPartition",
             "glue:GetPartitions",
             "glue:BatchDeleteConnection",
@@ -51633,6 +51759,23 @@
               "aws:ResourceTag/AmazonDataZoneEnvironment": "false"
             }
           }
+        },
+        {
+          "Sid": "AllowGlueDefaultAccess",
+          "Effect": "Allow",
+          "Action": [
+            "glue:BatchGet*",
+            "glue:Get*",
+            "glue:SearchTables",
+            "glue:List*",
+            "glue:RunStatement"
+          ],
+          "Resource": [
+            "arn:aws:glue:*:*:catalog",
+            "arn:aws:glue:*:*:database/default",
+            "arn:aws:glue:*:*:connection/dz-sm-*",
+            "arn:aws:glue:*:*:session/*"
+          ]
         },
         {
           "Sid": "AllowRedshiftClusterActions",
@@ -51878,6 +52021,7 @@
             "ec2:DescribeSecurityGroups",
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcEndpoints",
+            "ec2:DescribeVpcEndpointServices",
             "ec2:DescribeVpcs",
             "ecr:BatchCheckLayerAvailability",
             "ecr:BatchGetImage",
@@ -51894,6 +52038,8 @@
             "ecr:DeleteRepository",
             "ecr:PutImage",
             "ecr:StartImageScan",
+            "ecr:TagResource",
+            "ecr:UntagResource",
             "elastic-inference:Connect",
             "elasticfilesystem:DescribeFileSystems",
             "elasticfilesystem:DescribeMountTargets",
@@ -51940,6 +52086,7 @@
             "glue:CreateSession",
             "glue:RunStatement",
             "glue:BatchCreatePartition",
+            "glue:CreateDatabase",
             "glue:CreatePartitionIndex",
             "glue:CreateTable",
             "glue:BatchUpdatePartition",
@@ -51963,6 +52110,7 @@
             "glue:CreateCrawler",
             "groundtruthlabeling:*",
             "iam:CreateServiceLinkedRole",
+            "iam:GetRole",
             "iam:ListRoles",
             "iam:PassRole",
             "kms:DescribeKey",
@@ -51971,6 +52119,7 @@
             "kms:ListKeys",
             "kms:Encrypt",
             "kms:GenerateDataKey",
+            "kms:RetireGrant",
             "lakeformation:GetDataAccess",
             "lambda:ListFunctions",
             "lambda:InvokeFunction",
@@ -51984,22 +52133,25 @@
             "logs:ListLogDeliveries",
             "logs:PutLogEvents",
             "logs:UpdateLogDelivery",
+            "ram:AcceptResourceShareInvitation",
             "rds:DescribeDBInstances",
             "redshift:CreateClusterUser",
             "redshift:GetClusterCredentials",
             "redshift:GetClusterCredentialsWithIAM",
             "redshift:DescribeClusters",
+            "redshift-data:BatchExecuteStatement",
+            "redshift-data:CancelStatement",
+            "redshift-data:DescribeStatement",
+            "redshift-data:DescribeTable",
+            "redshift-data:ExecuteStatement",
+            "redshift-data:GetStatementResult",
+            "redshift-data:ListSchemas",
+            "redshift-data:ListTables",
             "redshift-serverless:ListNamespaces",
             "redshift-serverless:ListWorkgroups",
             "redshift-serverless:GetNamespace",
             "redshift-serverless:GetWorkgroup",
             "redshift-serverless:GetCredentials",
-            "robomaker:CreateSimulationApplication",
-            "robomaker:DescribeSimulationApplication",
-            "robomaker:DeleteSimulationApplication",
-            "robomaker:CreateSimulationJob",
-            "robomaker:DescribeSimulationJob",
-            "robomaker:CancelSimulationJob",
             "s3:GetBucketAcl",
             "s3:PutObjectAcl",
             "s3:GetObject",
@@ -52020,6 +52172,7 @@
             "secretsmanager:DescribeSecret",
             "secretsmanager:GetSecretValue",
             "secretsmanager:CreateSecret",
+            "secretsmanager:PutResourcePolicy",
             "secretsmanager:TagResource",
             "servicecatalog:Describe*",
             "servicecatalog:List*",
@@ -52045,9 +52198,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-23T23:01:14+00:00"
+    "CreateDate": "2024-05-03T18:05:41+00:00"
   },
   "AmazonDataZoneSageMakerManageAccessRolePolicy": {
     "Document": {
@@ -56930,6 +57083,7 @@
             "ec2:DescribeDhcpOptions",
             "ec2:DescribeImages",
             "ec2:DescribeInstances",
+            "ec2:DescribeInstanceTypeOfferings",
             "ec2:DescribeLaunchTemplates",
             "ec2:DescribeNetworkAcls",
             "ec2:DescribeNetworkInterfaces",
@@ -57076,9 +57230,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-15T16:48:29+00:00"
+    "CreateDate": "2024-05-02T18:43:30+00:00"
   },
   "AmazonESCognitoAccess": {
     "Document": {
@@ -65967,12 +66121,20 @@
             "q:*"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AllowSetTrustedIdentity",
+          "Effect": "Allow",
+          "Action": [
+            "sts:SetContext"
+          ],
+          "Resource": "arn:aws:sts::*:self"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-28T16:00:24+00:00"
+    "CreateDate": "2024-04-29T17:02:36+00:00"
   },
   "AmazonQLDBConsoleFullAccess": {
     "Document": {
@@ -70430,6 +70592,79 @@
     "VersionId": "v4",
     "IsDefaultVersion": true,
     "CreateDate": "2018-12-20T21:42:00+00:00"
+  },
+  "AmazonRoute53ProfilesFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AmazonRoute53ProfilesFullAccess",
+          "Effect": "Allow",
+          "Action": [
+            "route53profiles:AssociateProfile",
+            "route53profiles:AssociateResourceToProfile",
+            "route53profiles:CreateProfile",
+            "route53profiles:DeleteProfile",
+            "route53profiles:DisassociateProfile",
+            "route53profiles:DisassociateResourceFromProfile",
+            "route53profiles:GetProfile",
+            "route53profiles:GetProfileAssociation",
+            "route53profiles:GetProfileResourceAssociation",
+            "route53profiles:ListProfileAssociations",
+            "route53profiles:ListProfileResourceAssociations",
+            "route53profiles:ListProfiles",
+            "route53profiles:ListTagsForResource",
+            "route53profiles:TagResource",
+            "route53profiles:UntagResource",
+            "route53profiles:UpdateProfileResourceAssociation",
+            "route53resolver:GetFirewallConfig",
+            "route53resolver:GetFirewallRuleGroup",
+            "route53resolver:GetResolverConfig",
+            "route53resolver:GetResolverDnssecConfig",
+            "route53resolver:GetResolverQueryLogConfig",
+            "route53resolver:GetResolverRule",
+            "ec2:DescribeVpcs",
+            "route53:GetHostedZone"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-30T18:30:29+00:00"
+  },
+  "AmazonRoute53ProfilesReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AmazonRoute53ProfilesReadOnlyAccess",
+          "Effect": "Allow",
+          "Action": [
+            "route53profiles:GetProfile",
+            "route53profiles:GetProfileAssociation",
+            "route53profiles:GetProfileResourceAssociation",
+            "route53profiles:ListProfileAssociations",
+            "route53profiles:ListProfileResourceAssociations",
+            "route53profiles:ListProfiles",
+            "route53profiles:ListTagsForResource",
+            "route53resolver:GetFirewallConfig",
+            "route53resolver:GetResolverConfig",
+            "route53resolver:GetResolverDnssecConfig",
+            "route53resolver:GetResolverQueryLogConfig"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-30T18:29:25+00:00"
   },
   "AmazonRoute53ReadOnlyAccess": {
     "Document": {
@@ -79596,6 +79831,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AllowSessionActions",
           "Effect": "Allow",
           "Action": [
             "glue:CreateSession"
@@ -79615,6 +79851,18 @@
           }
         },
         {
+          "Sid": "AllowCompletionActions",
+          "Effect": "Allow",
+          "Action": [
+            "glue:StartCompletion",
+            "glue:GetCompletion"
+          ],
+          "Resource": [
+            "arn:aws:glue:*:*:completion/*"
+          ]
+        },
+        {
+          "Sid": "AllowGlueActions",
           "Effect": "Allow",
           "Action": [
             "glue:RunStatement",
@@ -79635,6 +79883,7 @@
           }
         },
         {
+          "Sid": "AllowListSessions",
           "Effect": "Allow",
           "Action": [
             "glue:ListSessions"
@@ -79644,6 +79893,7 @@
           ]
         },
         {
+          "Sid": "DenyTagActions",
           "Effect": "Deny",
           "Action": [
             "glue:TagResource",
@@ -79663,6 +79913,7 @@
           }
         },
         {
+          "Sid": "AllowPassRoleActions",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -79680,15 +79931,16 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-14T21:31:01+00:00"
+    "CreateDate": "2024-04-29T22:45:28+00:00"
   },
   "AwsGlueSessionUserRestrictedServiceRole": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AllowGlueActions",
           "Effect": "Allow",
           "Action": "glue:*",
           "Resource": [
@@ -79709,6 +79961,18 @@
           ]
         },
         {
+          "Sid": "AllowCompletionActions",
+          "Effect": "Allow",
+          "Action": [
+            "glue:StartCompletion",
+            "glue:GetCompletion"
+          ],
+          "Resource": [
+            "arn:aws:glue:*:*:completion/*"
+          ]
+        },
+        {
+          "Sid": "AllowSessionActions",
           "Effect": "Allow",
           "Action": [
             "glue:CreateSession"
@@ -79728,6 +79992,7 @@
           }
         },
         {
+          "Sid": "AllowStatementActions",
           "Effect": "Allow",
           "Action": [
             "glue:RunStatement",
@@ -79748,6 +80013,7 @@
           }
         },
         {
+          "Sid": "AllowListSessionsAction",
           "Effect": "Allow",
           "Action": [
             "glue:ListSessions"
@@ -79757,6 +80023,7 @@
           ]
         },
         {
+          "Sid": "DenyTagActions",
           "Effect": "Deny",
           "Action": [
             "glue:TagResource",
@@ -79776,6 +80043,7 @@
           }
         },
         {
+          "Sid": "AllowS3BucketActions",
           "Effect": "Allow",
           "Action": [
             "s3:CreateBucket"
@@ -79785,6 +80053,7 @@
           ]
         },
         {
+          "Sid": "AllowS3ObjectActions",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject",
@@ -79797,6 +80066,7 @@
           ]
         },
         {
+          "Sid": "AllowS3ObjectCrawlerActions",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject"
@@ -79806,6 +80076,7 @@
           ]
         },
         {
+          "Sid": "AllowLogsActions",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogGroup",
@@ -79817,6 +80088,7 @@
           ]
         },
         {
+          "Sid": "AllowTagsActions",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateTags",
@@ -79837,9 +80109,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-14T21:30:07+00:00"
+    "CreateDate": "2024-04-29T22:51:39+00:00"
   },
   "BatchServiceRolePolicy": {
     "Document": {
@@ -86650,6 +86922,74 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-07-06T22:04:00+00:00"
   },
+  "QBusinessServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "QBusinessPutMetricDataPermission",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/QBusiness"
+            }
+          }
+        },
+        {
+          "Sid": "QBusinessCreateLogGroupPermission",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogGroup"
+          ],
+          "Resource": [
+            "arn:aws:logs:*:*:log-group:/aws/qbusiness/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "QBusinessDescribeLogGroupsPermission",
+          "Effect": "Allow",
+          "Action": [
+            "logs:DescribeLogGroups"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "QBusinessLogStreamPermission",
+          "Effect": "Allow",
+          "Action": [
+            "logs:DescribeLogStreams",
+            "logs:CreateLogStream",
+            "logs:PutLogEvents"
+          ],
+          "Resource": [
+            "arn:aws:logs:*:*:log-group:/aws/qbusiness/*:log-stream:*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-04-29T16:05:44+00:00"
+  },
   "QuickSightAccessForS3StorageManagementAnalyticsReadOnly": {
     "Document": {
       "Version": "2012-10-17",
@@ -87753,6 +88093,7 @@
           "Sid": "ReadPermissions",
           "Effect": "Allow",
           "Action": [
+            "ec2:DescribeDhcpOptions",
             "ec2:DescribeImages",
             "ec2:DescribeInstances",
             "ec2:DescribeInternetGateways",
@@ -87986,9 +88327,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-08T20:48:08+00:00"
+    "CreateDate": "2024-05-02T14:01:47+00:00"
   },
   "ROSASRESupportPolicy": {
     "Document": {

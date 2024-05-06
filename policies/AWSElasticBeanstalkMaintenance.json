@@ -11,7 +11,9 @@
           "cloudformation:ExecuteChangeSet",
           "cloudformation:DeleteChangeSet",
           "cloudformation:ListChangeSets",
-          "cloudformation:DescribeStacks"
+          "cloudformation:DescribeStacks",
+          "cloudformation:TagResource",
+          "cloudformation:UntagResource"
         ],
         "Resource": [
           "arn:aws:cloudformation:*:*:stack/awseb-*",
@@ -26,7 +28,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2019-06-04T17:48:27+00:00"
+  "CreateDate": "2024-04-29T21:48:04+00:00"
 }

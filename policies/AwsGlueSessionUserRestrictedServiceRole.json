@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AllowGlueActions",
         "Effect": "Allow",
         "Action": "glue:*",
         "Resource": [
@@ -23,6 +24,18 @@
         ]
       },
       {
+        "Sid": "AllowCompletionActions",
+        "Effect": "Allow",
+        "Action": [
+          "glue:StartCompletion",
+          "glue:GetCompletion"
+        ],
+        "Resource": [
+          "arn:aws:glue:*:*:completion/*"
+        ]
+      },
+      {
+        "Sid": "AllowSessionActions",
         "Effect": "Allow",
         "Action": [
           "glue:CreateSession"
@@ -42,6 +55,7 @@
         }
       },
       {
+        "Sid": "AllowStatementActions",
         "Effect": "Allow",
         "Action": [
           "glue:RunStatement",
@@ -62,6 +76,7 @@
         }
       },
       {
+        "Sid": "AllowListSessionsAction",
         "Effect": "Allow",
         "Action": [
           "glue:ListSessions"
@@ -71,6 +86,7 @@
         ]
       },
       {
+        "Sid": "DenyTagActions",
         "Effect": "Deny",
         "Action": [
           "glue:TagResource",
@@ -90,6 +106,7 @@
         }
       },
       {
+        "Sid": "AllowS3BucketActions",
         "Effect": "Allow",
         "Action": [
           "s3:CreateBucket"
@@ -99,6 +116,7 @@
         ]
       },
       {
+        "Sid": "AllowS3ObjectActions",
         "Effect": "Allow",
         "Action": [
           "s3:GetObject",
@@ -111,6 +129,7 @@
         ]
       },
       {
+        "Sid": "AllowS3ObjectCrawlerActions",
         "Effect": "Allow",
         "Action": [
           "s3:GetObject"
@@ -120,6 +139,7 @@
         ]
       },
       {
+        "Sid": "AllowLogsActions",
         "Effect": "Allow",
         "Action": [
           "logs:CreateLogGroup",
@@ -131,6 +151,7 @@
         ]
       },
       {
+        "Sid": "AllowTagsActions",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateTags",
@@ -151,7 +172,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-04-14T21:30:07+00:00"
+  "CreateDate": "2024-04-29T22:51:39+00:00"
 }

@@ -74,6 +74,26 @@
           "q:GetTroubleshootingResults",
           "q:StartTroubleshootingResolutionExplanation",
           "q:UpdateTroubleshootingCommandResult",
+          "qapps:CreateQApp",
+          "qapps:PredictProblemStatementFromConversation",
+          "qapps:PredictQAppFromProblemStatement",
+          "qapps:CopyQApp",
+          "qapps:GetQApp",
+          "qapps:ListQApps",
+          "qapps:UpdateQApp",
+          "qapps:DeleteQApp",
+          "qapps:AssociateQAppWithUser",
+          "qapps:DisassociateQAppFromUser",
+          "qapps:ImportDocumentToQApp",
+          "qapps:ImportDocumentToQAppSession",
+          "qapps:CreateLibraryItem",
+          "qapps:GetLibraryItem",
+          "qapps:UpdateLibraryItem",
+          "qapps:CreateLibraryItemReview",
+          "qapps:ListLibraryItems",
+          "qapps:CreateSubscriptionToken",
+          "qapps:StartQAppSession",
+          "qapps:StopQAppSession",
           "qbusiness:Chat",
           "qbusiness:ChatSync",
           "qbusiness:ListConversations",
@@ -86,7 +106,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-04-26T20:13:15+00:00"
+  "CreateDate": "2024-04-30T09:31:36+00:00"
 }
