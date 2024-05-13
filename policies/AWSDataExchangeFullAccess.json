@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "DataExchangeActions",
         "Effect": "Allow",
         "Action": [
           "dataexchange:*"
@@ -10,6 +11,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "S3GetActionConditionalResourceAndADX",
         "Effect": "Allow",
         "Action": "s3:GetObject",
         "Resource": "arn:aws:s3:::*aws-data-exchange*",
@@ -22,6 +24,7 @@
         }
       },
       {
+        "Sid": "S3GetActionConditionalTagAndADX",
         "Effect": "Allow",
         "Action": "s3:GetObject",
         "Resource": "*",
@@ -37,6 +40,7 @@
         }
       },
       {
+        "Sid": "S3WriteActions",
         "Effect": "Allow",
         "Action": [
           "s3:PutObject",
@@ -52,6 +56,7 @@
         }
       },
       {
+        "Sid": "S3ReadActions",
         "Effect": "Allow",
         "Action": [
           "s3:GetBucketLocation",
@@ -61,6 +66,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AWSMarketplaceProviderActions",
         "Effect": "Allow",
         "Action": [
           "aws-marketplace:DescribeEntity",
@@ -75,11 +81,15 @@
           "aws-marketplace:RejectAgreementApprovalRequest",
           "aws-marketplace:UpdateAgreementApprovalRequest",
           "aws-marketplace:SearchAgreements",
-          "aws-marketplace:GetAgreementTerms"
+          "aws-marketplace:GetAgreementTerms",
+          "aws-marketplace:TagResource",
+          "aws-marketplace:UntagResource",
+          "aws-marketplace:ListTagsForResource"
         ],
         "Resource": "*"
       },
       {
+        "Sid": "AWSMarketplaceSubscriberActions",
         "Effect": "Allow",
         "Action": [
           "aws-marketplace:Subscribe",
@@ -87,11 +97,15 @@
           "aws-marketplace:ViewSubscriptions",
           "aws-marketplace:GetAgreementRequest",
           "aws-marketplace:ListAgreementRequests",
-          "aws-marketplace:CancelAgreementRequest"
+          "aws-marketplace:CancelAgreementRequest",
+          "aws-marketplace:ListPrivateListings",
+          "aws-marketplace:GetPrivateListing",
+          "aws-marketplace:DescribeAgreement"
         ],
         "Resource": "*"
       },
       {
+        "Sid": "KMSActions",
         "Effect": "Allow",
         "Action": [
           "kms:DescribeKey",
@@ -101,6 +115,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "RedshiftConditionalActions",
         "Effect": "Allow",
         "Action": [
           "redshift:AuthorizeDataShare"
@@ -113,6 +128,7 @@
         }
       },
       {
+        "Sid": "RedshiftActions",
         "Effect": "Allow",
         "Action": [
           "redshift:DescribeDataSharesForProducer",
@@ -121,6 +137,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "APIGatewayActions",
         "Effect": "Allow",
         "Action": [
           "apigateway:GET"
@@ -129,7 +146,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-12-02T16:14:27+00:00"
+  "CreateDate": "2024-05-07T17:04:55+00:00"
 }

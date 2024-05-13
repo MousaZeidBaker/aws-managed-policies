@@ -2877,6 +2877,8 @@
           "Action": [
             "acm:GetAccountConfiguration",
             "acm:ListCertificates",
+            "autoscaling:DescribeAutoScalingGroups",
+            "backup:ListBackupPlans",
             "backup:ListRecoveryPointsByResource",
             "bedrock:GetCustomModel",
             "bedrock:GetFoundationModel",
@@ -2885,6 +2887,11 @@
             "bedrock:ListCustomModels",
             "bedrock:ListFoundationModels",
             "bedrock:ListModelCustomizationJobs",
+            "cloudfront:GetDistribution",
+            "cloudfront:GetDistributionConfig",
+            "cloudfront:ListDistributions",
+            "cloudtrail:GetTrail",
+            "cloudtrail:ListTrails",
             "cloudtrail:DescribeTrails",
             "cloudtrail:LookupEvents",
             "cloudwatch:DescribeAlarms",
@@ -2897,10 +2904,19 @@
             "config:ListDiscoveredResources",
             "directconnect:DescribeDirectConnectGateways",
             "directconnect:DescribeVirtualGateways",
+            "dynamodb:DescribeContinuousBackups",
+            "dynamodb:DescribeBackup",
+            "dynamodb:DescribeTableReplicaAutoScaling",
             "dynamodb:DescribeTable",
             "dynamodb:ListBackups",
             "dynamodb:ListGlobalTables",
             "dynamodb:ListTables",
+            "ec2:DescribeInstanceCreditSpecifications",
+            "ec2:DescribeInstanceAttribute",
+            "ec2:DescribeSecurityGroupRules",
+            "ec2:DescribeVpcEndpointConnections",
+            "ec2:DescribeVpcEndpointServiceConfigurations",
+            "ec2:GetLaunchTemplateData",
             "ec2:DescribeAddresses",
             "ec2:DescribeCustomerGateways",
             "ec2:DescribeEgressOnlyInternetGateways",
@@ -2945,9 +2961,16 @@
             "guardduty:ListDetectors",
             "iam:GenerateCredentialReport",
             "iam:GetAccountAuthorizationDetails",
+            "iam:GetAccessKeyLastUsed",
+            "iam:GetCredentialReport",
+            "iam:GetGroupPolicy",
+            "iam:GetPolicy",
+            "iam:GetPolicyVersion",
+            "iam:GetRolePolicy",
+            "iam:GetUser",
+            "iam:GetUserPolicy",
             "iam:GetAccountPasswordPolicy",
             "iam:GetAccountSummary",
-            "iam:GetCredentialReport",
             "iam:ListEntitiesForPolicy",
             "iam:ListGroupPolicies",
             "iam:ListGroups",
@@ -2959,6 +2982,11 @@
             "iam:ListUserPolicies",
             "iam:ListUsers",
             "iam:ListVirtualMFADevices",
+            "iam:ListPolicyVersions",
+            "iam:ListAccessKeys",
+            "iam:ListAttachedRolePolicies",
+            "iam:ListMfaDeviceTags",
+            "iam:ListMfaDevices",
             "kafka:ListClusters",
             "kafka:ListKafkaVersions",
             "kinesis:ListStreams",
@@ -2978,40 +3006,83 @@
             "logs:DescribeMetricFilters",
             "logs:DescribeResourcePolicies",
             "logs:FilterLogEvents",
+            "logs:GetDataProtectionPolicy",
+            "es:DescribeDomains",
+            "es:DescribeDomain",
+            "es:DescribeDomainConfig",
             "organizations:DescribeOrganization",
             "organizations:DescribePolicy",
             "rds:DescribeCertificates",
-            "rds:DescribeDbClusterEndpoints",
-            "rds:DescribeDbClusterParameterGroups",
-            "rds:DescribeDbClusters",
+            "rds:DescribeDBClusterEndpoints",
+            "rds:DescribeDBClusterParameterGroups",
             "rds:DescribeDBInstances",
-            "rds:DescribeDbSecurityGroups",
+            "rds:DescribeDBSecurityGroups",
+            "rds:DescribeDBClusters",
+            "rds:DescribeDBInstanceAutomatedBackups",
             "redshift:DescribeClusters",
+            "redshift:DescribeClusterSnapshots",
+            "redshift:DescribeLoggingStatus",
             "route53:GetQueryLoggingConfig",
+            "sagemaker:ListEndpointConfigs",
             "s3:GetBucketPublicAccessBlock",
             "s3:GetBucketVersioning",
             "s3:GetEncryptionConfiguration",
             "s3:GetLifecycleConfiguration",
             "s3:ListAllMyBuckets",
+            "sagemaker:DescribeEndpointConfig",
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:ListSecrets",
             "securityhub:DescribeStandards",
+            "sns:ListTagsForResource",
             "sns:ListTopics",
             "sqs:ListQueues",
+            "waf-regional:GetRule",
+            "waf-regional:GetWebAcl",
+            "waf:GetRule",
+            "waf:GetRuleGroup",
+            "waf:ListActivatedRulesInRuleGroup",
+            "waf:ListWebAcls",
+            "wafv2:ListWebAcls",
             "waf-regional:GetLoggingConfiguration",
             "waf-regional:ListRuleGroups",
             "waf-regional:ListSubscribedRuleGroups",
             "waf-regional:ListWebACLs",
-            "waf:ListActivatedRulesInRuleGroup"
+            "waf-regional:ListRules",
+            "waf:ListRuleGroups",
+            "waf:ListRules"
           ],
           "Resource": "*",
-          "Sid": "AuditManagerAPICallAccess"
+          "Sid": "APIsAccess"
         },
         {
-          "Sid": "AuditManagerS3GetBucketPolicyAccess",
+          "Sid": "S3Access",
           "Effect": "Allow",
           "Action": [
-            "s3:GetBucketPolicy"
+            "s3:GetBucketAcl",
+            "s3:GetBucketLogging",
+            "s3:GetBucketOwnershipControls",
+            "s3:GetBucketPolicy",
+            "s3:GetBucketTagging"
           ],
           "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": [
+                "${aws:PrincipalAccount}"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "APIGatewayAccess",
+          "Effect": "Allow",
+          "Action": [
+            "apigateway:GET"
+          ],
+          "Resource": [
+            "arn:aws:apigateway:*::/restapis/*/stages/*",
+            "arn:aws:apigateway:*::/restapis/*/stages"
+          ],
           "Condition": {
             "StringEquals": {
               "aws:ResourceAccount": [
@@ -3057,9 +3128,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-06T20:39:40+00:00"
+    "CreateDate": "2024-05-09T16:51:51+00:00"
   },
   "AWSAutoScalingPlansEC2AutoScalingPolicy": {
     "Document": {
@@ -12327,6 +12398,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "DataExchangeActions",
           "Effect": "Allow",
           "Action": [
             "dataexchange:*"
@@ -12334,6 +12406,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "S3GetActionConditionalResourceAndADX",
           "Effect": "Allow",
           "Action": "s3:GetObject",
           "Resource": "arn:aws:s3:::*aws-data-exchange*",
@@ -12346,6 +12419,7 @@
           }
         },
         {
+          "Sid": "S3GetActionConditionalTagAndADX",
           "Effect": "Allow",
           "Action": "s3:GetObject",
           "Resource": "*",
@@ -12361,6 +12435,7 @@
           }
         },
         {
+          "Sid": "S3WriteActions",
           "Effect": "Allow",
           "Action": [
             "s3:PutObject",
@@ -12376,6 +12451,7 @@
           }
         },
         {
+          "Sid": "S3ReadActions",
           "Effect": "Allow",
           "Action": [
             "s3:GetBucketLocation",
@@ -12385,6 +12461,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSMarketplaceProviderActions",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace:DescribeEntity",
@@ -12399,11 +12476,15 @@
             "aws-marketplace:RejectAgreementApprovalRequest",
             "aws-marketplace:UpdateAgreementApprovalRequest",
             "aws-marketplace:SearchAgreements",
-            "aws-marketplace:GetAgreementTerms"
+            "aws-marketplace:GetAgreementTerms",
+            "aws-marketplace:TagResource",
+            "aws-marketplace:UntagResource",
+            "aws-marketplace:ListTagsForResource"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "AWSMarketplaceSubscriberActions",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace:Subscribe",
@@ -12411,11 +12492,15 @@
             "aws-marketplace:ViewSubscriptions",
             "aws-marketplace:GetAgreementRequest",
             "aws-marketplace:ListAgreementRequests",
-            "aws-marketplace:CancelAgreementRequest"
+            "aws-marketplace:CancelAgreementRequest",
+            "aws-marketplace:ListPrivateListings",
+            "aws-marketplace:GetPrivateListing",
+            "aws-marketplace:DescribeAgreement"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "KMSActions",
           "Effect": "Allow",
           "Action": [
             "kms:DescribeKey",
@@ -12425,6 +12510,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "RedshiftConditionalActions",
           "Effect": "Allow",
           "Action": [
             "redshift:AuthorizeDataShare"
@@ -12437,6 +12523,7 @@
           }
         },
         {
+          "Sid": "RedshiftActions",
           "Effect": "Allow",
           "Action": [
             "redshift:DescribeDataSharesForProducer",
@@ -12445,6 +12532,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "APIGatewayActions",
           "Effect": "Allow",
           "Action": [
             "apigateway:GET"
@@ -12453,9 +12541,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-12-02T16:14:27+00:00"
+    "CreateDate": "2024-05-07T17:04:55+00:00"
   },
   "AWSDataExchangeProviderFullAccess": {
     "Document": {
@@ -51929,7 +52017,8 @@
           "Sid": "AllowSSOAction",
           "Effect": "Allow",
           "Action": [
-            "sso:CreateApplicationAssignment"
+            "sso:CreateApplicationAssignment",
+            "sso:AssociateProfile"
           ],
           "Resource": "*"
         },
@@ -52192,15 +52281,16 @@
             "states:StopExecution",
             "states:UpdateStateMachine",
             "tag:GetResources",
-            "sso:CreateApplicationAssignment"
+            "sso:CreateApplicationAssignment",
+            "sso:AssociateProfile"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-03T18:05:41+00:00"
+    "CreateDate": "2024-05-08T02:03:49+00:00"
   },
   "AmazonDataZoneSageMakerManageAccessRolePolicy": {
     "Document": {
@@ -65345,6 +65435,27 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2023-12-22T19:38:16+00:00"
+  },
+  "AmazonOpenSearchDirectQueryGlueCreateAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AmazonOpenSearchDirectQueryGlueCreateAccess",
+          "Effect": "Allow",
+          "Action": [
+            "glue:CreateDatabase",
+            "glue:CreatePartition",
+            "glue:CreateTable",
+            "glue:BatchCreatePartition"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-05-06T12:24:38+00:00"
   },
   "AmazonOpenSearchIngestionFullAccess": {
     "Document": {
