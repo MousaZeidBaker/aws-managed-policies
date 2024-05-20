@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AmazonLexReadOnlyStatement1",
         "Effect": "Allow",
         "Action": [
           "lex:GetBot",
@@ -27,6 +28,7 @@
           "lex:DescribeBotChannel",
           "lex:DescribeBotLocale",
           "lex:DescribeBotRecommendation",
+          "lex:DescribeBotReplica",
           "lex:DescribeBotVersion",
           "lex:DescribeExport",
           "lex:DescribeImport",
@@ -37,9 +39,12 @@
           "lex:ListBots",
           "lex:ListBotLocales",
           "lex:ListBotAliases",
+          "lex:ListBotAliasReplicas",
           "lex:ListBotChannels",
           "lex:ListBotRecommendations",
+          "lex:ListBotReplicas",
           "lex:ListBotVersions",
+          "lex:ListBotVersionReplicas",
           "lex:ListBuiltInIntents",
           "lex:ListBuiltInSlotTypes",
           "lex:ListExports",
@@ -56,7 +61,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-01-31T19:31:41+00:00"
+  "CreateDate": "2024-05-13T16:58:13+00:00"
 }

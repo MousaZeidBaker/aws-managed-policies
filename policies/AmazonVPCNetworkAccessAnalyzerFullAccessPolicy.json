@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "DirectconnectPermissions",
         "Effect": "Allow",
         "Action": [
           "directconnect:DescribeConnections",
@@ -15,6 +16,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "EC2Permissions",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateNetworkInsightsAccessScope",
@@ -57,6 +59,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "EC2TagsPermissions",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateTags",
@@ -68,6 +71,7 @@
         ]
       },
       {
+        "Sid": "ElasticloadbalancingPermissions",
         "Effect": "Allow",
         "Action": [
           "elasticloadbalancing:DescribeListeners",
@@ -75,12 +79,14 @@
           "elasticloadbalancing:DescribeLoadBalancers",
           "elasticloadbalancing:DescribeRules",
           "elasticloadbalancing:DescribeTags",
+          "elasticloadbalancing:DescribeTargetGroupAttributes",
           "elasticloadbalancing:DescribeTargetGroups",
           "elasticloadbalancing:DescribeTargetHealth"
         ],
         "Resource": "*"
       },
       {
+        "Sid": "GlobalacceleratorPermissions",
         "Effect": "Allow",
         "Action": [
           "globalaccelerator:ListAccelerators",
@@ -94,6 +100,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "NetworkFirewallPermissions",
         "Effect": "Allow",
         "Action": [
           "network-firewall:DescribeFirewall",
@@ -107,6 +114,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "ResourceGroupsPermissions",
         "Effect": "Allow",
         "Action": [
           "resource-groups:ListGroupResources"
@@ -114,6 +122,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "TagsPermissions",
         "Effect": "Allow",
         "Action": [
           "tag:GetResources"
@@ -121,6 +130,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "TirosPermissions",
         "Effect": "Allow",
         "Action": [
           "tiros:CreateQuery",
@@ -130,7 +140,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-03T19:31:09+00:00"
+  "CreateDate": "2024-05-15T21:40:54+00:00"
 }

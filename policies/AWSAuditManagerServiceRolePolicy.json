@@ -101,7 +101,10 @@
           "iam:GetUserPolicy",
           "iam:GetAccountPasswordPolicy",
           "iam:GetAccountSummary",
+          "iam:ListAttachedGroupPolicies",
+          "iam:ListAttachedUserPolicies",
           "iam:ListEntitiesForPolicy",
+          "iam:ListGroupsForUser",
           "iam:ListGroupPolicies",
           "iam:ListGroups",
           "iam:ListOpenIdConnectProviders",
@@ -140,6 +143,7 @@
           "es:DescribeDomains",
           "es:DescribeDomain",
           "es:DescribeDomainConfig",
+          "es:ListDomainNames",
           "organizations:DescribeOrganization",
           "organizations:DescribePolicy",
           "rds:DescribeCertificates",
@@ -210,6 +214,7 @@
           "apigateway:GET"
         ],
         "Resource": [
+          "arn:aws:apigateway:*::/restapis",
           "arn:aws:apigateway:*::/restapis/*/stages/*",
           "arn:aws:apigateway:*::/restapis/*/stages"
         ],
@@ -258,7 +263,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-05-09T16:51:51+00:00"
+  "CreateDate": "2024-05-17T20:42:45+00:00"
 }
