@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AllowEFSAccessPointCreation",
         "Effect": "Allow",
         "Action": "elasticfilesystem:CreateAccessPoint",
         "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*",
@@ -14,6 +15,7 @@
         }
       },
       {
+        "Sid": "AllowEFSAccessPointDeletion",
         "Effect": "Allow",
         "Action": [
           "elasticfilesystem:DeleteAccessPoint"
@@ -26,6 +28,7 @@
         }
       },
       {
+        "Sid": "AllowEFSCreation",
         "Effect": "Allow",
         "Action": "elasticfilesystem:CreateFileSystem",
         "Resource": "*",
@@ -36,6 +39,7 @@
         }
       },
       {
+        "Sid": "AllowEFSMountWithDeletion",
         "Effect": "Allow",
         "Action": [
           "elasticfilesystem:CreateMountTarget",
@@ -50,6 +54,7 @@
         }
       },
       {
+        "Sid": "AllowEFSDescribe",
         "Effect": "Allow",
         "Action": [
           "elasticfilesystem:DescribeAccessPoints",
@@ -59,6 +64,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AllowEFSTagging",
         "Effect": "Allow",
         "Action": "elasticfilesystem:TagResource",
         "Resource": [
@@ -72,6 +78,7 @@
         }
       },
       {
+        "Sid": "AllowEC2Tagging",
         "Effect": "Allow",
         "Action": "ec2:CreateTags",
         "Resource": [
@@ -80,6 +87,7 @@
         ]
       },
       {
+        "Sid": "AllowEC2Operations",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateNetworkInterface",
@@ -95,6 +103,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AllowEC2AuthZ",
         "Effect": "Allow",
         "Action": [
           "ec2:AuthorizeSecurityGroupEgress",
@@ -113,6 +122,7 @@
         }
       },
       {
+        "Sid": "AllowIdcOperations",
         "Effect": "Allow",
         "Action": [
           "sso:CreateManagedApplicationInstance",
@@ -122,16 +132,41 @@
         "Resource": "*"
       },
       {
+        "Sid": "AllowSagemakerProfileCreation",
         "Effect": "Allow",
         "Action": [
           "sagemaker:CreateUserProfile",
           "sagemaker:DescribeUserProfile"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "AllowSagemakerSpaceOperationsForCanvasManagedSpaces",
+        "Effect": "Allow",
+        "Action": [
+          "sagemaker:CreateSpace",
+          "sagemaker:DescribeSpace",
+          "sagemaker:DeleteSpace",
+          "sagemaker:ListTags"
+        ],
+        "Resource": "arn:aws:sagemaker:*:*:space/*/CanvasManagedSpace-*"
+      },
+      {
+        "Sid": "AllowSagemakerAddTagsForAppManagedSpaces",
+        "Effect": "Allow",
+        "Action": [
+          "sagemaker:AddTags"
+        ],
+        "Resource": "arn:aws:sagemaker:*:*:space/*/CanvasManagedSpace-*",
+        "Condition": {
+          "StringEquals": {
+            "sagemaker:TaggingAction": "CreateSpace"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-03-09T18:20:35+00:00"
+  "CreateDate": "2024-05-22T19:18:48+00:00"
 }

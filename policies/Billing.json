@@ -51,6 +51,10 @@
           "ce:UpdateReport",
           "ce:UpdateCostCategoryDefinition",
           "ce:UntagResource",
+          "ce:StartCostAllocationTagBackfill",
+          "ce:ListCostAllocationTagBackfillHistory",
+          "ce:GetTags",
+          "ce:GetDimensionValues",
           "consolidatedbilling:GetAccountBillingRole",
           "consolidatedbilling:ListLinkedAccounts",
           "cur:DeleteReportDefinition",
@@ -74,8 +78,13 @@
           "payments:GetPaymentInstrument",
           "payments:GetPaymentStatus",
           "payments:ListPaymentPreferences",
+          "payments:ListTagsForResource",
+          "payments:ListPaymentInstruments",
           "payments:MakePayment",
+          "payments:TagResource",
           "payments:UpdatePaymentPreferences",
+          "payments:UpdatePaymentInstrument",
+          "payments:UntagResource",
           "pricing:DescribeServices",
           "purchase-orders:AddPurchaseOrder",
           "purchase-orders:DeletePurchaseOrder",
@@ -109,7 +118,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-01-17T18:03:48+00:00"
+  "CreateDate": "2024-05-23T23:26:02+00:00"
 }

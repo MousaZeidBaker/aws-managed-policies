@@ -5888,6 +5888,9 @@
             "ce:ListCostCategoryDefinitions",
             "ce:ListTagsForResource",
             "ce:ListCostAllocationTags",
+            "ce:ListCostAllocationTagBackfillHistory",
+            "ce:GetTags",
+            "ce:GetDimensionValues",
             "consolidatedbilling:ListLinkedAccounts",
             "consolidatedbilling:GetAccountBillingRole",
             "cur:GetClassicReport",
@@ -5902,6 +5905,8 @@
             "payments:GetPaymentInstrument",
             "payments:GetPaymentStatus",
             "payments:ListPaymentPreferences",
+            "payments:ListTagsForResource",
+            "payments:ListPaymentInstruments",
             "purchase-orders:GetPurchaseOrder",
             "purchase-orders:ViewPurchaseOrders",
             "purchase-orders:ListPurchaseOrderInvoices",
@@ -5916,9 +5921,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-17T18:15:35+00:00"
+    "CreateDate": "2024-05-23T23:23:30+00:00"
   },
   "AWSBudgetsActionsRolePolicyForResourceAdministrationWithSSM": {
     "Document": {
@@ -12839,6 +12844,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "DataExchangeReadOnlyActions",
           "Effect": "Allow",
           "Action": [
             "dataexchange:Get*",
@@ -12847,6 +12853,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "DataExchangeExportActions",
           "Effect": "Allow",
           "Action": [
             "dataexchange:CreateJob",
@@ -12865,6 +12872,7 @@
           }
         },
         {
+          "Sid": "DataExchangeEventActionActions",
           "Effect": "Allow",
           "Action": [
             "dataexchange:CreateEventAction",
@@ -12875,6 +12883,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "S3GetActionConditionalResourceAndADX",
           "Effect": "Allow",
           "Action": "s3:GetObject",
           "Resource": "arn:aws:s3:::*aws-data-exchange*",
@@ -12887,6 +12896,7 @@
           }
         },
         {
+          "Sid": "S3ReadActions",
           "Effect": "Allow",
           "Action": [
             "s3:GetBucketLocation",
@@ -12896,6 +12906,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AWSMarketplaceSubscriberActions",
           "Effect": "Allow",
           "Action": [
             "aws-marketplace:Subscribe",
@@ -12903,11 +12914,13 @@
             "aws-marketplace:ViewSubscriptions",
             "aws-marketplace:GetAgreementRequest",
             "aws-marketplace:ListAgreementRequests",
-            "aws-marketplace:CancelAgreementRequest"
+            "aws-marketplace:CancelAgreementRequest",
+            "aws-marketplace:ListPrivateListings"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "KMSActions",
           "Effect": "Allow",
           "Action": [
             "kms:DescribeKey",
@@ -12918,9 +12931,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-11-29T23:00:06+00:00"
+    "CreateDate": "2024-05-21T17:36:35+00:00"
   },
   "AWSDataLifecycleManagerSSMFullAccess": {
     "Document": {
@@ -48487,12 +48500,36 @@
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
+        },
+        {
+          "Sid": "AllowCognitoForConnectEnabledTaggedResources",
+          "Effect": "Allow",
+          "Action": [
+            "cognito-idp:DescribeUserPool",
+            "cognito-idp:ListUserPoolClients"
+          ],
+          "Resource": "arn:aws:cognito-idp:*:*:userpool/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonConnectEnabled": "True"
+            }
+          }
+        },
+        {
+          "Sid": "AllowWritePermissionForCustomerProfileObjects",
+          "Effect": "Allow",
+          "Action": [
+            "profile:PutProfileObject"
+          ],
+          "Resource": [
+            "arn:aws:profile:*:*:domains/amazon-connect-*/object-types/*"
+          ]
         }
       ]
     },
-    "VersionId": "v15",
+    "VersionId": "v16",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-16T23:07:54+00:00"
+    "CreateDate": "2024-05-24T01:42:32+00:00"
   },
   "AmazonConnectSynchronizationServiceRolePolicy": {
     "Document": {
@@ -71283,6 +71320,31 @@
     "IsDefaultVersion": true,
     "CreateDate": "2024-05-14T12:03:02+00:00"
   },
+  "AmazonSESServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowPutMetricDataToSESCloudWatchNamespaces",
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "cloudwatch:namespace": [
+                "AWS/SES",
+                "AWS/SES/MailManager",
+                "AWS/SES/Addons"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-05-21T16:02:20+00:00"
+  },
   "AmazonSNSFullAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -71363,21 +71425,23 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonSQSReadOnlyAccess",
           "Effect": "Allow",
           "Action": [
             "sqs:GetQueueAttributes",
             "sqs:GetQueueUrl",
             "sqs:ListDeadLetterSourceQueues",
             "sqs:ListQueues",
-            "sqs:ListMessageMoveTasks"
+            "sqs:ListMessageMoveTasks",
+            "sqs:ListQueueTags"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-15T15:37:35+00:00"
+    "CreateDate": "2024-05-24T18:16:44+00:00"
   },
   "AmazonSSMAutomationApproverAccess": {
     "Document": {
@@ -74668,6 +74732,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AllowEFSAccessPointCreation",
           "Effect": "Allow",
           "Action": "elasticfilesystem:CreateAccessPoint",
           "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*",
@@ -74679,6 +74744,7 @@
           }
         },
         {
+          "Sid": "AllowEFSAccessPointDeletion",
           "Effect": "Allow",
           "Action": [
             "elasticfilesystem:DeleteAccessPoint"
@@ -74691,6 +74757,7 @@
           }
         },
         {
+          "Sid": "AllowEFSCreation",
           "Effect": "Allow",
           "Action": "elasticfilesystem:CreateFileSystem",
           "Resource": "*",
@@ -74701,6 +74768,7 @@
           }
         },
         {
+          "Sid": "AllowEFSMountWithDeletion",
           "Effect": "Allow",
           "Action": [
             "elasticfilesystem:CreateMountTarget",
@@ -74715,6 +74783,7 @@
           }
         },
         {
+          "Sid": "AllowEFSDescribe",
           "Effect": "Allow",
           "Action": [
             "elasticfilesystem:DescribeAccessPoints",
@@ -74724,6 +74793,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowEFSTagging",
           "Effect": "Allow",
           "Action": "elasticfilesystem:TagResource",
           "Resource": [
@@ -74737,6 +74807,7 @@
           }
         },
         {
+          "Sid": "AllowEC2Tagging",
           "Effect": "Allow",
           "Action": "ec2:CreateTags",
           "Resource": [
@@ -74745,6 +74816,7 @@
           ]
         },
         {
+          "Sid": "AllowEC2Operations",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateNetworkInterface",
@@ -74760,6 +74832,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowEC2AuthZ",
           "Effect": "Allow",
           "Action": [
             "ec2:AuthorizeSecurityGroupEgress",
@@ -74778,6 +74851,7 @@
           }
         },
         {
+          "Sid": "AllowIdcOperations",
           "Effect": "Allow",
           "Action": [
             "sso:CreateManagedApplicationInstance",
@@ -74787,18 +74861,43 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowSagemakerProfileCreation",
           "Effect": "Allow",
           "Action": [
             "sagemaker:CreateUserProfile",
             "sagemaker:DescribeUserProfile"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AllowSagemakerSpaceOperationsForCanvasManagedSpaces",
+          "Effect": "Allow",
+          "Action": [
+            "sagemaker:CreateSpace",
+            "sagemaker:DescribeSpace",
+            "sagemaker:DeleteSpace",
+            "sagemaker:ListTags"
+          ],
+          "Resource": "arn:aws:sagemaker:*:*:space/*/CanvasManagedSpace-*"
+        },
+        {
+          "Sid": "AllowSagemakerAddTagsForAppManagedSpaces",
+          "Effect": "Allow",
+          "Action": [
+            "sagemaker:AddTags"
+          ],
+          "Resource": "arn:aws:sagemaker:*:*:space/*/CanvasManagedSpace-*",
+          "Condition": {
+            "StringEquals": {
+              "sagemaker:TaggingAction": "CreateSpace"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-09T18:20:35+00:00"
+    "CreateDate": "2024-05-22T19:18:48+00:00"
   },
   "AmazonSageMakerPartnerServiceCatalogProductsApiGatewayServiceRolePolicy": {
     "Document": {
@@ -80681,6 +80780,10 @@
             "ce:UpdateReport",
             "ce:UpdateCostCategoryDefinition",
             "ce:UntagResource",
+            "ce:StartCostAllocationTagBackfill",
+            "ce:ListCostAllocationTagBackfillHistory",
+            "ce:GetTags",
+            "ce:GetDimensionValues",
             "consolidatedbilling:GetAccountBillingRole",
             "consolidatedbilling:ListLinkedAccounts",
             "cur:DeleteReportDefinition",
@@ -80704,8 +80807,13 @@
             "payments:GetPaymentInstrument",
             "payments:GetPaymentStatus",
             "payments:ListPaymentPreferences",
+            "payments:ListTagsForResource",
+            "payments:ListPaymentInstruments",
             "payments:MakePayment",
+            "payments:TagResource",
             "payments:UpdatePaymentPreferences",
+            "payments:UpdatePaymentInstrument",
+            "payments:UntagResource",
             "pricing:DescribeServices",
             "purchase-orders:AddPurchaseOrder",
             "purchase-orders:DeletePurchaseOrder",
@@ -80739,9 +80847,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-17T18:03:48+00:00"
+    "CreateDate": "2024-05-23T23:26:02+00:00"
   },
   "CertificateManagerServiceRolePolicy": {
     "Document": {
