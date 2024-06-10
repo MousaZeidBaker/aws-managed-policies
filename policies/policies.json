@@ -29523,15 +29523,17 @@
           "Action": [
             "account:GetAlternateContact",
             "account:GetContactInformation",
-            "account:ListRegions"
+            "account:ListRegions",
+            "account:GetRegionOptStatus",
+            "account:GetPrimaryEmail"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-06T17:36:59+00:00"
+    "CreateDate": "2024-06-07T21:32:16+00:00"
   },
   "AWSOrganizationsServiceTrustPolicy": {
     "Document": {
@@ -30681,6 +30683,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "ProtonPermissions",
           "Effect": "Allow",
           "Action": [
             "codecommit:ListRepositories",
@@ -30744,26 +30747,45 @@
           "Resource": "*"
         },
         {
+          "Sid": "CodeStarConnectionsPermissions",
           "Effect": "Allow",
           "Action": "codestar-connections:PassConnection",
-          "Resource": "arn:aws:codestar-connections:*:*:connection/*",
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*",
+            "arn:aws:codeconnections:*:*:connection/*"
+          ],
           "Condition": {
             "StringEquals": {
               "codestar-connections:PassedToService": "proton.amazonaws.com"
             }
           }
+        },
+        {
+          "Sid": "CodeConnectionsPermissions",
+          "Effect": "Allow",
+          "Action": "codeconnections:PassConnection",
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*",
+            "arn:aws:codeconnections:*:*:connection/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "codeconnections:PassedToService": "proton.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-18T18:35:07+00:00"
+    "CreateDate": "2024-06-06T18:26:38+00:00"
   },
   "AWSProtonFullAccess": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "ProtonPermissions",
           "Effect": "Allow",
           "Action": [
             "proton:*",
@@ -30774,6 +30796,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "CreateGrantPermissions",
           "Effect": "Allow",
           "Action": [
             "kms:CreateGrant"
@@ -30786,6 +30809,7 @@
           }
         },
         {
+          "Sid": "PassRolePermissions",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -30798,6 +30822,7 @@
           }
         },
         {
+          "Sid": "CreateServiceLinkedRolePermissions",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "arn:aws:iam::*:role/aws-service-role/sync.proton.amazonaws.com/AWSServiceRoleForProtonSync",
@@ -30808,22 +30833,42 @@
           }
         },
         {
+          "Sid": "CodeStarConnectionsPermissions",
           "Effect": "Allow",
           "Action": [
             "codestar-connections:PassConnection"
           ],
-          "Resource": "arn:aws:codestar-connections:*:*:connection/*",
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*",
+            "arn:aws:codeconnections:*:*:connection/*"
+          ],
           "Condition": {
             "StringEquals": {
               "codestar-connections:PassedToService": "proton.amazonaws.com"
             }
           }
+        },
+        {
+          "Sid": "CodeConnectionsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "codeconnections:PassConnection"
+          ],
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*",
+            "arn:aws:codeconnections:*:*:connection/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "codeconnections:PassedToService": "proton.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-06-20T12:36:26+00:00"
+    "CreateDate": "2024-06-06T18:29:00+00:00"
   },
   "AWSProtonReadOnlyAccess": {
     "Document": {
@@ -49873,6 +49918,24 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "GlueTagDatabasePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "glue:TagResource",
+            "glue:UntagResource",
+            "glue:GetTags"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "ForAnyValue:StringLikeIfExists": {
+              "aws:TagKeys": "DataZoneDiscoverable_*"
+            }
+          }
+        },
+        {
           "Sid": "GlueDataQualityPermissions",
           "Effect": "Allow",
           "Action": [
@@ -50063,9 +50126,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-01T19:05:41+00:00"
+    "CreateDate": "2024-06-03T23:29:25+00:00"
   },
   "AmazonDataZonePortalFullAccessPolicy": {
     "Document": {
@@ -74537,6 +74600,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AllowSMMonitoringModelCards",
           "Effect": "Allow",
           "Action": [
             "sagemaker:ListMonitoringAlerts",
@@ -74560,6 +74624,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowSMTrainingModelsSearchTags",
           "Effect": "Allow",
           "Action": [
             "sagemaker:ListTrainingJobs",
@@ -74574,6 +74639,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowKMSActions",
           "Effect": "Allow",
           "Action": [
             "kms:ListAliases"
@@ -74581,6 +74647,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowS3Actions",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject",
@@ -74595,6 +74662,7 @@
           ]
         },
         {
+          "Sid": "AllowS3ListActions",
           "Effect": "Allow",
           "Action": [
             "s3:ListBucket",
@@ -74604,15 +74672,16 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-17T22:31:07+00:00"
+    "CreateDate": "2024-06-04T21:48:12+00:00"
   },
   "AmazonSageMakerModelRegistryFullAccess": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonSageMakerModelRegistrySageMakerReadPermission",
           "Effect": "Allow",
           "Action": [
             "sagemaker:DescribeAction",
@@ -74631,6 +74700,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AmazonSageMakerModelRegistrySageMakerWritePermission",
           "Effect": "Allow",
           "Action": [
             "sagemaker:AddTags",
@@ -74648,6 +74718,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AmazonSageMakerModelRegistryS3GetPermission",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject"
@@ -74659,6 +74730,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerModelRegistryS3ListPermission",
           "Effect": "Allow",
           "Action": [
             "s3:ListBucket",
@@ -74667,6 +74739,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AmazonSageMakerModelRegistryECRReadPermission",
           "Effect": "Allow",
           "Action": [
             "ecr:BatchGetImage",
@@ -74675,6 +74748,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AmazonSageMakerModelRegistryIAMPassRolePermission",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -74687,6 +74761,7 @@
           }
         },
         {
+          "Sid": "AmazonSageMakerModelRegistryTagReadPermission",
           "Effect": "Allow",
           "Action": [
             "tag:GetResources"
@@ -74694,6 +74769,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AmazonSageMakerModelRegistryResourceGroupGetPermission",
           "Effect": "Allow",
           "Action": [
             "resource-groups:GetGroupQuery"
@@ -74701,6 +74777,7 @@
           "Resource": "arn:aws:resource-groups:*:*:group/*"
         },
         {
+          "Sid": "AmazonSageMakerModelRegistryResourceGroupListPermission",
           "Effect": "Allow",
           "Action": [
             "resource-groups:ListGroupResources"
@@ -74708,6 +74785,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AmazonSageMakerModelRegistryResourceGroupWritePermission",
           "Effect": "Allow",
           "Action": [
             "resource-groups:CreateGroup",
@@ -74721,6 +74799,7 @@
           }
         },
         {
+          "Sid": "AmazonSageMakerModelRegistryResourceGroupDeletePermission",
           "Effect": "Allow",
           "Action": "resource-groups:DeleteGroup",
           "Resource": "arn:aws:resource-groups:*:*:group/*",
@@ -74729,12 +74808,31 @@
               "aws:ResourceTag/sagemaker:collection": "true"
             }
           }
+        },
+        {
+          "Sid": "AmazonSageMakerModelRegistryResourceKMSPermission",
+          "Effect": "Allow",
+          "Action": [
+            "kms:CreateGrant",
+            "kms:DescribeKey",
+            "kms:GenerateDataKey",
+            "kms:Decrypt"
+          ],
+          "Resource": "arn:aws:kms:*:*:key/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/sagemaker": "true"
+            },
+            "StringLike": {
+              "kms:ViaService": "sagemaker.*.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-13T05:20:48+00:00"
+    "CreateDate": "2024-06-06T18:48:51+00:00"
   },
   "AmazonSageMakerNotebooksServiceRolePolicy": {
     "Document": {
@@ -77672,6 +77770,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonTimestreamReadOnlyAccess",
           "Effect": "Allow",
           "Action": [
             "timestream:CancelQuery",
@@ -77687,15 +77786,16 @@
             "timestream:DescribeScheduledQuery",
             "timestream:ListScheduledQueries",
             "timestream:DescribeBatchLoadTask",
-            "timestream:ListBatchLoadTasks"
+            "timestream:ListBatchLoadTasks",
+            "timestream:DescribeAccountSettings"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-28T18:22:57+00:00"
+    "CreateDate": "2024-06-05T19:11:27+00:00"
   },
   "AmazonTranscribeFullAccess": {
     "Document": {
@@ -81394,6 +81494,222 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2020-11-24T18:48:00+00:00"
+  },
+  "CloudWatchApplicationSignalsFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CloudWatchApplicationSignalsFullAccessPermissions",
+          "Effect": "Allow",
+          "Action": "application-signals:*",
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsAlarmsPermissions",
+          "Effect": "Allow",
+          "Action": "cloudwatch:DescribeAlarms",
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsMetricsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:GetMetricData",
+            "cloudwatch:ListMetrics"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsLogGroupPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "logs:StartQuery"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/application-signals/data:*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsLogsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "logs:StopQuery",
+            "logs:GetQueryResults"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsSyntheticsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "synthetics:DescribeCanaries",
+            "synthetics:DescribeCanariesLastRun",
+            "synthetics:GetCanaryRuns"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsRumPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "rum:BatchCreateRumMetricDefinitions",
+            "rum:BatchDeleteRumMetricDefinitions",
+            "rum:BatchGetRumMetricDefinitions",
+            "rum:GetAppMonitor",
+            "rum:GetAppMonitorData",
+            "rum:ListAppMonitors",
+            "rum:PutRumMetricsDestination",
+            "rum:UpdateRumMetricDefinition"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsXrayPermissions",
+          "Effect": "Allow",
+          "Action": "xray:GetTraceSummaries",
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsPutMetricAlarmPermissions",
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricAlarm",
+          "Resource": [
+            "arn:aws:cloudwatch:*:*:alarm:SLO-AttainmentGoalAlarm-*",
+            "arn:aws:cloudwatch:*:*:alarm:SLO-WarningAlarm-*",
+            "arn:aws:cloudwatch:*:*:alarm:SLI-HealthAlarm-*"
+          ]
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsCreateServiceLinkedRolePermissions",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/application-signals.cloudwatch.amazonaws.com/AWSServiceRoleForCloudWatchApplicationSignals",
+          "Condition": {
+            "StringLike": {
+              "iam:AWSServiceName": "application-signals.cloudwatch.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsGetRolePermissions",
+          "Effect": "Allow",
+          "Action": "iam:GetRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/application-signals.cloudwatch.amazonaws.com/AWSServiceRoleForCloudWatchApplicationSignals"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsSnsWritePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "sns:CreateTopic",
+            "sns:Subscribe"
+          ],
+          "Resource": "arn:aws:sns:*:*:cloudwatch-application-signals-*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsSnsReadPermissions",
+          "Effect": "Allow",
+          "Action": "sns:ListTopics",
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-06-06T22:50:16+00:00"
+  },
+  "CloudWatchApplicationSignalsReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CloudWatchApplicationSignalsReadOnlyAccessPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "application-signals:BatchGetServiceLevelObjectiveBudgetReport",
+            "application-signals:GetService",
+            "application-signals:GetServiceLevelObjective",
+            "application-signals:ListServiceLevelObjectives",
+            "application-signals:ListServiceDependencies",
+            "application-signals:ListServiceDependents",
+            "application-signals:ListServiceOperations",
+            "application-signals:ListServices",
+            "application-signals:ListTagsForResource"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsGetRolePermissions",
+          "Effect": "Allow",
+          "Action": "iam:GetRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/application-signals.cloudwatch.amazonaws.com/AWSServiceRoleForCloudWatchApplicationSignals"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsLogGroupPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "logs:StartQuery"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/application-signals/data:*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsLogsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "logs:StopQuery",
+            "logs:GetQueryResults"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsAlarmsReadPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:DescribeAlarms"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsMetricsReadPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:GetMetricData",
+            "cloudwatch:ListMetrics"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsSyntheticsReadPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "synthetics:DescribeCanaries",
+            "synthetics:DescribeCanariesLastRun",
+            "synthetics:GetCanaryRuns"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsRumReadPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "rum:BatchGetRumMetricDefinitions",
+            "rum:GetAppMonitor",
+            "rum:GetAppMonitorData",
+            "rum:ListAppMonitors"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudWatchApplicationSignalsXrayReadPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "xray:GetTraceSummaries"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-06-06T22:48:30+00:00"
   },
   "CloudWatchApplicationSignalsServiceRolePolicy": {
     "Document": {
@@ -94208,6 +94524,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "FirehoseAPIStatement",
           "Effect": "Allow",
           "Action": [
             "firehose:PutRecord",
@@ -94218,15 +94535,16 @@
           ]
         },
         {
+          "Sid": "DescribeOrganizationAPIStatement",
           "Effect": "Allow",
           "Action": "organizations:DescribeOrganization",
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-07-23T17:04:25+00:00"
+    "CreateDate": "2024-06-03T17:29:04+00:00"
   },
   "WellArchitectedConsoleFullAccess": {
     "Document": {

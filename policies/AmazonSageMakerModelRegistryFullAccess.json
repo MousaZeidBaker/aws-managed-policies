@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AmazonSageMakerModelRegistrySageMakerReadPermission",
         "Effect": "Allow",
         "Action": [
           "sagemaker:DescribeAction",
@@ -21,6 +22,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AmazonSageMakerModelRegistrySageMakerWritePermission",
         "Effect": "Allow",
         "Action": [
           "sagemaker:AddTags",
@@ -38,6 +40,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AmazonSageMakerModelRegistryS3GetPermission",
         "Effect": "Allow",
         "Action": [
           "s3:GetObject"
@@ -49,6 +52,7 @@
         ]
       },
       {
+        "Sid": "AmazonSageMakerModelRegistryS3ListPermission",
         "Effect": "Allow",
         "Action": [
           "s3:ListBucket",
@@ -57,6 +61,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AmazonSageMakerModelRegistryECRReadPermission",
         "Effect": "Allow",
         "Action": [
           "ecr:BatchGetImage",
@@ -65,6 +70,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AmazonSageMakerModelRegistryIAMPassRolePermission",
         "Effect": "Allow",
         "Action": [
           "iam:PassRole"
@@ -77,6 +83,7 @@
         }
       },
       {
+        "Sid": "AmazonSageMakerModelRegistryTagReadPermission",
         "Effect": "Allow",
         "Action": [
           "tag:GetResources"
@@ -84,6 +91,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AmazonSageMakerModelRegistryResourceGroupGetPermission",
         "Effect": "Allow",
         "Action": [
           "resource-groups:GetGroupQuery"
@@ -91,6 +99,7 @@
         "Resource": "arn:aws:resource-groups:*:*:group/*"
       },
       {
+        "Sid": "AmazonSageMakerModelRegistryResourceGroupListPermission",
         "Effect": "Allow",
         "Action": [
           "resource-groups:ListGroupResources"
@@ -98,6 +107,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AmazonSageMakerModelRegistryResourceGroupWritePermission",
         "Effect": "Allow",
         "Action": [
           "resource-groups:CreateGroup",
@@ -111,6 +121,7 @@
         }
       },
       {
+        "Sid": "AmazonSageMakerModelRegistryResourceGroupDeletePermission",
         "Effect": "Allow",
         "Action": "resource-groups:DeleteGroup",
         "Resource": "arn:aws:resource-groups:*:*:group/*",
@@ -119,10 +130,29 @@
             "aws:ResourceTag/sagemaker:collection": "true"
           }
         }
+      },
+      {
+        "Sid": "AmazonSageMakerModelRegistryResourceKMSPermission",
+        "Effect": "Allow",
+        "Action": [
+          "kms:CreateGrant",
+          "kms:DescribeKey",
+          "kms:GenerateDataKey",
+          "kms:Decrypt"
+        ],
+        "Resource": "arn:aws:kms:*:*:key/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/sagemaker": "true"
+          },
+          "StringLike": {
+            "kms:ViaService": "sagemaker.*.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-04-13T05:20:48+00:00"
+  "CreateDate": "2024-06-06T18:48:51+00:00"
 }
