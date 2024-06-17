@@ -3072,13 +3072,39 @@
             "redshift:DescribeClusterSnapshots",
             "redshift:DescribeLoggingStatus",
             "route53:GetQueryLoggingConfig",
+            "sagemaker:DescribeAlgorithm",
+            "sagemaker:DescribeFlowDefinition",
+            "sagemaker:DescribeHumanTaskUi",
+            "sagemaker:DescribeModelBiasJobDefinition",
+            "sagemaker:DescribeModelCard",
+            "sagemaker:DescribeModelQualityJobDefinition",
+            "sagemaker:DescribeDomain",
+            "sagemaker:DescribeEndpoint",
+            "sagemaker:DescribeEndpointConfig",
+            "sagemaker:DescribeLabelingJob",
+            "sagemaker:DescribeModel",
+            "sagemaker:DescribeTrainingJob",
+            "sagemaker:DescribeUserProfile",
+            "sagemaker:ListAlgorithms",
+            "sagemaker:ListDomains",
+            "sagemaker:ListEndpoints",
             "sagemaker:ListEndpointConfigs",
+            "sagemaker:ListFlowDefinitions",
+            "sagemaker:ListHumanTaskUis",
+            "sagemaker:ListLabelingJobs",
+            "sagemaker:ListModels",
+            "sagemaker:ListModelBiasJobDefinitions",
+            "sagemaker:ListModelCards",
+            "sagemaker:ListModelQualityJobDefinitions",
+            "sagemaker:ListMonitoringAlerts",
+            "sagemaker:ListMonitoringSchedules",
+            "sagemaker:ListTrainingJobs",
+            "sagemaker:ListUserProfiles",
             "s3:GetBucketPublicAccessBlock",
             "s3:GetBucketVersioning",
             "s3:GetEncryptionConfiguration",
             "s3:GetLifecycleConfiguration",
             "s3:ListAllMyBuckets",
-            "sagemaker:DescribeEndpointConfig",
             "secretsmanager:DescribeSecret",
             "secretsmanager:ListSecrets",
             "securityhub:DescribeStandards",
@@ -3178,9 +3204,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-17T20:42:45+00:00"
+    "CreateDate": "2024-06-10T20:28:09+00:00"
   },
   "AWSAutoScalingPlansEC2AutoScalingPolicy": {
     "Document": {
@@ -3202,6 +3228,25 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2018-08-23T22:46:59+00:00"
+  },
+  "AWSBCMDataExportsServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CostOptimizationRecommendationAccess",
+          "Effect": "Allow",
+          "Action": [
+            "cost-optimization-hub:ListEnrollmentStatuses",
+            "cost-optimization-hub:ListRecommendations"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-06-10T17:40:19+00:00"
   },
   "AWSBackupAuditAccess": {
     "Document": {
@@ -42210,6 +42255,7 @@
           "Sid": "TrustedAdvisorServiceRolePermissions",
           "Effect": "Allow",
           "Action": [
+            "access-analyzer:ListAnalyzers",
             "autoscaling:DescribeAccountLimits",
             "autoscaling:DescribeAutoScalingGroups",
             "autoscaling:DescribeLaunchConfigurations",
@@ -42225,6 +42271,8 @@
             "cloudtrail:ListTrails",
             "cloudtrail:GetEventSelectors",
             "cloudwatch:GetMetricStatistics",
+            "cloudwatch:ListMetrics",
+            "dax:DescribeClusters",
             "dynamodb:DescribeLimits",
             "dynamodb:DescribeTable",
             "dynamodb:ListTables",
@@ -42234,15 +42282,19 @@
             "ec2:DescribeVpcs",
             "ec2:DescribeInternetGateways",
             "ec2:DescribeImages",
+            "ec2:DescribeNatGateways",
             "ec2:DescribeVolumes",
             "ec2:DescribeSecurityGroups",
             "ec2:DescribeSubnets",
             "ec2:DescribeRegions",
             "ec2:DescribeReservedInstancesOfferings",
+            "ec2:DescribeRouteTables",
             "ec2:DescribeSnapshots",
+            "ec2:DescribeVpcEndpoints",
             "ec2:DescribeVpnConnections",
             "ec2:DescribeVpnGateways",
             "ec2:DescribeLaunchTemplateVersions",
+            "ec2:GetManagedPrefixListEntries",
             "ecs:DescribeTaskDefinition",
             "ecs:ListTaskDefinitions",
             "elasticloadbalancing:DescribeAccountLimits",
@@ -42252,15 +42304,20 @@
             "elasticloadbalancing:DescribeLoadBalancerPolicyTypes",
             "elasticloadbalancing:DescribeLoadBalancers",
             "elasticloadbalancing:DescribeTargetGroups",
+            "elasticloadbalancing:DescribeTargetHealth",
             "iam:GenerateCredentialReport",
             "iam:GetAccountPasswordPolicy",
             "iam:GetAccountSummary",
             "iam:GetCredentialReport",
             "iam:GetServerCertificate",
             "iam:ListServerCertificates",
+            "iam:ListSAMLProviders",
             "kinesis:DescribeLimits",
+            "kafka:DescribeClusterV2",
             "kafka:ListClustersV2",
             "kafka:ListNodes",
+            "network-firewall:ListFirewalls",
+            "network-firewall:DescribeFirewall",
             "outposts:ListAssets",
             "outposts:GetOutpost",
             "outposts:ListOutposts",
@@ -42305,15 +42362,16 @@
             "s3:ListBucket",
             "s3:ListAllMyBuckets",
             "ses:GetSendQuota",
+            "sqs:GetQueueAttributes",
             "sqs:ListQueues"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-18T16:25:15+00:00"
+    "CreateDate": "2024-06-11T18:53:22+00:00"
   },
   "AWSUserNotificationsServiceLinkedRolePolicy": {
     "Document": {
@@ -49057,7 +49115,9 @@
             "datazone:StartMetadataGenerationRun",
             "datazone:GetMetadataGenerationRun",
             "datazone:CancelMetadataGenerationRun",
-            "datazone:ListMetadataGenerationRuns"
+            "datazone:ListMetadataGenerationRuns",
+            "datazone:GetEnvironmentAction",
+            "datazone:ListEnvironmentActions"
           ],
           "Resource": "*"
         },
@@ -49069,9 +49129,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-01T19:25:31+00:00"
+    "CreateDate": "2024-06-13T19:02:14+00:00"
   },
   "AmazonDataZoneEnvironmentRolePermissionsBoundary": {
     "Document": {
@@ -49722,7 +49782,8 @@
           "Action": [
             "ram:GetResourceShares",
             "ram:GetResourceShareInvitations",
-            "ram:GetResourceShareAssociations"
+            "ram:GetResourceShareAssociations",
+            "ram:ListResourceSharePermissions"
           ],
           "Resource": "*"
         },
@@ -49749,6 +49810,26 @@
           ]
         },
         {
+          "Sid": "DataZoneTagOnCreateDomainProjectTags",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:TagResource"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonDataZone-*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "AmazonDataZoneDomain",
+                "AmazonDataZoneProject"
+              ]
+            },
+            "StringLike": {
+              "aws:RequestTag/AmazonDataZoneDomain": "dzd_*",
+              "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*"
+            }
+          }
+        },
+        {
           "Sid": "DataZoneTagOnCreate",
           "Effect": "Allow",
           "Action": [
@@ -49764,9 +49845,6 @@
             "StringLike": {
               "aws:RequestTag/AmazonDataZoneDomain": "dzd_*",
               "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*"
-            },
-            "Null": {
-              "aws:TagKeys": "false"
             }
           }
         },
@@ -49785,9 +49863,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-23T21:36:18+00:00"
+    "CreateDate": "2024-06-13T19:02:55+00:00"
   },
   "AmazonDataZoneFullUserAccess": {
     "Document": {
@@ -60191,12 +60269,25 @@
           "Effect": "Allow",
           "Action": "iam:GetRole",
           "Resource": "arn:aws:iam::*:role/*AWSServiceRoleForAmazonGuardDutyMalwareProtection"
+        },
+        {
+          "Sid": "AllowPassRoleToMalwareProtectionPlan",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": "arn:aws:iam::*:role/*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "malware-protection-plan.guardduty.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-16T23:04:21+00:00"
+    "CreateDate": "2024-06-10T22:50:31+00:00"
   },
   "AmazonGuardDutyMalwareProtectionServiceRolePolicy": {
     "Document": {
@@ -75679,6 +75770,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonSageMakerCodeBuildCodeCommitPermission",
           "Effect": "Allow",
           "Action": [
             "codecommit:CancelUploadArchive",
@@ -75690,6 +75782,7 @@
           "Resource": "arn:aws:codecommit:*:*:sagemaker-*"
         },
         {
+          "Sid": "AmazonSageMakerCodeBuildECRReadPermission",
           "Effect": "Allow",
           "Action": [
             "ecr:BatchCheckLayerAvailability",
@@ -75707,6 +75800,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerCodeBuildECRWritePermission",
           "Effect": "Allow",
           "Action": [
             "ecr:CompleteLayerUpload",
@@ -75720,6 +75814,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerCodeBuildPassRoletPermission",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -75744,6 +75839,7 @@
           }
         },
         {
+          "Sid": "AmazonSageMakerCodeBuildLogPermission",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogDelivery",
@@ -75769,6 +75865,7 @@
           "Resource": "arn:aws:logs:*:*:log-group:/aws/codebuild/*"
         },
         {
+          "Sid": "AmazonSageMakerCodeBuildS3Permission",
           "Effect": "Allow",
           "Action": [
             "s3:CreateBucket",
@@ -75792,6 +75889,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerCodeBuildSageMakerPermission",
           "Effect": "Allow",
           "Action": [
             "sagemaker:AddAssociation",
@@ -76067,18 +76165,49 @@
             "arn:aws:sagemaker:*:*:project/*",
             "arn:aws:sagemaker:*:*:model-package/*"
           ]
+        },
+        {
+          "Sid": "AmazonSageMakerCodeBuildCodeStarConnectionPermission",
+          "Effect": "Allow",
+          "Action": [
+            "codestar-connections:UseConnection"
+          ],
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*"
+          ],
+          "Condition": {
+            "StringEqualsIgnoreCase": {
+              "aws:ResourceTag/sagemaker": "true"
+            }
+          }
+        },
+        {
+          "Sid": "AmazonSageMakerCodeBuildCodeConnectionPermission",
+          "Effect": "Allow",
+          "Action": [
+            "codeconnections:UseConnection"
+          ],
+          "Resource": [
+            "arn:aws:codeconnections:*:*:connection/*"
+          ],
+          "Condition": {
+            "StringEqualsIgnoreCase": {
+              "aws:ResourceTag/sagemaker": "true"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-03-25T04:27:46+00:00"
+    "CreateDate": "2024-06-11T18:45:27+00:00"
   },
   "AmazonSageMakerServiceCatalogProductsCodePipelineServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonSageMakerCodePipelineCFnPermission",
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateChangeSet",
@@ -76094,6 +76223,23 @@
           "Resource": "arn:aws:cloudformation:*:*:stack/sagemaker-*"
         },
         {
+          "Sid": "AmazonSageMakerCodePipelineCFnTagPermission",
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:TagResource",
+            "cloudformation:UntagResource"
+          ],
+          "Resource": "arn:aws:cloudformation:*:*:stack/sagemaker-*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:TagKeys": [
+                "sagemaker:project-name"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AmazonSageMakerCodePipelineS3Permission",
           "Effect": "Allow",
           "Action": [
             "s3:AbortMultipartUpload",
@@ -76107,6 +76253,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerCodePipelinePassRolePermission",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -76116,6 +76263,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerCodePipelineCodeBuildPermission",
           "Effect": "Allow",
           "Action": [
             "codebuild:BatchGetBuilds",
@@ -76127,6 +76275,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerCodePipelineCodeCommitPermission",
           "Effect": "Allow",
           "Action": [
             "codecommit:CancelUploadArchive",
@@ -76136,12 +76285,42 @@
             "codecommit:UploadArchive"
           ],
           "Resource": "arn:aws:codecommit:*:*:sagemaker-*"
+        },
+        {
+          "Sid": "AmazonSageMakerCodePipelineCodeStarConnectionPermission",
+          "Effect": "Allow",
+          "Action": [
+            "codestar-connections:UseConnection"
+          ],
+          "Resource": [
+            "arn:aws:codestar-connections:*:*:connection/*"
+          ],
+          "Condition": {
+            "StringEqualsIgnoreCase": {
+              "aws:ResourceTag/sagemaker": "true"
+            }
+          }
+        },
+        {
+          "Sid": "AmazonSageMakerCodePipelineCodeConnectionPermission",
+          "Effect": "Allow",
+          "Action": [
+            "codeconnections:UseConnection"
+          ],
+          "Resource": [
+            "arn:aws:codeconnections:*:*:connection/*"
+          ],
+          "Condition": {
+            "StringEqualsIgnoreCase": {
+              "aws:ResourceTag/sagemaker": "true"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-02-22T09:53:17+00:00"
+    "CreateDate": "2024-06-11T18:37:51+00:00"
   },
   "AmazonSageMakerServiceCatalogProductsEventsServiceRolePolicy": {
     "Document": {
@@ -76275,6 +76454,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AmazonSageMakerLambdaECRPermission",
           "Effect": "Allow",
           "Action": [
             "ecr:DescribeImages",
@@ -76291,6 +76471,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerLambdaEventBridgePermission",
           "Effect": "Allow",
           "Action": [
             "events:DeleteRule",
@@ -76304,6 +76485,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerLambdaS3BucketPermission",
           "Effect": "Allow",
           "Action": [
             "s3:CreateBucket",
@@ -76322,6 +76504,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerLambdaS3ObjectPermission",
           "Effect": "Allow",
           "Action": [
             "s3:AbortMultipartUpload",
@@ -76336,6 +76519,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerLambdaSageMakerPermission",
           "Effect": "Allow",
           "Action": [
             "sagemaker:AddAssociation",
@@ -76649,6 +76833,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerLambdaPassRolePermission",
           "Effect": "Allow",
           "Action": [
             "iam:PassRole"
@@ -76658,6 +76843,7 @@
           ]
         },
         {
+          "Sid": "AmazonSageMakerLambdaLogPermission",
           "Effect": "Allow",
           "Action": [
             "logs:CreateLogDelivery",
@@ -76681,12 +76867,26 @@
             "logs:UpdateLogDelivery"
           ],
           "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/*"
+        },
+        {
+          "Sid": "AmazonSageMakerLambdaCodeBuildPermission",
+          "Effect": "Allow",
+          "Action": [
+            "codebuild:StartBuild",
+            "codebuild:BatchGetBuilds"
+          ],
+          "Resource": "arn:aws:codebuild:*:*:project/sagemaker-*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/sagemaker:project-name": "*"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-04T16:34:43+00:00"
+    "CreateDate": "2024-06-11T18:57:13+00:00"
   },
   "AmazonSecurityLakeAdministrator": {
     "Document": {
@@ -87668,6 +87868,37 @@
     "IsDefaultVersion": true,
     "CreateDate": "2022-11-27T13:29:39+00:00"
   },
+  "OpensearchIngestionSelfManagedVpcePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DescribeEc2Resources",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeVpcEndpoints"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CwPermissionsForOsiNamespace",
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/OSIS"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-06-10T19:59:40+00:00"
+  },
   "PartnerCentralAccountManagementUserRoleAssociation": {
     "Document": {
       "Version": "2012-10-17",
@@ -94175,6 +94406,13 @@
             "codebuild:ListBuilds*",
             "codebuild:ListProjects",
             "codecommit:List*",
+            "codedeploy:BatchGetApplicationRevisions",
+            "codedeploy:BatchGetApplications",
+            "codedeploy:BatchGetDeploymentGroups",
+            "codedeploy:BatchGetDeploymentInstances",
+            "codedeploy:BatchGetDeploymentTargets",
+            "codedeploy:BatchGetDeployments",
+            "codedeploy:BatchGetOnPremisesInstances",
             "codedeploy:Get*",
             "codedeploy:List*",
             "codepipeline:ListPipelines",
@@ -94475,9 +94713,9 @@
         }
       ]
     },
-    "VersionId": "v18",
+    "VersionId": "v19",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-03-28T21:28:38+00:00"
+    "CreateDate": "2024-06-10T20:57:11+00:00"
   },
   "WAFLoggingServiceRolePolicy": {
     "Document": {

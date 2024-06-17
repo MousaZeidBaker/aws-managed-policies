@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AmazonSageMakerLambdaECRPermission",
         "Effect": "Allow",
         "Action": [
           "ecr:DescribeImages",
@@ -19,6 +20,7 @@
         ]
       },
       {
+        "Sid": "AmazonSageMakerLambdaEventBridgePermission",
         "Effect": "Allow",
         "Action": [
           "events:DeleteRule",
@@ -32,6 +34,7 @@
         ]
       },
       {
+        "Sid": "AmazonSageMakerLambdaS3BucketPermission",
         "Effect": "Allow",
         "Action": [
           "s3:CreateBucket",
@@ -50,6 +53,7 @@
         ]
       },
       {
+        "Sid": "AmazonSageMakerLambdaS3ObjectPermission",
         "Effect": "Allow",
         "Action": [
           "s3:AbortMultipartUpload",
@@ -64,6 +68,7 @@
         ]
       },
       {
+        "Sid": "AmazonSageMakerLambdaSageMakerPermission",
         "Effect": "Allow",
         "Action": [
           "sagemaker:AddAssociation",
@@ -377,6 +382,7 @@
         ]
       },
       {
+        "Sid": "AmazonSageMakerLambdaPassRolePermission",
         "Effect": "Allow",
         "Action": [
           "iam:PassRole"
@@ -386,6 +392,7 @@
         ]
       },
       {
+        "Sid": "AmazonSageMakerLambdaLogPermission",
         "Effect": "Allow",
         "Action": [
           "logs:CreateLogDelivery",
@@ -409,10 +416,24 @@
           "logs:UpdateLogDelivery"
         ],
         "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/*"
+      },
+      {
+        "Sid": "AmazonSageMakerLambdaCodeBuildPermission",
+        "Effect": "Allow",
+        "Action": [
+          "codebuild:StartBuild",
+          "codebuild:BatchGetBuilds"
+        ],
+        "Resource": "arn:aws:codebuild:*:*:project/sagemaker-*",
+        "Condition": {
+          "StringLike": {
+            "aws:ResourceTag/sagemaker:project-name": "*"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-04-04T16:34:43+00:00"
+  "CreateDate": "2024-06-11T18:57:13+00:00"
 }
