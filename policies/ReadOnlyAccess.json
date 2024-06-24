@@ -1239,6 +1239,7 @@
           "lex:DescribeBotAlias",
           "lex:DescribeBotChannel",
           "lex:DescribeBotLocale",
+          "lex:DescribeBotReplica",
           "lex:DescribeBotVersion",
           "lex:DescribeExport",
           "lex:DescribeImport",
@@ -1247,9 +1248,12 @@
           "lex:DescribeSlot",
           "lex:DescribeSlotType",
           "lex:Get*",
+          "lex:ListBotAliasReplicas",
           "lex:ListBotAliases",
           "lex:ListBotChannels",
           "lex:ListBotLocales",
+          "lex:ListBotReplicas",
+          "lex:ListBotVersionReplicas",
           "lex:ListBots",
           "lex:ListBotVersions",
           "lex:ListBuiltInIntents",
@@ -1646,7 +1650,9 @@
           "payment-cryptography:ListTagsForResource",
           "payments:GetPaymentInstrument",
           "payments:GetPaymentStatus",
+          "payments:ListPaymentInstruments",
           "payments:ListPaymentPreferences",
+          "payments:ListTagsForResource",
           "pca-connector-ad:GetConnector",
           "pca-connector-ad:GetDirectoryRegistration",
           "pca-connector-ad:GetServicePrincipalName",
@@ -2169,7 +2175,7 @@
       }
     ]
   },
-  "VersionId": "v113",
+  "VersionId": "v114",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-05-16T21:10:15+00:00"
+  "CreateDate": "2024-06-21T20:04:53+00:00"
 }
