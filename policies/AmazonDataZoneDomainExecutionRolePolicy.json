@@ -107,7 +107,14 @@
           "datazone:CancelMetadataGenerationRun",
           "datazone:ListMetadataGenerationRuns",
           "datazone:GetEnvironmentAction",
-          "datazone:ListEnvironmentActions"
+          "datazone:ListEnvironmentActions",
+          "datazone:ListLineageNodeHistory",
+          "datazone:GetLineageNode",
+          "datazone:CreateAssetFilter",
+          "datazone:DeleteAssetFilter",
+          "datazone:GetAssetFilter",
+          "datazone:ListAssetFilters",
+          "datazone:UpdateAssetFilter"
         ],
         "Resource": "*"
       },
@@ -119,7 +126,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-06-13T19:02:14+00:00"
+  "CreateDate": "2024-06-27T15:17:17+00:00"
 }
