@@ -70156,6 +70156,14 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "rdscrc",
+          "Effect": "Allow",
+          "Action": [
+            "rds:CrossRegionCommunication"
+          ],
+          "Resource": "*"
+        },
+        {
           "Sid": "ecc1",
           "Effect": "Allow",
           "Action": [
@@ -70466,7 +70474,8 @@
                 "CreateSnapshot",
                 "CreateSnapshots",
                 "CopySnapshot",
-                "AllocateAddress"
+                "AllocateAddress",
+                "CopyImage"
               ]
             }
           }
@@ -70595,6 +70604,17 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "eccAmi1",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CopyImage"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*::image/*",
+            "arn:aws:ec2:*::snapshot/*"
+          ]
         },
         {
           "Sid": "iam1",
@@ -70906,9 +70926,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-19T15:15:23+00:00"
+    "CreateDate": "2024-07-18T17:33:36+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
@@ -74118,6 +74138,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AllowSSMAgentPermissions",
           "Effect": "Allow",
           "Action": [
             "ssm:DescribeAssociation",
@@ -74137,6 +74158,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowSSMChannelMessaging",
           "Effect": "Allow",
           "Action": [
             "ssmmessages:CreateControlChannel",
@@ -74147,6 +74169,7 @@
           "Resource": "*"
         },
         {
+          "Sid": "AllowSSMLegacyMessaging",
           "Effect": "Allow",
           "Action": [
             "ec2messages:AcknowledgeMessage",
@@ -74160,9 +74183,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-08-30T20:54:27+00:00"
+    "CreateDate": "2024-07-16T18:14:07+00:00"
   },
   "AmazonSSMManagedInstanceCore": {
     "Document": {
@@ -75448,12 +75471,113 @@
             "logs:PutLogEvents"
           ],
           "Resource": "arn:aws:logs:*:*:log-group:/aws/sagemaker/studio:*"
+        },
+        {
+          "Sid": "EMRServerlessCreateApplicationOperation",
+          "Effect": "Allow",
+          "Action": "emr-serverless:CreateApplication",
+          "Resource": "arn:aws:emr-serverless:*:*:/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/sagemaker:is-canvas-resource": "True",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "EMRServerlessListApplicationOperation",
+          "Effect": "Allow",
+          "Action": "emr-serverless:ListApplications",
+          "Resource": "arn:aws:emr-serverless:*:*:/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "EMRServerlessApplicationOperations",
+          "Effect": "Allow",
+          "Action": [
+            "emr-serverless:UpdateApplication",
+            "emr-serverless:GetApplication"
+          ],
+          "Resource": "arn:aws:emr-serverless:*:*:/applications/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/sagemaker:is-canvas-resource": "True",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "EMRServerlessStartJobRunOperation",
+          "Effect": "Allow",
+          "Action": "emr-serverless:StartJobRun",
+          "Resource": "arn:aws:emr-serverless:*:*:/applications/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/sagemaker:is-canvas-resource": "True",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "EMRServerlessListJobRunOperation",
+          "Effect": "Allow",
+          "Action": "emr-serverless:ListJobRuns",
+          "Resource": "arn:aws:emr-serverless:*:*:/applications/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/sagemaker:is-canvas-resource": "True",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "EMRServerlessJobRunOperations",
+          "Effect": "Allow",
+          "Action": [
+            "emr-serverless:GetJobRun",
+            "emr-serverless:CancelJobRun"
+          ],
+          "Resource": "arn:aws:emr-serverless:*:*:/applications/*/jobruns/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/sagemaker:is-canvas-resource": "True",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "EMRServerlessTagResourceOperation",
+          "Effect": "Allow",
+          "Action": "emr-serverless:TagResource",
+          "Resource": "arn:aws:emr-serverless:*:*:/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/sagemaker:is-canvas-resource": "True",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "IAMPassOperationForEMRServerless",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/AmazonSageMakerCanvasEMRSExecutionAccess-*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "emr-serverless.amazonaws.com",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-08T02:53:24+00:00"
+    "CreateDate": "2024-07-18T23:21:28+00:00"
   },
   "AmazonSageMakerCanvasDirectDeployAccess": {
     "Document": {
@@ -81641,6 +81765,31 @@
     "IsDefaultVersion": true,
     "CreateDate": "2020-03-18T23:32:10+00:00"
   },
+  "AmazonWorkSpacesThinClientReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowThinClientReadAccess",
+          "Effect": "Allow",
+          "Action": [
+            "thinclient:GetEnvironment",
+            "thinclient:ListEnvironments",
+            "thinclient:GetDevice",
+            "thinclient:ListDevices",
+            "thinclient:ListDeviceSessions",
+            "thinclient:GetSoftwareSet",
+            "thinclient:ListSoftwareSets",
+            "thinclient:ListTagsForResource"
+          ],
+          "Resource": "arn:aws:thinclient:*:*:*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-07-19T08:50:52+00:00"
+  },
   "AmazonWorkSpacesWebReadOnly": {
     "Document": {
       "Version": "2012-10-17",
@@ -81935,6 +82084,26 @@
           }
         },
         {
+          "Sid": "AmplifySandboxLambdaLogsStreamingListTags",
+          "Effect": "Allow",
+          "Action": [
+            "lambda:ListTags"
+          ],
+          "Resource": [
+            "arn:aws:lambda:*:*:function:amplify-*"
+          ]
+        },
+        {
+          "Sid": "AmplifySandboxLambdaLogsStreamingFilterLogEvents",
+          "Effect": "Allow",
+          "Action": [
+            "logs:FilterLogEvents"
+          ],
+          "Resource": [
+            "arn:aws:logs:*:*:log-group:/aws/lambda/amplify-*:*"
+          ]
+        },
+        {
           "Sid": "AmplifySchema",
           "Effect": "Allow",
           "Action": [
@@ -82026,9 +82195,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-31T15:53:42+00:00"
+    "CreateDate": "2024-07-18T17:05:12+00:00"
   },
   "AppIntegrationsServiceLinkedRolePolicy": {
     "Document": {
@@ -88991,6 +89160,7 @@
           "Action": [
             "access-analyzer:CheckAccessNotGranted",
             "access-analyzer:CheckNoNewAccess",
+            "access-analyzer:CheckNoPublicAccess",
             "access-analyzer:Get*",
             "access-analyzer:List*",
             "access-analyzer:ValidatePolicy"
@@ -88999,9 +89169,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T02:24:16+00:00"
+    "CreateDate": "2024-07-18T17:49:04+00:00"
   },
   "IAMFullAccess": {
     "Document": {
@@ -92400,6 +92570,7 @@
             "account:GetAlternateContact",
             "account:GetChallengeQuestions",
             "account:GetContactInformation",
+            "account:GetPrimaryEmail",
             "account:GetRegionOptStatus",
             "account:ListRegions",
             "acm-pca:Describe*",
@@ -92473,6 +92644,15 @@
             "appflow:ListTagsForResource",
             "application-autoscaling:Describe*",
             "application-autoscaling:ListTagsForResource",
+            "application-signals:BatchGetServiceLevelObjectiveBudgetReport",
+            "application-signals:GetService",
+            "application-signals:GetServiceLevelObjective",
+            "application-signals:ListServices",
+            "application-signals:ListServiceDependencies",
+            "application-signals:ListServiceDependents",
+            "application-signals:ListServiceLevelObjectives",
+            "application-signals:ListServiceOperations",
+            "application-signals:ListTagsForResource",
             "applicationinsights:Describe*",
             "applicationinsights:List*",
             "appmesh:Describe*",
@@ -92665,6 +92845,7 @@
             "chatbot:ListMicrosoftTeamsChannelConfigurations",
             "chatbot:ListMicrosoftTeamsConfiguredTeams",
             "chatbot:ListMicrosoftTeamsUserIdentities",
+            "chatbot:ListTagsForResource",
             "chime:Get*",
             "chime:List*",
             "chime:Retrieve*",
@@ -92862,6 +93043,9 @@
             "consoleapp:ListDeviceIdentities",
             "consolidatedbilling:GetAccountBillingRole",
             "consolidatedbilling:ListLinkedAccounts",
+            "controlcatalog:ListCommonControls",
+            "controlcatalog:ListDomains",
+            "controlcatalog:ListObjectives",
             "cost-optimization-hub:GetPreferences",
             "cost-optimization-hub:GetRecommendation",
             "cost-optimization-hub:ListEnrollmentStatuses",
@@ -93214,6 +93398,7 @@
             "glue:BatchGetDevEndpoints",
             "glue:BatchGetJobs",
             "glue:BatchGetPartition",
+            "glue:BatchGetTableOptimizer",
             "glue:BatchGetTriggers",
             "glue:BatchGetWorkflows",
             "glue:CheckSchemaVersionValidity",
@@ -93252,6 +93437,7 @@
             "glue:GetSecurityConfigurations",
             "glue:GetTable",
             "glue:GetTables",
+            "glue:GetTableOptimizer",
             "glue:GetTableVersion",
             "glue:GetTableVersions",
             "glue:GetTags",
@@ -93271,6 +93457,7 @@
             "glue:ListRegistries",
             "glue:ListSchemas",
             "glue:ListSchemaVersions",
+            "glue:ListTableOptimizerRuns",
             "glue:ListTriggers",
             "glue:ListWorkflows",
             "glue:QuerySchemaVersionMetadata",
@@ -93597,6 +93784,7 @@
             "launchwizard:GetWorkload",
             "launchwizard:GetWorkloadAsset",
             "launchwizard:GetWorkloadAssets",
+            "launchwizard:GetWorkloadDeploymentPattern",
             "launchwizard:ListAdditionalNodes",
             "launchwizard:ListAllowedResources",
             "launchwizard:ListDeploymentEvents",
@@ -93604,6 +93792,7 @@
             "launchwizard:ListProvisionedApps",
             "launchwizard:ListResourceCostEstimates",
             "launchwizard:ListSettingsSets",
+            "launchwizard:ListTagsForResource",
             "launchwizard:ListWorkloadDeploymentOptions",
             "launchwizard:ListWorkloadDeploymentPatterns",
             "launchwizard:ListWorkloads",
@@ -93787,6 +93976,7 @@
             "macie2:GetUsageStatistics",
             "macie2:GetUsageTotals",
             "macie2:ListAllowLists",
+            "macie2:ListAutomatedDiscoveryAccounts",
             "macie2:ListClassificationJobs",
             "macie2:ListClassificationScopes",
             "macie2:ListCustomDataIdentifiers",
@@ -94161,6 +94351,7 @@
             "resiliencehub:DescribeResiliencyPolicy",
             "resiliencehub:ListAlarmRecommendations",
             "resiliencehub:ListAppAssessmentComplianceDrifts",
+            "resiliencehub:ListAppAssessmentResourceDrifts",
             "resiliencehub:ListAppAssessments",
             "resiliencehub:ListAppComponentCompliances",
             "resiliencehub:ListAppComponentRecommendations",
@@ -94231,6 +94422,15 @@
             "s3-object-lambda:ListBucketMultipartUploads",
             "s3-object-lambda:ListBucketVersions",
             "s3-object-lambda:ListMultipartUploadParts",
+            "s3-outposts:GetAccessPoint",
+            "s3-outposts:GetAccessPointPolicy",
+            "s3-outposts:GetBucket",
+            "s3-outposts:GetBucketPolicy",
+            "s3-outposts:GetBucketTagging",
+            "s3-outposts:GetLifecycleConfiguration",
+            "s3-outposts:ListAccessPoints",
+            "s3-outposts:ListEndpoints",
+            "s3-outposts:ListRegionalBuckets",
             "s3:DescribeJob",
             "s3:Get*",
             "s3:List*",
@@ -94547,9 +94747,9 @@
         }
       ]
     },
-    "VersionId": "v114",
+    "VersionId": "v115",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-06-21T20:04:53+00:00"
+    "CreateDate": "2024-07-18T14:52:39+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
