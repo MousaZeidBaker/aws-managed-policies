@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AllowAOSSCloudwatchMetrics",
         "Effect": "Allow",
         "Action": "cloudwatch:PutMetricData",
         "Resource": "*",
@@ -14,7 +15,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-24T19:50:12+00:00"
+  "CreateDate": "2024-07-25T21:19:30+00:00"
 }
