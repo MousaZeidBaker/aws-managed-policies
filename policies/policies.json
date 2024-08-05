@@ -18232,7 +18232,8 @@
             "ec2:GetEbsDefaultKmsKeyId",
             "ec2:DescribeKeyPairs",
             "ec2:DescribeCapacityReservations",
-            "ec2:DescribeHosts"
+            "ec2:DescribeHosts",
+            "ec2:GetInstanceTypesFromInstanceRequirements"
           ],
           "Resource": "*"
         },
@@ -18730,12 +18731,73 @@
               "aws:ResourceTag/AWSElasticDisasterRecoveryManaged": "false"
             }
           }
+        },
+        {
+          "Sid": "ConsoleFullAccess38",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AssociateIamInstanceProfile"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*"
+          ],
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AWSElasticDisasterRecoveryManaged": "false"
+            },
+            "Bool": {
+              "aws:ViaAWSService": "true"
+            }
+          }
+        },
+        {
+          "Sid": "ConsoleFullAccess39",
+          "Effect": "Allow",
+          "Action": "ec2:CreateFleet",
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*",
+            "arn:aws:ec2:*:*:fleet/*",
+            "arn:aws:ec2:*:*:volume/*",
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:image/*",
+            "arn:aws:ec2:*:*:launch-template/*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "drs.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ConsoleFullAccess40",
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:volume/*",
+            "arn:aws:ec2:*:*:snapshot/*",
+            "arn:aws:ec2:*:*:instance/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "CreateFleet"
+              ]
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "drs.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-19T07:38:32+00:00"
+    "CreateDate": "2024-07-29T19:38:08+00:00"
   },
   "AWSElasticDisasterRecoveryConversionServerPolicy": {
     "Document": {
@@ -19292,7 +19354,8 @@
             "ec2:DescribeInstances",
             "ec2:DescribeLaunchTemplateVersions",
             "ec2:DescribeSecurityGroups",
-            "ec2:DescribeSubnets"
+            "ec2:DescribeSubnets",
+            "ec2:GetInstanceTypesFromInstanceRequirements"
           ],
           "Resource": "*"
         },
@@ -19347,9 +19410,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T13:03:00+00:00"
+    "CreateDate": "2024-07-29T19:39:26+00:00"
   },
   "AWSElasticDisasterRecoveryRecoveryInstancePolicy": {
     "Document": {
@@ -48919,6 +48982,184 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-12-06T15:48:19+00:00"
   },
+  "AmazonBedrockStudioPermissionsBoundary": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AccessS3Buckets",
+          "Effect": "Allow",
+          "Action": [
+            "s3:ListBucket",
+            "s3:ListBucketVersions",
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:DeleteObject",
+            "s3:GetObjectVersion",
+            "s3:DeleteObjectVersion"
+          ],
+          "Resource": "arn:aws:s3:::br-studio-${aws:PrincipalAccount}-*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "AccessOpenSearchCollections",
+          "Effect": "Allow",
+          "Action": "aoss:APIAccessAll",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "InvokeBedrockModels",
+          "Effect": "Allow",
+          "Action": [
+            "bedrock:InvokeModel",
+            "bedrock:InvokeModelWithResponseStream"
+          ],
+          "Resource": "arn:aws:bedrock:*::foundation-model/*"
+        },
+        {
+          "Sid": "AccessBedrockResources",
+          "Effect": "Allow",
+          "Action": [
+            "bedrock:InvokeAgent",
+            "bedrock:Retrieve",
+            "bedrock:StartIngestionJob",
+            "bedrock:GetIngestionJob",
+            "bedrock:ListIngestionJobs",
+            "bedrock:ApplyGuardrail",
+            "bedrock:ListPrompts",
+            "bedrock:GetPrompt",
+            "bedrock:CreatePrompt",
+            "bedrock:DeletePrompt",
+            "bedrock:CreatePromptVersion",
+            "bedrock:InvokeFlow",
+            "bedrock:ListTagsForResource",
+            "bedrock:TagResource",
+            "bedrock:UntagResource"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:ResourceTag/AmazonBedrockManaged": "true"
+            },
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "false"
+            }
+          }
+        },
+        {
+          "Sid": "RetrieveAndGenerate",
+          "Effect": "Allow",
+          "Action": "bedrock:RetrieveAndGenerate",
+          "Resource": "*"
+        },
+        {
+          "Sid": "WriteLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:PutLogEvents"
+          ],
+          "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/br-studio-*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:ResourceTag/AmazonBedrockManaged": "true"
+            },
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "false"
+            }
+          }
+        },
+        {
+          "Sid": "InvokeLambdaFunctions",
+          "Effect": "Allow",
+          "Action": "lambda:InvokeFunction",
+          "Resource": "arn:aws:lambda:*:*:function:br-studio-*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:ResourceTag/AmazonBedrockManaged": "true"
+            },
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "false"
+            }
+          }
+        },
+        {
+          "Sid": "AccessSecretsManagerSecrets",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:GetSecretValue",
+            "secretsmanager:PutSecretValue"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:br-studio/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:ResourceTag/AmazonBedrockManaged": "true"
+            },
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "false"
+            }
+          }
+        },
+        {
+          "Sid": "UseKmsKeyWithBedrock",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt",
+            "kms:GenerateDataKey"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:ResourceTag/EnableBedrock": "true"
+            },
+            "Null": {
+              "kms:EncryptionContext:aws:bedrock:arn": "false"
+            }
+          }
+        },
+        {
+          "Sid": "UseKmsKeyWithAwsServices",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt",
+            "kms:GenerateDataKey"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:ResourceTag/EnableBedrock": "true"
+            },
+            "StringLike": {
+              "kms:ViaService": [
+                "s3.*.amazonaws.com",
+                "secretsmanager.*.amazonaws.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-08-01T00:24:40+00:00"
+  },
   "AmazonBraketFullAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -51325,16 +51566,20 @@
           "Sid": "DomainExecutionRoleStatement",
           "Effect": "Allow",
           "Action": [
-            "datazone:ListTimeSeriesDataPoints",
-            "datazone:GetTimeSeriesDataPoint",
-            "datazone:DeleteTimeSeriesDataPoints",
             "datazone:AcceptPredictions",
             "datazone:AcceptSubscriptionRequest",
+            "datazone:AddEntityOwner",
+            "datazone:AddPolicyGrant",
+            "datazone:CancelMetadataGenerationRun",
             "datazone:CancelSubscription",
             "datazone:CreateAsset",
+            "datazone:CreateAssetFilter",
             "datazone:CreateAssetRevision",
             "datazone:CreateAssetType",
+            "datazone:CreateDataProduct",
+            "datazone:CreateDataProductRevision",
             "datazone:CreateDataSource",
+            "datazone:CreateDomainUnit",
             "datazone:CreateEnvironment",
             "datazone:CreateEnvironmentBlueprint",
             "datazone:CreateEnvironmentProfile",
@@ -51347,8 +51592,11 @@
             "datazone:CreateSubscriptionGrant",
             "datazone:CreateSubscriptionRequest",
             "datazone:DeleteAsset",
+            "datazone:DeleteAssetFilter",
             "datazone:DeleteAssetType",
+            "datazone:DeleteDataProduct",
             "datazone:DeleteDataSource",
+            "datazone:DeleteDomainUnit",
             "datazone:DeleteEnvironment",
             "datazone:DeleteEnvironmentBlueprint",
             "datazone:DeleteEnvironmentProfile",
@@ -51361,12 +51609,17 @@
             "datazone:DeleteSubscriptionGrant",
             "datazone:DeleteSubscriptionRequest",
             "datazone:DeleteSubscriptionTarget",
+            "datazone:DeleteTimeSeriesDataPoints",
             "datazone:GetAsset",
+            "datazone:GetAssetFilter",
             "datazone:GetAssetType",
+            "datazone:GetDataProduct",
             "datazone:GetDataSource",
             "datazone:GetDataSourceRun",
             "datazone:GetDomain",
+            "datazone:GetDomainUnit",
             "datazone:GetEnvironment",
+            "datazone:GetEnvironmentAction",
             "datazone:GetEnvironmentActionLink",
             "datazone:GetEnvironmentBlueprint",
             "datazone:GetEnvironmentCredentials",
@@ -51375,35 +51628,49 @@
             "datazone:GetGlossary",
             "datazone:GetGlossaryTerm",
             "datazone:GetGroupProfile",
+            "datazone:GetLineageNode",
             "datazone:GetListing",
+            "datazone:GetMetadataGenerationRun",
             "datazone:GetProject",
             "datazone:GetSubscription",
             "datazone:GetSubscriptionEligibility",
             "datazone:GetSubscriptionGrant",
             "datazone:GetSubscriptionRequestDetails",
             "datazone:GetSubscriptionTarget",
+            "datazone:GetTimeSeriesDataPoint",
             "datazone:GetUserProfile",
             "datazone:ListAccountEnvironments",
+            "datazone:ListAssetFilters",
             "datazone:ListAssetRevisions",
+            "datazone:ListDataProductRevisions",
             "datazone:ListDataSourceRunActivities",
             "datazone:ListDataSourceRuns",
             "datazone:ListDataSources",
-            "datazone:ListEnvironmentBlueprintConfigurations",
+            "datazone:ListDomainUnitsForParent",
+            "datazone:ListEntityOwners",
+            "datazone:ListEnvironmentActions",
             "datazone:ListEnvironmentBlueprintConfigurationSummaries",
+            "datazone:ListEnvironmentBlueprintConfigurations",
             "datazone:ListEnvironmentBlueprints",
             "datazone:ListEnvironmentProfiles",
             "datazone:ListEnvironments",
             "datazone:ListGroupsForUser",
+            "datazone:ListLineageNodeHistory",
+            "datazone:ListMetadataGenerationRuns",
             "datazone:ListNotifications",
+            "datazone:ListPolicyGrants",
             "datazone:ListProjectMemberships",
             "datazone:ListProjects",
             "datazone:ListSubscriptionGrants",
             "datazone:ListSubscriptionRequests",
             "datazone:ListSubscriptionTargets",
             "datazone:ListSubscriptions",
+            "datazone:ListTimeSeriesDataPoints",
             "datazone:ListWarehouseMetadata",
             "datazone:RejectPredictions",
             "datazone:RejectSubscriptionRequest",
+            "datazone:RemoveEntityOwner",
+            "datazone:RemovePolicyGrant",
             "datazone:RevokeSubscription",
             "datazone:Search",
             "datazone:SearchGroupProfiles",
@@ -51411,7 +51678,10 @@
             "datazone:SearchTypes",
             "datazone:SearchUserProfiles",
             "datazone:StartDataSourceRun",
+            "datazone:StartMetadataGenerationRun",
+            "datazone:UpdateAssetFilter",
             "datazone:UpdateDataSource",
+            "datazone:UpdateDomainUnit",
             "datazone:UpdateEnvironment",
             "datazone:UpdateEnvironmentBlueprint",
             "datazone:UpdateEnvironmentDeploymentStatus",
@@ -51420,20 +51690,7 @@
             "datazone:UpdateGlossaryTerm",
             "datazone:UpdateProject",
             "datazone:UpdateSubscriptionGrantStatus",
-            "datazone:UpdateSubscriptionRequest",
-            "datazone:StartMetadataGenerationRun",
-            "datazone:GetMetadataGenerationRun",
-            "datazone:CancelMetadataGenerationRun",
-            "datazone:ListMetadataGenerationRuns",
-            "datazone:GetEnvironmentAction",
-            "datazone:ListEnvironmentActions",
-            "datazone:ListLineageNodeHistory",
-            "datazone:GetLineageNode",
-            "datazone:CreateAssetFilter",
-            "datazone:DeleteAssetFilter",
-            "datazone:GetAssetFilter",
-            "datazone:ListAssetFilters",
-            "datazone:UpdateAssetFilter"
+            "datazone:UpdateSubscriptionRequest"
           ],
           "Resource": "*"
         },
@@ -51445,9 +51702,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-06-27T15:17:17+00:00"
+    "CreateDate": "2024-08-01T18:25:12+00:00"
   },
   "AmazonDataZoneEnvironmentRolePermissionsBoundary": {
     "Document": {
@@ -52191,114 +52448,130 @@
           "Sid": "AmazonDataZoneUserOperations",
           "Effect": "Allow",
           "Action": [
-            "datazone:PostTimeSeriesDataPoints",
-            "datazone:ListTimeSeriesDataPoints",
-            "datazone:GetTimeSeriesDataPoint",
-            "datazone:DeleteTimeSeriesDataPoints",
-            "datazone:GetDomain",
-            "datazone:CreateFormType",
-            "datazone:GetFormType",
-            "datazone:GetIamPortalLoginUrl",
-            "datazone:SearchUserProfiles",
-            "datazone:SearchGroupProfiles",
-            "datazone:GetUserProfile",
-            "datazone:GetGroupProfile",
-            "datazone:ListGroupsForUser",
-            "datazone:DeleteFormType",
-            "datazone:CreateAssetType",
-            "datazone:GetAssetType",
-            "datazone:DeleteAssetType",
-            "datazone:CreateGlossary",
-            "datazone:GetGlossary",
-            "datazone:DeleteGlossary",
-            "datazone:UpdateGlossary",
-            "datazone:CreateGlossaryTerm",
-            "datazone:GetGlossaryTerm",
-            "datazone:DeleteGlossaryTerm",
-            "datazone:UpdateGlossaryTerm",
-            "datazone:CreateAsset",
-            "datazone:GetAsset",
-            "datazone:DeleteAsset",
-            "datazone:CreateAssetRevision",
-            "datazone:ListAssetRevisions",
             "datazone:AcceptPredictions",
-            "datazone:RejectPredictions",
-            "datazone:Search",
-            "datazone:SearchTypes",
-            "datazone:CreateListingChangeSet",
-            "datazone:DeleteListing",
-            "datazone:SearchListings",
-            "datazone:GetListing",
-            "datazone:CreateDataSource",
-            "datazone:GetDataSource",
-            "datazone:DeleteDataSource",
-            "datazone:UpdateDataSource",
-            "datazone:ListDataSources",
-            "datazone:StartDataSourceRun",
-            "datazone:GetDataSourceRun",
-            "datazone:ListDataSourceRuns",
-            "datazone:ListDataSourceRunActivities",
-            "datazone:ListEnvironmentBlueprintConfigurations",
-            "datazone:CreateEnvironmentBlueprint",
-            "datazone:GetEnvironmentBlueprint",
-            "datazone:DeleteEnvironmentBlueprint",
-            "datazone:UpdateEnvironmentBlueprint",
-            "datazone:ListEnvironmentBlueprints",
-            "datazone:CreateProject",
-            "datazone:UpdateProject",
-            "datazone:GetProject",
-            "datazone:DeleteProject",
-            "datazone:ListProjects",
-            "datazone:CreateProjectMembership",
-            "datazone:DeleteProjectMembership",
-            "datazone:ListProjectMemberships",
-            "datazone:CreateEnvironmentProfile",
-            "datazone:GetEnvironmentProfile",
-            "datazone:UpdateEnvironmentProfile",
-            "datazone:DeleteEnvironmentProfile",
-            "datazone:ListEnvironmentProfiles",
-            "datazone:CreateEnvironment",
-            "datazone:GetEnvironment",
-            "datazone:DeleteEnvironment",
-            "datazone:UpdateEnvironment",
-            "datazone:UpdateEnvironmentDeploymentStatus",
-            "datazone:ListEnvironments",
-            "datazone:ListAccountEnvironments",
-            "datazone:GetEnvironmentActionLink",
-            "datazone:GetEnvironmentCredentials",
-            "datazone:GetSubscriptionTarget",
-            "datazone:DeleteSubscriptionTarget",
-            "datazone:ListSubscriptionTargets",
-            "datazone:CreateSubscriptionRequest",
             "datazone:AcceptSubscriptionRequest",
-            "datazone:UpdateSubscriptionRequest",
-            "datazone:ListWarehouseMetadata",
-            "datazone:RejectSubscriptionRequest",
-            "datazone:GetSubscriptionRequestDetails",
-            "datazone:ListSubscriptionRequests",
-            "datazone:DeleteSubscriptionRequest",
-            "datazone:GetSubscription",
-            "datazone:CancelSubscription",
-            "datazone:GetSubscriptionEligibility",
-            "datazone:ListSubscriptions",
-            "datazone:RevokeSubscription",
-            "datazone:CreateSubscriptionGrant",
-            "datazone:DeleteSubscriptionGrant",
-            "datazone:GetSubscriptionGrant",
-            "datazone:ListSubscriptionGrants",
-            "datazone:UpdateSubscriptionGrantStatus",
-            "datazone:ListNotifications",
-            "datazone:StartMetadataGenerationRun",
-            "datazone:GetMetadataGenerationRun",
+            "datazone:AddEntityOwner",
+            "datazone:AddPolicyGrant",
             "datazone:CancelMetadataGenerationRun",
-            "datazone:ListMetadataGenerationRuns",
-            "datazone:ListLineageNodeHistory",
-            "datazone:GetLineageNode",
+            "datazone:CancelSubscription",
+            "datazone:CreateAsset",
             "datazone:CreateAssetFilter",
+            "datazone:CreateAssetRevision",
+            "datazone:CreateAssetType",
+            "datazone:CreateDataProduct",
+            "datazone:CreateDataProductRevision",
+            "datazone:CreateDataSource",
+            "datazone:CreateDomainUnit",
+            "datazone:CreateEnvironment",
+            "datazone:CreateEnvironmentBlueprint",
+            "datazone:CreateEnvironmentProfile",
+            "datazone:CreateFormType",
+            "datazone:CreateGlossary",
+            "datazone:CreateGlossaryTerm",
+            "datazone:CreateListingChangeSet",
+            "datazone:CreateProject",
+            "datazone:CreateProjectMembership",
+            "datazone:CreateSubscriptionGrant",
+            "datazone:CreateSubscriptionRequest",
+            "datazone:DeleteAsset",
             "datazone:DeleteAssetFilter",
+            "datazone:DeleteAssetType",
+            "datazone:DeleteDataProduct",
+            "datazone:DeleteDataSource",
+            "datazone:DeleteDomainUnit",
+            "datazone:DeleteEnvironment",
+            "datazone:DeleteEnvironmentBlueprint",
+            "datazone:DeleteEnvironmentProfile",
+            "datazone:DeleteFormType",
+            "datazone:DeleteGlossary",
+            "datazone:DeleteGlossaryTerm",
+            "datazone:DeleteListing",
+            "datazone:DeleteProject",
+            "datazone:DeleteProjectMembership",
+            "datazone:DeleteSubscriptionGrant",
+            "datazone:DeleteSubscriptionRequest",
+            "datazone:DeleteSubscriptionTarget",
+            "datazone:DeleteTimeSeriesDataPoints",
+            "datazone:GetAsset",
             "datazone:GetAssetFilter",
+            "datazone:GetAssetType",
+            "datazone:GetDataProduct",
+            "datazone:GetDataSource",
+            "datazone:GetDataSourceRun",
+            "datazone:GetDomain",
+            "datazone:GetDomainUnit",
+            "datazone:GetEnvironment",
+            "datazone:GetEnvironmentActionLink",
+            "datazone:GetEnvironmentBlueprint",
+            "datazone:GetEnvironmentCredentials",
+            "datazone:GetEnvironmentProfile",
+            "datazone:GetFormType",
+            "datazone:GetGlossary",
+            "datazone:GetGlossaryTerm",
+            "datazone:GetGroupProfile",
+            "datazone:GetIamPortalLoginUrl",
+            "datazone:GetLineageNode",
+            "datazone:GetListing",
+            "datazone:GetMetadataGenerationRun",
+            "datazone:GetProject",
+            "datazone:GetSubscription",
+            "datazone:GetSubscriptionEligibility",
+            "datazone:GetSubscriptionGrant",
+            "datazone:GetSubscriptionRequestDetails",
+            "datazone:GetSubscriptionTarget",
+            "datazone:GetTimeSeriesDataPoint",
+            "datazone:GetUserProfile",
+            "datazone:ListAccountEnvironments",
             "datazone:ListAssetFilters",
-            "datazone:UpdateAssetFilter"
+            "datazone:ListAssetRevisions",
+            "datazone:ListDataProductRevisions",
+            "datazone:ListDataSourceRunActivities",
+            "datazone:ListDataSourceRuns",
+            "datazone:ListDataSources",
+            "datazone:ListDomainUnitsForParent",
+            "datazone:ListEntityOwners",
+            "datazone:ListEnvironmentBlueprintConfigurations",
+            "datazone:ListEnvironmentBlueprints",
+            "datazone:ListEnvironmentProfiles",
+            "datazone:ListEnvironments",
+            "datazone:ListGroupsForUser",
+            "datazone:ListLineageNodeHistory",
+            "datazone:ListMetadataGenerationRuns",
+            "datazone:ListNotifications",
+            "datazone:ListPolicyGrants",
+            "datazone:ListProjectMemberships",
+            "datazone:ListProjects",
+            "datazone:ListSubscriptionGrants",
+            "datazone:ListSubscriptionRequests",
+            "datazone:ListSubscriptionTargets",
+            "datazone:ListSubscriptions",
+            "datazone:ListTimeSeriesDataPoints",
+            "datazone:ListWarehouseMetadata",
+            "datazone:PostTimeSeriesDataPoints",
+            "datazone:RejectPredictions",
+            "datazone:RejectSubscriptionRequest",
+            "datazone:RemoveEntityOwner",
+            "datazone:RemovePolicyGrant",
+            "datazone:RevokeSubscription",
+            "datazone:Search",
+            "datazone:SearchGroupProfiles",
+            "datazone:SearchListings",
+            "datazone:SearchTypes",
+            "datazone:SearchUserProfiles",
+            "datazone:StartDataSourceRun",
+            "datazone:StartMetadataGenerationRun",
+            "datazone:UpdateAssetFilter",
+            "datazone:UpdateDataSource",
+            "datazone:UpdateDomainUnit",
+            "datazone:UpdateEnvironment",
+            "datazone:UpdateEnvironmentBlueprint",
+            "datazone:UpdateEnvironmentDeploymentStatus",
+            "datazone:UpdateEnvironmentProfile",
+            "datazone:UpdateGlossary",
+            "datazone:UpdateGlossaryTerm",
+            "datazone:UpdateProject",
+            "datazone:UpdateSubscriptionGrantStatus",
+            "datazone:UpdateSubscriptionRequest"
           ],
           "Resource": "*"
         },
@@ -52310,9 +52583,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-06-27T15:18:19+00:00"
+    "CreateDate": "2024-08-01T18:29:25+00:00"
   },
   "AmazonDataZoneGlueManageAccessRolePolicy": {
     "Document": {
@@ -92876,6 +93149,8 @@
             "apprunner:ListVpcIngressConnections",
             "appstream:Describe*",
             "appstream:List*",
+            "appstudio:GetAccountStatus",
+            "appstudio:GetEnablementJobStatus",
             "appsync:Get*",
             "appsync:List*",
             "aps:DescribeAlertManagerDefinition",
@@ -93219,6 +93494,8 @@
             "compute-optimizer:GetEnrollmentStatusesForOrganization",
             "compute-optimizer:GetLambdaFunctionRecommendations",
             "compute-optimizer:GetLicenseRecommendations",
+            "compute-optimizer:GetRDSDatabaseRecommendationProjectedMetrics",
+            "compute-optimizer:GetRDSDatabaseRecommendations",
             "compute-optimizer:GetRecommendationPreferences",
             "compute-optimizer:GetRecommendationSummaries",
             "config:BatchGetAggregateResourceConfig",
@@ -94947,9 +95224,9 @@
         }
       ]
     },
-    "VersionId": "v115",
+    "VersionId": "v116",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-07-18T14:52:39+00:00"
+    "CreateDate": "2024-07-29T20:29:25+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
