@@ -42,13 +42,6 @@
       {
         "Effect": "Allow",
         "Action": [
-          "sns:Publish"
-        ],
-        "Resource": "*"
-      },
-      {
-        "Effect": "Allow",
-        "Action": [
           "logs:CreateLogGroup"
         ],
         "Resource": [
@@ -128,7 +121,7 @@
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-12-14T18:33:17+00:00"
+  "CreateDate": "2024-08-07T00:54:21+00:00"
 }
