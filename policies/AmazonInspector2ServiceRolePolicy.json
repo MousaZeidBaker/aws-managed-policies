@@ -94,6 +94,7 @@
           "lambda:ListFunctions",
           "lambda:GetFunction",
           "lambda:GetLayerVersion",
+          "lambda:ListTags",
           "cloudwatch:GetMetricData"
         ],
         "Resource": "*"
@@ -273,7 +274,7 @@
       }
     ]
   },
-  "VersionId": "v12",
+  "VersionId": "v13",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-01-22T14:06:01+00:00"
+  "CreateDate": "2024-08-14T16:03:32+00:00"
 }

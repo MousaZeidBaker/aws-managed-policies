@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "DataExchangeActions",
         "Effect": "Allow",
         "Action": [
           "dataexchange:CreateDataSet",
@@ -17,12 +18,14 @@
           "dataexchange:PublishDataSet",
           "dataexchange:SendApiAsset",
           "dataexchange:RevokeRevision",
+          "dataexchange:SendDataSetNotification",
           "tag:GetTagKeys",
           "tag:GetTagValues"
         ],
         "Resource": "*"
       },
       {
+        "Sid": "DataExchangeJobsActions",
         "Effect": "Allow",
         "Action": [
           "dataexchange:CreateJob",
@@ -44,6 +47,7 @@
         }
       },
       {
+        "Sid": "S3GetActionConditionalResourceAndADX",
         "Effect": "Allow",
         "Action": "s3:GetObject",
         "Resource": "arn:aws:s3:::*aws-data-exchange*",
@@ -56,6 +60,7 @@
         }
       },
       {
+        "Sid": "S3GetActionConditionalTagAndADX",
         "Effect": "Allow",
         "Action": "s3:GetObject",
         "Resource": "*",
@@ -71,6 +76,7 @@
         }
       },
       {
+        "Sid": "S3WriteActions",
         "Effect": "Allow",
         "Action": [
           "s3:PutObject",
@@ -86,6 +92,7 @@
         }
       },
       {
+        "Sid": "S3ReadActions",
         "Effect": "Allow",
         "Action": [
           "s3:GetBucketLocation",
@@ -95,6 +102,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "AWSMarketplaceActions",
         "Effect": "Allow",
         "Action": [
           "aws-marketplace:DescribeEntity",
@@ -114,6 +122,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "KMSActions",
         "Effect": "Allow",
         "Action": [
           "kms:DescribeKey",
@@ -123,6 +132,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "RedshiftConditionalActions",
         "Effect": "Allow",
         "Action": [
           "redshift:AuthorizeDataShare"
@@ -135,6 +145,7 @@
         }
       },
       {
+        "Sid": "RedshiftActions",
         "Effect": "Allow",
         "Action": [
           "redshift:DescribeDataSharesForProducer",
@@ -143,6 +154,7 @@
         "Resource": "*"
       },
       {
+        "Sid": "APIGatewayActions",
         "Effect": "Allow",
         "Action": [
           "apigateway:GET"
@@ -151,7 +163,7 @@
       }
     ]
   },
-  "VersionId": "v11",
+  "VersionId": "v12",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-03-15T16:16:20+00:00"
+  "CreateDate": "2024-08-15T17:32:54+00:00"
 }

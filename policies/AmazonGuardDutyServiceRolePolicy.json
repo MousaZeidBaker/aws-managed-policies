@@ -28,6 +28,7 @@
           "eks:ListClusters",
           "eks:DescribeCluster",
           "ec2:DescribeVpcEndpointServices",
+          "ec2:DescribeVpcs",
           "ec2:DescribeSecurityGroups",
           "ecs:ListClusters",
           "ecs:DescribeClusters"
@@ -257,7 +258,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-27T00:58:20+00:00"
+  "CreateDate": "2024-08-12T20:01:11+00:00"
 }

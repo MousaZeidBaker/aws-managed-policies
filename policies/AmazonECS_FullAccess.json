@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "ECSIntegrationsManagementPolicy",
         "Effect": "Allow",
         "Action": [
           "application-autoscaling:DeleteScalingPolicy",
@@ -125,6 +126,7 @@
         ]
       },
       {
+        "Sid": "SSMPolicy",
         "Effect": "Allow",
         "Action": [
           "ssm:GetParameter",
@@ -134,6 +136,7 @@
         "Resource": "arn:aws:ssm:*:*:parameter/aws/service/ecs*"
       },
       {
+        "Sid": "ManagedCloudformationResourcesCleanupPolicy",
         "Effect": "Allow",
         "Action": [
           "ec2:DeleteInternetGateway",
@@ -151,6 +154,7 @@
         }
       },
       {
+        "Sid": "TasksPassRolePolicy",
         "Action": "iam:PassRole",
         "Effect": "Allow",
         "Resource": [
@@ -163,6 +167,20 @@
         }
       },
       {
+        "Sid": "InfrastructurePassRolePolicy",
+        "Action": "iam:PassRole",
+        "Effect": "Allow",
+        "Resource": [
+          "arn:aws:iam::*:role/ecsInfrastructureRole"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "iam:PassedToService": "ecs.amazonaws.com"
+          }
+        }
+      },
+      {
+        "Sid": "InstancePassRolePolicy",
         "Action": "iam:PassRole",
         "Effect": "Allow",
         "Resource": [
@@ -178,6 +196,7 @@
         }
       },
       {
+        "Sid": "AutoScalingPassRolePolicy",
         "Action": "iam:PassRole",
         "Effect": "Allow",
         "Resource": [
@@ -193,14 +212,15 @@
         }
       },
       {
+        "Sid": "ServiceLinkedRoleCreationPolicy",
         "Effect": "Allow",
         "Action": "iam:CreateServiceLinkedRole",
         "Resource": "*",
         "Condition": {
           "StringLike": {
             "iam:AWSServiceName": [
-              "autoscaling.amazonaws.com",
               "ecs.amazonaws.com",
+              "autoscaling.amazonaws.com",
               "ecs.application-autoscaling.amazonaws.com",
               "spot.amazonaws.com",
               "spotfleet.amazonaws.com"
@@ -209,6 +229,7 @@
         }
       },
       {
+        "Sid": "ELBTaggingPolicy",
         "Effect": "Allow",
         "Action": [
           "elasticloadbalancing:AddTags"
@@ -227,7 +248,7 @@
       }
     ]
   },
-  "VersionId": "v20",
+  "VersionId": "v21",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-01-04T16:26:05+00:00"
+  "CreateDate": "2024-08-13T19:39:37+00:00"
 }
