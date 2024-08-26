@@ -10279,6 +10279,84 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-03-16T00:20:25+00:00"
   },
+  "AWSCompromisedKeyQuarantineV3": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Deny",
+          "Action": [
+            "cloudtrail:LookupEvents",
+            "ec2:RequestSpotInstances",
+            "ec2:RunInstances",
+            "ec2:StartInstances",
+            "iam:AddUserToGroup",
+            "iam:AttachGroupPolicy",
+            "iam:AttachRolePolicy",
+            "iam:AttachUserPolicy",
+            "iam:ChangePassword",
+            "iam:CreateAccessKey",
+            "iam:CreateInstanceProfile",
+            "iam:CreateLoginProfile",
+            "iam:CreatePolicyVersion",
+            "iam:CreateRole",
+            "iam:CreateUser",
+            "iam:DetachUserPolicy",
+            "iam:PassRole",
+            "iam:PutGroupPolicy",
+            "iam:PutRolePolicy",
+            "iam:PutUserPermissionsBoundary",
+            "iam:PutUserPolicy",
+            "iam:SetDefaultPolicyVersion",
+            "iam:UpdateAccessKey",
+            "iam:UpdateAccountPasswordPolicy",
+            "iam:UpdateAssumeRolePolicy",
+            "iam:UpdateLoginProfile",
+            "iam:UpdateUser",
+            "lambda:AddLayerVersionPermission",
+            "lambda:AddPermission",
+            "lambda:CreateFunction",
+            "lambda:GetPolicy",
+            "lambda:ListTags",
+            "lambda:PutProvisionedConcurrencyConfig",
+            "lambda:TagResource",
+            "lambda:UntagResource",
+            "lambda:UpdateFunctionCode",
+            "lightsail:Create*",
+            "lightsail:Delete*",
+            "lightsail:DownloadDefaultKeyPair",
+            "lightsail:GetInstanceAccessDetails",
+            "lightsail:Start*",
+            "lightsail:Update*",
+            "organizations:CreateAccount",
+            "organizations:CreateOrganization",
+            "organizations:InviteAccountToOrganization",
+            "s3:DeleteBucket",
+            "s3:DeleteObject",
+            "s3:DeleteObjectVersion",
+            "s3:PutLifecycleConfiguration",
+            "s3:PutBucketAcl",
+            "s3:PutBucketOwnershipControls",
+            "s3:DeleteBucketPolicy",
+            "s3:ObjectOwnerOverrideToBucketOwner",
+            "s3:PutAccountPublicAccessBlock",
+            "s3:PutBucketPolicy",
+            "s3:ListAllMyBuckets",
+            "ec2:PurchaseReservedInstancesOffering",
+            "ec2:AcceptReservedInstancesExchangeQuote",
+            "ec2:CreateReservedInstancesListing",
+            "savingsplans:CreateSavingsPlan"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-08-21T17:36:49+00:00"
+  },
   "AWSConfigMultiAccountSetupPolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -35025,7 +35103,8 @@
           "Sid": "CloudTrailEventsAccess",
           "Effect": "Allow",
           "Action": [
-            "cloudtrail:CreateServiceLinkedChannel"
+            "cloudtrail:CreateServiceLinkedChannel",
+            "cloudtrail:GetServiceLinkedChannel"
           ],
           "Resource": [
             "arn:aws:cloudtrail:*:*:channel/aws-service-channel/resource-explorer-2/*"
@@ -35412,9 +35491,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-20T13:58:52+00:00"
+    "CreateDate": "2024-08-19T15:51:19+00:00"
   },
   "AWSResourceGroupsReadOnlyAccess": {
     "Document": {
@@ -37429,7 +37508,9 @@
             "autoscaling:PutLifecycleHook",
             "autoscaling:PutNotificationConfiguration",
             "autoscaling:EnableMetricsCollection",
-            "autoscaling:PutScheduledUpdateGroupAction"
+            "autoscaling:PutScheduledUpdateGroupAction",
+            "autoscaling:ResumeProcesses",
+            "autoscaling:SuspendProcesses"
           ],
           "Resource": "arn:aws:autoscaling:*:*:*:autoScalingGroupName/eks-*"
         },
@@ -37539,9 +37620,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-06-27T21:03:09+00:00"
+    "CreateDate": "2024-08-21T15:51:37+00:00"
   },
   "AWSServiceRoleForAmazonQDeveloper": {
     "Document": {
@@ -49120,15 +49201,21 @@
             "bedrock:ListCustomModels",
             "bedrock:GetCustomModel",
             "bedrock:ListTagsForResource",
-            "bedrock:GetFoundationModelAvailability"
+            "bedrock:GetFoundationModelAvailability",
+            "bedrock:GetGuardrail",
+            "bedrock:ListGuardrails",
+            "bedrock:GetEvaluationJob",
+            "bedrock:ListEvaluationJobs",
+            "bedrock:GetModelInvocationJob",
+            "bedrock:ListModelInvocationJobs"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-06T15:48:19+00:00"
+    "CreateDate": "2024-08-21T16:04:18+00:00"
   },
   "AmazonBedrockStudioPermissionsBoundary": {
     "Document": {
@@ -68926,7 +69013,10 @@
           "Resource": "*",
           "Condition": {
             "StringEquals": {
-              "cloudwatch:namespace": "AWS/ES"
+              "cloudwatch:namespace": [
+                "AWS/ES",
+                "AWS/OpenSearch"
+              ]
             }
           }
         },
@@ -68992,9 +69082,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-10-23T07:07:31+00:00"
+    "CreateDate": "2024-08-20T22:57:07+00:00"
   },
   "AmazonPersonalizeFullAccess": {
     "Document": {
@@ -91658,20 +91748,21 @@
         {
           "Effect": "Allow",
           "Action": [
+            "account:GetAccountInformation",
+            "account:GetPrimaryEmail",
+            "account:ListRegions",
             "iam:CreateServiceLinkedRole",
             "iam:DeleteServiceLinkedRole",
             "iam:ListRoles",
-            "organizations:DescribeOrganization",
-            "account:ListRegions",
-            "account:GetAccountInformation"
+            "organizations:DescribeOrganization"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-06T22:04:00+00:00"
+    "CreateDate": "2024-08-19T16:12:55+00:00"
   },
   "QBusinessServiceRolePolicy": {
     "Document": {
