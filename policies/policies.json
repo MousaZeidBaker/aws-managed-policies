@@ -29968,6 +29968,221 @@
     "IsDefaultVersion": true,
     "CreateDate": "2020-11-09T22:55:56+00:00"
   },
+  "AWSPCSServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PermissionsToCreatePCSNetworkInterfaces",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/AWSPCSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToCreatePCSNetworkInterfacesInSubnet",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ]
+        },
+        {
+          "Sid": "PermissionsToManagePCSNetworkInterfaces",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteNetworkInterface",
+            "ec2:CreateNetworkInterfacePermission"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AWSPCSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToDescribePCSResources",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeLaunchTemplates",
+            "ec2:DescribeLaunchTemplateVersions",
+            "ec2:DescribeInstances",
+            "ec2:DescribeInstanceTypes",
+            "ec2:DescribeInstanceStatus",
+            "ec2:DescribeInstanceAttribute",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeKeyPairs",
+            "ec2:DescribeImages",
+            "ec2:DescribeImageAttribute"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "PermissionsToCreatePCSLaunchTemplates",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateLaunchTemplate"
+          ],
+          "Resource": "arn:aws:ec2:*:*:launch-template/*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/AWSPCSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToManagePCSLaunchTemplates",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteLaunchTemplate",
+            "ec2:DeleteLaunchTemplateVersions",
+            "ec2:CreateLaunchTemplateVersion"
+          ],
+          "Resource": "arn:aws:ec2:*:*:launch-template/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AWSPCSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToTerminatePCSManagedInstances",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:TerminateInstances"
+          ],
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AWSPCSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToPassRoleToEC2",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": [
+            "arn:aws:iam::*:role/*/AWSPCS*",
+            "arn:aws:iam::*:role/AWSPCS*",
+            "arn:aws:iam::*:role/aws-pcs/*",
+            "arn:aws:iam::*:role/*/aws-pcs/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": [
+                "ec2.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToControlClusterInstanceAttributes",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:RunInstances",
+            "ec2:CreateFleet"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*::image/*",
+            "arn:aws:ec2:*::snapshot/*",
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:network-interface/*",
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:volume/*",
+            "arn:aws:ec2:*:*:key-pair/*",
+            "arn:aws:ec2:*:*:launch-template/*",
+            "arn:aws:ec2:*:*:placement-group/*",
+            "arn:aws:ec2:*:*:capacity-reservation/*",
+            "arn:aws:resource-groups:*:*:group/*",
+            "arn:aws:ec2:*:*:fleet/*",
+            "arn:aws:ec2:*:*:spot-instances-request/*"
+          ]
+        },
+        {
+          "Sid": "PermissionsToProvisionClusterInstances",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:RunInstances",
+            "ec2:CreateFleet"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:instance/*"
+          ],
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/AWSPCSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToTagPCSResources",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "RunInstances",
+                "CreateLaunchTemplate",
+                "CreateFleet",
+                "CreateNetworkInterface"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToPublishMetrics",
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/PCS"
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToManageSecret",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:GetSecretValue",
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:UpdateSecretVersionStage",
+            "secretsmanager:DeleteSecret"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:pcs!*",
+          "Condition": {
+            "StringEquals": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "pcs",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-08-27T16:01:15+00:00"
+  },
   "AWSPanoramaApplianceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -36232,12 +36447,31 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "ManageAppTagsOnEbsVolumes",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags",
+            "ec2:DeleteTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:volume/*",
+          "Condition": {
+            "ArnLike": {
+              "aws:RequestTag/awsApplication": "arn:aws:resource-groups:*:*:group/*/*"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "awsApplication"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-08-05T22:40:26+00:00"
+    "CreateDate": "2024-08-29T22:17:07+00:00"
   },
   "AWSSSMOpsInsightsServiceRolePolicy": {
     "Document": {
@@ -49207,15 +49441,17 @@
             "bedrock:GetEvaluationJob",
             "bedrock:ListEvaluationJobs",
             "bedrock:GetModelInvocationJob",
-            "bedrock:ListModelInvocationJobs"
+            "bedrock:ListModelInvocationJobs",
+            "bedrock:GetInferenceProfile",
+            "bedrock:ListInferenceProfiles"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-08-21T16:04:18+00:00"
+    "CreateDate": "2024-08-28T01:58:53+00:00"
   },
   "AmazonBedrockStudioPermissionsBoundary": {
     "Document": {
@@ -73967,11 +74203,13 @@
             "route53profiles:DisassociateResourceFromProfile",
             "route53profiles:GetProfile",
             "route53profiles:GetProfileAssociation",
+            "route53profiles:GetProfilePolicy",
             "route53profiles:GetProfileResourceAssociation",
             "route53profiles:ListProfileAssociations",
             "route53profiles:ListProfileResourceAssociations",
             "route53profiles:ListProfiles",
             "route53profiles:ListTagsForResource",
+            "route53profiles:PutProfilePolicy",
             "route53profiles:TagResource",
             "route53profiles:UntagResource",
             "route53profiles:UpdateProfileResourceAssociation",
@@ -73990,9 +74228,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-30T18:30:29+00:00"
+    "CreateDate": "2024-08-27T19:18:18+00:00"
   },
   "AmazonRoute53ProfilesReadOnlyAccess": {
     "Document": {
@@ -74004,6 +74242,7 @@
           "Action": [
             "route53profiles:GetProfile",
             "route53profiles:GetProfileAssociation",
+            "route53profiles:GetProfilePolicy",
             "route53profiles:GetProfileResourceAssociation",
             "route53profiles:ListProfileAssociations",
             "route53profiles:ListProfileResourceAssociations",
@@ -74020,9 +74259,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-30T18:29:25+00:00"
+    "CreateDate": "2024-08-27T18:59:57+00:00"
   },
   "AmazonRoute53ReadOnlyAccess": {
     "Document": {
@@ -93508,11 +93747,11 @@
             "application-signals:BatchGetServiceLevelObjectiveBudgetReport",
             "application-signals:GetService",
             "application-signals:GetServiceLevelObjective",
-            "application-signals:ListServices",
             "application-signals:ListServiceDependencies",
             "application-signals:ListServiceDependents",
             "application-signals:ListServiceLevelObjectives",
             "application-signals:ListServiceOperations",
+            "application-signals:ListServices",
             "application-signals:ListTagsForResource",
             "applicationinsights:Describe*",
             "applicationinsights:List*",
@@ -93625,6 +93864,7 @@
             "bedrock:GetDataSource",
             "bedrock:GetFoundationModel",
             "bedrock:GetFoundationModelAvailability",
+            "bedrock:GetGuardrail",
             "bedrock:GetIngestionJob",
             "bedrock:GetKnowledgeBase",
             "bedrock:GetModelCustomizationJob",
@@ -93640,6 +93880,7 @@
             "bedrock:ListDataSources",
             "bedrock:ListFoundationModelAgreementOffers",
             "bedrock:ListFoundationModels",
+            "bedrock:ListGuardrails",
             "bedrock:ListIngestionJobs",
             "bedrock:ListKnowledgeBases",
             "bedrock:ListModelCustomizationJobs",
@@ -93699,8 +93940,8 @@
             "ce:GetSavingsPlansUtilizationDetails",
             "ce:GetTags",
             "ce:GetUsageForecast",
-            "ce:ListCostAllocationTags",
             "ce:ListCostAllocationTagBackfillHistory",
+            "ce:ListCostAllocationTags",
             "ce:ListCostCategoryDefinitions",
             "ce:ListSavingsPlansPurchaseRecommendationGeneration",
             "ce:ListTagsForResource",
@@ -93715,6 +93956,17 @@
             "chime:Retrieve*",
             "chime:Search*",
             "chime:Validate*",
+            "cleanrooms-ml:GetAudienceGenerationJob",
+            "cleanrooms-ml:GetAudienceModel",
+            "cleanrooms-ml:GetConfiguredAudienceModel",
+            "cleanrooms-ml:GetConfiguredAudienceModelPolicy",
+            "cleanrooms-ml:GetTrainingDataset",
+            "cleanrooms-ml:ListAudienceExportJobs",
+            "cleanrooms-ml:ListAudienceGenerationJobs",
+            "cleanrooms-ml:ListAudienceModels",
+            "cleanrooms-ml:ListConfiguredAudienceModels",
+            "cleanrooms-ml:ListTagsForResource",
+            "cleanrooms-ml:ListTrainingDatasets",
             "cleanrooms:BatchGetCollaborationAnalysisTemplate",
             "cleanrooms:BatchGetSchema",
             "cleanrooms:GetAnalysisTemplate",
@@ -93739,17 +93991,6 @@
             "cleanrooms:ListProtectedQueries",
             "cleanrooms:ListSchemas",
             "cleanrooms:ListTagsForResource",
-            "cleanrooms-ml:GetTrainingDataset",
-            "cleanrooms-ml:GetAudienceGenerationJob",
-            "cleanrooms-ml:GetAudienceModel",
-            "cleanrooms-ml:GetConfiguredAudienceModel",
-            "cleanrooms-ml:GetConfiguredAudienceModelPolicy",
-            "cleanrooms-ml:ListAudienceExportJobs",
-            "cleanrooms-ml:ListAudienceGenerationJobs",
-            "cleanrooms-ml:ListAudienceModels",
-            "cleanrooms-ml:ListConfiguredAudienceModels",
-            "cleanrooms-ml:ListTrainingDatasets",
-            "cleanrooms-ml:ListTagsForResource",
             "cloud9:Describe*",
             "cloud9:List*",
             "clouddirectory:BatchRead",
@@ -94302,8 +94543,8 @@
             "glue:GetSecurityConfiguration",
             "glue:GetSecurityConfigurations",
             "glue:GetTable",
-            "glue:GetTables",
             "glue:GetTableOptimizer",
+            "glue:GetTables",
             "glue:GetTableVersion",
             "glue:GetTableVersions",
             "glue:GetTags",
@@ -94492,8 +94733,8 @@
             "iotwireless:GetEventConfigurationByResourceTypes",
             "iotwireless:GetFuotaTask",
             "iotwireless:GetLogLevelsByResourceTypes",
-            "iotwireless:GetMetrics",
             "iotwireless:GetMetricConfiguration",
+            "iotwireless:GetMetrics",
             "iotwireless:GetMulticastGroup",
             "iotwireless:GetMulticastGroupSession",
             "iotwireless:GetNetworkAnalyzerConfiguration",
@@ -94536,25 +94777,25 @@
             "ivs:GetChannel",
             "ivs:GetComposition",
             "ivs:GetEncoderConfiguration",
-            "ivs:GetStage",
-            "ivs:GetStageSession",
             "ivs:GetParticipant",
             "ivs:GetPlaybackKeyPair",
             "ivs:GetPlaybackRestrictionPolicy",
             "ivs:GetRecordingConfiguration",
+            "ivs:GetStage",
+            "ivs:GetStageSession",
             "ivs:GetStreamSession",
             "ivs:ListChannels",
             "ivs:ListCompositions",
             "ivs:ListEncoderConfigurations",
-            "ivs:ListParticipants",
             "ivs:ListParticipantEvents",
+            "ivs:ListParticipants",
             "ivs:ListPlaybackKeyPairs",
             "ivs:ListPlaybackRestrictionPolicies",
             "ivs:ListRecordingConfigurations",
             "ivs:ListStages",
             "ivs:ListStageSessions",
-            "ivs:ListStreams",
             "ivs:ListStreamKeys",
+            "ivs:ListStreams",
             "ivs:ListStreamSessions",
             "ivs:ListTagsForResource",
             "ivschat:GetLoggingConfiguration",
@@ -94675,13 +94916,13 @@
             "lex:DescribeSlot",
             "lex:DescribeSlotType",
             "lex:Get*",
-            "lex:ListBotAliasReplicas",
             "lex:ListBotAliases",
+            "lex:ListBotAliasReplicas",
             "lex:ListBotChannels",
             "lex:ListBotLocales",
             "lex:ListBotReplicas",
-            "lex:ListBotVersionReplicas",
             "lex:ListBots",
+            "lex:ListBotVersionReplicas",
             "lex:ListBotVersions",
             "lex:ListBuiltInIntents",
             "lex:ListBuiltInSlotTypes",
@@ -95092,6 +95333,11 @@
             "pca-connector-ad:ListTagsForResource",
             "pca-connector-ad:ListTemplateGroupAccessControlEntries",
             "pca-connector-ad:ListTemplates",
+            "pca-connector-scep:GetChallengeMetadata",
+            "pca-connector-scep:GetConnector",
+            "pca-connector-scep:ListChallengeMetadata",
+            "pca-connector-scep:ListConnectors",
+            "pca-connector-scep:ListTagsForResource",
             "personalize:Describe*",
             "personalize:Get*",
             "personalize:List*",
@@ -95215,6 +95461,7 @@
             "resiliencehub:DescribeAppVersionTemplate",
             "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
             "resiliencehub:DescribeResiliencyPolicy",
+            "resiliencehub:DescribeResourceGroupingRecommendationTask",
             "resiliencehub:ListAlarmRecommendations",
             "resiliencehub:ListAppAssessmentComplianceDrifts",
             "resiliencehub:ListAppAssessmentResourceDrifts",
@@ -95229,6 +95476,7 @@
             "resiliencehub:ListAppVersions",
             "resiliencehub:ListRecommendationTemplates",
             "resiliencehub:ListResiliencyPolicies",
+            "resiliencehub:ListResourceGroupingRecommendations",
             "resiliencehub:ListSopRecommendations",
             "resiliencehub:ListSuggestedResiliencyPolicies",
             "resiliencehub:ListTagsForResource",
@@ -95344,6 +95592,8 @@
             "secretsmanager:Describe*",
             "secretsmanager:GetResourcePolicy",
             "secretsmanager:List*",
+            "securityhub:BatchGetAutomationRules",
+            "securityhub:BatchGetConfigurationPolicyAssociations",
             "securityhub:BatchGetControlEvaluations",
             "securityhub:BatchGetSecurityControls",
             "securityhub:BatchGetStandardsControlAssociations",
@@ -95441,6 +95691,17 @@
             "ssm-incidents:ListResponsePlans",
             "ssm-incidents:ListTagsForResource",
             "ssm-incidents:ListTimelineEvents",
+            "ssm-sap:GetApplication",
+            "ssm-sap:GetComponent",
+            "ssm-sap:GetDatabase",
+            "ssm-sap:GetOperation",
+            "ssm-sap:GetResourcePermission",
+            "ssm-sap:ListApplications",
+            "ssm-sap:ListComponents",
+            "ssm-sap:ListDatabases",
+            "ssm-sap:ListOperationEvents",
+            "ssm-sap:ListOperations",
+            "ssm-sap:ListTagsForResource",
             "ssm:Describe*",
             "ssm:Get*",
             "ssm:List*",
@@ -95523,6 +95784,17 @@
             "translate:ListTerminologies",
             "translate:ListTextTranslationJobs",
             "trustedadvisor:Describe*",
+            "trustedadvisor:GetOrganizationRecommendation",
+            "trustedadvisor:GetRecommendation",
+            "trustedadvisor:ListChecks",
+            "trustedadvisor:ListOrganizationRecommendationAccounts",
+            "trustedadvisor:ListOrganizationRecommendationResources",
+            "trustedadvisor:ListOrganizationRecommendations",
+            "trustedadvisor:ListRecommendationResources",
+            "trustedadvisor:ListRecommendations",
+            "user-subscriptions:ListApplicationClaims",
+            "user-subscriptions:ListClaims",
+            "user-subscriptions:ListUserSubscriptions",
             "verifiedpermissions:GetIdentitySource",
             "verifiedpermissions:GetPolicy",
             "verifiedpermissions:GetPolicyStore",
@@ -95626,9 +95898,9 @@
         }
       ]
     },
-    "VersionId": "v117",
+    "VersionId": "v118",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-08-15T14:30:23+00:00"
+    "CreateDate": "2024-08-27T17:31:21+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
