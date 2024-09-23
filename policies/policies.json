@@ -15622,6 +15622,71 @@
     "IsDefaultVersion": true,
     "CreateDate": "2021-01-14T18:35:27+00:00"
   },
+  "AWSDirectoryServiceDataFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DSDataFullAccess",
+          "Effect": "Allow",
+          "Action": [
+            "ds:AccessDSData",
+            "ds-data:AddGroupMember",
+            "ds-data:CreateGroup",
+            "ds-data:CreateUser",
+            "ds-data:DeleteGroup",
+            "ds-data:DeleteUser",
+            "ds-data:DescribeGroup",
+            "ds-data:DescribeUser",
+            "ds-data:DisableUser",
+            "ds-data:ListGroupMembers",
+            "ds-data:ListGroups",
+            "ds-data:ListGroupsForMember",
+            "ds-data:ListUsers",
+            "ds-data:RemoveGroupMember",
+            "ds-data:SearchGroups",
+            "ds-data:SearchUsers",
+            "ds-data:UpdateGroup",
+            "ds-data:UpdateUser"
+          ],
+          "Resource": [
+            "arn:aws:ds:*:*:directory/*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-09-18T21:45:17+00:00"
+  },
+  "AWSDirectoryServiceDataReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DSDataReadOnlyAccess",
+          "Effect": "Allow",
+          "Action": [
+            "ds:AccessDSData",
+            "ds-data:DescribeGroup",
+            "ds-data:DescribeUser",
+            "ds-data:ListGroupMembers",
+            "ds-data:ListGroups",
+            "ds-data:ListGroupsForMember",
+            "ds-data:ListUsers",
+            "ds-data:SearchGroups",
+            "ds-data:SearchUsers"
+          ],
+          "Resource": [
+            "arn:aws:ds:*:*:directory/*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-09-18T22:00:34+00:00"
+  },
   "AWSDirectoryServiceFullAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -34995,6 +35060,8 @@
             "elasticache:DescribeGlobalReplicationGroups",
             "elasticache:DescribeReplicationGroups",
             "elasticache:DescribeSnapshots",
+            "elasticache:DescribeServerlessCaches",
+            "elasticache:DescribeServerlessCacheSnapshots",
             "elasticfilesystem:DescribeFileSystems",
             "elasticfilesystem:DescribeLifecycleConfiguration",
             "elasticfilesystem:DescribeMountTargets",
@@ -35124,9 +35191,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-07-25T10:13:03+00:00"
+    "CreateDate": "2024-09-17T13:08:36+00:00"
   },
   "AWSResourceAccessManagerFullAccess": {
     "Document": {
@@ -90599,9 +90666,11 @@
             "ivs:GetChannel",
             "ivs:GetComposition",
             "ivs:GetEncoderConfiguration",
+            "ivs:GetIngestConfiguration",
             "ivs:GetParticipant",
             "ivs:GetPlaybackKeyPair",
             "ivs:GetPlaybackRestrictionPolicy",
+            "ivs:GetPublicKey",
             "ivs:GetRecordingConfiguration",
             "ivs:GetStage",
             "ivs:GetStageSession",
@@ -90611,10 +90680,12 @@
             "ivs:ListChannels",
             "ivs:ListCompositions",
             "ivs:ListEncoderConfigurations",
+            "ivs:ListIngestConfigurations",
             "ivs:ListParticipants",
             "ivs:ListParticipantEvents",
             "ivs:ListPlaybackKeyPairs",
             "ivs:ListPlaybackRestrictionPolicies",
+            "ivs:ListPublicKeys",
             "ivs:ListRecordingConfigurations",
             "ivs:ListStages",
             "ivs:ListStageSessions",
@@ -90628,9 +90699,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-16T18:03:24+00:00"
+    "CreateDate": "2024-09-17T20:42:06+00:00"
   },
   "IVSRecordToS3": {
     "Document": {
@@ -94041,6 +94112,7 @@
             "bedrock:GetAgentVersion",
             "bedrock:GetCustomModel",
             "bedrock:GetDataSource",
+            "bedrock:GetEvaluationJob",
             "bedrock:GetFoundationModel",
             "bedrock:GetFoundationModelAvailability",
             "bedrock:GetGuardrail",
@@ -94057,6 +94129,7 @@
             "bedrock:ListAgentVersions",
             "bedrock:ListCustomModels",
             "bedrock:ListDataSources",
+            "bedrock:ListEvaluationJobs",
             "bedrock:ListFoundationModelAgreementOffers",
             "bedrock:ListFoundationModels",
             "bedrock:ListGuardrails",
@@ -95558,6 +95631,25 @@
             "purchase-orders:ListPurchaseOrderInvoices",
             "purchase-orders:ListPurchaseOrders",
             "purchase-orders:ViewPurchaseOrders",
+            "qbusiness:GetApplication",
+            "qbusiness:GetChatControlsConfiguration",
+            "qbusiness:GetDataSource",
+            "qbusiness:GetGroup",
+            "qbusiness:GetIndex",
+            "qbusiness:GetPlugin",
+            "qbusiness:GetRetriever",
+            "qbusiness:GetUser",
+            "qbusiness:GetWebExperience",
+            "qbusiness:ListApplications",
+            "qbusiness:ListDataSources",
+            "qbusiness:ListDataSourceSyncJobs",
+            "qbusiness:ListGroups",
+            "qbusiness:ListIndices",
+            "qbusiness:ListPlugins",
+            "qbusiness:ListRetrievers",
+            "qbusiness:ListSubscriptions",
+            "qbusiness:ListTagsForResource",
+            "qbusiness:ListWebExperiences",
             "qldb:DescribeJournalKinesisStream",
             "qldb:DescribeJournalS3Export",
             "qldb:DescribeLedger",
@@ -96077,9 +96169,9 @@
         }
       ]
     },
-    "VersionId": "v118",
+    "VersionId": "v119",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-08-27T17:31:21+00:00"
+    "CreateDate": "2024-09-16T18:53:21+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
