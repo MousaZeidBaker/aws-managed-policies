@@ -3,15 +3,38 @@
     "Version": "2012-10-17",
     "Statement": [
       {
-        "Action": [
-          "sns:*"
-        ],
+        "Sid": "SNSFullAccess",
         "Effect": "Allow",
+        "Action": "sns:*",
         "Resource": "*"
+      },
+      {
+        "Sid": "SMSAccessViaSNS",
+        "Effect": "Allow",
+        "Action": [
+          "sms-voice:DescribeVerifiedDestinationNumbers",
+          "sms-voice:CreateVerifiedDestinationNumber",
+          "sms-voice:SendDestinationNumberVerificationCode",
+          "sms-voice:SendTextMessage",
+          "sms-voice:DeleteVerifiedDestinationNumber",
+          "sms-voice:VerifyDestinationNumber",
+          "sms-voice:DescribeAccountAttributes",
+          "sms-voice:DescribeSpendLimits",
+          "sms-voice:DescribePhoneNumbers",
+          "sms-voice:SetTextMessageSpendLimitOverride",
+          "sms-voice:DescribeOptedOutNumbers",
+          "sms-voice:DeleteOptedOutNumber"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:CalledViaLast": "sns.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2015-02-06T18:41:05+00:00"
+  "CreateDate": "2024-09-24T22:32:05+00:00"
 }

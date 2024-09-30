@@ -145,7 +145,8 @@
           "ssm:GetDocument"
         ],
         "Resource": [
-          "arn:aws:ssm:*:*:document/AWSSAP-InstallBackint"
+          "arn:aws:ssm:*:*:document/AWSSAP-InstallBackint",
+          "arn:aws:ssm:*:*:document/AWSSAP-InstallBackintForAWSBackup"
         ]
       },
       {
@@ -164,7 +165,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-05-16T21:16:38+00:00"
+  "CreateDate": "2024-09-25T22:40:50+00:00"
 }

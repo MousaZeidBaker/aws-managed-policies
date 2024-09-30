@@ -39,14 +39,10 @@
         "Resource": "*"
       },
       {
-        "Sid": "RDSModifyPermissions",
+        "Sid": "RDSInstanceAutomatedBackupPermissions",
         "Effect": "Allow",
-        "Action": [
-          "rds:ModifyDBInstance"
-        ],
-        "Resource": [
-          "arn:aws:rds:*:*:db:*"
-        ]
+        "Action": "rds:DeleteDBInstanceAutomatedBackup",
+        "Resource": "arn:aws:rds:*:*:auto-backup:*"
       },
       {
         "Sid": "RDSClusterPermissions",
@@ -61,10 +57,18 @@
       {
         "Sid": "RDSClusterBackupPermissions",
         "Effect": "Allow",
-        "Action": [
-          "rds:DeleteDBClusterAutomatedBackup"
-        ],
+        "Action": "rds:DeleteDBClusterAutomatedBackup",
         "Resource": "arn:aws:rds:*:*:cluster-auto-backup:*"
+      },
+      {
+        "Sid": "RDSModifyPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "rds:ModifyDBInstance"
+        ],
+        "Resource": [
+          "arn:aws:rds:*:*:db:*"
+        ]
       },
       {
         "Sid": "RDSBackupPermissions",
@@ -475,7 +479,7 @@
       }
     ]
   },
-  "VersionId": "v19",
+  "VersionId": "v20",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-05-17T17:12:58+00:00"
+  "CreateDate": "2024-09-27T20:02:34+00:00"
 }

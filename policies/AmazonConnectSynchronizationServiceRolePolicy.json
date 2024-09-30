@@ -75,7 +75,12 @@
           "connect:CreateAuthenticationProfile",
           "connect:UpdateAuthenticationProfile",
           "connect:DescribeAuthenticationProfile",
-          "connect:ListAuthenticationProfiles"
+          "connect:ListAuthenticationProfiles",
+          "connect:CreateHoursOfOperationOverride",
+          "connect:UpdateHoursOfOperationOverride",
+          "connect:DeleteHoursOfOperationOverride",
+          "connect:DescribeHoursOfOperationOverride",
+          "connect:ListHoursOfOperationOverrides"
         ],
         "Resource": "*"
       },
@@ -92,7 +97,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-07-24T17:45:43+00:00"
+  "CreateDate": "2024-09-25T16:49:38+00:00"
 }

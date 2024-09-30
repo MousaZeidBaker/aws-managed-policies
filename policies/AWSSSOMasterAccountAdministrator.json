@@ -67,10 +67,20 @@
             "organizations:ServicePrincipal": "sso.amazonaws.com"
           }
         }
+      },
+      {
+        "Sid": "AllowDeleteSyncProfile",
+        "Effect": "Allow",
+        "Action": [
+          "identity-sync:DeleteSyncProfile"
+        ],
+        "Resource": [
+          "arn:aws:identity-sync:*:*:profile/*"
+        ]
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-04-26T00:38:45+00:00"
+  "CreateDate": "2024-09-26T17:13:59+00:00"
 }

@@ -2988,6 +2988,7 @@
             "bedrock:GetModelInvocationLoggingConfiguration",
             "bedrock:ListCustomModels",
             "bedrock:ListFoundationModels",
+            "bedrock:ListGuardrails",
             "bedrock:ListModelCustomizationJobs",
             "cloudfront:GetDistribution",
             "cloudfront:GetDistributionConfig",
@@ -3261,9 +3262,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-06-10T20:28:09+00:00"
+    "CreateDate": "2024-09-24T23:22:25+00:00"
   },
   "AWSAutoScalingPlansEC2AutoScalingPolicy": {
     "Document": {
@@ -3535,10 +3536,17 @@
           "Effect": "Allow",
           "Action": [
             "storagegateway:DescribeGatewayInformation",
-            "storagegateway:ListVolumes",
             "storagegateway:ListLocalDisks"
           ],
           "Resource": "arn:aws:storagegateway:*:*:gateway/*"
+        },
+        {
+          "Sid": "StorageGatewayGatewayStarPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "storagegateway:ListVolumes"
+          ],
+          "Resource": "*"
         },
         {
           "Sid": "IamRolePermissions",
@@ -3807,9 +3815,9 @@
         }
       ]
     },
-    "VersionId": "v17",
+    "VersionId": "v18",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-27T17:33:10+00:00"
+    "CreateDate": "2024-09-26T19:18:54+00:00"
   },
   "AWSBackupGatewayServiceRolePolicyForVirtualMachineMetadataSync": {
     "Document": {
@@ -4716,14 +4724,10 @@
           "Resource": "*"
         },
         {
-          "Sid": "RDSModifyPermissions",
+          "Sid": "RDSInstanceAutomatedBackupPermissions",
           "Effect": "Allow",
-          "Action": [
-            "rds:ModifyDBInstance"
-          ],
-          "Resource": [
-            "arn:aws:rds:*:*:db:*"
-          ]
+          "Action": "rds:DeleteDBInstanceAutomatedBackup",
+          "Resource": "arn:aws:rds:*:*:auto-backup:*"
         },
         {
           "Sid": "RDSClusterPermissions",
@@ -4738,10 +4742,18 @@
         {
           "Sid": "RDSClusterBackupPermissions",
           "Effect": "Allow",
-          "Action": [
-            "rds:DeleteDBClusterAutomatedBackup"
-          ],
+          "Action": "rds:DeleteDBClusterAutomatedBackup",
           "Resource": "arn:aws:rds:*:*:cluster-auto-backup:*"
+        },
+        {
+          "Sid": "RDSModifyPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "rds:ModifyDBInstance"
+          ],
+          "Resource": [
+            "arn:aws:rds:*:*:db:*"
+          ]
         },
         {
           "Sid": "RDSBackupPermissions",
@@ -5152,9 +5164,9 @@
         }
       ]
     },
-    "VersionId": "v19",
+    "VersionId": "v20",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-17T17:12:58+00:00"
+    "CreateDate": "2024-09-27T20:02:34+00:00"
   },
   "AWSBackupServiceRolePolicyForRestores": {
     "Document": {
@@ -36731,12 +36743,22 @@
               "organizations:ServicePrincipal": "sso.amazonaws.com"
             }
           }
+        },
+        {
+          "Sid": "AllowDeleteSyncProfile",
+          "Effect": "Allow",
+          "Action": [
+            "identity-sync:DeleteSyncProfile"
+          ],
+          "Resource": [
+            "arn:aws:identity-sync:*:*:profile/*"
+          ]
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-26T00:38:45+00:00"
+    "CreateDate": "2024-09-26T17:13:59+00:00"
   },
   "AWSSSOMemberAccountAdministrator": {
     "Document": {
@@ -51934,7 +51956,12 @@
             "connect:CreateAuthenticationProfile",
             "connect:UpdateAuthenticationProfile",
             "connect:DescribeAuthenticationProfile",
-            "connect:ListAuthenticationProfiles"
+            "connect:ListAuthenticationProfiles",
+            "connect:CreateHoursOfOperationOverride",
+            "connect:UpdateHoursOfOperationOverride",
+            "connect:DeleteHoursOfOperationOverride",
+            "connect:DescribeHoursOfOperationOverride",
+            "connect:ListHoursOfOperationOverrides"
           ],
           "Resource": "*"
         },
@@ -51951,9 +51978,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-07-24T17:45:43+00:00"
+    "CreateDate": "2024-09-25T16:49:38+00:00"
   },
   "AmazonConnectVoiceIDFullAccess": {
     "Document": {
@@ -58429,7 +58456,8 @@
             "ssm:GetDocument"
           ],
           "Resource": [
-            "arn:aws:ssm:*:*:document/AWSSAP-InstallBackint"
+            "arn:aws:ssm:*:*:document/AWSSAP-InstallBackint",
+            "arn:aws:ssm:*:*:document/AWSSAP-InstallBackintForAWSBackup"
           ]
         },
         {
@@ -58448,9 +58476,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-05-16T21:16:38+00:00"
+    "CreateDate": "2024-09-25T22:40:50+00:00"
   },
   "AmazonEC2RoleforAWSCodeDeploy": {
     "Document": {
@@ -74886,35 +74914,83 @@
       "Version": "2012-10-17",
       "Statement": [
         {
-          "Action": [
-            "sns:*"
-          ],
+          "Sid": "SNSFullAccess",
           "Effect": "Allow",
+          "Action": "sns:*",
           "Resource": "*"
+        },
+        {
+          "Sid": "SMSAccessViaSNS",
+          "Effect": "Allow",
+          "Action": [
+            "sms-voice:DescribeVerifiedDestinationNumbers",
+            "sms-voice:CreateVerifiedDestinationNumber",
+            "sms-voice:SendDestinationNumberVerificationCode",
+            "sms-voice:SendTextMessage",
+            "sms-voice:DeleteVerifiedDestinationNumber",
+            "sms-voice:VerifyDestinationNumber",
+            "sms-voice:DescribeAccountAttributes",
+            "sms-voice:DescribeSpendLimits",
+            "sms-voice:DescribePhoneNumbers",
+            "sms-voice:SetTextMessageSpendLimitOverride",
+            "sms-voice:DescribeOptedOutNumbers",
+            "sms-voice:DeleteOptedOutNumber"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:CalledViaLast": "sns.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2015-02-06T18:41:05+00:00"
+    "CreateDate": "2024-09-24T22:32:05+00:00"
   },
   "AmazonSNSReadOnlyAccess": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "SNSReadOnlyAccess",
           "Effect": "Allow",
           "Action": [
             "sns:GetTopicAttributes",
-            "sns:List*"
+            "sns:List*",
+            "sns:CheckIfPhoneNumberIsOptedOut",
+            "sns:GetEndpointAttributes",
+            "sns:GetDataProtectionPolicy",
+            "sns:GetPlatformApplicationAttributes",
+            "sns:GetSMSAttributes",
+            "sns:GetSMSSandboxAccountStatus",
+            "sns:GetSubscriptionAttributes"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "SMSAccessViaSNS",
+          "Effect": "Allow",
+          "Action": [
+            "sms-voice:DescribeVerifiedDestinationNumbers",
+            "sms-voice:DescribeAccountAttributes",
+            "sms-voice:DescribeSpendLimits",
+            "sms-voice:DescribePhoneNumbers",
+            "sms-voice:DescribeOptedOutNumbers"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:CalledViaLast": "sns.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2015-02-06T18:41:06+00:00"
+    "CreateDate": "2024-09-24T22:13:12+00:00"
   },
   "AmazonSNSRole": {
     "Document": {
@@ -92252,6 +92328,29 @@
     "VersionId": "v6",
     "IsDefaultVersion": true,
     "CreateDate": "2024-08-19T16:12:55+00:00"
+  },
+  "QAppsServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "QAppsPutMetricDataPermission",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/QApps"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-09-26T19:22:22+00:00"
   },
   "QBusinessServiceRolePolicy": {
     "Document": {

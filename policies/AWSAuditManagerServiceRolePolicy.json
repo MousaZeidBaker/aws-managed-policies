@@ -16,6 +16,7 @@
           "bedrock:GetModelInvocationLoggingConfiguration",
           "bedrock:ListCustomModels",
           "bedrock:ListFoundationModels",
+          "bedrock:ListGuardrails",
           "bedrock:ListModelCustomizationJobs",
           "cloudfront:GetDistribution",
           "cloudfront:GetDistributionConfig",
@@ -289,7 +290,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-06-10T20:28:09+00:00"
+  "CreateDate": "2024-09-24T23:22:25+00:00"
 }
