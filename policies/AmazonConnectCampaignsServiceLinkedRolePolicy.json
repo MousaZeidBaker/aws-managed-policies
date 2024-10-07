@@ -3,6 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "ConnectCampaignAccess",
         "Effect": "Allow",
         "Action": [
           "connect-campaigns:ListCampaigns"
@@ -10,16 +11,76 @@
         "Resource": "*"
       },
       {
+        "Sid": "ConnectAccess",
         "Effect": "Allow",
         "Action": [
           "connect:BatchPutContact",
-          "connect:StopContact"
+          "connect:StopContact",
+          "connect:DescribeContactFlow",
+          "connect:SendOutboundEmail"
         ],
         "Resource": "arn:aws:connect:*:*:instance/*"
+      },
+      {
+        "Sid": "EventBridgeListRuleAccess",
+        "Effect": "Allow",
+        "Action": [
+          "events:ListRules"
+        ],
+        "Resource": "arn:aws:events:*:*:rule/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "EventBridgeManagedResourceAccess",
+        "Effect": "Allow",
+        "Action": [
+          "events:DeleteRule",
+          "events:PutRule",
+          "events:PutTargets",
+          "events:RemoveTargets"
+        ],
+        "Resource": "arn:aws:events:*:*:rule/ConnectCampaignsRule*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}",
+            "events:ManagedBy": "connect-campaigns.amazonaws.com"
+          }
+        }
+      },
+      {
+        "Sid": "EventBridgeListTargetsByRuleAccess",
+        "Effect": "Allow",
+        "Action": [
+          "events:ListTargetsByRule"
+        ],
+        "Resource": "arn:aws:events:*:*:rule/ConnectCampaignsRule*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "AllowWisdomForConnectCampaignsEnabledTaggedResources",
+        "Effect": "Allow",
+        "Action": [
+          "wisdom:GetMessageTemplate",
+          "wisdom:RenderMessageTemplate"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/AmazonConnectCampaignsEnabled": "True"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-08T16:16:16+00:00"
+  "CreateDate": "2024-10-03T20:20:01+00:00"
 }

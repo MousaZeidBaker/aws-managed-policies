@@ -10279,7 +10279,36 @@
             "ec2:PurchaseReservedInstancesOffering",
             "ec2:AcceptReservedInstancesExchangeQuote",
             "ec2:CreateReservedInstancesListing",
-            "savingsplans:CreateSavingsPlan"
+            "savingsplans:CreateSavingsPlan",
+            "ecs:CreateService",
+            "ecs:CreateCluster",
+            "ecs:RegisterTaskDefinition",
+            "ecr:GetAuthorizationToken",
+            "bedrock:CreateModelInvocationJob",
+            "bedrock:InvokeModelWithResponseStream",
+            "bedrock:CreateFoundationModelAgreement",
+            "bedrock:PutFoundationModelEntitlement",
+            "bedrock:InvokeModel",
+            "s3:CreateBucket",
+            "s3:PutBucketCors",
+            "s3:GetObject",
+            "s3:ListBucket",
+            "sagemaker:CreateEndpointConfig",
+            "sagemaker:CreateProcessingJob",
+            "ses:GetSendQuota",
+            "ses:ListIdentities",
+            "sts:GetSessionToken",
+            "sts:GetFederationToken",
+            "amplify:CreateDeployment",
+            "amplify:CreateBackendEnvironment",
+            "codebuild:CreateProject",
+            "glue:CreateJob",
+            "iam:DeleteRole",
+            "iam:DeleteAccessKey",
+            "iam:ListUsers",
+            "lambda:GetEventSourceMapping",
+            "sns:GetSMSAttributes",
+            "mediapackagev2:CreateChannel"
           ],
           "Resource": [
             "*"
@@ -10287,9 +10316,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-16T00:20:25+00:00"
+    "CreateDate": "2024-10-02T16:41:39+00:00"
   },
   "AWSCompromisedKeyQuarantineV3": {
     "Document": {
@@ -10357,7 +10386,36 @@
             "ec2:PurchaseReservedInstancesOffering",
             "ec2:AcceptReservedInstancesExchangeQuote",
             "ec2:CreateReservedInstancesListing",
-            "savingsplans:CreateSavingsPlan"
+            "savingsplans:CreateSavingsPlan",
+            "ecs:CreateService",
+            "ecs:CreateCluster",
+            "ecs:RegisterTaskDefinition",
+            "ecr:GetAuthorizationToken",
+            "bedrock:CreateModelInvocationJob",
+            "bedrock:InvokeModelWithResponseStream",
+            "bedrock:CreateFoundationModelAgreement",
+            "bedrock:PutFoundationModelEntitlement",
+            "bedrock:InvokeModel",
+            "s3:CreateBucket",
+            "s3:PutBucketCors",
+            "s3:GetObject",
+            "s3:ListBucket",
+            "sagemaker:CreateEndpointConfig",
+            "sagemaker:CreateProcessingJob",
+            "ses:GetSendQuota",
+            "ses:ListIdentities",
+            "sts:GetSessionToken",
+            "sts:GetFederationToken",
+            "amplify:CreateDeployment",
+            "amplify:CreateBackendEnvironment",
+            "codebuild:CreateProject",
+            "glue:CreateJob",
+            "iam:DeleteRole",
+            "iam:DeleteAccessKey",
+            "iam:ListUsers",
+            "lambda:GetEventSourceMapping",
+            "sns:GetSMSAttributes",
+            "mediapackagev2:CreateChannel"
           ],
           "Resource": [
             "*"
@@ -10365,9 +10423,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-08-21T17:36:49+00:00"
+    "CreateDate": "2024-10-02T16:52:27+00:00"
   },
   "AWSConfigMultiAccountSetupPolicy": {
     "Document": {
@@ -23055,6 +23113,8 @@
             "qapps:GetQAppSessionMetadata",
             "qapps:UpdateQAppSessionMetadata",
             "qapps:TagResource",
+            "qapps:ListQAppSessionData",
+            "qapps:ExportQAppSessionData",
             "qbusiness:Chat",
             "qbusiness:ChatSync",
             "qbusiness:ListConversations",
@@ -23067,9 +23127,9 @@
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-09-04T19:52:35+00:00"
+    "CreateDate": "2024-10-01T14:19:12+00:00"
   },
   "AWSIPAMServiceRolePolicy": {
     "Document": {
@@ -38719,15 +38779,17 @@
             "sso:AssociateProfile",
             "sso:ListDirectoryAssociations",
             "sso-directory:DescribeUsers",
-            "sso-directory:SearchUsers"
+            "sso-directory:SearchUsers",
+            "sso:CreateApplicationAssignment",
+            "sso:ListApplicationAssignments"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-29T20:38:15+00:00"
+    "CreateDate": "2024-10-02T10:06:59+00:00"
   },
   "AWSServiceRoleForNeptuneGraphPolicy": {
     "Document": {
@@ -38858,6 +38920,28 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2024-02-14T22:28:01+00:00"
+  },
+  "AWSServiceRoleForProcurementInsightsPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ProcurementInsightsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeAccount",
+            "organizations:DescribeOrganization",
+            "organizations:ListAccounts"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-10-03T14:26:03+00:00"
   },
   "AWSServiceRoleForSMS": {
     "Document": {
@@ -51568,6 +51652,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "ConnectCampaignAccess",
           "Effect": "Allow",
           "Action": [
             "connect-campaigns:ListCampaigns"
@@ -51575,18 +51660,78 @@
           "Resource": "*"
         },
         {
+          "Sid": "ConnectAccess",
           "Effect": "Allow",
           "Action": [
             "connect:BatchPutContact",
-            "connect:StopContact"
+            "connect:StopContact",
+            "connect:DescribeContactFlow",
+            "connect:SendOutboundEmail"
           ],
           "Resource": "arn:aws:connect:*:*:instance/*"
+        },
+        {
+          "Sid": "EventBridgeListRuleAccess",
+          "Effect": "Allow",
+          "Action": [
+            "events:ListRules"
+          ],
+          "Resource": "arn:aws:events:*:*:rule/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "EventBridgeManagedResourceAccess",
+          "Effect": "Allow",
+          "Action": [
+            "events:DeleteRule",
+            "events:PutRule",
+            "events:PutTargets",
+            "events:RemoveTargets"
+          ],
+          "Resource": "arn:aws:events:*:*:rule/ConnectCampaignsRule*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "events:ManagedBy": "connect-campaigns.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "EventBridgeListTargetsByRuleAccess",
+          "Effect": "Allow",
+          "Action": [
+            "events:ListTargetsByRule"
+          ],
+          "Resource": "arn:aws:events:*:*:rule/ConnectCampaignsRule*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "AllowWisdomForConnectCampaignsEnabledTaggedResources",
+          "Effect": "Allow",
+          "Action": [
+            "wisdom:GetMessageTemplate",
+            "wisdom:RenderMessageTemplate"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonConnectCampaignsEnabled": "True"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-08T16:16:16+00:00"
+    "CreateDate": "2024-10-03T20:20:01+00:00"
   },
   "AmazonConnectReadOnlyAccess": {
     "Document": {
@@ -58060,6 +58205,26 @@
     "IsDefaultVersion": true,
     "CreateDate": "2019-12-10T20:48:08+00:00"
   },
+  "AmazonEC2ContainerRegistryPullOnly": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecr:GetAuthorizationToken",
+            "ecr:BatchGetImage",
+            "ecr:GetDownloadUrlForLayer",
+            "ecr:BatchImportUpstreamImage"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-10-04T16:58:49+00:00"
+  },
   "AmazonEC2ContainerRegistryReadOnly": {
     "Document": {
       "Version": "2012-10-17",
@@ -60232,6 +60397,24 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2020-08-12T00:55:34+00:00"
+  },
+  "AmazonEKSWorkerNodeMinimalPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "WorkerNodePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "eks-auth:AssumeRoleForPodIdentity"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-10-02T20:03:51+00:00"
   },
   "AmazonEKSWorkerNodePolicy": {
     "Document": {

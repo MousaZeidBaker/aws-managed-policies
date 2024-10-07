@@ -116,6 +116,8 @@
           "qapps:GetQAppSessionMetadata",
           "qapps:UpdateQAppSessionMetadata",
           "qapps:TagResource",
+          "qapps:ListQAppSessionData",
+          "qapps:ExportQAppSessionData",
           "qbusiness:Chat",
           "qbusiness:ChatSync",
           "qbusiness:ListConversations",
@@ -128,7 +130,7 @@
       }
     ]
   },
-  "VersionId": "v11",
+  "VersionId": "v12",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-09-04T19:52:35+00:00"
+  "CreateDate": "2024-10-01T14:19:12+00:00"
 }
