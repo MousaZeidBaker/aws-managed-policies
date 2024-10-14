@@ -115,7 +115,10 @@
           "lambda:UpdateFunctionCode",
           "lambda:UpdateFunctionConfiguration",
           "lambda:GetFunctionConfiguration",
-          "lambda:DeleteFunction"
+          "lambda:DeleteFunction",
+          "lambda:ListTags",
+          "lambda:TagResource",
+          "lambda:UntagResource"
         ],
         "Resource": [
           "arn:aws:lambda:*:*:function:cwsyn-*"
@@ -130,7 +133,8 @@
         ],
         "Resource": [
           "arn:aws:lambda:*:*:layer:cwsyn-*",
-          "arn:aws:lambda:*:*:layer:Synthetics:*"
+          "arn:aws:lambda:*:*:layer:Synthetics:*",
+          "arn:aws:lambda:*:*:layer:Synthetics_Selenium:*"
         ]
       },
       {
@@ -194,7 +198,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-05-06T18:14:01+00:00"
+  "CreateDate": "2024-10-11T17:07:13+00:00"
 }

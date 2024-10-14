@@ -163,6 +163,7 @@
           "deadline:GetFarm",
           "deadline:GetFleet",
           "deadline:GetJob",
+          "deadline:GetJobTemplate",
           "deadline:GetQueue",
           "deadline:GetQueueEnvironment",
           "deadline:GetQueueFleetAssociation",
@@ -173,6 +174,7 @@
           "deadline:GetStorageProfileForQueue",
           "deadline:GetTask",
           "deadline:GetWorker",
+          "deadline:ListJobParameterDefinitions",
           "deadline:ListQueueEnvironments",
           "deadline:ListQueueFleetAssociations",
           "deadline:ListSessionActions",
@@ -224,7 +226,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-04-01T16:54:00+00:00"
+  "CreateDate": "2024-10-07T17:57:52+00:00"
 }

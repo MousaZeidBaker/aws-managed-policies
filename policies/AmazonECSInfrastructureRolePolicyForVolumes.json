@@ -17,6 +17,12 @@
         }
       },
       {
+        "Sid": "CreateEBSManagedVolumeFromSnapshot",
+        "Effect": "Allow",
+        "Action": "ec2:CreateVolume",
+        "Resource": "arn:aws:ec2:*:*:snapshot/*"
+      },
+      {
         "Sid": "TagOnCreateVolume",
         "Effect": "Allow",
         "Action": "ec2:CreateTags",
@@ -79,7 +85,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-01-10T22:56:41+00:00"
+  "CreateDate": "2024-10-10T18:56:53+00:00"
 }

@@ -117,10 +117,12 @@
         "Effect": "Allow",
         "Action": [
           "deadline:GetJob",
+          "deadline:GetJobTemplate",
           "deadline:GetSession",
           "deadline:GetSessionAction",
           "deadline:GetStep",
           "deadline:GetTask",
+          "deadline:ListJobParameterDefinitions",
           "deadline:ListSessionActions",
           "deadline:ListSessions",
           "deadline:ListStepConsumers",
@@ -161,7 +163,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-04-01T17:05:38+00:00"
+  "CreateDate": "2024-10-07T18:24:52+00:00"
 }
