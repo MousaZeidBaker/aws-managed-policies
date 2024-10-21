@@ -24,13 +24,17 @@
           "bedrock:GetModelInvocationJob",
           "bedrock:ListModelInvocationJobs",
           "bedrock:GetInferenceProfile",
-          "bedrock:ListInferenceProfiles"
+          "bedrock:ListInferenceProfiles",
+          "bedrock:ListImportedModels",
+          "bedrock:GetImportedModel",
+          "bedrock:ListModelImportJobs",
+          "bedrock:GetModelImportJob"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-08-28T01:58:53+00:00"
+  "CreateDate": "2024-10-18T18:16:43+00:00"
 }

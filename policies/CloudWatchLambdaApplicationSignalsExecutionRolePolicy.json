@@ -1,0 +1,40 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "CloudWatchApplicationSignalsXrayWritePermissions",
+        "Effect": "Allow",
+        "Action": [
+          "xray:PutTraceSegments"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "CloudWatchApplicationSignalsLogGroupWritePermissions",
+        "Effect": "Allow",
+        "Action": [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource": "arn:aws:logs:*:*:log-group:/aws/application-signals/data:*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2024-10-16T19:09:17+00:00"
+}

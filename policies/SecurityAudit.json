@@ -427,6 +427,8 @@
           "lightsail:GetInstances",
           "lightsail:GetLoadBalancers",
           "logs:Describe*",
+          "logs:GetLogDelivery",
+          "logs:ListLogDeliveries",
           "logs:ListTagsForResource",
           "logs:ListTagsLogGroup",
           "lookoutequipment:ListDatasets",
@@ -761,7 +763,7 @@
       }
     ]
   },
-  "VersionId": "v43",
+  "VersionId": "v44",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-07T18:27:28+00:00"
+  "CreateDate": "2024-10-17T21:16:58+00:00"
 }

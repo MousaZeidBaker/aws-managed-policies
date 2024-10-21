@@ -180,6 +180,7 @@
           "elasticloadbalancing:DescribeInstanceHealth",
           "elasticloadbalancing:DescribeListeners",
           "elasticloadbalancing:DescribeLoadBalancers",
+          "elasticloadbalancing:DescribeLoadBalancerAttributes",
           "elasticloadbalancing:DescribeTargetGroups",
           "elasticloadbalancing:DescribeTargetHealth",
           "elasticmapreduce:List*",
@@ -367,7 +368,7 @@
       }
     ]
   },
-  "VersionId": "v19",
+  "VersionId": "v20",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-06-10T20:57:11+00:00"
+  "CreateDate": "2024-10-15T19:05:15+00:00"
 }

@@ -50,10 +50,21 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "DataSyncCreateSLRPermissions",
+        "Effect": "Allow",
+        "Action": "iam:CreateServiceLinkedRole",
+        "Resource": "arn:aws:iam::*:role/aws-service-role/datasync.amazonaws.com/AWSServiceRoleForDataSync",
+        "Condition": {
+          "StringEquals": {
+            "iam:AWSServiceName": "datasync.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-07-22T16:13:41+00:00"
+  "CreateDate": "2024-10-18T20:07:03+00:00"
 }
