@@ -255,10 +255,37 @@
         "Resource": [
           "arn:aws:profile:*:*:domains/amazon-connect-*/object-types/*"
         ]
+      },
+      {
+        "Sid": "AllowChimeSDKVoiceConnectorGetOperationForConnect",
+        "Effect": "Allow",
+        "Action": [
+          "chime:GetVoiceConnector"
+        ],
+        "Resource": "arn:aws:chime:*:*:vc/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/AmazonConnectEnabled": "True",
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "AllowChimeSDKVoiceConnectorListOperationForConnect",
+        "Effect": "Allow",
+        "Action": [
+          "chime:ListVoiceConnectors"
+        ],
+        "Resource": "arn:aws:chime:*:*:vc/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v17",
+  "VersionId": "v18",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-09-11T20:44:09+00:00"
+  "CreateDate": "2024-10-25T22:33:28+00:00"
 }

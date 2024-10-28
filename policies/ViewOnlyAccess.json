@@ -236,6 +236,11 @@
           "lookoutvision:ListModelPackagingJobs",
           "lookoutvision:ListModels",
           "lookoutvision:ListProjects",
+          "m2:ListEnvironments",
+          "m2:ListApplications",
+          "m2:GetEnvironment",
+          "m2:GetApplication",
+          "m2:ListTagsForResource",
           "machinelearning:Describe*",
           "mediaconnect:ListEntitlements",
           "mediaconnect:ListFlows",
@@ -368,7 +373,7 @@
       }
     ]
   },
-  "VersionId": "v20",
+  "VersionId": "v21",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-15T19:05:15+00:00"
+  "CreateDate": "2024-10-21T14:38:04+00:00"
 }

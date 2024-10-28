@@ -11,6 +11,10 @@
           "dataexchange:GetEventAction",
           "dataexchange:GetJob",
           "dataexchange:GetRevision",
+          "dataexchange:GetDataGrant",
+          "dataexchange:GetReceivedDataGrant",
+          "dataexchange:ListDataGrants",
+          "dataexchange:ListReceivedDataGrants",
           "dataexchange:ListDataSetRevisions",
           "dataexchange:ListDataSets",
           "dataexchange:ListEventActions",
@@ -42,7 +46,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-07-22T13:36:03+00:00"
+  "CreateDate": "2024-10-24T14:40:40+00:00"
 }

@@ -11,6 +11,8 @@
           "aws-marketplace:DescribeEntity",
           "aws-marketplace:ListTasks",
           "aws-marketplace:DescribeTask",
+          "aws-marketplace:ListAssessments",
+          "aws-marketplace:DescribeAssessment",
           "ec2:DescribeImages",
           "ec2:DescribeSnapshots"
         ],
@@ -22,10 +24,17 @@
           "aws-marketplace:ListTagsForResource"
         ],
         "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "aws-marketplace:GetResourcePolicy"
+        ],
+        "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/*"
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-19T00:08:42+00:00"
+  "CreateDate": "2024-10-21T19:52:20+00:00"
 }
