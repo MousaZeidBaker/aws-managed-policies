@@ -282,10 +282,65 @@
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
+      },
+      {
+        "Sid": "SESPermissionsForManagingReceiptRules",
+        "Effect": "Allow",
+        "Action": [
+          "ses:DescribeReceiptRule",
+          "ses:UpdateReceiptRule"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "SESPermissionForManagingConnectProvidedSESIdentity",
+        "Effect": "Allow",
+        "Action": [
+          "ses:DeleteEmailIdentity"
+        ],
+        "Resource": "arn:aws:ses:*:*:identity/*.email.connect.aws*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "SESConfigurationSetPermissionsForSendingEmail",
+        "Effect": "Allow",
+        "Action": [
+          "ses:SendRawEmail"
+        ],
+        "Resource": "arn:aws:ses:*:*:configuration-set/configuration-set-for-connect-DO-NOT-DELETE",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "PassRoleToSESForReceiptRuleManagement",
+        "Effect": "Allow",
+        "Action": [
+          "iam:PassRole"
+        ],
+        "Resource": [
+          "arn:aws:iam::*:role/service-role/AmazonConnectEmailSESAccessRole"
+        ],
+        "Condition": {
+          "StringLike": {
+            "iam:PassedToService": "ses.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v18",
+  "VersionId": "v19",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-25T22:33:28+00:00"
+  "CreateDate": "2024-10-29T20:36:31+00:00"
 }

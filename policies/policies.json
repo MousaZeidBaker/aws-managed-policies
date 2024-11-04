@@ -22084,7 +22084,8 @@
           "Effect": "Allow",
           "Action": [
             "ec2:CreateSecurityGroup",
-            "ec2:DescribeSecurityGroups"
+            "ec2:DescribeSecurityGroups",
+            "ec2:GetSecurityGroupsForVpc"
           ],
           "Resource": "*"
         },
@@ -22109,9 +22110,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-12T16:45:28+00:00"
+    "CreateDate": "2024-10-29T18:23:36+00:00"
   },
   "AWSGlueConsoleFullAccess": {
     "Document": {
@@ -45847,6 +45848,8 @@
             "elasticloadbalancing:DescribeLoadBalancerPolicies",
             "elasticloadbalancing:DescribeLoadBalancerPolicyTypes",
             "elasticloadbalancing:DescribeLoadBalancers",
+            "elasticloadbalancing:DescribeListeners",
+            "elasticloadbalancing:DescribeRules",
             "elasticloadbalancing:DescribeTargetGroups",
             "elasticloadbalancing:DescribeTargetHealth",
             "iam:GenerateCredentialReport",
@@ -45913,9 +45916,9 @@
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-06-11T18:53:22+00:00"
+    "CreateDate": "2024-10-30T16:52:06+00:00"
   },
   "AWSUserNotificationsServiceLinkedRolePolicy": {
     "Document": {
@@ -48241,6 +48244,8 @@
             "iam:ListEntitiesForPolicy",
             "iam:ListRoles",
             "iam:ListUsers",
+            "iam:ListRoleTags",
+            "iam:ListUserTags",
             "iam:GetUser",
             "iam:GetGroup",
             "iam:GenerateServiceLastAccessedDetails",
@@ -48315,9 +48320,9 @@
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-30T18:34:54+00:00"
+    "CreateDate": "2024-10-29T16:35:07+00:00"
   },
   "AdministratorAccess-AWSElasticBeanstalk": {
     "Document": {
@@ -52136,15 +52141,23 @@
             "geo:CalculateRoute*",
             "geo:*Geofence",
             "geo:*Geofences",
-            "geo:*DevicePosition*"
+            "geo:*DevicePosition*",
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:ReEncryptTo",
+            "kms:ReEncryptFrom",
+            "kms:GenerateDataKey",
+            "kms:GenerateDataKeyPair",
+            "kms:GenerateDataKeyPairWithoutPlaintext",
+            "kms:GenerateDataKeyWithoutPlaintext"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-08-09T20:02:58+00:00"
+    "CreateDate": "2024-11-01T18:12:44+00:00"
   },
   "AmazonCognitoUnauthenticatedIdentities": {
     "Document": {
@@ -52558,12 +52571,67 @@
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
+        },
+        {
+          "Sid": "SESPermissionsForManagingReceiptRules",
+          "Effect": "Allow",
+          "Action": [
+            "ses:DescribeReceiptRule",
+            "ses:UpdateReceiptRule"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "SESPermissionForManagingConnectProvidedSESIdentity",
+          "Effect": "Allow",
+          "Action": [
+            "ses:DeleteEmailIdentity"
+          ],
+          "Resource": "arn:aws:ses:*:*:identity/*.email.connect.aws*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "SESConfigurationSetPermissionsForSendingEmail",
+          "Effect": "Allow",
+          "Action": [
+            "ses:SendRawEmail"
+          ],
+          "Resource": "arn:aws:ses:*:*:configuration-set/configuration-set-for-connect-DO-NOT-DELETE",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "PassRoleToSESForReceiptRuleManagement",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/service-role/AmazonConnectEmailSESAccessRole"
+          ],
+          "Condition": {
+            "StringLike": {
+              "iam:PassedToService": "ses.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v18",
+    "VersionId": "v19",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-10-25T22:33:28+00:00"
+    "CreateDate": "2024-10-29T20:36:31+00:00"
   },
   "AmazonConnectSynchronizationServiceRolePolicy": {
     "Document": {
@@ -60206,6 +60274,102 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-07-25T20:10:04+00:00"
   },
+  "AmazonEKSBlockStoragePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AttachVolume",
+            "ec2:DetachVolume",
+            "ec2:ModifyVolume",
+            "ec2:EnableFastSnapshotRestores"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "CreateVolume",
+                "CreateSnapshot"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVolume"
+          ],
+          "Resource": "arn:aws:ec2:*:*:volume/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            },
+            "ForAllValues:StringLike": {
+              "aws:TagKeys": [
+                "eks:eks-cluster-name",
+                "CSIVolumeName",
+                "ebs.csi.eks.amazonaws.com/cluster",
+                "kubernetes.io/cluster/*",
+                "kubernetes.io/created-for/*",
+                "Name",
+                "KubernetesCluster"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVolume"
+          ],
+          "Resource": "arn:aws:ec2:*:*:snapshot/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSnapshot"
+          ],
+          "Resource": "arn:aws:ec2:*:*:volume/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSnapshot"
+          ],
+          "Resource": "arn:aws:ec2:*:*:snapshot/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            },
+            "ForAllValues:StringLike": {
+              "aws:TagKeys": [
+                "eks:eks-cluster-name",
+                "CSIVolumeSnapshotName",
+                "ebs.csi.eks.amazonaws.com/cluster",
+                "kubernetes.io/cluster/*",
+                "Name"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-10-30T20:18:13+00:00"
+  },
   "AmazonEKSClusterPolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -60241,6 +60405,7 @@
             "ec2:DescribeAccountAttributes",
             "ec2:DescribeAddresses",
             "ec2:DescribeInternetGateways",
+            "ec2:DescribeInstanceTopology",
             "elasticloadbalancing:AddTags",
             "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
             "elasticloadbalancing:AttachLoadBalancerToSubnets",
@@ -60288,9 +60453,102 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-07T17:33:23+00:00"
+    "CreateDate": "2024-11-01T17:39:00+00:00"
+  },
+  "AmazonEKSComputePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateFleet",
+            "ec2:RunInstances"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*::image/*",
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:subnet/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateFleet",
+            "ec2:RunInstances"
+          ],
+          "Resource": "arn:aws:ec2:*:*:launch-template/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateFleet",
+            "ec2:RunInstances",
+            "ec2:CreateLaunchTemplate"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            },
+            "StringLike": {
+              "aws:RequestTag/eks:kubernetes-node-class-name": "*",
+              "aws:RequestTag/eks:kubernetes-node-pool-name": "*"
+            },
+            "ForAllValues:StringLike": {
+              "aws:TagKeys": [
+                "eks:eks-cluster-name",
+                "eks:kubernetes-node-class-name",
+                "eks:kubernetes-node-pool-name",
+                "kubernetes.io/cluster/*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "CreateFleet",
+                "RunInstances",
+                "CreateLaunchTemplate"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:AddRoleToInstanceProfile",
+          "Resource": "arn:aws:iam::*:instance-profile/eks-compute-*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": [
+                "ec2.amazonaws.com",
+                "ec2.amazonaws.com.cn"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-11-01T21:46:52+00:00"
   },
   "AmazonEKSConnectorServiceRolePolicy": {
     "Document": {
@@ -60415,6 +60673,242 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2019-11-22T04:36:25+00:00"
+  },
+  "AmazonEKSLoadBalancingPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:CreateLoadBalancer",
+            "elasticloadbalancing:CreateTargetGroup",
+            "elasticloadbalancing:CreateListener",
+            "elasticloadbalancing:CreateRule",
+            "ec2:CreateSecurityGroup"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "eks:eks-cluster-name",
+                "ingress.eks.amazonaws.com/stack",
+                "ingress.eks.amazonaws.com/resource",
+                "service.eks.amazonaws.com/stack",
+                "service.eks.amazonaws.com/resource"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSecurityGroup"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:RegisterTargets"
+          ],
+          "Resource": "arn:aws:elasticloadbalancing:*:*:targetgroup/*/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AuthorizeSecurityGroupIngress"
+          ],
+          "Resource": "arn:aws:ec2:*:*:security-group-rule/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AuthorizeSecurityGroupIngress",
+            "ec2:RevokeSecurityGroupIngress"
+          ],
+          "Resource": "arn:aws:ec2:*:*:security-group/*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/Name": "eks-cluster-sg*"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AuthorizeSecurityGroupIngress",
+            "ec2:RevokeSecurityGroupIngress"
+          ],
+          "Resource": "arn:aws:ec2:*:*:security-group/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:AddTags"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "elasticloadbalancing:CreateAction": [
+                "CreateLoadBalancer",
+                "CreateTargetGroup",
+                "CreateListener",
+                "CreateRule"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "CreateSecurityGroup",
+                "AuthorizeSecurityGroupIngress"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:ModifyLoadBalancerAttributes",
+            "elasticloadbalancing:SetIpAddressType",
+            "elasticloadbalancing:SetSecurityGroups",
+            "elasticloadbalancing:SetSubnets",
+            "elasticloadbalancing:ModifyTargetGroup",
+            "elasticloadbalancing:ModifyTargetGroupAttributes",
+            "elasticloadbalancing:ModifyListener",
+            "elasticloadbalancing:AddListenerCertificates",
+            "elasticloadbalancing:ModifyListenerAttributes",
+            "elasticloadbalancing:RemoveListenerCertificates",
+            "elasticloadbalancing:ModifyRule"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "wafv2:AssociateWebACL",
+            "wafv2:DisassociateWebACL"
+          ],
+          "Resource": [
+            "arn:aws:wafv2:*:*:*/webacl/*/*",
+            "arn:aws:elasticloadbalancing:*:*:loadbalancer/app/*/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "shield:CreateProtection"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "eks:eks-cluster-name",
+                "ingress.eks.amazonaws.com/stack",
+                "ingress.eks.amazonaws.com/resource",
+                "service.eks.amazonaws.com/stack",
+                "service.eks.amazonaws.com/resource"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "shield:DeleteProtection"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "shield:TagResource"
+          ],
+          "Resource": "arn:aws:shield::*:protection/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "eks:eks-cluster-name",
+                "ingress.eks.amazonaws.com/stack",
+                "ingress.eks.amazonaws.com/resource",
+                "service.eks.amazonaws.com/stack",
+                "service.eks.amazonaws.com/resource"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cognito-idp:DescribeUserPoolClient",
+            "acm:ListCertificates",
+            "acm:DescribeCertificate",
+            "wafv2:GetWebACL",
+            "wafv2:GetWebACLForResource",
+            "elasticloadbalancing:SetWebAcl",
+            "elasticloadbalancing:DescribeTargetGroups"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "iam:CreateServiceLinkedRole"
+          ],
+          "Resource": "arn:aws:iam::*:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForElasticLoadBalancing",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "elasticloadbalancing.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-10-30T20:18:06+00:00"
   },
   "AmazonEKSLocalOutpostClusterPolicy": {
     "Document": {
@@ -60741,6 +61235,70 @@
     "IsDefaultVersion": true,
     "CreateDate": "2022-10-24T16:24:51+00:00"
   },
+  "AmazonEKSNetworkingPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateNetworkInterface",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            },
+            "StringLike": {
+              "aws:RequestTag/eks:kubernetes-cni-node-name": "*"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "eks:eks-cluster-name",
+                "eks:kubernetes-cni-node-name"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateNetworkInterface",
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:subnet/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateNetworkInterface"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AttachNetworkInterface",
+            "ec2:DetachNetworkInterface",
+            "ec2:UnassignPrivateIpAddresses",
+            "ec2:UnassignIpv6Addresses",
+            "ec2:AssignPrivateIpAddresses",
+            "ec2:AssignIpv6Addresses"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/eks:eks-cluster-name": "${aws:PrincipalTag/eks:eks-cluster-name}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-10-28T22:34:33+00:00"
+  },
   "AmazonEKSServicePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -60923,12 +61481,22 @@
           "Effect": "Allow",
           "Action": "logs:PutLogEvents",
           "Resource": "arn:aws:logs:*:*:log-group:/aws/eks/*:*:*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "cloudwatch:PutMetricData",
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "cloudwatch:namespace": "AWS/EKS"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-10-21T21:23:26+00:00"
+    "CreateDate": "2024-10-29T22:39:46+00:00"
   },
   "AmazonEKSVPCResourceController": {
     "Document": {
@@ -70633,7 +71201,8 @@
             "q:StartTroubleshootingResolutionExplanation",
             "q:GetTroubleshootingResults",
             "q:UpdateTroubleshootingCommandResult",
-            "q:GetIdentityMetaData"
+            "q:GetIdentityMetaData",
+            "q:GenerateCodeFromCommands"
           ],
           "Resource": "*"
         },
@@ -70656,9 +71225,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-07-09T08:35:15+00:00"
+    "CreateDate": "2024-10-28T20:02:12+00:00"
   },
   "AmazonQFullAccess": {
     "Document": {
@@ -70679,7 +71248,8 @@
             "q:UpdateTroubleshootingCommandResult",
             "q:GetIdentityMetadata",
             "q:CreateAssignment",
-            "q:DeleteAssignment"
+            "q:DeleteAssignment",
+            "q:GenerateCodeFromCommands"
           ],
           "Resource": "*"
         },
@@ -70702,9 +71272,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-07-09T08:35:50+00:00"
+    "CreateDate": "2024-10-28T20:01:31+00:00"
   },
   "AmazonQLDBConsoleFullAccess": {
     "Document": {
@@ -98501,6 +99071,11 @@
             "lookoutequipment:ListDatasets",
             "lookoutmetrics:ListAnomalyDetectors",
             "lookoutvision:ListProjects",
+            "m2:ListEnvironments",
+            "m2:ListApplications",
+            "m2:GetEnvironment",
+            "m2:GetApplication",
+            "m2:ListTagsForResource",
             "machinelearning:DescribeMLModels",
             "macie2:ListFindings",
             "managedblockchain:ListNetworks",
@@ -98830,9 +99405,9 @@
         }
       ]
     },
-    "VersionId": "v44",
+    "VersionId": "v45",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-10-17T21:16:58+00:00"
+    "CreateDate": "2024-10-30T18:36:49+00:00"
   },
   "SecurityLakeServiceLinkedRole": {
     "Document": {

@@ -54,6 +54,8 @@
           "elasticloadbalancing:DescribeLoadBalancerPolicies",
           "elasticloadbalancing:DescribeLoadBalancerPolicyTypes",
           "elasticloadbalancing:DescribeLoadBalancers",
+          "elasticloadbalancing:DescribeListeners",
+          "elasticloadbalancing:DescribeRules",
           "elasticloadbalancing:DescribeTargetGroups",
           "elasticloadbalancing:DescribeTargetHealth",
           "iam:GenerateCredentialReport",
@@ -120,7 +122,7 @@
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v14",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-06-11T18:53:22+00:00"
+  "CreateDate": "2024-10-30T16:52:06+00:00"
 }

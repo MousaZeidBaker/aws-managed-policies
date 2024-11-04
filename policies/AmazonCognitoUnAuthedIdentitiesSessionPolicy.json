@@ -22,13 +22,21 @@
           "geo:CalculateRoute*",
           "geo:*Geofence",
           "geo:*Geofences",
-          "geo:*DevicePosition*"
+          "geo:*DevicePosition*",
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:ReEncryptTo",
+          "kms:ReEncryptFrom",
+          "kms:GenerateDataKey",
+          "kms:GenerateDataKeyPair",
+          "kms:GenerateDataKeyPairWithoutPlaintext",
+          "kms:GenerateDataKeyWithoutPlaintext"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-08-09T20:02:58+00:00"
+  "CreateDate": "2024-11-01T18:12:44+00:00"
 }

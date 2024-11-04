@@ -24,6 +24,8 @@
           "iam:ListEntitiesForPolicy",
           "iam:ListRoles",
           "iam:ListUsers",
+          "iam:ListRoleTags",
+          "iam:ListUserTags",
           "iam:GetUser",
           "iam:GetGroup",
           "iam:GenerateServiceLastAccessedDetails",
@@ -98,7 +100,7 @@
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v14",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-05-30T18:34:54+00:00"
+  "CreateDate": "2024-10-29T16:35:07+00:00"
 }
