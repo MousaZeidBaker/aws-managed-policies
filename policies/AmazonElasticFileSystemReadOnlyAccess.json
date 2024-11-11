@@ -26,13 +26,14 @@
           "elasticfilesystem:DescribeAccessPoints",
           "elasticfilesystem:DescribeReplicationConfigurations",
           "elasticfilesystem:ListTagsForResource",
+          "elasticfilesystem:ReplicationRead",
           "kms:ListAliases"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-08-07T16:59:47+00:00"
+  "CreateDate": "2024-11-07T19:39:56+00:00"
 }

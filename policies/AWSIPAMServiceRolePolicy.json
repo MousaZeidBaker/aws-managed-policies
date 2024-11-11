@@ -25,7 +25,10 @@
           "organizations:DescribeAccount",
           "organizations:DescribeOrganization",
           "organizations:ListAccounts",
-          "organizations:ListDelegatedAdministrators"
+          "organizations:ListDelegatedAdministrators",
+          "organizations:ListChildren",
+          "organizations:ListParents",
+          "organizations:DescribeOrganizationalUnit"
         ],
         "Resource": "*"
       },
@@ -42,7 +45,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-08T19:05:45+00:00"
+  "CreateDate": "2024-11-08T16:29:09+00:00"
 }

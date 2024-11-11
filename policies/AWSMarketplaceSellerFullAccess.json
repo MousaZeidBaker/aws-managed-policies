@@ -6,6 +6,7 @@
         "Sid": "MarketplaceManagement",
         "Effect": "Allow",
         "Action": [
+          "aws-marketplace-management:uploadFiles",
           "aws-marketplace-management:viewReports",
           "aws-marketplace-management:viewSupport",
           "aws-marketplace:ListChangeSets",
@@ -143,7 +144,7 @@
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v14",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-21T22:18:35+00:00"
+  "CreateDate": "2024-11-06T17:19:32+00:00"
 }

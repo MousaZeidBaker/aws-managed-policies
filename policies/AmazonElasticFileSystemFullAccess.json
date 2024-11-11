@@ -3,6 +3,8 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "ElasticFileSystemFullAccess",
+        "Effect": "Allow",
         "Action": [
           "cloudwatch:DescribeAlarmsForMetric",
           "cloudwatch:GetMetricData",
@@ -49,17 +51,17 @@
           "elasticfilesystem:ListTagsForResource",
           "elasticfilesystem:Backup",
           "elasticfilesystem:Restore",
+          "elasticfilesystem:ReplicationRead",
+          "elasticfilesystem:ReplicationWrite",
           "kms:DescribeKey",
           "kms:ListAliases"
         ],
-        "Sid": "ElasticFileSystemFullAccess",
-        "Effect": "Allow",
         "Resource": "*"
       },
       {
-        "Action": "iam:CreateServiceLinkedRole",
         "Sid": "CreateServiceLinkedRoleForEFS",
         "Effect": "Allow",
+        "Action": "iam:CreateServiceLinkedRole",
         "Resource": "*",
         "Condition": {
           "StringEquals": {
@@ -68,10 +70,21 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "IAMPassRoleAccessForEFS",
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": "arn:aws:iam::*:role/*",
+        "Condition": {
+          "StringLike": {
+            "iam:PassedToService": "elasticfilesystem.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-28T16:53:28+00:00"
+  "CreateDate": "2024-11-07T19:34:20+00:00"
 }
