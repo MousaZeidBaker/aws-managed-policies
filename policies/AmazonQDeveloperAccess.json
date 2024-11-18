@@ -16,7 +16,8 @@
           "q:GetTroubleshootingResults",
           "q:UpdateTroubleshootingCommandResult",
           "q:GetIdentityMetaData",
-          "q:GenerateCodeFromCommands"
+          "q:GenerateCodeFromCommands",
+          "q:UsePlugin"
         ],
         "Resource": "*"
       },
@@ -39,7 +40,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-28T20:02:12+00:00"
+  "CreateDate": "2024-11-13T21:30:27+00:00"
 }

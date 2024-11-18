@@ -178,7 +178,7 @@
           "*"
         ],
         "Condition": {
-          "StringLike": {
+          "ArnLike": {
             "lambda:FunctionArn": [
               "arn:aws:lambda:*:*:function:DeadlineResourceTracker*"
             ]
@@ -250,7 +250,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-04-12T20:55:58+00:00"
+  "CreateDate": "2024-11-12T19:29:09+00:00"
 }

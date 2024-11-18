@@ -41,11 +41,20 @@
           "invoicing:GetInvoiceEmailDeliveryPreferences",
           "invoicing:GetInvoicePDF",
           "invoicing:ListInvoiceSummaries",
+          "payments:GetFinancingApplication",
+          "payments:GetFinancingLine",
+          "payments:GetFinancingLineWithdrawal",
+          "payments:GetFinancingOption",
           "payments:GetPaymentInstrument",
           "payments:GetPaymentStatus",
-          "payments:ListPaymentPreferences",
-          "payments:ListTagsForResource",
+          "payments:ListFinancingApplications",
+          "payments:ListFinancingLines",
+          "payments:ListFinancingLineWithdrawals",
           "payments:ListPaymentInstruments",
+          "payments:ListPaymentPreferences",
+          "payments:ListPaymentProgramOptions",
+          "payments:ListPaymentProgramStatus",
+          "payments:ListTagsForResource",
           "purchase-orders:GetPurchaseOrder",
           "purchase-orders:ViewPurchaseOrders",
           "purchase-orders:ListPurchaseOrderInvoices",
@@ -60,7 +69,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-05-23T23:23:30+00:00"
+  "CreateDate": "2024-11-12T18:16:52+00:00"
 }

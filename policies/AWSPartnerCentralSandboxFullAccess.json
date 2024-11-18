@@ -1,0 +1,23 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AWSPartnerCentralSandboxAccess",
+        "Effect": "Allow",
+        "Action": [
+          "partnercentral:*"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "partnercentral:Catalog": "Sandbox"
+          }
+        }
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2024-11-14T19:10:37+00:00"
+}

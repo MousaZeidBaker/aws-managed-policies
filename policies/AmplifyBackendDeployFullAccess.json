@@ -87,7 +87,8 @@
           "logs:FilterLogEvents"
         ],
         "Resource": [
-          "arn:aws:logs:*:*:log-group:/aws/lambda/amplify-*:*"
+          "arn:aws:logs:*:*:log-group:/aws/lambda/amplify-*:*",
+          "arn:aws:logs:*:*:log-group:amplify-*:*"
         ]
       },
       {
@@ -182,7 +183,7 @@
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-07-18T17:05:12+00:00"
+  "CreateDate": "2024-11-14T19:09:39+00:00"
 }

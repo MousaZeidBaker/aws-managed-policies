@@ -115,10 +115,18 @@
           "vpc-lattice:RegisterTargets"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "ResourceGroupsManagement",
+        "Effect": "Allow",
+        "Action": [
+          "resource-groups:ListGroupResources"
+        ],
+        "Resource": "arn:*:resource-groups:*:*:group/*"
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-02-29T17:48:58+00:00"
+  "CreateDate": "2024-11-15T17:10:25+00:00"
 }

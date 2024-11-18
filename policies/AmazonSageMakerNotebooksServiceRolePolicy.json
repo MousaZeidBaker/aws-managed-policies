@@ -3,6 +3,19 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Sid": "AllowFSxDescribe",
+        "Effect": "Allow",
+        "Action": [
+          "fsx:DescribeFileSystems"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
         "Sid": "AllowSageMakerDeleteApp",
         "Effect": "Allow",
         "Action": [
@@ -174,7 +187,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-07-24T18:05:40+00:00"
+  "CreateDate": "2024-11-14T20:33:45+00:00"
 }

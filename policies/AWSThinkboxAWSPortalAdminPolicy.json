@@ -95,7 +95,7 @@
         "Action": "ec2:RunInstances",
         "Resource": "arn:aws:ec2:*:*:instance/*",
         "Condition": {
-          "StringLike": {
+          "ArnLike": {
             "ec2:InstanceProfile": "arn:aws:iam::*:instance-profile/AWSPortal*"
           }
         }
@@ -117,8 +117,8 @@
         "Action": "ec2:TerminateInstances",
         "Resource": "*",
         "Condition": {
-          "StringLike": {
-            "ec2:ResourceTag/aws:ec2spot:fleet-request-id": "*"
+          "Null": {
+            "ec2:ResourceTag/aws:ec2spot:fleet-request-id": false
           }
         }
       },
@@ -128,8 +128,8 @@
         "Action": "ec2:TerminateInstances",
         "Resource": "*",
         "Condition": {
-          "StringLike": {
-            "ec2:PlacementGroup": "*DeadlinePlacementGroup*"
+          "ArnLike": {
+            "ec2:PlacementGroup": "arn:aws:ec2:*:*:placement-group/*DeadlinePlacementGroup*"
           }
         }
       },
@@ -141,8 +141,8 @@
         ],
         "Resource": "arn:aws:ec2:*:*:instance/*",
         "Condition": {
-          "StringLike": {
-            "ec2:PlacementGroup": "*DeadlinePlacementGroup*"
+          "ArnLike": {
+            "ec2:PlacementGroup": "arn:aws:ec2:*:*:placement-group/*DeadlinePlacementGroup*"
           }
         }
       },
@@ -424,7 +424,7 @@
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-04-12T20:07:12+00:00"
+  "CreateDate": "2024-11-12T19:22:36+00:00"
 }

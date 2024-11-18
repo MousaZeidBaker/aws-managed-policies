@@ -18,7 +18,16 @@
           "q:GetIdentityMetadata",
           "q:CreateAssignment",
           "q:DeleteAssignment",
-          "q:GenerateCodeFromCommands"
+          "q:GenerateCodeFromCommands",
+          "q:CreatePlugin",
+          "q:DeletePlugin",
+          "q:GetPlugin",
+          "q:UsePlugin",
+          "q:ListPlugins",
+          "q:ListPluginProviders",
+          "q:ListTagsForResource",
+          "q:UntagResource",
+          "q:TagResource"
         ],
         "Resource": "*"
       },
@@ -38,10 +47,25 @@
           "sts:SetContext"
         ],
         "Resource": "arn:aws:sts::*:self"
+      },
+      {
+        "Sid": "AllowPassRoleToAmazonQ",
+        "Effect": "Allow",
+        "Action": [
+          "iam:PassRole"
+        ],
+        "Resource": "arn:aws:iam::*:role/*",
+        "Condition": {
+          "StringEquals": {
+            "iam:PassedToService": [
+              "q.amazonaws.com"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-28T20:01:31+00:00"
+  "CreateDate": "2024-11-13T21:51:39+00:00"
 }
