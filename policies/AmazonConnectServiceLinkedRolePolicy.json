@@ -354,10 +354,21 @@
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
+      },
+      {
+        "Sid": "AllowMobileTargetingOperationsForConnect",
+        "Effect": "Allow",
+        "Action": "mobiletargeting:SendMessages",
+        "Resource": "arn:aws:mobiletargeting:*:*:apps/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v20",
+  "VersionId": "v21",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-14T18:06:40+00:00"
+  "CreateDate": "2024-11-21T23:06:06+00:00"
 }

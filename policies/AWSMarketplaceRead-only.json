@@ -3,9 +3,10 @@
     "Version": "2012-10-17",
     "Statement": [
       {
-        "Resource": "*",
+        "Effect": "Allow",
         "Action": [
           "aws-marketplace:ViewSubscriptions",
+          "aws-marketplace:ListAgreementCharges",
           "ec2:DescribeAccountAttributes",
           "ec2:DescribeAddresses",
           "ec2:DescribeImages",
@@ -15,10 +16,9 @@
           "ec2:DescribeSubnets",
           "ec2:DescribeVpcs"
         ],
-        "Effect": "Allow"
+        "Resource": "*"
       },
       {
-        "Resource": "*",
         "Effect": "Allow",
         "Action": [
           "aws-marketplace:ListBuilds",
@@ -27,15 +27,16 @@
           "iam:ListInstanceProfiles",
           "sns:GetTopicAttributes",
           "sns:ListTopics"
-        ]
+        ],
+        "Resource": "*"
       },
       {
-        "Resource": "*",
         "Effect": "Allow",
         "Action": [
           "aws-marketplace:ListPrivateMarketplaceRequests",
           "aws-marketplace:DescribePrivateMarketplaceRequests"
-        ]
+        ],
+        "Resource": "*"
       },
       {
         "Effect": "Allow",
@@ -46,7 +47,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-01-19T23:30:25+00:00"
+  "CreateDate": "2024-11-20T18:14:55+00:00"
 }

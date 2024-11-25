@@ -19,6 +19,19 @@
         "Resource": "arn:aws:ssm:*:*:resource-data-sync/AWS-QuickSetup-*"
       },
       {
+        "Sid": "SSMResourceDataSyncManagePermissions",
+        "Effect": "Allow",
+        "Action": [
+          "ssm:DeleteResourceDataSync"
+        ],
+        "Resource": "arn:aws:ssm:*:*:resource-data-sync/AWS-QuickSetup-*",
+        "Condition": {
+          "StringEquals": {
+            "ssm:SyncType": "SyncFromSource"
+          }
+        }
+      },
+      {
         "Sid": "SSMAssociationsReadOnlyPermissions",
         "Effect": "Allow",
         "Action": [
@@ -43,11 +56,13 @@
         "Sid": "OrganizationReadOnlyPermissions",
         "Effect": "Allow",
         "Action": [
+          "organizations:ListAccounts",
           "organizations:ListRoots",
           "organizations:ListAWSServiceAccessForOrganization",
           "organizations:ListDelegatedAdministrators",
           "organizations:ListAccountsForParent",
-          "organizations:ListOrganizationalUnitsForParent"
+          "organizations:ListOrganizationalUnitsForParent",
+          "organizations:ListDelegatedServicesForAccount"
         ],
         "Resource": "*"
       },
@@ -55,11 +70,13 @@
         "Sid": "QuickSetupStackSetReadOnlyPermissions",
         "Effect": "Allow",
         "Action": [
+          "cloudformation:DescribeStackInstance",
           "cloudformation:DescribeStackSet",
           "cloudformation:DescribeStackSetOperation",
           "cloudformation:ListStackInstances",
           "cloudformation:ListStackSetOperations",
-          "cloudformation:ListStackSetOperationResults"
+          "cloudformation:ListStackSetOperationResults",
+          "cloudformation:GetTemplate"
         ],
         "Resource": [
           "arn:aws:cloudformation:*:*:stackset/AWS-QuickSetup-*",
@@ -89,10 +106,21 @@
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
+      },
+      {
+        "Sid": "QuickSetupCfnStacksDescribePermissions",
+        "Effect": "Allow",
+        "Action": [
+          "cloudformation:DescribeStacks",
+          "cloudformation:ListStacks"
+        ],
+        "Resource": [
+          "*"
+        ]
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-08-12T14:32:20+00:00"
+  "CreateDate": "2024-11-18T13:06:59+00:00"
 }

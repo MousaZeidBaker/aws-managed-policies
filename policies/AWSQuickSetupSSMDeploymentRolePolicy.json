@@ -25,7 +25,8 @@
           "cloudformation:DescribeChangeSet",
           "cloudformation:DescribeStackResourceDrifts",
           "cloudformation:DetectStackDrift",
-          "cloudformation:DetectStackResourceDrift"
+          "cloudformation:DetectStackResourceDrift",
+          "cloudformation:DescribeStackEvents"
         ],
         "Resource": [
           "arn:aws:cloudformation:*:*:stack/StackSet-AWS-QuickSetup-SSM-*"
@@ -290,7 +291,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-15T22:53:20+00:00"
+  "CreateDate": "2024-11-20T12:43:56+00:00"
 }

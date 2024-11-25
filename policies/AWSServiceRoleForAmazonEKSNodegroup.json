@@ -155,10 +155,9 @@
         "Resource": "arn:aws:iam::*:instance-profile/eks-*"
       },
       {
-        "Sid": "PermissionsToManageEKSAndKubernetesTags",
+        "Sid": "PermissionsToDeleteEKSAndKubernetesTags",
         "Effect": "Allow",
         "Action": [
-          "ec2:CreateTags",
           "ec2:DeleteTags"
         ],
         "Resource": "*",
@@ -172,10 +171,71 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "PermissionsForManagedNodegroupsAutoRepair",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:RebootInstances"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "ec2:ResourceTag/eks:nodegroup-name": "*"
+          }
+        }
+      },
+      {
+        "Sid": "PermissionsToCreateEKSAndKubernetesTags",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:CreateTags"
+        ],
+        "Resource": [
+          "arn:*:ec2:*:*:security-group/*",
+          "arn:*:ec2:*:*:launch-template/*"
+        ],
+        "Condition": {
+          "ForAnyValue:StringLike": {
+            "aws:TagKeys": [
+              "eks",
+              "eks:cluster-name",
+              "eks:nodegroup-name",
+              "kubernetes.io/cluster/*"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "AllowTaggingEC2ResourcesOnlyDuringInstanceCreation",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:CreateTags"
+        ],
+        "Resource": [
+          "arn:*:ec2:*:*:instance/*",
+          "arn:*:ec2:*:*:volume/*",
+          "arn:*:ec2:*:*:network-interface/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "ec2:CreateAction": [
+              "RunInstances"
+            ]
+          },
+          "ForAnyValue:StringLike": {
+            "aws:TagKeys": [
+              "eks",
+              "eks:cluster-name",
+              "eks:nodegroup-name",
+              "kubernetes.io/cluster/*"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-08-21T15:51:37+00:00"
+  "CreateDate": "2024-11-21T00:07:12+00:00"
 }

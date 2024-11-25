@@ -22,6 +22,7 @@
           "dynamodb:BatchGetItem",
           "dynamodb:Describe*",
           "dynamodb:List*",
+          "dynamodb:GetAbacStatus",
           "dynamodb:GetItem",
           "dynamodb:GetResourcePolicy",
           "dynamodb:Query",
@@ -65,7 +66,7 @@
       }
     ]
   },
-  "VersionId": "v14",
+  "VersionId": "v15",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-20T15:45:01+00:00"
+  "CreateDate": "2024-11-18T17:38:15+00:00"
 }

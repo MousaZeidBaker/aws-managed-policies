@@ -226,10 +226,27 @@
           "arn:aws:servicequotas:*:*:ec2/L-0263D0A3",
           "arn:aws:servicequotas:*:*:vpc/L-29B6F2EB"
         ]
+      },
+      {
+        "Sid": "DiscoverRedshiftCatalogs",
+        "Effect": "Allow",
+        "Action": [
+          "glue:GetCatalog",
+          "glue:GetCatalogs"
+        ],
+        "Resource": [
+          "arn:aws:glue:*:*:catalog",
+          "arn:aws:glue:*:*:catalog/*"
+        ],
+        "Condition": {
+          "Bool": {
+            "glue:EnabledForRedshiftAutoDiscovery": "true"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v14",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-15T20:00:47+00:00"
+  "CreateDate": "2024-11-20T18:06:07+00:00"
 }

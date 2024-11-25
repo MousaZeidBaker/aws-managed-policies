@@ -12,8 +12,8 @@
           "arn:aws:ec2:*:*:instance/*"
         ],
         "Condition": {
-          "StringLike": {
-            "ec2:SourceInstanceARN": "*${ec2:InstanceId}"
+          "ArnLike": {
+            "ec2:SourceInstanceARN": "arn:aws:ec2:*:*:instance/${ec2:InstanceId}"
           }
         }
       },
@@ -42,8 +42,8 @@
           "arn:aws:ec2:*:*:instance/*"
         ],
         "Condition": {
-          "StringLike": {
-            "ec2:SourceInstanceARN": "*${ec2:InstanceId}"
+          "ArnLike": {
+            "ec2:SourceInstanceARN": "arn:aws:ec2:*:*:instance/${ec2:InstanceId}"
           }
         }
       },
@@ -83,8 +83,8 @@
           "arn:aws:ec2:*:*:instance/*"
         ],
         "Condition": {
-          "StringLike": {
-            "ec2:SourceInstanceARN": "*${ec2:InstanceId}"
+          "ArnLike": {
+            "ec2:SourceInstanceARN": "arn:aws:ec2:*:*:instance/${ec2:InstanceId}"
           }
         }
       },
@@ -136,7 +136,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-27T16:32:53+00:00"
+  "CreateDate": "2024-11-20T17:44:08+00:00"
 }

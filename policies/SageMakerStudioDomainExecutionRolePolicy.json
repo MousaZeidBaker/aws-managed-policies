@@ -3,7 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
-        "Sid": "AmazonDataZoneUserOperations",
+        "Sid": "DataZonePermissions",
         "Effect": "Allow",
         "Action": [
           "datazone:AcceptPredictions",
@@ -16,12 +16,12 @@
           "datazone:CreateAssetFilter",
           "datazone:CreateAssetRevision",
           "datazone:CreateAssetType",
+          "datazone:CreateConnection",
           "datazone:CreateDataProduct",
           "datazone:CreateDataProductRevision",
           "datazone:CreateDataSource",
           "datazone:CreateDomainUnit",
           "datazone:CreateEnvironment",
-          "datazone:CreateEnvironmentBlueprint",
           "datazone:CreateEnvironmentProfile",
           "datazone:CreateFormType",
           "datazone:CreateGlossary",
@@ -29,17 +29,16 @@
           "datazone:CreateListingChangeSet",
           "datazone:CreateProject",
           "datazone:CreateProjectMembership",
-          "datazone:CreateRule",
           "datazone:CreateSubscriptionGrant",
           "datazone:CreateSubscriptionRequest",
           "datazone:DeleteAsset",
           "datazone:DeleteAssetFilter",
           "datazone:DeleteAssetType",
+          "datazone:DeleteConnection",
           "datazone:DeleteDataProduct",
           "datazone:DeleteDataSource",
           "datazone:DeleteDomainUnit",
           "datazone:DeleteEnvironment",
-          "datazone:DeleteEnvironmentBlueprint",
           "datazone:DeleteEnvironmentProfile",
           "datazone:DeleteFormType",
           "datazone:DeleteGlossary",
@@ -47,7 +46,6 @@
           "datazone:DeleteListing",
           "datazone:DeleteProject",
           "datazone:DeleteProjectMembership",
-          "datazone:DeleteRule",
           "datazone:DeleteSubscriptionGrant",
           "datazone:DeleteSubscriptionRequest",
           "datazone:DeleteSubscriptionTarget",
@@ -55,26 +53,27 @@
           "datazone:GetAsset",
           "datazone:GetAssetFilter",
           "datazone:GetAssetType",
+          "datazone:GetConnection",
           "datazone:GetDataProduct",
           "datazone:GetDataSource",
           "datazone:GetDataSourceRun",
           "datazone:GetDomain",
           "datazone:GetDomainUnit",
           "datazone:GetEnvironment",
+          "datazone:GetEnvironmentAction",
           "datazone:GetEnvironmentActionLink",
           "datazone:GetEnvironmentBlueprint",
+          "datazone:GetEnvironmentBlueprintConfiguration",
           "datazone:GetEnvironmentCredentials",
           "datazone:GetEnvironmentProfile",
           "datazone:GetFormType",
           "datazone:GetGlossary",
           "datazone:GetGlossaryTerm",
           "datazone:GetGroupProfile",
-          "datazone:GetIamPortalLoginUrl",
           "datazone:GetLineageNode",
           "datazone:GetListing",
           "datazone:GetMetadataGenerationRun",
           "datazone:GetProject",
-          "datazone:GetRule",
           "datazone:GetSubscription",
           "datazone:GetSubscriptionEligibility",
           "datazone:GetSubscriptionGrant",
@@ -85,12 +84,15 @@
           "datazone:ListAccountEnvironments",
           "datazone:ListAssetFilters",
           "datazone:ListAssetRevisions",
+          "datazone:ListConnections",
           "datazone:ListDataProductRevisions",
           "datazone:ListDataSourceRunActivities",
           "datazone:ListDataSourceRuns",
           "datazone:ListDataSources",
           "datazone:ListDomainUnitsForParent",
           "datazone:ListEntityOwners",
+          "datazone:ListEnvironmentActions",
+          "datazone:ListEnvironmentBlueprintConfigurationSummaries",
           "datazone:ListEnvironmentBlueprintConfigurations",
           "datazone:ListEnvironmentBlueprints",
           "datazone:ListEnvironmentProfiles",
@@ -102,14 +104,12 @@
           "datazone:ListPolicyGrants",
           "datazone:ListProjectMemberships",
           "datazone:ListProjects",
-          "datazone:ListRules",
           "datazone:ListSubscriptionGrants",
           "datazone:ListSubscriptionRequests",
           "datazone:ListSubscriptionTargets",
           "datazone:ListSubscriptions",
           "datazone:ListTimeSeriesDataPoints",
           "datazone:ListWarehouseMetadata",
-          "datazone:PostTimeSeriesDataPoints",
           "datazone:RejectPredictions",
           "datazone:RejectSubscriptionRequest",
           "datazone:RemoveEntityOwner",
@@ -118,36 +118,112 @@
           "datazone:Search",
           "datazone:SearchGroupProfiles",
           "datazone:SearchListings",
-          "datazone:SearchRules",
           "datazone:SearchTypes",
           "datazone:SearchUserProfiles",
           "datazone:StartDataSourceRun",
           "datazone:StartMetadataGenerationRun",
           "datazone:UpdateAssetFilter",
+          "datazone:UpdateConnection",
           "datazone:UpdateDataSource",
           "datazone:UpdateDomainUnit",
           "datazone:UpdateEnvironment",
-          "datazone:UpdateEnvironmentBlueprint",
           "datazone:UpdateEnvironmentDeploymentStatus",
           "datazone:UpdateEnvironmentProfile",
           "datazone:UpdateGlossary",
           "datazone:UpdateGlossaryTerm",
           "datazone:UpdateProject",
-          "datazone:UpdateRule",
           "datazone:UpdateSubscriptionGrantStatus",
           "datazone:UpdateSubscriptionRequest"
         ],
         "Resource": "*"
       },
       {
-        "Sid": "RAMResourceShareOperations",
+        "Sid": "RAMResourceShareStatement",
         "Effect": "Allow",
-        "Action": "ram:GetResourceShareAssociations",
+        "Action": [
+          "ram:GetResourceShareAssociations",
+          "ram:GetResourceShares"
+        ],
         "Resource": "*"
+      },
+      {
+        "Sid": "AmazonQPermissionsStatement",
+        "Effect": "Allow",
+        "Action": [
+          "q:StartConversation",
+          "q:SendMessage",
+          "q:ListConversations",
+          "q:GetConversation",
+          "q:PassRequest",
+          "glue:StartCompletion",
+          "glue:GetCompletion"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "AllowSetTrustedIdentity",
+        "Effect": "Allow",
+        "Action": [
+          "sts:SetContext"
+        ],
+        "Resource": "arn:aws:sts::*:self"
+      },
+      {
+        "Sid": "SSMGetParameterStatement",
+        "Effect": "Allow",
+        "Action": [
+          "ssm:GetParameter"
+        ],
+        "Resource": [
+          "arn:aws:ssm:*:*:parameter/amazon/datazone/q/${aws:PrincipalTag/datazone-domainId}*",
+          "arn:aws:ssm:*:*:parameter/amazon/datazone/genAI/${aws:PrincipalTag/datazone-domainId}/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "ListCodeConnectionsPermissionsStatement",
+        "Effect": "Allow",
+        "Action": [
+          "codeconnections:ListConnections",
+          "codeconnections:ListTagsForResource",
+          "codestar-connections:ListConnections",
+          "codestar-connections:ListTagsForResource"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "UseCodeConnectionsPermissionsStatement",
+        "Effect": "Allow",
+        "Action": [
+          "codeconnections:UseConnection",
+          "codestar-connections:UseConnection"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/for-use-with-all-datazone-projects": "false"
+          },
+          "StringEquals": {
+            "aws:ResourceTag/for-use-with-all-datazone-projects": "true"
+          }
+        }
+      },
+      {
+        "Sid": "ProjectProfilePermissionsStatement",
+        "Effect": "Allow",
+        "Action": [
+          "datazone:GetProjectProfile",
+          "datazone:ListProjectProfiles"
+        ],
+        "Resource": "arn:aws:datazone:*:*:domain/*"
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v1",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-19T21:38:59+00:00"
+  "CreateDate": "2024-11-20T21:56:55+00:00"
 }

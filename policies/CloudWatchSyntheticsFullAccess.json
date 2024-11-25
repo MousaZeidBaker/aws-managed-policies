@@ -109,12 +109,32 @@
       {
         "Effect": "Allow",
         "Action": [
+          "logs:GetLogRecord",
+          "logs:DescribeLogStreams",
+          "logs:StartQuery",
+          "logs:GetLogEvents",
+          "logs:FilterLogEvents",
+          "logs:GetLogGroupFields"
+        ],
+        "Resource": [
+          "arn:aws:logs:*:*:log-group:/aws/lambda/cwsyn-*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
           "lambda:CreateFunction",
           "lambda:AddPermission",
           "lambda:PublishVersion",
           "lambda:UpdateFunctionCode",
           "lambda:UpdateFunctionConfiguration",
           "lambda:GetFunctionConfiguration",
+          "lambda:GetFunction",
           "lambda:DeleteFunction",
           "lambda:ListTags",
           "lambda:TagResource",
@@ -134,7 +154,8 @@
         "Resource": [
           "arn:aws:lambda:*:*:layer:cwsyn-*",
           "arn:aws:lambda:*:*:layer:Synthetics:*",
-          "arn:aws:lambda:*:*:layer:Synthetics_Selenium:*"
+          "arn:aws:lambda:*:*:layer:Synthetics_Selenium:*",
+          "arn:aws:lambda:*:*:layer:AWS-CW-Synthetics*:*"
         ]
       },
       {
@@ -198,7 +219,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-11T17:07:13+00:00"
+  "CreateDate": "2024-11-21T22:21:05+00:00"
 }
