@@ -20,10 +20,26 @@
           "iam:DeleteRole"
         ],
         "Resource": "arn:aws:iam::*:role/aws-service-role/profile.amazonaws.com/AWSServiceRoleForProfile_*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "connect-campaigns:PutProfileOutboundRequestBatch"
+        ],
+        "Resource": [
+          "arn:aws:connect-campaigns:*:*:campaign/*"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "profile:BatchGetProfile"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-03-07T22:56:52+00:00"
+  "CreateDate": "2024-11-26T22:21:06+00:00"
 }

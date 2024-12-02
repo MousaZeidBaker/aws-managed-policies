@@ -24,13 +24,15 @@
           "logs:DescribeLogGroups",
           "logs:GetLogDelivery",
           "logs:ListLogDeliveries",
-          "s3:ListAllMyBuckets"
+          "s3:ListAllMyBuckets",
+          "rds:DescribeDBInstances",
+          "rds:DescribeDBClusters"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-03-30T02:47:25+00:00"
+  "CreateDate": "2024-12-01T14:21:06+00:00"
 }

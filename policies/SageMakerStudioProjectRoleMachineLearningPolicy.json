@@ -243,6 +243,7 @@
           "sagemaker:CreateTransformJob",
           "sagemaker:CreateProcessingJob",
           "sagemaker:CreateAutoMLJob",
+          "sagemaker:CreateAutoMLJobV2",
           "sagemaker:CreateHyperParameterTuningJob",
           "sagemaker:CreateEndpointConfig",
           "sagemaker:CreateEndpoint",
@@ -276,6 +277,7 @@
           "sagemaker:DeleteEndpoint",
           "sagemaker:UpdateEndpoint",
           "sagemaker:UpdateEndpointWeightsAndCapacities",
+          "sagemaker:UpdateInferenceComponentRuntimeConfig",
           "sagemaker:BatchDescribeModelPackage",
           "sagemaker:UpdateModelPackage",
           "sagemaker:DeleteModel",
@@ -289,13 +291,26 @@
           "sagemaker:DescribeEndpointConfig",
           "sagemaker:DescribeModel",
           "sagemaker:DescribeOptimizationJob",
-          "sagemaker:DescribeEndpoint",
-          "sagemaker:UpdateInferenceComponentRuntimeConfig"
+          "sagemaker:DescribeEndpoint"
         ],
         "Resource": "*",
         "Condition": {
           "StringEquals": {
             "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}",
+            "aws:PrincipalTag/EnableSageMakerMLWorkloadsPermissions": "true"
+          }
+        }
+      },
+      {
+        "Sid": "SageMakerUpdateInferenceComponentRuntimeConfigAutoscalingPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "sagemaker:UpdateInferenceComponentRuntimeConfig"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:CalledViaLast": "application-autoscaling.amazonaws.com",
             "aws:PrincipalTag/EnableSageMakerMLWorkloadsPermissions": "true"
           }
         }
@@ -694,7 +709,8 @@
         "Resource": "arn:aws:cloudwatch:*:*:alarm:TargetTracking*",
         "Condition": {
           "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            "aws:ResourceAccount": "${aws:PrincipalAccount}",
+            "aws:CalledViaLast": "application-autoscaling.amazonaws.com"
           }
         }
       },
@@ -799,7 +815,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-24T19:51:06+00:00"
+  "CreateDate": "2024-11-27T06:21:07+00:00"
 }
