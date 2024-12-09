@@ -1,0 +1,29 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AIOpsReadOnlyAccess",
+        "Effect": "Allow",
+        "Action": [
+          "aiops:Get*",
+          "aiops:List*"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "SSOManagementAccess",
+        "Effect": "Allow",
+        "Action": [
+          "identitystore:DescribeUser",
+          "sso:DescribeInstance",
+          "sso-directory:DescribeUsers"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2024-12-02T23:51:07+00:00"
+}

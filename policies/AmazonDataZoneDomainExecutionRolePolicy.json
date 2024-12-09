@@ -64,6 +64,7 @@
           "datazone:GetEnvironmentAction",
           "datazone:GetEnvironmentActionLink",
           "datazone:GetEnvironmentBlueprint",
+          "datazone:GetEnvironmentBlueprintConfiguration",
           "datazone:GetEnvironmentCredentials",
           "datazone:GetEnvironmentProfile",
           "datazone:GetFormType",
@@ -148,7 +149,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-19T18:51:47+00:00"
+  "CreateDate": "2024-12-03T14:06:07+00:00"
 }

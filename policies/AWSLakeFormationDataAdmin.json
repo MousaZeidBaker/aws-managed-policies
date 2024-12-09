@@ -9,6 +9,11 @@
           "lakeformation:*",
           "cloudtrail:DescribeTrails",
           "cloudtrail:LookupEvents",
+          "glue:CreateCatalog",
+          "glue:UpdateCatalog",
+          "glue:DeleteCatalog",
+          "glue:GetCatalog",
+          "glue:GetCatalogs",
           "glue:GetDatabase",
           "glue:GetDatabases",
           "glue:CreateDatabase",
@@ -50,7 +55,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-22T18:27:42+00:00"
+  "CreateDate": "2024-12-03T15:06:06+00:00"
 }
