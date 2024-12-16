@@ -333,13 +333,29 @@
           "workspaces:CreateTags",
           "workspaces:DeleteTags",
           "xray:TagResource",
-          "xray:UntagResource"
+          "xray:UntagResource",
+          "kinesisvideo:TagResource",
+          "kinesisvideo:UntagResource",
+          "redshift-serverless:TagResource",
+          "redshift-serverless:UntagResource",
+          "route53-recovery-control-config:TagResource",
+          "route53-recovery-control-config:UntagResource",
+          "route53-recovery-readiness:TagResource",
+          "route53-recovery-readiness:UntagResource",
+          "ssm-contacts:TagResource",
+          "ssm-contacts:UntagResource",
+          "ssm-incidents:TagResource",
+          "ssm-incidents:UntagResource",
+          "vpc-lattice:TagResource",
+          "vpc-lattice:UntagResource",
+          "workspaces-web:TagResource",
+          "workspaces-web:UntagResource"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-11T11:11:14+00:00"
+  "CreateDate": "2024-12-11T17:51:30+00:00"
 }

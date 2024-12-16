@@ -49,14 +49,14 @@
           "arn:aws:s3:*:*:accesspoint/panorama*"
         ],
         "Condition": {
-          "StringLike": {
+          "ArnLike": {
             "s3:DataAccessPointArn": "arn:aws:s3:*:*:accesspoint/panorama*"
           }
         }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-01-17T21:32:36+00:00"
+  "CreateDate": "2024-12-10T20:06:11+00:00"
 }

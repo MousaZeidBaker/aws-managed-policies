@@ -7,6 +7,11 @@
         "Effect": "Allow",
         "Action": [
           "ec2:DescribeInstances",
+          "ec2:DescribeRouteTables",
+          "ec2:DescribeInstanceTypes",
+          "ec2:DescribeVolumes",
+          "ec2:DescribeInstanceAttribute",
+          "ec2:DescribeSnapshots",
           "ssm:GetCommandInvocation",
           "ssm:DescribeInstanceInformation"
         ],
@@ -352,7 +357,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-08-29T22:17:07+00:00"
+  "CreateDate": "2024-12-11T22:51:34+00:00"
 }

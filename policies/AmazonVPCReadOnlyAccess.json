@@ -28,6 +28,7 @@
           "ec2:DescribeSecurityGroupReferences",
           "ec2:DescribeSecurityGroupRules",
           "ec2:DescribeSecurityGroups",
+          "ec2:DescribeSecurityGroupVpcAssociations",
           "ec2:DescribeStaleSecurityGroups",
           "ec2:DescribeSubnets",
           "ec2:DescribeTags",
@@ -50,7 +51,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-02-08T17:08:19+00:00"
+  "CreateDate": "2024-12-09T15:06:07+00:00"
 }

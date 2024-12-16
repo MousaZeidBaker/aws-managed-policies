@@ -1,0 +1,30 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "partnercentral:CreateResourceSnapshot"
+        ],
+        "Resource": [
+          "arn:aws:partnercentral:*::catalog/AWS/engagement/*",
+          "arn:aws:partnercentral:*::catalog/Sandbox/engagement/*"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "partnercentral:GetOpportunity"
+        ],
+        "Resource": [
+          "arn:aws:partnercentral:*:*:catalog/AWS/opportunity/*",
+          "arn:aws:partnercentral:*:*:catalog/Sandbox/opportunity/*"
+        ]
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2024-12-10T18:21:15+00:00"
+}

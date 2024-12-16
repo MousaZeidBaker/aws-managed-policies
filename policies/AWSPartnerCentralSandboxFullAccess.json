@@ -14,10 +14,25 @@
             "partnercentral:Catalog": "Sandbox"
           }
         }
+      },
+      {
+        "Sid": "PassAWSPartnerCentralSnapshotJobRole",
+        "Effect": "Allow",
+        "Action": [
+          "iam:PassRole"
+        ],
+        "Resource": [
+          "arn:aws:iam::*:role/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "iam:PassedToService": "resource-snapshot-job.partnercentral-selling.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-14T19:10:37+00:00"
+  "CreateDate": "2024-12-10T18:21:19+00:00"
 }
