@@ -18,7 +18,8 @@
           "ec2:ModifySnapshotAttribute",
           "ec2:DescribeSnapshotAttribute",
           "ec2:DescribeSnapshotTierStatus",
-          "ec2:ModifySnapshotTier"
+          "ec2:ModifySnapshotTier",
+          "ec2:DescribeAvailabilityZones"
         ],
         "Resource": "*"
       },
@@ -45,7 +46,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-09-19T17:34:08+00:00"
+  "CreateDate": "2024-12-16T17:37:06+00:00"
 }

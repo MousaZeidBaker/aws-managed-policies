@@ -7255,6 +7255,133 @@
     "IsDefaultVersion": true,
     "CreateDate": "2024-09-27T20:02:34+00:00"
   },
+  "AWSBackupServiceRolePolicyForIndexing": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "EBSReadOnlyPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSnapshots"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "KMSReadOnlyPermissions",
+          "Effect": "Allow",
+          "Action": "kms:DescribeKey",
+          "Resource": "arn:aws:kms:*:*:key/*"
+        },
+        {
+          "Sid": "EBSDirectReadAPIPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ebs:ListSnapshotBlocks",
+            "ebs:GetSnapshotBlock"
+          ],
+          "Resource": "arn:aws:ec2:*::snapshot/*"
+        },
+        {
+          "Sid": "KMSDataKeyForEC2Permissions",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "arn:aws:kms:*:*:key/*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": [
+                "ec2.*.amazonaws.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-12-17T18:37:06+00:00"
+  },
+  "AWSBackupServiceRolePolicyForItemRestores": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "EBSReadOnlyPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSnapshots"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "KMSReadOnlyPermissions",
+          "Effect": "Allow",
+          "Action": "kms:DescribeKey",
+          "Resource": "arn:aws:kms:*:*:key/*"
+        },
+        {
+          "Sid": "EBSDirectReadAPIPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ebs:ListSnapshotBlocks",
+            "ebs:GetSnapshotBlock"
+          ],
+          "Resource": "arn:aws:ec2:*::snapshot/*"
+        },
+        {
+          "Sid": "S3ReadonlyPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetBucketLocation",
+            "s3:ListBucket"
+          ],
+          "Resource": "arn:aws:s3:::*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "S3PermissionsForFileLevelRestore",
+          "Effect": "Allow",
+          "Action": [
+            "s3:PutObject",
+            "s3:AbortMultipartUpload",
+            "s3:ListMultipartUploadParts"
+          ],
+          "Resource": "arn:aws:s3:::*/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "KMSDataKeyForS3AndEC2Permissions",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt",
+            "kms:GenerateDataKey"
+          ],
+          "Resource": "arn:aws:kms:*:*:key/*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": [
+                "ec2.*.amazonaws.com",
+                "s3.*.amazonaws.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2024-12-17T18:37:06+00:00"
+  },
   "AWSBackupServiceRolePolicyForRestores": {
     "Document": {
       "Version": "2012-10-17",
@@ -10403,8 +10530,8 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringLike": {
-              "codestar-notifications:NotificationsForResource": "arn:aws:codebuild:*"
+            "ArnLike": {
+              "codestar-notifications:NotificationsForResource": "arn:aws:codebuild:*:*:project/*"
             }
           }
         },
@@ -10448,9 +10575,9 @@
         }
       ]
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-02T01:45:44+00:00"
+    "CreateDate": "2024-12-16T20:07:07+00:00"
   },
   "AWSCodeBuildDeveloperAccess": {
     "Document": {
@@ -10524,8 +10651,8 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringLike": {
-              "codestar-notifications:NotificationsForResource": "arn:aws:codebuild:*"
+            "ArnLike": {
+              "codestar-notifications:NotificationsForResource": "arn:aws:codebuild:*:*:project/*"
             }
           }
         },
@@ -10561,9 +10688,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v15",
+    "VersionId": "v16",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-02T01:36:55+00:00"
+    "CreateDate": "2024-12-16T20:07:06+00:00"
   },
   "AWSCodeBuildReadOnlyAccess": {
     "Document": {
@@ -10608,8 +10735,8 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringLike": {
-              "codestar-notifications:NotificationsForResource": "arn:aws:codebuild:*"
+            "ArnLike": {
+              "codestar-notifications:NotificationsForResource": "arn:aws:codebuild:*:*:project/*"
             }
           }
         },
@@ -10626,9 +10753,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-02T01:23:27+00:00"
+    "CreateDate": "2024-12-16T19:52:06+00:00"
   },
   "AWSCodeCommitFullAccess": {
     "Document": {
@@ -11176,8 +11303,8 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringLike": {
-              "codestar-notifications:NotificationsForResource": "arn:aws:codedeploy:*"
+            "ArnLike": {
+              "codestar-notifications:NotificationsForResource": "arn:aws:codedeploy:*:*:application:*"
             }
           }
         },
@@ -11210,9 +11337,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-04-02T16:16:11+00:00"
+    "CreateDate": "2024-12-16T20:22:07+00:00"
   },
   "AWSCodeDeployFullAccess": {
     "Document": {
@@ -11236,8 +11363,8 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringLike": {
-              "codestar-notifications:NotificationsForResource": "arn:aws:codedeploy:*"
+            "ArnLike": {
+              "codestar-notifications:NotificationsForResource": "arn:aws:codedeploy:*:*:application:*"
             }
           }
         },
@@ -11279,9 +11406,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-04-02T16:14:47+00:00"
+    "CreateDate": "2024-12-16T20:22:06+00:00"
   },
   "AWSCodeDeployReadOnlyAccess": {
     "Document": {
@@ -11304,8 +11431,8 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringLike": {
-              "codestar-notifications:NotificationsForResource": "arn:aws:codedeploy:*"
+            "ArnLike": {
+              "codestar-notifications:NotificationsForResource": "arn:aws:codedeploy:*:*:application:*"
             }
           }
         },
@@ -11321,9 +11448,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-04-02T16:20:09+00:00"
+    "CreateDate": "2024-12-16T20:07:07+00:00"
   },
   "AWSCodeDeployRole": {
     "Document": {
@@ -15867,7 +15994,8 @@
             "ec2:ModifySnapshotAttribute",
             "ec2:DescribeSnapshotAttribute",
             "ec2:DescribeSnapshotTierStatus",
-            "ec2:ModifySnapshotTier"
+            "ec2:ModifySnapshotTier",
+            "ec2:DescribeAvailabilityZones"
           ],
           "Resource": "*"
         },
@@ -15894,9 +16022,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-09-19T17:34:08+00:00"
+    "CreateDate": "2024-12-16T17:37:06+00:00"
   },
   "AWSDataLifecycleManagerServiceRoleForAMIManagement": {
     "Document": {
@@ -40559,9 +40687,11 @@
             "elasticloadbalancing:DescribeLoadBalancers",
             "elasticloadbalancing:DescribeTargetGroups",
             "elasticloadbalancing:DescribeTargetHealth",
+            "fis:GetExperiment",
             "fis:GetExperimentTemplate",
             "fis:ListExperimentTemplates",
             "fis:ListExperiments",
+            "fis:ListExperimentResolvedTargets",
             "fsx:DescribeFileSystems",
             "lambda:GetFunctionConcurrency",
             "lambda:GetFunctionConfiguration",
@@ -40680,9 +40810,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-09-17T13:08:36+00:00"
+    "CreateDate": "2024-12-16T14:40:07+00:00"
   },
   "AWSResourceAccessManagerFullAccess": {
     "Document": {
@@ -101330,6 +101460,7 @@
           "Effect": "Allow",
           "Action": [
             "ec2:AcceptVpcPeeringConnection",
+            "ec2:AssociateSecurityGroupVpc",
             "ec2:AttachClassicLinkVpc",
             "ec2:AuthorizeSecurityGroupEgress",
             "ec2:AuthorizeSecurityGroupIngress",
@@ -101344,10 +101475,13 @@
             "ec2:DeleteSecurityGroup",
             "ec2:DeleteVolume",
             "ec2:DeleteVpcPeeringConnection",
+            "ec2:DescribeSecurityGroupVpcAssociations",
             "ec2:DetachClassicLinkVpc",
             "ec2:DisableVpcClassicLink",
+            "ec2:DisassociateSecurityGroupVpc",
             "ec2:EnableVpcClassicLink",
             "ec2:GetConsoleScreenshot",
+            "ec2:GetSecurityGroupsForVpc",
             "ec2:RejectVpcPeeringConnection",
             "ec2:RevokeSecurityGroupEgress",
             "ec2:RevokeSecurityGroupIngress"
@@ -101420,8 +101554,8 @@
             "ec2:DeleteTransitGatewayVpcAttachment",
             "ec2:DescribeTransitGatewayAttachments",
             "ec2:DescribeTransitGatewayRouteTables",
-            "ec2:DescribeTransitGatewayVpcAttachments",
             "ec2:DescribeTransitGateways",
+            "ec2:DescribeTransitGatewayVpcAttachments",
             "ec2:DisableTransitGatewayRouteTablePropagation",
             "ec2:DisassociateTransitGatewayRouteTable",
             "ec2:EnableTransitGatewayRouteTablePropagation",
@@ -101454,9 +101588,9 @@
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-06-26T16:53:02+00:00"
+    "CreateDate": "2024-12-19T22:52:06+00:00"
   },
   "OAMFullAccess": {
     "Document": {
@@ -117130,6 +117264,11 @@
           "Effect": "Allow",
           "Action": [
             "acm:ListCertificates",
+            "aiops:GetInvestigation",
+            "aiops:GetInvestigationGroup",
+            "aiops:ListInvestigationEvents",
+            "aiops:ListInvestigationGroups",
+            "aiops:ListInvestigations",
             "athena:List*",
             "autoscaling:Describe*",
             "aws-marketplace:ViewSubscriptions",
@@ -117355,8 +117494,10 @@
             "lightsail:GetStaticIps",
             "lightsail:IsVpcPeered",
             "logs:Describe*",
+            "logs:GetTransformer",
             "logs:ListEntitiesForLogGroup",
             "logs:ListLogGroupsForEntity",
+            "logs:ListLogGroupsForQuery",
             "logs:ListTagsForResource",
             "lookoutvision:ListModelPackagingJobs",
             "lookoutvision:ListModels",
@@ -117498,9 +117639,9 @@
         }
       ]
     },
-    "VersionId": "v22",
+    "VersionId": "v23",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-11-19T17:36:54+00:00"
+    "CreateDate": "2024-12-19T22:52:06+00:00"
   },
   "WAFLoggingServiceRolePolicy": {
     "Document": {

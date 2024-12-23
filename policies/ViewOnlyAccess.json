@@ -7,6 +7,11 @@
         "Effect": "Allow",
         "Action": [
           "acm:ListCertificates",
+          "aiops:GetInvestigation",
+          "aiops:GetInvestigationGroup",
+          "aiops:ListInvestigationEvents",
+          "aiops:ListInvestigationGroups",
+          "aiops:ListInvestigations",
           "athena:List*",
           "autoscaling:Describe*",
           "aws-marketplace:ViewSubscriptions",
@@ -232,8 +237,10 @@
           "lightsail:GetStaticIps",
           "lightsail:IsVpcPeered",
           "logs:Describe*",
+          "logs:GetTransformer",
           "logs:ListEntitiesForLogGroup",
           "logs:ListLogGroupsForEntity",
+          "logs:ListLogGroupsForQuery",
           "logs:ListTagsForResource",
           "lookoutvision:ListModelPackagingJobs",
           "lookoutvision:ListModels",
@@ -375,7 +382,7 @@
       }
     ]
   },
-  "VersionId": "v22",
+  "VersionId": "v23",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-19T17:36:54+00:00"
+  "CreateDate": "2024-12-19T22:52:06+00:00"
 }

@@ -70,8 +70,8 @@
         ],
         "Resource": "*",
         "Condition": {
-          "StringLike": {
-            "codestar-notifications:NotificationsForResource": "arn:aws:codebuild:*"
+          "ArnLike": {
+            "codestar-notifications:NotificationsForResource": "arn:aws:codebuild:*:*:project/*"
           }
         }
       },
@@ -107,7 +107,7 @@
     ],
     "Version": "2012-10-17"
   },
-  "VersionId": "v15",
+  "VersionId": "v16",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-05-02T01:36:55+00:00"
+  "CreateDate": "2024-12-16T20:07:06+00:00"
 }
