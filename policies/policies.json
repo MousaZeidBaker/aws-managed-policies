@@ -44251,6 +44251,30 @@
       "Statement": [
         {
           "Effect": "Allow",
+          "Action": "ec2:RegisterImage",
+          "Resource": [
+            "arn:aws:ec2:*::image/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "EC2 Image Builder"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:RegisterImage",
+          "Resource": [
+            "arn:aws:ec2:*::snapshot/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:ResourceTag/CreatedBy": "EC2 Image Builder"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
           "Action": [
             "ec2:RunInstances"
           ],
@@ -44661,9 +44685,9 @@
         }
       ]
     },
-    "VersionId": "v19",
+    "VersionId": "v20",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-10-19T21:30:10+00:00"
+    "CreateDate": "2024-12-26T23:52:06+00:00"
   },
   "AWSServiceRoleForIoTSiteWise": {
     "Document": {
@@ -65578,7 +65602,10 @@
       "Statement": [
         {
           "Effect": "Allow",
-          "Action": "ec2:Describe*",
+          "Action": [
+            "ec2:Describe*",
+            "ec2:GetSecurityGroupsForVpc"
+          ],
           "Resource": "*"
         },
         {
@@ -65602,9 +65629,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2015-02-06T18:40:17+00:00"
+    "CreateDate": "2024-12-27T10:07:06+00:00"
   },
   "AmazonEC2RolePolicyForLaunchWizard": {
     "Document": {
@@ -98148,6 +98175,69 @@
         {
           "Effect": "Allow",
           "Action": [
+            "ec2:DescribeVolumes",
+            "ec2:DescribeSnapshots"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSnapshot"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:snapshot/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "EC2 Image Builder"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSnapshot"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:volume/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/CreatedBy": "EC2 Image Builder"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateSnapshot",
+              "aws:RequestTag/CreatedBy": [
+                "EC2 Image Builder"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject"
+          ],
+          "Resource": "arn:aws:s3:::*/*.ISO",
+          "Condition": {
+            "StringEquals": {
+              "s3:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "imagebuilder:GetComponent",
             "imagebuilder:GetMarketplaceResource"
           ],
@@ -98186,9 +98276,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-02T02:06:07+00:00"
+    "CreateDate": "2024-12-26T23:52:07+00:00"
   },
   "EC2InstanceProfileForImageBuilderECRContainerBuilds": {
     "Document": {
