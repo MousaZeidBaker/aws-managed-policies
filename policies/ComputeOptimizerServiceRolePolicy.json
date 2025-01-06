@@ -27,7 +27,8 @@
         "Sid": "CloudWatchAccess",
         "Effect": "Allow",
         "Action": [
-          "cloudwatch:GetMetricData"
+          "cloudwatch:GetMetricData",
+          "cloudwatch:DescribeAlarms"
         ],
         "Resource": "*"
       },
@@ -36,7 +37,9 @@
         "Effect": "Allow",
         "Action": [
           "autoscaling:DescribeAutoScalingInstances",
-          "autoscaling:DescribeAutoScalingGroups"
+          "autoscaling:DescribeAutoScalingGroups",
+          "autoscaling:DescribePolicies",
+          "autoscaling:DescribeScheduledActions"
         ],
         "Resource": "*"
       },
@@ -51,7 +54,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-06-13T19:05:04+00:00"
+  "CreateDate": "2025-01-03T21:37:06+00:00"
 }

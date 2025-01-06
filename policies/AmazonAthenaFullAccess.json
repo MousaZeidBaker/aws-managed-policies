@@ -18,6 +18,8 @@
         "Action": [
           "glue:CreateDatabase",
           "glue:DeleteDatabase",
+          "glue:GetCatalog",
+          "glue:GetCatalogs",
           "glue:GetDatabase",
           "glue:GetDatabases",
           "glue:UpdateDatabase",
@@ -143,7 +145,7 @@
       }
     ]
   },
-  "VersionId": "v12",
+  "VersionId": "v13",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-06-20T16:10:44+00:00"
+  "CreateDate": "2025-01-03T00:37:06+00:00"
 }

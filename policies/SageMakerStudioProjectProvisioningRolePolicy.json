@@ -140,7 +140,11 @@
       {
         "Sid": "CodeCommitDeletion",
         "Effect": "Allow",
-        "Action": "codecommit:DeleteRepository",
+        "Action": [
+          "codecommit:DeleteRepository",
+          "codecommit:UpdateRepositoryEncryptionKey",
+          "codecommit:PutRepositoryTriggers"
+        ],
         "Resource": "arn:aws:codecommit:*:*:datazone*",
         "Condition": {
           "StringEquals": {
@@ -175,6 +179,30 @@
           "codecommit:ListRepositories"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "CodeCommitKmsPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt",
+          "kms:ReEncryptTo",
+          "kms:ReEncryptFrom",
+          "kms:GenerateDataKey"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          },
+          "StringLike": {
+            "kms:ViaService": [
+              "codecommit.*.amazonaws.com"
+            ]
+          },
+          "Null": {
+            "kms:EncryptionContext:aws:codecommit:id": "false"
+          }
+        }
       },
       {
         "Sid": "GetIAMRole",
@@ -331,7 +359,8 @@
               "AmazonDataZone*",
               "DataZone*",
               "for-use-with-amazon-emr-managed-policies",
-              "DomainBucketName"
+              "DomainBucketName",
+              "KmsKeyId"
             ]
           }
         }
@@ -842,6 +871,25 @@
         "Condition": {
           "StringEquals": {
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "GlueKmsPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}",
+            "kms:EncryptionContext:glue_catalog_id": "${aws:PrincipalAccount}"
+          },
+          "StringLike": {
+            "kms:ViaService": [
+              "glue.*.amazonaws.com"
+            ]
           }
         }
       },
@@ -1517,6 +1565,28 @@
         }
       },
       {
+        "Sid": "SecretsManagerKmsPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "kms:GenerateDataKey",
+          "kms:Decrypt"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": [
+              "secretsmanager.*.amazonaws.com"
+            ]
+          },
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          },
+          "Null": {
+            "kms:EncryptionContext:SecretARN": "false"
+          }
+        }
+      },
+      {
         "Sid": "ServiceLinkedRoleCreation",
         "Effect": "Allow",
         "Action": "iam:CreateServiceLinkedRole",
@@ -1627,6 +1697,29 @@
           },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
+          }
+        }
+      },
+      {
+        "Sid": "RedshiftKmsPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt",
+          "kms:Encrypt",
+          "kms:GenerateDataKey"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": [
+              "redshift-serverless.*.amazonaws.com"
+            ]
+          },
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          },
+          "Null": {
+            "kms:EncryptionContext:aws:redshift-serverless:arn": "false"
           }
         }
       },
@@ -2276,7 +2369,7 @@
         }
       },
       {
-        "Sid": "AirflowKmsDescribeKey",
+        "Sid": "KmsDescribeKey",
         "Effect": "Allow",
         "Action": [
           "kms:DescribeKey"
@@ -2325,7 +2418,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-27T06:21:08+00:00"
+  "CreateDate": "2025-01-03T00:52:07+00:00"
 }
