@@ -3832,12 +3832,27 @@
               "aws:ViaAWSService": "true"
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVolume"
+          ],
+          "Resource": "arn:aws:ec2:*:*:snapshot/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AWSApplicationMigrationServiceManaged": "false"
+            },
+            "Bool": {
+              "aws:ViaAWSService": "true"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-02-06T16:07:02+00:00"
+    "CreateDate": "2025-01-08T09:22:06+00:00"
   },
   "AWSApplicationMigrationFullAccess": {
     "Document": {
@@ -4671,12 +4686,24 @@
               ]
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVolume"
+          ],
+          "Resource": "arn:aws:ec2:*:*:snapshot/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AWSApplicationMigrationServiceManaged": "false"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-20T09:12:04+00:00"
+    "CreateDate": "2025-01-08T09:22:07+00:00"
   },
   "AWSApplicationMigrationVCenterClientPolicy": {
     "Document": {
@@ -6530,6 +6557,16 @@
           "Resource": "arn:aws:rds:*:*:cluster-snapshot:awsbackup:*"
         },
         {
+          "Sid": "RDSSnapshotTenantDatabasePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "rds:AddTagsToResource"
+          ],
+          "Resource": [
+            "arn:aws:rds:*:*:snapshot-tenant-database:awsbackup:*"
+          ]
+        },
+        {
           "Sid": "KMSDescribePermissions",
           "Effect": "Allow",
           "Action": "kms:DescribeKey",
@@ -6736,9 +6773,9 @@
         }
       ]
     },
-    "VersionId": "v16",
+    "VersionId": "v17",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-17T17:12:59+00:00"
+    "CreateDate": "2025-01-07T18:22:07+00:00"
   },
   "AWSBackupServiceLinkedRolePolicyForBackupTest": {
     "Document": {
@@ -7484,7 +7521,9 @@
             "rds:DeleteDBCluster",
             "rds:RestoreDBInstanceToPointInTime",
             "rds:DescribeDBClusterSnapshots",
-            "rds:RestoreDBClusterToPointInTime"
+            "rds:RestoreDBClusterToPointInTime",
+            "rds:CreateTenantDatabase",
+            "rds:DeleteTenantDatabase"
           ],
           "Resource": "*"
         },
@@ -7808,9 +7847,9 @@
         }
       ]
     },
-    "VersionId": "v20",
+    "VersionId": "v21",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-12-15T22:05:32+00:00"
+    "CreateDate": "2025-01-07T18:22:06+00:00"
   },
   "AWSBackupServiceRolePolicyForS3Backup": {
     "Document": {
@@ -9274,6 +9313,7 @@
           "Effect": "Allow",
           "Action": [
             "cleanrooms:GetCollaboration",
+            "cleanrooms:BatchGetSchema",
             "cleanrooms:GetConfiguredAudienceModelAssociation",
             "cleanrooms:GetMembership",
             "cleanrooms:ListAnalysisTemplates",
@@ -9391,12 +9431,30 @@
             "s3:GetBucketLocation"
           ],
           "Resource": "arn:aws:s3:::*cleanrooms-ml*"
+        },
+        {
+          "Sid": "ConsoleDescribeECRRepositories",
+          "Effect": "Allow",
+          "Action": [
+            "ecr:DescribeRepositories",
+            "ecr:ListImages"
+          ],
+          "Resource": "arn:aws:ecr:*:*:repository/*"
+        },
+        {
+          "Sid": "PassCleanRoomsResources",
+          "Effect": "Allow",
+          "Action": [
+            "cleanrooms:PassMembership",
+            "cleanrooms:PassCollaboration"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-29T21:02:06+00:00"
+    "CreateDate": "2025-01-10T20:07:07+00:00"
   },
   "AWSCleanRoomsMLReadOnlyAccess": {
     "Document": {
@@ -9431,12 +9489,21 @@
             "cleanrooms-ml:List*"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "PassCleanRoomsResources",
+          "Effect": "Allow",
+          "Action": [
+            "cleanrooms:PassMembership",
+            "cleanrooms:PassCollaboration"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-29T20:55:31+00:00"
+    "CreateDate": "2025-01-10T20:52:06+00:00"
   },
   "AWSCleanRoomsReadOnlyAccess": {
     "Document": {
@@ -10867,8 +10934,8 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringLike": {
-              "codestar-notifications:NotificationsForResource": "arn:aws:codecommit:*"
+            "ArnLike": {
+              "codestar-notifications:NotificationsForResource": "arn:aws:codecommit:*:*:*"
             }
           }
         },
@@ -10952,9 +11019,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-17T21:50:11+00:00"
+    "CreateDate": "2025-01-10T20:07:06+00:00"
   },
   "AWSCodeCommitPowerUser": {
     "Document": {
@@ -11084,8 +11151,8 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringLike": {
-              "codestar-notifications:NotificationsForResource": "arn:aws:codecommit:*"
+            "ArnLike": {
+              "codestar-notifications:NotificationsForResource": "arn:aws:codecommit:*:*:*"
             }
           }
         },
@@ -11160,9 +11227,9 @@
         }
       ]
     },
-    "VersionId": "v15",
+    "VersionId": "v16",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-17T21:49:06+00:00"
+    "CreateDate": "2025-01-10T20:07:07+00:00"
   },
   "AWSCodeCommitReadOnly": {
     "Document": {
@@ -11244,8 +11311,8 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringLike": {
-              "codestar-notifications:NotificationsForResource": "arn:aws:codecommit:*"
+            "ArnLike": {
+              "codestar-notifications:NotificationsForResource": "arn:aws:codecommit:*:*:*"
             }
           }
         },
@@ -11272,9 +11339,9 @@
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-08-18T18:18:01+00:00"
+    "CreateDate": "2025-01-10T20:07:07+00:00"
   },
   "AWSCodeDeployDeployerAccess": {
     "Document": {
@@ -21116,12 +21183,28 @@
             "s3:ListAllMyBuckets"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "ConsoleFullAccess30",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVolume"
+          ],
+          "Resource": "arn:aws:ec2:*:*:snapshot/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AWSElasticDisasterRecoveryManaged": "false"
+            },
+            "Bool": {
+              "aws:ViaAWSService": "true"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-10-16T12:24:20+00:00"
+    "CreateDate": "2025-01-12T07:52:06+00:00"
   },
   "AWSElasticDisasterRecoveryConsoleFullAccess_v2": {
     "Document": {
@@ -29613,6 +29696,27 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2023-02-07T18:41:22+00:00"
+  },
+  "AWSManagedServices_SelfServiceReporting_ServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeOrganization",
+            "organizations:ListAWSServiceAccessForOrganization",
+            "organizations:ListDelegatedAdministrators",
+            "organizations:DescribeAccount",
+            "organizations:ListAccounts"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-01-08T21:22:06+00:00"
   },
   "AWSMarketplaceAmiIngestion": {
     "Document": {
@@ -63685,7 +63789,8 @@
           "Effect": "Allow",
           "Action": [
             "glue:CreateConnection",
-            "glue:DeleteConnection"
+            "glue:DeleteConnection",
+            "glue:GetConnection"
           ],
           "Resource": [
             "arn:aws:glue:*:*:connection/dz-sm-athena-glue-connection-*",
@@ -63703,9 +63808,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-23T23:32:28+00:00"
+    "CreateDate": "2025-01-09T20:52:06+00:00"
   },
   "AmazonDetectiveFullAccess": {
     "Document": {
@@ -67623,6 +67728,27 @@
         {
           "Effect": "Allow",
           "Action": [
+            "ec2:DescribeAccountAttributes",
+            "ec2:DescribeAddresses",
+            "ec2:DescribeInternetGateways",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeVpcClassicLink",
+            "ec2:DescribeInstances",
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeClassicLinkInstances",
+            "ec2:DescribeRouteTables",
+            "ec2:DescribeCoipPools",
+            "ec2:GetCoipPoolUsage",
+            "ec2:GetSecurityGroupsForVpc",
+            "ec2:DescribeVpcPeeringConnections"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
             "iam:CreateServiceLinkedRole"
           ],
           "Resource": "arn:aws:iam::*:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForElasticLoadBalancing",
@@ -67634,9 +67760,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-10-30T20:18:06+00:00"
+    "CreateDate": "2025-01-09T22:37:06+00:00"
   },
   "AmazonEKSLocalOutpostClusterPolicy": {
     "Document": {
@@ -91605,63 +91731,13 @@
           "Sid": "AllowWorkSpacesAccess",
           "Effect": "Allow",
           "Action": [
+            "workspaces:DescribeConnectionAliases",
             "workspaces:DescribeWorkspaceDirectories"
           ],
           "Resource": "*"
         },
         {
-          "Sid": "AllowWorkSpacesWebAccess",
-          "Effect": "Allow",
-          "Action": [
-            "workspaces-web:GetPortal",
-            "workspaces-web:GetUserSettings",
-            "workspaces-web:ListPortals"
-          ],
-          "Resource": "*"
-        },
-        {
-          "Sid": "AllowAppStreamAccess",
-          "Effect": "Allow",
-          "Action": [
-            "appstream:DescribeStacks"
-          ],
-          "Resource": "*"
-        }
-      ]
-    },
-    "VersionId": "v1",
-    "IsDefaultVersion": true,
-    "CreateDate": "2024-08-09T07:25:24+00:00"
-  },
-  "AmazonWorkSpacesThinClientReadOnlyAccess": {
-    "Document": {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Sid": "AllowThinClientReadAccess",
-          "Effect": "Allow",
-          "Action": [
-            "thinclient:GetDevice",
-            "thinclient:GetEnvironment",
-            "thinclient:GetSoftwareSet",
-            "thinclient:ListDevices",
-            "thinclient:ListDeviceSessions",
-            "thinclient:ListEnvironments",
-            "thinclient:ListSoftwareSets",
-            "thinclient:ListTagsForResource"
-          ],
-          "Resource": "*"
-        },
-        {
-          "Sid": "AllowWorkSpacesAccess",
-          "Effect": "Allow",
-          "Action": [
-            "workspaces:DescribeWorkspaceDirectories"
-          ],
-          "Resource": "*"
-        },
-        {
-          "Sid": "AllowWorkSpacesWebAccess",
+          "Sid": "AllowWorkSpacesSecureBrowserAccess",
           "Effect": "Allow",
           "Action": [
             "workspaces-web:GetPortal",
@@ -91682,7 +91758,60 @@
     },
     "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-08-09T07:11:12+00:00"
+    "CreateDate": "2025-01-09T16:52:06+00:00"
+  },
+  "AmazonWorkSpacesThinClientReadOnlyAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowThinClientReadAccess",
+          "Effect": "Allow",
+          "Action": [
+            "thinclient:GetDevice",
+            "thinclient:GetDeviceDetails",
+            "thinclient:GetEnvironment",
+            "thinclient:GetSoftwareSet",
+            "thinclient:ListDevices",
+            "thinclient:ListDeviceSessions",
+            "thinclient:ListEnvironments",
+            "thinclient:ListSoftwareSets",
+            "thinclient:ListTagsForResource"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "AllowWorkSpacesAccess",
+          "Effect": "Allow",
+          "Action": [
+            "workspaces:DescribeConnectionAliases",
+            "workspaces:DescribeWorkspaceDirectories"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "AllowWorkSpacesSecureBrowserAccess",
+          "Effect": "Allow",
+          "Action": [
+            "workspaces-web:GetPortal",
+            "workspaces-web:GetUserSettings",
+            "workspaces-web:ListPortals"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "AllowAppStreamAccess",
+          "Effect": "Allow",
+          "Action": [
+            "appstream:DescribeStacks"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v3",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-01-09T16:52:05+00:00"
   },
   "AmazonWorkSpacesWebReadOnly": {
     "Document": {
@@ -103643,6 +103772,7 @@
             "access-analyzer:GetAnalyzer",
             "access-analyzer:GetArchiveRule",
             "access-analyzer:GetFinding",
+            "access-analyzer:GetFindingsStatistics",
             "access-analyzer:GetGeneratedPolicy",
             "access-analyzer:ListAccessPreviewFindings",
             "access-analyzer:ListAccessPreviews",
@@ -103680,6 +103810,7 @@
             "amplify:GetDomainAssociation",
             "amplify:GetJob",
             "amplify:ListApps",
+            "amplify:ListBackendEnvironments",
             "amplify:ListBranches",
             "amplify:ListDomainAssociations",
             "amplify:ListJobs",
@@ -105882,14 +106013,21 @@
             "sts:GetCallerIdentity",
             "sts:GetSessionToken",
             "support:DescribeAttachment",
+            "support:DescribeCaseAttributes",
             "support:DescribeCases",
+            "support:DescribeCommunication",
             "support:DescribeCommunications",
+            "support:DescribeCreateCaseOptions",
+            "support:DescribeIssueTypes",
             "support:DescribeServices",
             "support:DescribeSeverityLevels",
+            "support:DescribeSupportedLanguages",
+            "support:DescribeSupportLevel",
             "support:DescribeTrustedAdvisorCheckRefreshStatuses",
             "support:DescribeTrustedAdvisorCheckResult",
             "support:DescribeTrustedAdvisorChecks",
             "support:DescribeTrustedAdvisorCheckSummaries",
+            "support:SearchForCases",
             "supportplans:GetSupportPlan",
             "supportplans:GetSupportPlanUpdateStatus",
             "supportplans:ListSupportPlanModifiers",
@@ -106059,9 +106197,9 @@
         }
       ]
     },
-    "VersionId": "v125",
+    "VersionId": "v126",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-31T03:07:07+00:00"
+    "CreateDate": "2025-01-07T17:52:06+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {

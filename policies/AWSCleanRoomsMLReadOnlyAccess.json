@@ -31,10 +31,19 @@
           "cleanrooms-ml:List*"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "PassCleanRoomsResources",
+        "Effect": "Allow",
+        "Action": [
+          "cleanrooms:PassMembership",
+          "cleanrooms:PassCollaboration"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-29T20:55:31+00:00"
+  "CreateDate": "2025-01-10T20:52:06+00:00"
 }

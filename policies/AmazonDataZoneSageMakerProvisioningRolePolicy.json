@@ -178,7 +178,8 @@
         "Effect": "Allow",
         "Action": [
           "glue:CreateConnection",
-          "glue:DeleteConnection"
+          "glue:DeleteConnection",
+          "glue:GetConnection"
         ],
         "Resource": [
           "arn:aws:glue:*:*:connection/dz-sm-athena-glue-connection-*",
@@ -196,7 +197,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-04-23T23:32:28+00:00"
+  "CreateDate": "2025-01-09T20:52:06+00:00"
 }

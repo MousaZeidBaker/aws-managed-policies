@@ -126,8 +126,8 @@
         ],
         "Resource": "*",
         "Condition": {
-          "StringLike": {
-            "codestar-notifications:NotificationsForResource": "arn:aws:codecommit:*"
+          "ArnLike": {
+            "codestar-notifications:NotificationsForResource": "arn:aws:codecommit:*:*:*"
           }
         }
       },
@@ -202,7 +202,7 @@
       }
     ]
   },
-  "VersionId": "v15",
+  "VersionId": "v16",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-07-17T21:49:06+00:00"
+  "CreateDate": "2025-01-10T20:07:07+00:00"
 }

@@ -14,6 +14,7 @@
           "access-analyzer:GetAnalyzer",
           "access-analyzer:GetArchiveRule",
           "access-analyzer:GetFinding",
+          "access-analyzer:GetFindingsStatistics",
           "access-analyzer:GetGeneratedPolicy",
           "access-analyzer:ListAccessPreviewFindings",
           "access-analyzer:ListAccessPreviews",
@@ -51,6 +52,7 @@
           "amplify:GetDomainAssociation",
           "amplify:GetJob",
           "amplify:ListApps",
+          "amplify:ListBackendEnvironments",
           "amplify:ListBranches",
           "amplify:ListDomainAssociations",
           "amplify:ListJobs",
@@ -2253,14 +2255,21 @@
           "sts:GetCallerIdentity",
           "sts:GetSessionToken",
           "support:DescribeAttachment",
+          "support:DescribeCaseAttributes",
           "support:DescribeCases",
+          "support:DescribeCommunication",
           "support:DescribeCommunications",
+          "support:DescribeCreateCaseOptions",
+          "support:DescribeIssueTypes",
           "support:DescribeServices",
           "support:DescribeSeverityLevels",
+          "support:DescribeSupportedLanguages",
+          "support:DescribeSupportLevel",
           "support:DescribeTrustedAdvisorCheckRefreshStatuses",
           "support:DescribeTrustedAdvisorCheckResult",
           "support:DescribeTrustedAdvisorChecks",
           "support:DescribeTrustedAdvisorCheckSummaries",
+          "support:SearchForCases",
           "supportplans:GetSupportPlan",
           "supportplans:GetSupportPlanUpdateStatus",
           "supportplans:ListSupportPlanModifiers",
@@ -2430,7 +2439,7 @@
       }
     ]
   },
-  "VersionId": "v125",
+  "VersionId": "v126",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-31T03:07:07+00:00"
+  "CreateDate": "2025-01-07T17:52:06+00:00"
 }

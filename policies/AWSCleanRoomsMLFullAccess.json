@@ -30,6 +30,7 @@
         "Effect": "Allow",
         "Action": [
           "cleanrooms:GetCollaboration",
+          "cleanrooms:BatchGetSchema",
           "cleanrooms:GetConfiguredAudienceModelAssociation",
           "cleanrooms:GetMembership",
           "cleanrooms:ListAnalysisTemplates",
@@ -147,10 +148,28 @@
           "s3:GetBucketLocation"
         ],
         "Resource": "arn:aws:s3:::*cleanrooms-ml*"
+      },
+      {
+        "Sid": "ConsoleDescribeECRRepositories",
+        "Effect": "Allow",
+        "Action": [
+          "ecr:DescribeRepositories",
+          "ecr:ListImages"
+        ],
+        "Resource": "arn:aws:ecr:*:*:repository/*"
+      },
+      {
+        "Sid": "PassCleanRoomsResources",
+        "Effect": "Allow",
+        "Action": [
+          "cleanrooms:PassMembership",
+          "cleanrooms:PassCollaboration"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-29T21:02:06+00:00"
+  "CreateDate": "2025-01-10T20:07:07+00:00"
 }

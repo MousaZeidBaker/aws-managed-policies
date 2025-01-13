@@ -415,10 +415,26 @@
           "s3:ListAllMyBuckets"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "ConsoleFullAccess30",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:CreateVolume"
+        ],
+        "Resource": "arn:aws:ec2:*:*:snapshot/*",
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/AWSElasticDisasterRecoveryManaged": "false"
+          },
+          "Bool": {
+            "aws:ViaAWSService": "true"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-16T12:24:20+00:00"
+  "CreateDate": "2025-01-12T07:52:06+00:00"
 }

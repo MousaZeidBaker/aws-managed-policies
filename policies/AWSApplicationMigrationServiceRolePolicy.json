@@ -300,10 +300,22 @@
             ]
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ec2:CreateVolume"
+        ],
+        "Resource": "arn:aws:ec2:*:*:snapshot/*",
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/AWSApplicationMigrationServiceManaged": "false"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-20T09:12:04+00:00"
+  "CreateDate": "2025-01-08T09:22:07+00:00"
 }
