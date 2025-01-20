@@ -10,10 +10,13 @@
           "aws-portal:*Billing",
           "aws-portal:*PaymentMethods",
           "aws-portal:*Usage",
+          "billing:CreateBillingView",
+          "billing:DeleteBillingView",
           "billing:GetBillingData",
           "billing:GetBillingDetails",
           "billing:GetBillingNotifications",
           "billing:GetBillingPreferences",
+          "billing:GetBillingView",
           "billing:GetContractInformation",
           "billing:GetCredits",
           "billing:GetIAMAccessPreference",
@@ -21,7 +24,13 @@
           "billing:ListBillingViews",
           "billing:PutContractInformation",
           "billing:RedeemCredits",
+          "billing:GetResourcePolicy",
+          "billing:ListSourceViewsForBillingView",
+          "billing:ListTagsForResource",
+          "billing:TagResource",
+          "billing:UntagResource",
           "billing:UpdateBillingPreferences",
+          "billing:UpdateBillingView",
           "billing:UpdateIAMAccessPreference",
           "budgets:CreateBudgetAction",
           "budgets:DeleteBudgetAction",
@@ -138,7 +147,7 @@
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v14",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-01T17:51:07+00:00"
+  "CreateDate": "2025-01-18T00:07:06+00:00"
 }

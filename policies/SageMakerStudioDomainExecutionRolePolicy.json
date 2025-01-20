@@ -185,6 +185,25 @@
         }
       },
       {
+        "Sid": "GetCodeConnectionsPermissionsStatement",
+        "Effect": "Allow",
+        "Action": [
+          "codeconnections:GetConnection",
+          "codeconnections:GetHost",
+          "codestar-connections:GetConnection",
+          "codestar-connections:GetHost"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/for-use-with-all-datazone-projects": "false"
+          },
+          "StringEquals": {
+            "aws:ResourceTag/for-use-with-all-datazone-projects": "true"
+          }
+        }
+      },
+      {
         "Sid": "ListCodeConnectionsPermissionsStatement",
         "Effect": "Allow",
         "Action": [
@@ -223,7 +242,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-20T21:56:55+00:00"
+  "CreateDate": "2025-01-14T21:22:06+00:00"
 }

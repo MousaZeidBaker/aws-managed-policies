@@ -25,10 +25,24 @@
           }
         },
         "Resource": "*"
+      },
+      {
+        "Sid": "AllowOrgsActions",
+        "Effect": "Allow",
+        "Action": [
+          "organizations:DescribeAccount",
+          "organizations:DescribeOrganization",
+          "organizations:DescribeOrganizationalUnit",
+          "organizations:ListAccounts",
+          "organizations:ListAWSServiceAccessForOrganization",
+          "organizations:ListChildren",
+          "organizations:ListParents"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-04-19T13:28:34+00:00"
+  "CreateDate": "2025-01-14T23:37:06+00:00"
 }

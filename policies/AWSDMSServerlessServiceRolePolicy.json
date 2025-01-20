@@ -31,7 +31,9 @@
         "Action": [
           "dms:StartReplicationTask",
           "dms:StopReplicationTask",
+          "dms:ModifyReplicationTask",
           "dms:DeleteReplicationTask",
+          "dms:ModifyReplicationInstance",
           "dms:DeleteReplicationInstance"
         ],
         "Resource": [
@@ -58,7 +60,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-05-18T20:28:05+00:00"
+  "CreateDate": "2025-01-17T08:37:06+00:00"
 }

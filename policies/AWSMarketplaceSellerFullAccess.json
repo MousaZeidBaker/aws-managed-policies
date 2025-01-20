@@ -105,7 +105,11 @@
           "payments:CreatePaymentInstrument",
           "tax:GetTaxInterview",
           "tax:PutTaxInterview",
-          "tax:GetTaxInfoReportingDocument"
+          "tax:GetTaxInfoReportingDocument",
+          "tax:ListSupplementalTaxRegistrations",
+          "tax:PutSupplementalTaxRegistration",
+          "tax:DeleteSupplementalTaxRegistration",
+          "tax:GetTaxRegistration"
         ],
         "Resource": "*"
       },
@@ -140,7 +144,7 @@
       }
     ]
   },
-  "VersionId": "v15",
+  "VersionId": "v16",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-10T00:21:20+00:00"
+  "CreateDate": "2025-01-14T19:52:06+00:00"
 }

@@ -19,7 +19,8 @@
         "Sid": "AmazonQDeveloperAccess",
         "Effect": "Allow",
         "Action": [
-          "q:SendMessage"
+          "q:SendMessage",
+          "q:StartConversation"
         ],
         "Resource": "*",
         "Condition": {
@@ -30,7 +31,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-04T14:06:07+00:00"
+  "CreateDate": "2025-01-13T22:52:07+00:00"
 }
