@@ -9,9 +9,9 @@
         ],
         "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*",
         "Condition": {
-          "StringLike": {
+          "ArnLike": {
             "acm-pca:TemplateArn": [
-              "arn:aws:acm-pca:::template/EndEntityCertificate/V*"
+              "arn:aws:acm-pca:*:*:template/EndEntityCertificate/V*"
             ]
           }
         }
@@ -23,9 +23,9 @@
         ],
         "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*",
         "Condition": {
-          "StringNotLike": {
+          "ArnNotLike": {
             "acm-pca:TemplateArn": [
-              "arn:aws:acm-pca:::template/EndEntityCertificate/V*"
+              "arn:aws:acm-pca:*:*:template/EndEntityCertificate/V*"
             ]
           }
         }
@@ -48,7 +48,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-02-14T18:16:08+00:00"
+  "CreateDate": "2025-01-22T21:22:07+00:00"
 }
