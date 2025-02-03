@@ -7,6 +7,7 @@
         "Action": [
           "cloud9:UpdateUserSettings",
           "cloud9:GetUserSettings",
+          "cloud9:GetMigrationExperiences",
           "iam:GetUser",
           "iam:ListUsers",
           "ec2:DescribeVpcs",
@@ -95,7 +96,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-11T13:24:10+00:00"
+  "CreateDate": "2025-01-27T10:07:06+00:00"
 }

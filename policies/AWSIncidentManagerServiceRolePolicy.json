@@ -35,13 +35,16 @@
         "Resource": "*",
         "Condition": {
           "StringEquals": {
-            "cloudwatch:namespace": "AWS/IncidentManager"
+            "cloudwatch:namespace": [
+              "AWS/IncidentManager",
+              "AWS/Usage"
+            ]
           }
         }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-12-05T02:11:58+00:00"
+  "CreateDate": "2025-01-28T02:52:06+00:00"
 }
