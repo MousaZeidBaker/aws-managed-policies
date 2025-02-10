@@ -15364,12 +15364,63 @@
             "arn:aws:dms:*:*:rep:*",
             "arn:aws:dms:*:*:endpoint:*"
           ]
+        },
+        {
+          "Sid": "id4",
+          "Effect": "Allow",
+          "Action": [
+            "s3:PutObject",
+            "s3:DeleteObject",
+            "s3:GetObject",
+            "s3:PutObjectTagging"
+          ],
+          "Resource": [
+            "arn:aws:s3:::dms-serverless-premigration-results-*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "s3:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "id5",
+          "Effect": "Allow",
+          "Action": [
+            "s3:PutBucketPolicy",
+            "s3:ListBucket",
+            "s3:GetBucketLocation",
+            "s3:CreateBucket"
+          ],
+          "Resource": [
+            "arn:aws:s3:::dms-serverless-premigration-results-*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "s3:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "id6",
+          "Effect": "Allow",
+          "Action": [
+            "dms:StartReplicationTaskAssessmentRun"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEqualsIgnoreCase": {
+              "aws:ResourceTag/ResourceCreatedBy": "DMSServerless"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-17T08:37:06+00:00"
+    "CreateDate": "2025-02-07T17:52:06+00:00"
   },
   "AWSDataExchangeDataGrantOwnerFullAccess": {
     "Document": {
@@ -68895,7 +68946,9 @@
             "elasticloadbalancing:DescribeInstanceHealth",
             "elasticloadbalancing:DescribeLoadBalancers",
             "elasticloadbalancing:DescribeTargetGroups",
-            "elasticloadbalancing:DescribeTargetHealth"
+            "elasticloadbalancing:DescribeTargetHealth",
+            "eks:ListPodIdentityAssociations",
+            "eks:DescribePodIdentityAssociation"
           ],
           "Resource": "*"
         },
@@ -68926,9 +68979,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-10T22:58:13+00:00"
+    "CreateDate": "2025-02-06T21:07:07+00:00"
   },
   "AmazonEMRFullAccessPolicy_v2": {
     "Document": {
@@ -71191,6 +71244,7 @@
             "cloudwatch:GetMetricData",
             "ds:DescribeDirectories",
             "ec2:DescribeNetworkInterfaceAttribute",
+            "ec2:DescribeNetworkInterfaces",
             "ec2:DescribeRouteTables",
             "ec2:DescribeSecurityGroups",
             "ec2:GetSecurityGroupsForVpc",
@@ -71323,9 +71377,9 @@
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-10T20:07:09+00:00"
+    "CreateDate": "2025-02-07T19:22:06+00:00"
   },
   "AmazonFSxConsoleReadOnlyAccess": {
     "Document": {
@@ -100057,7 +100111,8 @@
           "Sid": "WriteGameSessionLogsToS3Bucket",
           "Effect": "Allow",
           "Action": [
-            "s3:PutObject"
+            "s3:PutObject",
+            "s3:GetBucketLocation"
           ],
           "Resource": [
             "arn:aws:s3:::gamelift-*"
@@ -100080,9 +100135,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-11-12T19:28:49+00:00"
+    "CreateDate": "2025-02-05T20:37:06+00:00"
   },
   "GameLiftGameServerGroupPolicy": {
     "Document": {
