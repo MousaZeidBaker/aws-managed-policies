@@ -131,7 +131,8 @@
           "config:GetComplianceSummaryByConfigRule",
           "config:GetDiscoveredResourceCounts",
           "config:PutEvaluations",
-          "config:SelectResourceConfig"
+          "config:SelectResourceConfig",
+          "config:BatchGetResourceConfig"
         ],
         "Resource": "*"
       },
@@ -554,7 +555,6 @@
           "network-firewall:ListFirewallPolicies",
           "network-firewall:ListFirewalls",
           "network-firewall:ListRuleGroups",
-          "network-firewall:PutResourcePolicy",
           "network-firewall:DescribeResourcePolicy",
           "network-firewall:DeleteResourcePolicy",
           "network-firewall:DescribeLoggingConfiguration",
@@ -563,6 +563,18 @@
           "network-firewall:ListTLSInspectionConfigurations"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "NetworkFirewallResourcePolicy",
+        "Effect": "Allow",
+        "Action": [
+          "network-firewall:PutResourcePolicy"
+        ],
+        "Resource": [
+          "arn:aws:network-firewall:*:*:firewall-policy/*",
+          "arn:aws:network-firewall:*:*:stateful-rulegroup/*",
+          "arn:aws:network-firewall:*:*:stateless-rulegroup/*"
+        ]
       },
       {
         "Sid": "NetworkFirewallCleanup",
@@ -701,7 +713,7 @@
       }
     ]
   },
-  "VersionId": "v30",
+  "VersionId": "v31",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-07-22T20:08:34+00:00"
+  "CreateDate": "2025-02-11T21:37:06+00:00"
 }
