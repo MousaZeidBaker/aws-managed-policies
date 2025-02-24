@@ -16,7 +16,13 @@
           "timestream-influxdb:TagResource",
           "timestream-influxdb:UntagResource",
           "timestream-influxdb:ListTagsForResource",
-          "timestream-influxdb:UpdateDbInstance"
+          "timestream-influxdb:UpdateDbInstance",
+          "timestream-influxdb:CreateDbCluster",
+          "timestream-influxdb:GetDbCluster",
+          "timestream-influxdb:UpdateDbCluster",
+          "timestream-influxdb:DeleteDbCluster",
+          "timestream-influxdb:ListDbClusters",
+          "timestream-influxdb:ListDbInstancesForCluster"
         ],
         "Resource": [
           "arn:aws:timestream-influxdb:*:*:*"
@@ -76,7 +82,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-08T20:31:28+00:00"
+  "CreateDate": "2025-02-17T20:37:06+00:00"
 }
