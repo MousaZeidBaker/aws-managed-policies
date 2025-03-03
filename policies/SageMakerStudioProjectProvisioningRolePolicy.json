@@ -378,6 +378,7 @@
               "AmazonDataZone*",
               "AmazonBedrockManaged",
               "RedshiftDb*",
+              "EnableAmazonBedrockPermissions",
               "EnableAmazonBedrockIDEPermissions",
               "EnableGlueWorkloadsPermissions",
               "EnableSageMakerMLWorkloadsPermissions",
@@ -472,6 +473,24 @@
               "KmsKeyId",
               "VpcId"
             ]
+          }
+        }
+      },
+      {
+        "Sid": "IAMRoleUntagging",
+        "Effect": "Allow",
+        "Action": "iam:UntagRole",
+        "Resource": "arn:aws:iam::*:role/datazone_usr_role_*",
+        "Condition": {
+          "StringEquals": {
+            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          },
+          "Null": {
+            "aws:ResourceTag/AmazonDataZoneProject": "false"
+          },
+          "ForAllValues:StringLike": {
+            "aws:TagKeys": "EnableAmazonBedrockIDEPermissions"
           }
         }
       },
@@ -2662,7 +2681,7 @@
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-22T00:07:07+00:00"
+  "CreateDate": "2025-02-27T00:22:05+00:00"
 }

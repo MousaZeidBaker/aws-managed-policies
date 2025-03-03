@@ -258,6 +258,21 @@
       {
         "Effect": "Allow",
         "Action": [
+          "ec2:DeleteLaunchTemplate",
+          "ec2:TerminateInstances"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "ec2:ManagedResourceOperator": [
+              "eks.amazonaws.com"
+            ]
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
           "ec2:DeleteVolume"
         ],
         "Resource": "*",
@@ -299,7 +314,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-16T17:42:18+00:00"
+  "CreateDate": "2025-02-26T21:37:06+00:00"
 }

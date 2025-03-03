@@ -6,11 +6,6 @@
         "Sid": "AllowManageSageMakerEniOnVpc",
         "Effect": "Allow",
         "Action": [
-          "ec2:CreateNetworkInterface",
-          "ec2:DeleteNetworkInterface",
-          "ec2:AttachNetworkInterface",
-          "ec2:CreateNetworkInterfacePermission",
-          "ec2:DeleteNetworkInterfacePermission",
           "ec2:CreateVpcEndpoint"
         ],
         "Resource": [
@@ -24,8 +19,7 @@
             "aws:CalledViaLast": [
               "sagemaker.amazonaws.com",
               "airflow.amazonaws.com"
-            ],
-            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            ]
           },
           "ArnLike": {
             "ec2:Vpc": "arn:aws:ec2:*:*:vpc/${aws:PrincipalTag/VpcId}"
@@ -36,6 +30,9 @@
         "Sid": "AllowManageSageMakerTrainingEniOnVpc",
         "Effect": "Allow",
         "Action": [
+          "ec2:CreateNetworkInterface",
+          "ec2:DeleteNetworkInterface",
+          "ec2:AttachNetworkInterface",
           "ec2:CreateNetworkInterfacePermission",
           "ec2:DeleteNetworkInterfacePermission"
         ],
@@ -46,9 +43,6 @@
           "arn:aws:ec2:*:*:security-group/*"
         ],
         "Condition": {
-          "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}"
-          },
           "ArnLike": {
             "ec2:Vpc": "arn:aws:ec2:*:*:vpc/${aws:PrincipalTag/VpcId}"
           }
@@ -384,7 +378,6 @@
         "Sid": "SageMakerListPermissions",
         "Effect": "Allow",
         "Action": [
-          "sagemaker:Search",
           "sagemaker:GetSearchSuggestions",
           "sagemaker:ListTrainingJobs",
           "sagemaker:ListTransformJobs",
@@ -408,6 +401,20 @@
         "Condition": {
           "StringEquals": {
             "aws:PrincipalTag/EnableSageMakerMLWorkloadsPermissions": "true"
+          }
+        }
+      },
+      {
+        "Sid": "SageMakerSearchPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "sagemaker:Search"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalTag/EnableSageMakerMLWorkloadsPermissions": "true",
+            "sagemaker:SearchVisibilityCondition/Tags.AmazonDataZoneProject/EqualsIfExists": "${aws:PrincipalTag/AmazonDataZoneProject}"
           }
         }
       },
@@ -847,7 +854,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-13T23:07:06+00:00"
+  "CreateDate": "2025-02-27T00:22:05+00:00"
 }

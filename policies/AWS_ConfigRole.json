@@ -377,6 +377,7 @@
           "ec2:DescribeVolumeAttribute",
           "ec2:DescribeVolumes",
           "ec2:DescribeVpcEndpoints",
+          "ec2:GetAllowedImagesSettings",
           "ec2:GetEbsEncryptionByDefault",
           "ec2:GetInstanceTypesFromInstanceRequirements",
           "ec2:GetIpamPoolAllocations",
@@ -1503,7 +1504,7 @@
       }
     ]
   },
-  "VersionId": "v34",
+  "VersionId": "v35",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-16T16:22:05+00:00"
+  "CreateDate": "2025-02-27T15:37:07+00:00"
 }

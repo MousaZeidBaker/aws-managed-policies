@@ -375,6 +375,7 @@
           "ec2:DescribeTrafficMirrorTargets",
           "ec2:DescribeVolumeAttribute",
           "ec2:DescribeVolumes",
+          "ec2:GetAllowedImagesSettings",
           "ec2:GetEbsEncryptionByDefault",
           "ec2:GetInstanceTypesFromInstanceRequirements",
           "ec2:GetIpamPoolAllocations",
@@ -1534,7 +1535,7 @@
       }
     ]
   },
-  "VersionId": "v55",
+  "VersionId": "v56",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-16T16:22:06+00:00"
+  "CreateDate": "2025-02-27T16:07:06+00:00"
 }

@@ -21,7 +21,8 @@
           "ses:ListIdentities",
           "ses:GetIdentityVerificationAttributes",
           "mobiletargeting:GetApps",
-          "acm:ListCertificates"
+          "acm:ListCertificates",
+          "sms-voice:DescribeAccountAttributes"
         ],
         "Resource": "*"
       },
@@ -51,7 +52,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-05-27T22:48:53+00:00"
+  "CreateDate": "2025-02-27T18:37:05+00:00"
 }

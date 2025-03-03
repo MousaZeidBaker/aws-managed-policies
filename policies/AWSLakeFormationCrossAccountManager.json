@@ -46,7 +46,7 @@
         ],
         "Resource": "*",
         "Condition": {
-          "StringLike": {
+          "ArnLike": {
             "ram:PermissionArn": [
               "arn:aws:ram::aws:permission/AWSRAMLFEnabled*"
             ]
@@ -78,7 +78,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-22T18:51:56+00:00"
+  "CreateDate": "2025-02-25T00:37:06+00:00"
 }
