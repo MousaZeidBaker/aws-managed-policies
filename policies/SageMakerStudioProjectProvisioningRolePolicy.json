@@ -316,7 +316,8 @@
               "arn:aws:iam::aws:policy/SageMakerStudioProjectRoleMachineLearningPolicy",
               "arn:aws:iam::aws:policy/service-role/SageMakerStudioEMRServiceRolePolicy",
               "arn:aws:iam::aws:policy/service-role/SageMakerStudioEMRInstanceRolePolicy",
-              "arn:aws:iam::aws:policy/service-role/AmazonEMRServicePolicy_v2"
+              "arn:aws:iam::aws:policy/service-role/AmazonEMRServicePolicy_v2",
+              "arn:aws:iam::aws:policy/AmazonSageMakerPartnerAppsFullAccess"
             ]
           }
         }
@@ -526,7 +527,10 @@
           "iam:UpdateAssumeRolePolicy"
         ],
         "Resource": [
-          "arn:aws:iam::*:role/datazone_usr_role_*"
+          "arn:aws:iam::*:role/datazone_usr_role_*",
+          "arn:aws:iam::*:role/datazone_emr_*",
+          "arn:aws:iam::*:role/datazone-partner-apps-*",
+          "arn:aws:iam::*:role/AmazonBedrock*"
         ],
         "Condition": {
           "StringEquals": {
@@ -2072,7 +2076,6 @@
         "Sid": "EMRServerlessApplicationManagement",
         "Effect": "Allow",
         "Action": [
-          "emr-serverless:GetApplication",
           "emr-serverless:UpdateApplication",
           "emr-serverless:DeleteApplication"
         ],
@@ -2082,6 +2085,22 @@
         "Condition": {
           "StringEquals": {
             "aws:CalledViaFirst": "cloudformation.amazonaws.com",
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          },
+          "Null": {
+            "aws:ResourceTag/AmazonDataZoneProject": "false"
+          }
+        }
+      },
+      {
+        "Sid": "EMRServerlessGetApplication",
+        "Effect": "Allow",
+        "Action": "emr-serverless:GetApplication",
+        "Resource": [
+          "arn:aws:emr-serverless:*:*:/applications/*"
+        ],
+        "Condition": {
+          "StringEquals": {
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -2664,24 +2683,10 @@
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
-      },
-      {
-        "Sid": "IamGetEmrRoleFromDataZone",
-        "Effect": "Allow",
-        "Action": "iam:GetRole",
-        "Resource": "arn:aws:iam::*:role/datazone_emr_*",
-        "Condition": {
-          "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}"
-          },
-          "Null": {
-            "aws:ResourceTag/AmazonDataZoneProject": "false"
-          }
-        }
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-27T00:22:05+00:00"
+  "CreateDate": "2025-03-05T23:07:07+00:00"
 }

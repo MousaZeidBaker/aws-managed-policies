@@ -18814,7 +18814,7 @@
             "arn:aws:ec2:*:*:capacity-reservation/*"
           ],
           "Condition": {
-            "StringLike": {
+            "ArnLike": {
               "ec2:CapacityReservationFleet": "arn:aws:ec2:*:*:capacity-reservation-fleet/crf-*"
             }
           }
@@ -18835,9 +18835,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2021-09-29T14:43:09+00:00"
+    "CreateDate": "2025-03-03T23:22:06+00:00"
   },
   "AWSEC2FleetServiceRolePolicy": {
     "Document": {
@@ -19230,7 +19230,11 @@
             "ecr:InitiateLayerUpload",
             "ecr:UploadLayerPart",
             "ecr:CompleteLayerUpload",
-            "ecr:PutImage"
+            "ecr:PutImage",
+            "ecr:BatchGetImage",
+            "ecr:BatchImportUpstreamImage",
+            "ecr:GetDownloadUrlForLayer",
+            "ecr:GetImageCopyStatus"
           ],
           "Resource": "*"
         },
@@ -19249,9 +19253,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-13T15:23:16+00:00"
+    "CreateDate": "2025-03-06T21:22:07+00:00"
   },
   "AWSElasticBeanstalkCustomPlatformforEC2Role": {
     "Document": {
@@ -24200,9 +24204,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-25T16:16:02+00:00"
+    "CreateDate": "2025-03-07T14:52:07+00:00"
   },
   "AWSFaultInjectionSimulatorEKSAccess": {
     "Document": {
@@ -27796,6 +27800,88 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2015-10-08T15:17:25+00:00"
+  },
+  "AWSIoTManagedIntegrationsFullAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": "iotmanagedintegrations:*",
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/iotmanagedintegrations.amazonaws.com/AWSServiceRoleForIoTManagedIntegrations",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "iotmanagedintegrations.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-03-05T19:22:06+00:00"
+  },
+  "AWSIoTManagedIntegrationsRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CloudWatchLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogGroup"
+          ],
+          "Resource": [
+            "arn:aws:logs:*:*:log-group:/aws/iotmanagedintegrations/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:PrincipalAccount": "${aws:ResourceAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "CloudWatchStreams",
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogStream",
+            "logs:PutLogEvents"
+          ],
+          "Resource": [
+            "arn:aws:logs:*:*:log-group:/aws/iotmanagedintegrations/*:log-stream:*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:PrincipalAccount": "${aws:ResourceAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "CloudWatchMetrics",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": [
+                "AWS/IoTManagedIntegrations",
+                "AWS/Usage"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-03-05T21:22:06+00:00"
   },
   "AWSIoTOTAUpdate": {
     "Document": {
@@ -61097,7 +61183,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
-          "Sid": "GlueTagDatabasePermissions",
+          "Sid": "GlueTagDatabase",
           "Effect": "Allow",
           "Action": [
             "glue:TagResource",
@@ -61114,7 +61200,7 @@
           }
         },
         {
-          "Sid": "GlueDataQualityPermissions",
+          "Sid": "GlueDataQuality",
           "Effect": "Allow",
           "Action": [
             "glue:ListDataQualityResults",
@@ -61128,7 +61214,7 @@
           }
         },
         {
-          "Sid": "GlueCrawlerPermissions",
+          "Sid": "GlueCrawler",
           "Effect": "Allow",
           "Action": "glue:ListCrawls",
           "Resource": "arn:aws:glue:*:*:crawler/*",
@@ -61139,20 +61225,25 @@
           }
         },
         {
-          "Sid": "GlueTableDatabasePermissions",
+          "Sid": "GlueTableDatabaseCatalog",
           "Effect": "Allow",
           "Action": [
             "glue:CreateTable",
             "glue:DeleteTable",
             "glue:GetDatabases",
             "glue:GetTables",
-            "glue:SearchTables"
+            "glue:SearchTables",
+            "glue:CreateCatalog",
+            "glue:CreateDatabase",
+            "glue:DeleteCatalog",
+            "glue:DeleteDatabase"
           ],
           "Resource": [
             "arn:aws:glue:*:*:catalog",
             "arn:aws:glue:*:*:catalog/*",
             "arn:aws:glue:*:*:database/*",
-            "arn:aws:glue:*:*:table/*"
+            "arn:aws:glue:*:*:table/*",
+            "arn:aws:glue:*:*:userDefinedFunction/*"
           ],
           "Condition": {
             "StringEquals": {
@@ -61161,7 +61252,7 @@
           }
         },
         {
-          "Sid": "GlueGetTagsPermissions",
+          "Sid": "GlueGetTags",
           "Effect": "Allow",
           "Action": [
             "glue:GetTags",
@@ -61179,7 +61270,7 @@
           }
         },
         {
-          "Sid": "LakeformationResourceSharingPermissions",
+          "Sid": "LakeformationResourceSharing",
           "Effect": "Allow",
           "Action": [
             "lakeformation:BatchGrantPermissions",
@@ -61206,7 +61297,7 @@
           "Resource": "*"
         },
         {
-          "Sid": "LakeformationResourceFederatedSharingPermissions",
+          "Sid": "LakeformationResourceFederatedSharing",
           "Effect": "Allow",
           "Action": [
             "lakeformation:GetDataAccess"
@@ -61225,7 +61316,7 @@
           }
         },
         {
-          "Sid": "CrossAccountRAMResourceSharingPermissions",
+          "Sid": "CrossAccountRAMResourceSharing",
           "Effect": "Allow",
           "Action": [
             "glue:DeleteResourcePolicy",
@@ -61246,7 +61337,7 @@
           }
         },
         {
-          "Sid": "CrossAccountLakeFormationResourceSharingPermissions",
+          "Sid": "CrossAccountLakeFormationResourceSharing",
           "Effect": "Allow",
           "Action": [
             "ram:CreateResourceShare"
@@ -61268,7 +61359,7 @@
           }
         },
         {
-          "Sid": "CrossAccountRAMResourceShareInvitationPermission",
+          "Sid": "CrossAccountRAMResourceShareInvitation",
           "Effect": "Allow",
           "Action": [
             "ram:AcceptResourceShareInvitation"
@@ -61276,13 +61367,12 @@
           "Resource": "arn:aws:ram:*:*:resource-share-invitation/*"
         },
         {
-          "Sid": "CrossAccountRAMResourceSharingViaLakeFormationPermissions",
+          "Sid": "CrossAccountRAMResourceSharingViaLakeFormation",
           "Effect": "Allow",
           "Action": [
             "ram:AssociateResourceShare",
             "ram:DeleteResourceShare",
             "ram:DisassociateResourceShare",
-            "ram:GetResourceShares",
             "ram:ListResourceSharePermissions",
             "ram:UpdateResourceShare"
           ],
@@ -61293,6 +61383,19 @@
                 "LakeFormation*"
               ]
             },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "lakeformation.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "GetResourceSharesViaLakeFormation",
+          "Effect": "Allow",
+          "Action": "ram:GetResourceShares",
+          "Resource": "*",
+          "Condition": {
             "ForAnyValue:StringEquals": {
               "aws:CalledVia": [
                 "lakeformation.amazonaws.com"
@@ -61317,7 +61420,7 @@
           }
         },
         {
-          "Sid": "KMSDecryptPermission",
+          "Sid": "KMSDecrypt",
           "Effect": "Allow",
           "Action": [
             "kms:Decrypt"
@@ -61337,7 +61440,9 @@
           ],
           "Resource": [
             "arn:aws:iam::*:role/AmazonDataZone*",
-            "arn:aws:iam::*:role/service-role/AmazonDataZone*"
+            "arn:aws:iam::*:role/service-role/AmazonDataZone*",
+            "arn:aws:iam::*:role/AmazonSageMakerManageAccess*",
+            "arn:aws:iam::*:role/service-role/AmazonSageMakerManageAccess*"
           ]
         },
         {
@@ -61348,21 +61453,54 @@
           ],
           "Resource": [
             "arn:aws:iam::*:role/AmazonDataZone*",
-            "arn:aws:iam::*:role/service-role/AmazonDataZone*"
+            "arn:aws:iam::*:role/service-role/AmazonDataZone*",
+            "arn:aws:iam::*:role/AmazonSageMakerManageAccess*",
+            "arn:aws:iam::*:role/service-role/AmazonSageMakerManageAccess*"
           ],
           "Condition": {
             "StringEquals": {
               "iam:PassedToService": [
-                "lakeformation.amazonaws.com"
+                "lakeformation.amazonaws.com",
+                "glue.amazonaws.com"
               ]
+            }
+          }
+        },
+        {
+          "Sid": "CreateCatalogEC2",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeAccountAttributes",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeAvailabilityZones"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CreateCatalogS3",
+          "Effect": "Allow",
+          "Action": [
+            "s3:CreateBucket",
+            "s3:DeleteBucket",
+            "s3:PutBucketPolicy",
+            "s3:PutEncryptionConfiguration",
+            "s3:PutLifecycleConfiguration",
+            "s3:PutBucketVersioning",
+            "s3:PutBucketTagging"
+          ],
+          "Resource": "arn:aws:s3:::redshift-staging-bucket*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-11-26T15:51:06+00:00"
+    "CreateDate": "2025-03-07T00:22:06+00:00"
   },
   "AmazonDataZonePortalFullAccessPolicy": {
     "Document": {
@@ -62502,6 +62640,28 @@
           }
         },
         {
+          "Sid": "createAndDeleteWorkgroupPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "redshift-serverless:CreateWorkgroup",
+            "redshift-serverless:DeleteWorkgroup"
+          ],
+          "Resource": [
+            "arn:aws:redshift-serverless:*:*:workgroup/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "glue.amazonaws.com",
+                "lakeformation.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "getNamespacePermission",
           "Effect": "Allow",
           "Action": "redshift-serverless:GetNamespace",
@@ -62511,6 +62671,28 @@
           "Condition": {
             "StringEquals": {
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "createAndDeleteNamespacePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "redshift-serverless:CreateNamespace",
+            "redshift-serverless:DeleteNamespace"
+          ],
+          "Resource": [
+            "arn:aws:redshift-serverless:*:*:namespace/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "glue.amazonaws.com",
+                "lakeformation.amazonaws.com"
+              ]
             }
           }
         },
@@ -62548,9 +62730,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-16T22:04:02+00:00"
+    "CreateDate": "2025-03-07T00:07:06+00:00"
   },
   "AmazonDataZoneSageMakerEnvironmentRolePermissionsBoundary": {
     "Document": {
@@ -69711,12 +69893,62 @@
               "iam:PassedToService": "ec2.amazonaws.com*"
             }
           }
+        },
+        {
+          "Sid": "CreateAndModifyEmrServiceVPCEndpoint",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyVpcEndpoint",
+            "ec2:CreateVpcEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc-endpoint/*",
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:vpc/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/for-use-with-amazon-emr-managed-policies": "true"
+            }
+          }
+        },
+        {
+          "Sid": "CreateEmrServiceVPCEndpoint",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVpcEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc-endpoint/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/for-use-with-amazon-emr-managed-policies": "true",
+              "aws:RequestTag/Name": "emr-service-vpce"
+            }
+          }
+        },
+        {
+          "Sid": "TagEmrServiceVPCEndpoint",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc-endpoint/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateVpcEndpoint",
+              "aws:RequestTag/for-use-with-amazon-emr-managed-policies": "true",
+              "aws:RequestTag/Name": "emr-service-vpce"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-02T18:43:30+00:00"
+    "CreateDate": "2025-03-03T20:37:06+00:00"
   },
   "AmazonESCognitoAccess": {
     "Document": {
@@ -80048,7 +80280,10 @@
             "secretsmanager:TagResource",
             "secretsmanager:CreateSecret"
           ],
-          "Resource": "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+            "arn:aws:secretsmanager:*:*:secret:preview-rds-custom!*"
+          ],
           "Condition": {
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
@@ -80066,9 +80301,13 @@
             "secretsmanager:TagResource",
             "secretsmanager:DescribeSecret",
             "secretsmanager:DeleteSecret",
-            "secretsmanager:PutSecretValue"
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:RestoreSecret"
           ],
-          "Resource": "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+            "arn:aws:secretsmanager:*:*:secret:preview-rds-custom!*"
+          ],
           "Condition": {
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
@@ -80076,6 +80315,21 @@
                 "custom-sqlserver",
                 "custom-oracle-rac"
               ]
+            }
+          }
+        },
+        {
+          "Sid": "secretmanager3",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:ListSecrets"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
         },
@@ -80089,9 +80343,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-09-20T17:48:39+00:00"
+    "CreateDate": "2025-03-06T23:37:06+00:00"
   },
   "AmazonRDSCustomServiceRolePolicy": {
     "Document": {
@@ -80792,7 +81046,10 @@
             "secretsmanager:TagResource",
             "secretsmanager:CreateSecret"
           ],
-          "Resource": "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+            "arn:aws:secretsmanager:*:*:secret:rds-custom!*"
+          ],
           "Condition": {
             "StringLike": {
               "aws:RequestTag/AWSRDSCustom": [
@@ -80810,9 +81067,13 @@
             "secretsmanager:TagResource",
             "secretsmanager:DescribeSecret",
             "secretsmanager:DeleteSecret",
-            "secretsmanager:PutSecretValue"
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:RestoreSecret"
           ],
-          "Resource": "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+            "arn:aws:secretsmanager:*:*:secret:rds-custom!*"
+          ],
           "Condition": {
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
@@ -80820,6 +81081,21 @@
                 "custom-sqlserver",
                 "custom-oracle-rac"
               ]
+            }
+          }
+        },
+        {
+          "Sid": "secretmanager3",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:ListSecrets"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
         },
@@ -80868,9 +81144,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-07-18T17:33:36+00:00"
+    "CreateDate": "2025-03-06T23:52:07+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
@@ -109684,7 +109960,8 @@
                 "arn:aws:iam::aws:policy/SageMakerStudioProjectRoleMachineLearningPolicy",
                 "arn:aws:iam::aws:policy/service-role/SageMakerStudioEMRServiceRolePolicy",
                 "arn:aws:iam::aws:policy/service-role/SageMakerStudioEMRInstanceRolePolicy",
-                "arn:aws:iam::aws:policy/service-role/AmazonEMRServicePolicy_v2"
+                "arn:aws:iam::aws:policy/service-role/AmazonEMRServicePolicy_v2",
+                "arn:aws:iam::aws:policy/AmazonSageMakerPartnerAppsFullAccess"
               ]
             }
           }
@@ -109894,7 +110171,10 @@
             "iam:UpdateAssumeRolePolicy"
           ],
           "Resource": [
-            "arn:aws:iam::*:role/datazone_usr_role_*"
+            "arn:aws:iam::*:role/datazone_usr_role_*",
+            "arn:aws:iam::*:role/datazone_emr_*",
+            "arn:aws:iam::*:role/datazone-partner-apps-*",
+            "arn:aws:iam::*:role/AmazonBedrock*"
           ],
           "Condition": {
             "StringEquals": {
@@ -111440,7 +111720,6 @@
           "Sid": "EMRServerlessApplicationManagement",
           "Effect": "Allow",
           "Action": [
-            "emr-serverless:GetApplication",
             "emr-serverless:UpdateApplication",
             "emr-serverless:DeleteApplication"
           ],
@@ -111450,6 +111729,22 @@
           "Condition": {
             "StringEquals": {
               "aws:CalledViaFirst": "cloudformation.amazonaws.com",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "false"
+            }
+          }
+        },
+        {
+          "Sid": "EMRServerlessGetApplication",
+          "Effect": "Allow",
+          "Action": "emr-serverless:GetApplication",
+          "Resource": [
+            "arn:aws:emr-serverless:*:*:/applications/*"
+          ],
+          "Condition": {
+            "StringEquals": {
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
             },
             "Null": {
@@ -112032,26 +112327,12 @@
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
-        },
-        {
-          "Sid": "IamGetEmrRoleFromDataZone",
-          "Effect": "Allow",
-          "Action": "iam:GetRole",
-          "Resource": "arn:aws:iam::*:role/datazone_emr_*",
-          "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            },
-            "Null": {
-              "aws:ResourceTag/AmazonDataZoneProject": "false"
-            }
-          }
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-02-27T00:22:05+00:00"
+    "CreateDate": "2025-03-05T23:07:07+00:00"
   },
   "SageMakerStudioProjectRoleMachineLearningPolicy": {
     "Document": {

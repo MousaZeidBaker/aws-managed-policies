@@ -638,7 +638,10 @@
           "secretsmanager:TagResource",
           "secretsmanager:CreateSecret"
         ],
-        "Resource": "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+        "Resource": [
+          "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+          "arn:aws:secretsmanager:*:*:secret:preview-rds-custom!*"
+        ],
         "Condition": {
           "StringLike": {
             "aws:RequestTag/AWSRDSCustom": [
@@ -656,9 +659,13 @@
           "secretsmanager:TagResource",
           "secretsmanager:DescribeSecret",
           "secretsmanager:DeleteSecret",
-          "secretsmanager:PutSecretValue"
+          "secretsmanager:PutSecretValue",
+          "secretsmanager:RestoreSecret"
         ],
-        "Resource": "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+        "Resource": [
+          "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+          "arn:aws:secretsmanager:*:*:secret:preview-rds-custom!*"
+        ],
         "Condition": {
           "StringLike": {
             "aws:ResourceTag/AWSRDSCustom": [
@@ -666,6 +673,21 @@
               "custom-sqlserver",
               "custom-oracle-rac"
             ]
+          }
+        }
+      },
+      {
+        "Sid": "secretmanager3",
+        "Effect": "Allow",
+        "Action": [
+          "secretsmanager:ListSecrets"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
       },
@@ -679,7 +701,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-09-20T17:48:39+00:00"
+  "CreateDate": "2025-03-06T23:37:06+00:00"
 }
