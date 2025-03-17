@@ -102,10 +102,27 @@
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
+      },
+      {
+        "Sid": "BedrockGuardrailKmsPermissions",
+        "Effect": "Allow",
+        "Action": "kms:Decrypt",
+        "Resource": "arn:aws:kms:*:*:key/${aws:PrincipalTag/KmsKeyId}",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": "bedrock.*.amazonaws.com"
+          },
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          },
+          "Null": {
+            "kms:EncryptionContext:aws:bedrock:guardrail-id": "false"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-14T00:07:06+00:00"
+  "CreateDate": "2025-03-12T18:37:06+00:00"
 }

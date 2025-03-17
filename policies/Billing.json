@@ -91,6 +91,9 @@
           "invoicing:TagResource",
           "invoicing:UntagResource",
           "invoicing:UpdateInvoiceUnit",
+          "mapcredits:ListQuarterSpend",
+          "mapcredits:ListAssociatedPrograms",
+          "mapcredits:ListQuarterCredits",
           "payments:CreateFinancingApplication",
           "payments:CreatePaymentInstrument",
           "payments:DeletePaymentInstrument",
@@ -147,7 +150,7 @@
       }
     ]
   },
-  "VersionId": "v14",
+  "VersionId": "v15",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-18T00:07:06+00:00"
+  "CreateDate": "2025-03-12T18:07:07+00:00"
 }

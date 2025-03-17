@@ -206,7 +206,10 @@
           "wisdom:ListAIGuardrails",
           "wisdom:ListAIGuardrailVersions",
           "wisdom:CreateAssistant",
-          "wisdom:ListTagsForResource"
+          "wisdom:ListTagsForResource",
+          "wisdom:SendMessage",
+          "wisdom:GetNextMessage",
+          "wisdom:ListMessages"
         ],
         "Resource": "*",
         "Condition": {
@@ -413,7 +416,7 @@
       }
     ]
   },
-  "VersionId": "v23",
+  "VersionId": "v24",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-16T21:52:06+00:00"
+  "CreateDate": "2025-03-12T20:22:06+00:00"
 }

@@ -4674,6 +4674,7 @@
             "arn:aws:ec2:*:*:security-group/*",
             "arn:aws:ec2:*:*:volume/*",
             "arn:aws:ec2:*:*:snapshot/*",
+            "arn:aws:ec2:*:*:network-interface/*",
             "arn:aws:ec2:*:*:instance/*"
           ],
           "Condition": {
@@ -4702,9 +4703,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-08T09:22:07+00:00"
+    "CreateDate": "2025-03-16T10:37:07+00:00"
   },
   "AWSApplicationMigrationVCenterClientPolicy": {
     "Document": {
@@ -8383,6 +8384,9 @@
             "invoicing:ListInvoiceSummaries",
             "invoicing:ListInvoiceUnits",
             "invoicing:ListTagsForResource",
+            "mapcredits:ListQuarterSpend",
+            "mapcredits:ListAssociatedPrograms",
+            "mapcredits:ListQuarterCredits",
             "payments:GetFinancingApplication",
             "payments:GetFinancingLine",
             "payments:GetFinancingLineWithdrawal",
@@ -8411,9 +8415,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-01T17:36:06+00:00"
+    "CreateDate": "2025-03-12T18:07:07+00:00"
   },
   "AWSBudgetsActionsRolePolicyForResourceAdministrationWithSSM": {
     "Document": {
@@ -24252,9 +24256,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-13T16:44:51+00:00"
+    "CreateDate": "2025-03-11T14:07:07+00:00"
   },
   "AWSFaultInjectionSimulatorNetworkAccess": {
     "Document": {
@@ -24555,9 +24559,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-25T16:07:44+00:00"
+    "CreateDate": "2025-03-11T13:52:06+00:00"
   },
   "AWSFaultInjectionSimulatorRDSAccess": {
     "Document": {
@@ -59260,7 +59264,10 @@
             "wisdom:ListAIGuardrails",
             "wisdom:ListAIGuardrailVersions",
             "wisdom:CreateAssistant",
-            "wisdom:ListTagsForResource"
+            "wisdom:ListTagsForResource",
+            "wisdom:SendMessage",
+            "wisdom:GetNextMessage",
+            "wisdom:ListMessages"
           ],
           "Resource": "*",
           "Condition": {
@@ -59467,9 +59474,9 @@
         }
       ]
     },
-    "VersionId": "v23",
+    "VersionId": "v24",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-16T21:52:06+00:00"
+    "CreateDate": "2025-03-12T20:22:06+00:00"
   },
   "AmazonConnectSynchronizationServiceRolePolicy": {
     "Document": {
@@ -93186,6 +93193,37 @@
           }
         },
         {
+          "Sid": "AppStudioResourcePermissionsForManagedSecrets",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DeleteSecret",
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:GetSecretValue",
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:UpdateSecret"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:appstudio!*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "appstudio"
+            }
+          }
+        },
+        {
+          "Sid": "AppStudioResourceWritePermissionsForManagedSecrets",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:CreateSecret"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:appstudio!*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
           "Sid": "AppStudioResourcePermissionsForSSO",
           "Effect": "Allow",
           "Action": [
@@ -93202,9 +93240,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-07-10T05:01:15+00:00"
+    "CreateDate": "2025-03-13T20:37:07+00:00"
   },
   "ApplicationAutoScalingForAmazonAppStreamAccess": {
     "Document": {
@@ -94871,6 +94909,9 @@
             "invoicing:TagResource",
             "invoicing:UntagResource",
             "invoicing:UpdateInvoiceUnit",
+            "mapcredits:ListQuarterSpend",
+            "mapcredits:ListAssociatedPrograms",
+            "mapcredits:ListQuarterCredits",
             "payments:CreateFinancingApplication",
             "payments:CreatePaymentInstrument",
             "payments:DeletePaymentInstrument",
@@ -94927,9 +94968,9 @@
         }
       ]
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-18T00:07:06+00:00"
+    "CreateDate": "2025-03-12T18:07:07+00:00"
   },
   "CertificateManagerServiceRolePolicy": {
     "Document": {
@@ -108405,12 +108446,29 @@
               "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
+        },
+        {
+          "Sid": "BedrockGuardrailKmsPermissions",
+          "Effect": "Allow",
+          "Action": "kms:Decrypt",
+          "Resource": "arn:aws:kms:*:*:key/${aws:PrincipalTag/KmsKeyId}",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": "bedrock.*.amazonaws.com"
+            },
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "Null": {
+              "kms:EncryptionContext:aws:bedrock:guardrail-id": "false"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-02-14T00:07:06+00:00"
+    "CreateDate": "2025-03-12T18:37:06+00:00"
   },
   "SageMakerStudioBedrockFunctionExecutionRolePolicy": {
     "Document": {
