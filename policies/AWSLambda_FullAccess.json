@@ -45,13 +45,15 @@
         "Action": [
           "logs:DescribeLogStreams",
           "logs:GetLogEvents",
-          "logs:FilterLogEvents"
+          "logs:FilterLogEvents",
+          "logs:StartLiveTail",
+          "logs:StopLiveTail"
         ],
         "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-11-17T21:14:08+00:00"
+  "CreateDate": "2025-03-17T21:37:06+00:00"
 }

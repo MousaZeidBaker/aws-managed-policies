@@ -1201,7 +1201,8 @@
         "Action": [
           "cloudformation:CreateStack",
           "cloudformation:DeleteStack",
-          "cloudformation:DescribeStacks"
+          "cloudformation:DescribeStacks",
+          "cloudformation:DescribeStackEvents"
         ],
         "Resource": "arn:aws:cloudformation:*:*:stack/athenafederatedcatalog*",
         "Condition": {
@@ -2686,7 +2687,7 @@
       }
     ]
   },
-  "VersionId": "v11",
+  "VersionId": "v12",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-03-05T23:07:07+00:00"
+  "CreateDate": "2025-03-21T20:07:07+00:00"
 }

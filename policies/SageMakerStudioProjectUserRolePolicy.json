@@ -931,6 +931,17 @@
         ]
       },
       {
+        "Sid": "AllowGlueGetDatabasesExceptDefault",
+        "Effect": "Allow",
+        "Action": "glue:GetDatabases",
+        "NotResource": "arn:aws:glue:*:*:database/default",
+        "Condition": {
+          "StringEquals": {
+            "glue:LakeFormationPermissions": "Enabled"
+          }
+        }
+      },
+      {
         "Sid": "GlueListDatabasesOnNoDatabases",
         "Effect": "Allow",
         "Action": [
@@ -993,7 +1004,6 @@
           "glue:GetColumnStatisticsTaskRun",
           "glue:GetColumnStatisticsTaskRuns",
           "glue:GetDatabase",
-          "glue:GetDatabases",
           "glue:GetPartition",
           "glue:GetPartitionIndexes",
           "glue:GetPartitions",
@@ -1889,7 +1899,10 @@
         "Action": [
           "iam:PassRole"
         ],
-        "Resource": "arn:aws:iam::*:role/AmazonBedrockEvaluationRole-${aws:PrincipalTag/AmazonDataZoneProject}-*",
+        "Resource": [
+          "arn:aws:iam::*:role/AmazonBedrockEvaluationRole-${aws:PrincipalTag/AmazonDataZoneProject}-*",
+          "arn:aws:iam::*:role/AmazonBedrockServiceRole-${aws:PrincipalTag/AmazonDataZoneProject}-*"
+        ],
         "Condition": {
           "StringEquals": {
             "aws:PrincipalTag/EnableAmazonBedrockIDEPermissions": "true",
@@ -1903,7 +1916,10 @@
         "Sid": "IamPassRoleToBedrockPermissions",
         "Effect": "Allow",
         "Action": "iam:PassRole",
-        "Resource": "arn:aws:iam::*:role/AmazonBedrockEvaluationRole-${aws:PrincipalTag/AmazonDataZoneProject}-*",
+        "Resource": [
+          "arn:aws:iam::*:role/AmazonBedrockEvaluationRole-${aws:PrincipalTag/AmazonDataZoneProject}-*",
+          "arn:aws:iam::*:role/AmazonBedrockServiceRole-${aws:PrincipalTag/AmazonDataZoneProject}-*"
+        ],
         "Condition": {
           "StringEquals": {
             "aws:PrincipalTag/EnableAmazonBedrockPermissions": "true",
@@ -2429,7 +2445,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-27T22:37:06+00:00"
+  "CreateDate": "2025-03-21T20:07:06+00:00"
 }

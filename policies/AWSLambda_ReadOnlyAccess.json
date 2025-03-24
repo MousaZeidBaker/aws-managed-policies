@@ -43,13 +43,15 @@
           "logs:DescribeQueries",
           "logs:GetLogGroupFields",
           "logs:GetLogRecord",
-          "logs:GetQueryResults"
+          "logs:GetQueryResults",
+          "logs:StartLiveTail",
+          "logs:StopLiveTail"
         ],
         "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-07-27T17:32:05+00:00"
+  "CreateDate": "2025-03-17T21:07:06+00:00"
 }

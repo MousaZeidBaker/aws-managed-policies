@@ -6820,6 +6820,48 @@
           ]
         },
         {
+          "Sid": "RedshiftServerlessGetPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "redshift-serverless:GetNamespace",
+            "redshift-serverless:GetSnapshot",
+            "redshift-serverless:GetWorkgroup"
+          ],
+          "Resource": [
+            "arn:aws:redshift-serverless:*:*:namespace/*",
+            "arn:aws:redshift-serverless:*:*:workgroup/*",
+            "arn:aws:redshift-serverless:*:*:snapshot/*"
+          ]
+        },
+        {
+          "Sid": "RedshiftServerlessDeleteSnapshotPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "redshift-serverless:DeleteSnapshot"
+          ],
+          "Resource": [
+            "arn:aws:redshift-serverless:*:*:snapshot/*"
+          ],
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/aws:backup:source-resource": "false"
+            }
+          }
+        },
+        {
+          "Sid": "RedshiftServerlessListPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "redshift-serverless:ListNamespaces",
+            "redshift-serverless:ListSnapshots",
+            "redshift-serverless:ListTagsForResource",
+            "redshift-serverless:ListWorkgroups"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
           "Sid": "CloudformationStackPermissions",
           "Effect": "Allow",
           "Action": [
@@ -6844,9 +6886,9 @@
         }
       ]
     },
-    "VersionId": "v17",
+    "VersionId": "v18",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-07T18:22:07+00:00"
+    "CreateDate": "2025-03-21T23:22:06+00:00"
   },
   "AWSBackupServiceLinkedRolePolicyForBackupTest": {
     "Document": {
@@ -24606,9 +24648,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-13T16:23:29+00:00"
+    "CreateDate": "2025-03-18T15:07:06+00:00"
   },
   "AWSFaultInjectionSimulatorSSMAccess": {
     "Document": {
@@ -24661,9 +24703,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-02T22:55:18+00:00"
+    "CreateDate": "2025-03-18T15:07:07+00:00"
   },
   "AWSFinSpaceServiceRolePolicy": {
     "Document": {
@@ -28980,15 +29022,17 @@
           "Action": [
             "logs:DescribeLogStreams",
             "logs:GetLogEvents",
-            "logs:FilterLogEvents"
+            "logs:FilterLogEvents",
+            "logs:StartLiveTail",
+            "logs:StopLiveTail"
           ],
           "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2020-11-17T21:14:08+00:00"
+    "CreateDate": "2025-03-17T21:37:06+00:00"
   },
   "AWSLambda_ReadOnlyAccess": {
     "Document": {
@@ -29035,15 +29079,17 @@
             "logs:DescribeQueries",
             "logs:GetLogGroupFields",
             "logs:GetLogRecord",
-            "logs:GetQueryResults"
+            "logs:GetQueryResults",
+            "logs:StartLiveTail",
+            "logs:StopLiveTail"
           ],
           "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-07-27T17:32:05+00:00"
+    "CreateDate": "2025-03-17T21:07:06+00:00"
   },
   "AWSLicenseManagerConsumptionPolicy": {
     "Document": {
@@ -79515,7 +79561,8 @@
             "secretsmanager:DescribeSecret"
           ],
           "Resource": [
-            "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*"
+            "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+            "arn:aws:secretsmanager:*:*:secret:rds-custom!*"
           ],
           "Condition": {
             "StringLike": {
@@ -79617,7 +79664,10 @@
           "Resource": "*",
           "Condition": {
             "ArnLike": {
-              "kms:EncryptionContext:SecretARN": "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*"
+              "kms:EncryptionContext:SecretARN": [
+                "arn:aws:secretsmanager:*:*:secret:do-not-delete-rds-custom-*",
+                "arn:aws:secretsmanager:*:*:secret:rds-custom!*"
+              ]
             },
             "StringLike": {
               "kms:ViaService": "secretsmanager.*.amazonaws.com"
@@ -79643,9 +79693,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-27T17:42:02+00:00"
+    "CreateDate": "2025-03-20T16:22:05+00:00"
   },
   "AmazonRDSCustomPreviewServiceRolePolicy": {
     "Document": {
@@ -95802,6 +95852,22 @@
           }
         },
         {
+          "Sid": "ApplicationSignalsPermission",
+          "Effect": "Allow",
+          "Action": [
+            "application-signals:ListServiceLevelObjectiveExclusionWindows",
+            "application-signals:GetServiceLevelObjective"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
           "Sid": "EC2AutoScalingPermission",
           "Effect": "Allow",
           "Action": [
@@ -95818,9 +95884,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-26T21:29:34+00:00"
+    "CreateDate": "2025-03-17T15:07:06+00:00"
   },
   "CloudWatchAutomaticDashboardsAccess": {
     "Document": {
@@ -104564,19 +104630,47 @@
       "Version": "2012-10-17",
       "Statement": [
         {
-          "Sid": "Ec2ReadOnly",
+          "Sid": "EC2DescribeInstancesRegions",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeInstances",
             "ec2:DescribeRegions"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "ECRGetAuthorizationToken",
+          "Effect": "Allow",
+          "Action": [
+            "ecr:GetAuthorizationToken"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ECRReadOnlyAccessRedHatManaged",
+          "Effect": "Allow",
+          "Action": [
+            "ecr:BatchCheckLayerAvailability",
+            "ecr:GetDownloadUrlForLayer",
+            "ecr:GetRepositoryPolicy",
+            "ecr:DescribeRepositories",
+            "ecr:ListImages",
+            "ecr:DescribeImages",
+            "ecr:BatchGetImage",
+            "ecr:ListTagsForResource"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-04-20T22:35:32+00:00"
+    "CreateDate": "2025-03-20T23:07:06+00:00"
   },
   "ReadOnlyAccess": {
     "Document": {
@@ -110903,7 +110997,8 @@
           "Action": [
             "cloudformation:CreateStack",
             "cloudformation:DeleteStack",
-            "cloudformation:DescribeStacks"
+            "cloudformation:DescribeStacks",
+            "cloudformation:DescribeStackEvents"
           ],
           "Resource": "arn:aws:cloudformation:*:*:stack/athenafederatedcatalog*",
           "Condition": {
@@ -112388,9 +112483,9 @@
         }
       ]
     },
-    "VersionId": "v11",
+    "VersionId": "v12",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-03-05T23:07:07+00:00"
+    "CreateDate": "2025-03-21T20:07:07+00:00"
   },
   "SageMakerStudioProjectRoleMachineLearningPolicy": {
     "Document": {
@@ -116600,6 +116695,17 @@
           ]
         },
         {
+          "Sid": "AllowGlueGetDatabasesExceptDefault",
+          "Effect": "Allow",
+          "Action": "glue:GetDatabases",
+          "NotResource": "arn:aws:glue:*:*:database/default",
+          "Condition": {
+            "StringEquals": {
+              "glue:LakeFormationPermissions": "Enabled"
+            }
+          }
+        },
+        {
           "Sid": "GlueListDatabasesOnNoDatabases",
           "Effect": "Allow",
           "Action": [
@@ -116662,7 +116768,6 @@
             "glue:GetColumnStatisticsTaskRun",
             "glue:GetColumnStatisticsTaskRuns",
             "glue:GetDatabase",
-            "glue:GetDatabases",
             "glue:GetPartition",
             "glue:GetPartitionIndexes",
             "glue:GetPartitions",
@@ -117558,7 +117663,10 @@
           "Action": [
             "iam:PassRole"
           ],
-          "Resource": "arn:aws:iam::*:role/AmazonBedrockEvaluationRole-${aws:PrincipalTag/AmazonDataZoneProject}-*",
+          "Resource": [
+            "arn:aws:iam::*:role/AmazonBedrockEvaluationRole-${aws:PrincipalTag/AmazonDataZoneProject}-*",
+            "arn:aws:iam::*:role/AmazonBedrockServiceRole-${aws:PrincipalTag/AmazonDataZoneProject}-*"
+          ],
           "Condition": {
             "StringEquals": {
               "aws:PrincipalTag/EnableAmazonBedrockIDEPermissions": "true",
@@ -117572,7 +117680,10 @@
           "Sid": "IamPassRoleToBedrockPermissions",
           "Effect": "Allow",
           "Action": "iam:PassRole",
-          "Resource": "arn:aws:iam::*:role/AmazonBedrockEvaluationRole-${aws:PrincipalTag/AmazonDataZoneProject}-*",
+          "Resource": [
+            "arn:aws:iam::*:role/AmazonBedrockEvaluationRole-${aws:PrincipalTag/AmazonDataZoneProject}-*",
+            "arn:aws:iam::*:role/AmazonBedrockServiceRole-${aws:PrincipalTag/AmazonDataZoneProject}-*"
+          ],
           "Condition": {
             "StringEquals": {
               "aws:PrincipalTag/EnableAmazonBedrockPermissions": "true",
@@ -118098,9 +118209,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-02-27T22:37:06+00:00"
+    "CreateDate": "2025-03-21T20:07:06+00:00"
   },
   "SageMakerStudioQueryExecutionRolePolicy": {
     "Document": {

@@ -329,6 +329,48 @@
         ]
       },
       {
+        "Sid": "RedshiftServerlessGetPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:GetNamespace",
+          "redshift-serverless:GetSnapshot",
+          "redshift-serverless:GetWorkgroup"
+        ],
+        "Resource": [
+          "arn:aws:redshift-serverless:*:*:namespace/*",
+          "arn:aws:redshift-serverless:*:*:workgroup/*",
+          "arn:aws:redshift-serverless:*:*:snapshot/*"
+        ]
+      },
+      {
+        "Sid": "RedshiftServerlessDeleteSnapshotPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:DeleteSnapshot"
+        ],
+        "Resource": [
+          "arn:aws:redshift-serverless:*:*:snapshot/*"
+        ],
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/aws:backup:source-resource": "false"
+          }
+        }
+      },
+      {
+        "Sid": "RedshiftServerlessListPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:ListNamespaces",
+          "redshift-serverless:ListSnapshots",
+          "redshift-serverless:ListTagsForResource",
+          "redshift-serverless:ListWorkgroups"
+        ],
+        "Resource": [
+          "*"
+        ]
+      },
+      {
         "Sid": "CloudformationStackPermissions",
         "Effect": "Allow",
         "Action": [
@@ -353,7 +395,7 @@
       }
     ]
   },
-  "VersionId": "v17",
+  "VersionId": "v18",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-07T18:22:07+00:00"
+  "CreateDate": "2025-03-21T23:22:06+00:00"
 }
