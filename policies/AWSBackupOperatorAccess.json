@@ -293,6 +293,32 @@
         "Resource": "*"
       },
       {
+        "Sid": "RedshiftServerlessListPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:ListNamespaces",
+          "redshift-serverless:ListSnapshots",
+          "redshift-serverless:ListWorkgroups"
+        ],
+        "Resource": [
+          "*"
+        ]
+      },
+      {
+        "Sid": "RedshiftServerlessGetPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:GetNamespace",
+          "redshift-serverless:GetSnapshot",
+          "redshift-serverless:GetWorkgroup"
+        ],
+        "Resource": [
+          "arn:aws:redshift-serverless:*:*:namespace/*",
+          "arn:aws:redshift-serverless:*:*:workgroup/*",
+          "arn:aws:redshift-serverless:*:*:snapshot/*"
+        ]
+      },
+      {
         "Sid": "CloudFormationAccess",
         "Effect": "Allow",
         "Action": [
@@ -330,7 +356,7 @@
       }
     ]
   },
-  "VersionId": "v16",
+  "VersionId": "v17",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-07-24T18:58:33+00:00"
+  "CreateDate": "2025-03-27T21:52:05+00:00"
 }

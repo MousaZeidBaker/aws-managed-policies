@@ -13,10 +13,30 @@
           "secretsmanager:PutSecretValue"
         ],
         "Resource": "arn:aws:secretsmanager:*:*:secret:events!connection/*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt",
+          "kms:Encrypt",
+          "kms:GenerateDataKey"
+        ],
+        "Resource": "arn:aws:kms:*:*:key/*",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": "secretsmanager.*.amazonaws.com",
+            "kms:EncryptionContext:SecretARN": [
+              "arn:aws:secretsmanager:*:*:secret:events!connection/*"
+            ]
+          },
+          "StringEquals": {
+            "aws:ResourceTag/EventBridgeApiDestinations": "true"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-02-11T20:52:05+00:00"
+  "CreateDate": "2025-03-28T20:07:07+00:00"
 }

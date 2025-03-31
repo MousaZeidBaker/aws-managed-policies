@@ -421,6 +421,65 @@
         ]
       },
       {
+        "Sid": "RedshiftServerlessCreatePermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:CreateSnapshot"
+        ],
+        "Resource": [
+          "arn:aws:redshift-serverless:*:*:snapshot/*",
+          "arn:aws:redshift-serverless:*:*:namespace/*"
+        ]
+      },
+      {
+        "Sid": "RedshiftServerlessSnapshotPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:DeleteSnapshot"
+        ],
+        "Resource": [
+          "arn:aws:redshift-serverless:*:*:snapshot/*"
+        ],
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/aws:backup:source-resource": "false"
+          }
+        }
+      },
+      {
+        "Sid": "RedshiftServerlessGetPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:GetNamespace"
+        ],
+        "Resource": [
+          "arn:aws:redshift-serverless:*:*:namespace/*"
+        ]
+      },
+      {
+        "Sid": "RedshiftServerlessResourcePermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:GetSnapshot",
+          "redshift-serverless:TagResource"
+        ],
+        "Resource": [
+          "arn:aws:redshift-serverless:*:*:snapshot/*"
+        ]
+      },
+      {
+        "Sid": "RedshiftServerlessListPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "redshift-serverless:ListNamespaces",
+          "redshift-serverless:ListSnapshots",
+          "redshift-serverless:ListTagsForResource"
+        ],
+        "Resource": [
+          "*"
+        ]
+      },
+      {
         "Sid": "TimestreamResourcePermissions",
         "Effect": "Allow",
         "Action": [
@@ -479,7 +538,7 @@
       }
     ]
   },
-  "VersionId": "v20",
+  "VersionId": "v21",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-09-27T20:02:34+00:00"
+  "CreateDate": "2025-03-27T21:52:06+00:00"
 }

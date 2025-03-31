@@ -271,10 +271,40 @@
             "cloudwatch:namespace": "AWS/Inspector2"
           }
         }
+      },
+      {
+        "Sid": "AllowListAccessToECSAndEKS",
+        "Effect": "Allow",
+        "Action": [
+          "ecs:ListClusters",
+          "ecs:ListTasks",
+          "eks:ListClusters"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "AllowAccessToECSTasks",
+        "Effect": "Allow",
+        "Action": [
+          "ecs:DescribeTasks"
+        ],
+        "Resource": "arn:aws:ecs:*:*:task/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v15",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-08-14T16:03:32+00:00"
+  "CreateDate": "2025-03-28T20:07:06+00:00"
 }

@@ -193,10 +193,20 @@
             "ec2:CreateAction": "CreateVpcEndpoint"
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": "sso:PutApplicationAccessScope",
+        "Resource": "arn:aws:sso::*:application/*/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceOrgID": "${aws:PrincipalOrgID}"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-08-20T22:57:07+00:00"
+  "CreateDate": "2025-03-27T22:52:06+00:00"
 }
