@@ -46,8 +46,10 @@
           "appstream:Describe*",
           "appstream:List*",
           "appsync:GetApiAssociation",
+          "appsync:GetDataSource",
           "appsync:GetDomainName",
           "appsync:GetFunction",
+          "appsync:GetGraphqlApi",
           "appsync:GetResolver",
           "appsync:GetSourceApiAssociation",
           "appsync:List*",
@@ -263,7 +265,6 @@
           "ecs:List*",
           "eks:Describe*",
           "eks:List*",
-          "elastic-inference:Describe*",
           "elasticache:Describe*",
           "elasticache:List*",
           "elasticbeanstalk:Describe*",
@@ -362,7 +363,10 @@
           "iam:GetServiceLinkedRoleDeletionStatus",
           "iam:GetUser",
           "iam:GetUserPolicy",
+          "iam:ListAttachedRolePolicies",
           "iam:ListOpenIDConnectProviders",
+          "iam:ListRolePolicies",
+          "iam:ListRoles",
           "iam:ListServerCertificates",
           "iam:ListVirtualMFADevices",
           "identitystore:DescribeGroup",
@@ -879,7 +883,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-02T16:21:06+00:00"
+  "CreateDate": "2025-04-03T22:22:06+00:00"
 }

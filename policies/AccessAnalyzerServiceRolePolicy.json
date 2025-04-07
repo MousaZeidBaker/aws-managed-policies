@@ -88,8 +88,11 @@
           "s3:ListAccessPoints",
           "s3:ListAllMyBuckets",
           "s3:ListMultiRegionAccessPoints",
+          "s3express:GetAccessPoint",
+          "s3express:GetAccessPointPolicy",
           "s3express:GetBucketPolicy",
           "s3express:ListAllMyDirectoryBuckets",
+          "s3express:ListAccessPointsForDirectoryBuckets",
           "sns:GetTopicAttributes",
           "sns:ListTopics",
           "secretsmanager:DescribeSecret",
@@ -102,7 +105,7 @@
       }
     ]
   },
-  "VersionId": "v15",
+  "VersionId": "v16",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-10T16:51:09+00:00"
+  "CreateDate": "2025-04-01T15:52:07+00:00"
 }

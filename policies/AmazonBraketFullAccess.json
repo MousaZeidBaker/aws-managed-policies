@@ -12,7 +12,12 @@
           "s3:PutBucketPublicAccessBlock",
           "s3:PutBucketPolicy"
         ],
-        "Resource": "arn:aws:s3:::amazon-braket-*"
+        "Resource": "arn:aws:s3:::amazon-braket-*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
       },
       {
         "Effect": "Allow",
@@ -170,7 +175,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-04-19T16:25:29+00:00"
+  "CreateDate": "2025-04-01T22:52:06+00:00"
 }
