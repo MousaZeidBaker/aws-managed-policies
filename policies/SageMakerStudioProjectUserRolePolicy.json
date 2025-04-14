@@ -1221,7 +1221,8 @@
               "sagemaker.amazonaws.com",
               "glue.amazonaws.com",
               "airflow.amazonaws.com",
-              "emr-serverless.amazonaws.com"
+              "emr-serverless.amazonaws.com",
+              "scheduler.amazonaws.com"
             ],
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
@@ -1306,6 +1307,9 @@
         "Condition": {
           "StringEquals": {
             "aws:ResourceTag/for-use-with-all-datazone-projects": "true"
+          },
+          "Null": {
+            "aws:ResourceTag/AmazonDataZoneEnvironment": "true"
           }
         }
       },
@@ -1538,7 +1542,8 @@
               "sqs.*.amazonaws.com",
               "sagemaker.*.amazonaws.com",
               "bedrock.*.amazonaws.com",
-              "s3.*.amazonaws.com"
+              "s3.*.amazonaws.com",
+              "scheduler.*.amazonaws.com"
             ]
           },
           "StringEquals": {
@@ -1593,7 +1598,8 @@
               "emr-serverless.*.amazonaws.com",
               "s3.*.amazonaws.com",
               "redshift.*.amazonaws.com",
-              "codecommit.*.amazonaws.com"
+              "codecommit.*.amazonaws.com",
+              "scheduler.*.amazonaws.com"
             ]
           },
           "StringEquals": {
@@ -2442,10 +2448,43 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "EventBridgeScheduleActions",
+        "Effect": "Allow",
+        "Action": [
+          "scheduler:CreateSchedule",
+          "scheduler:GetSchedule",
+          "scheduler:UpdateSchedule",
+          "scheduler:DeleteSchedule"
+        ],
+        "Resource": [
+          "arn:aws:scheduler:*:*:schedule/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
+          }
+        }
+      },
+      {
+        "Sid": "EventBridgeScheduleGroupActions",
+        "Effect": "Allow",
+        "Action": [
+          "scheduler:GetScheduleGroup"
+        ],
+        "Resource": [
+          "arn:aws:scheduler:*:*:schedule-group/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-03-21T20:07:06+00:00"
+  "CreateDate": "2025-04-08T17:52:05+00:00"
 }

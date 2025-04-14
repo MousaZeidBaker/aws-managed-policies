@@ -24,7 +24,8 @@
         "Action": [
           "s3:ListAllMyBuckets",
           "servicequotas:GetServiceQuota",
-          "cloudwatch:GetMetricData"
+          "cloudwatch:GetMetricData",
+          "pricing:GetProducts"
         ],
         "Resource": "*"
       },
@@ -175,7 +176,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-01T22:52:06+00:00"
+  "CreateDate": "2025-04-11T22:22:06+00:00"
 }

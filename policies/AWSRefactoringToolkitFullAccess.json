@@ -3,7 +3,6 @@
     "Version": "2012-10-17",
     "Statement": [
       {
-        "Sid": "App2ContainerAccess",
         "Effect": "Allow",
         "Action": [
           "a2c:GetContainerizationJobDetails",
@@ -14,7 +13,6 @@
         "Resource": "*"
       },
       {
-        "Sid": "CloudformationExecutionAccess",
         "Effect": "Allow",
         "Action": [
           "cloudformation:CreateChangeSet",
@@ -33,7 +31,6 @@
         ]
       },
       {
-        "Sid": "CodeBuildCreateAccess",
         "Effect": "Allow",
         "Action": [
           "codebuild:CreateProject",
@@ -47,7 +44,6 @@
         }
       },
       {
-        "Sid": "CodeBuildExecutionAccess",
         "Effect": "Allow",
         "Action": [
           "codebuild:StartBuild"
@@ -55,7 +51,6 @@
         "Resource": "arn:aws:codebuild:*:*:project/*"
       },
       {
-        "Sid": "CreateSecurityGroupAccess",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateSecurityGroup"
@@ -63,7 +58,6 @@
         "Resource": "*"
       },
       {
-        "Sid": "Ec2CreateAccess",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateInternetGateway",
@@ -71,7 +65,6 @@
           "ec2:CreateRoute",
           "ec2:CreateRouteTable",
           "ec2:CreateSubnet",
-          "ec2:CreateTags",
           "ec2:CreateVpc",
           "ec2:AuthorizeSecurityGroupIngress"
         ],
@@ -83,7 +76,6 @@
         }
       },
       {
-        "Sid": "Ec2CreateAccessATS",
         "Effect": "Allow",
         "Action": [
           "ec2:CreateInternetGateway",
@@ -91,7 +83,6 @@
           "ec2:CreateRoute",
           "ec2:CreateRouteTable",
           "ec2:CreateSubnet",
-          "ec2:CreateTags",
           "ec2:CreateVpc",
           "ec2:AuthorizeSecurityGroupIngress"
         ],
@@ -103,7 +94,48 @@
         }
       },
       {
-        "Sid": "Ec2ModifyAccess",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:CreateTags"
+        ],
+        "Resource": "arn:aws:ec2:*:*:security-group/*",
+        "Condition": {
+          "ForAnyValue:StringEquals": {
+            "aws:CalledVia": [
+              "application-transformation.amazonaws.com"
+            ]
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ec2:CreateTags"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "ec2:CreateAction": [
+              "AuthorizeSecurityGroupIngress",
+              "CreateInternetGateway",
+              "CreateKeyPair",
+              "CreateRoute",
+              "CreateRouteTable",
+              "CreateSubnet",
+              "CreateVpc"
+            ]
+          },
+          "Null": {
+            "aws:RequestTag/application-transformation": "false"
+          },
+          "ForAnyValue:StringEquals": {
+            "aws:CalledVia": [
+              "application-transformation.amazonaws.com"
+            ]
+          }
+        }
+      },
+      {
         "Effect": "Allow",
         "Action": [
           "ec2:AssociateRouteTable",
@@ -125,7 +157,6 @@
         }
       },
       {
-        "Sid": "Ec2ModifyAccessATS",
         "Effect": "Allow",
         "Action": [
           "ec2:AssociateRouteTable",
@@ -147,7 +178,6 @@
         }
       },
       {
-        "Sid": "EcrCreateAccess",
         "Effect": "Allow",
         "Action": [
           "ecr:CreateRepository",
@@ -161,7 +191,6 @@
         }
       },
       {
-        "Sid": "EcrCreateAccessATS",
         "Effect": "Allow",
         "Action": [
           "ecr:CreateRepository",
@@ -175,7 +204,6 @@
         }
       },
       {
-        "Sid": "EcrModifyAccess",
         "Effect": "Allow",
         "Action": [
           "ecr:GetLifecyclePolicy",
@@ -193,7 +221,6 @@
         }
       },
       {
-        "Sid": "EcrModifyAccessATS",
         "Effect": "Allow",
         "Action": [
           "ecr:GetLifecyclePolicy",
@@ -211,7 +238,6 @@
         }
       },
       {
-        "Sid": "EcsCreateAccess",
         "Effect": "Allow",
         "Action": [
           "ecs:CreateCluster",
@@ -227,7 +253,6 @@
         }
       },
       {
-        "Sid": "EcsCreateAccessATS",
         "Effect": "Allow",
         "Action": [
           "ecs:CreateCluster",
@@ -243,7 +268,6 @@
         }
       },
       {
-        "Sid": "EcsModifyAccess",
         "Effect": "Allow",
         "Action": [
           "ecs:UpdateService",
@@ -258,7 +282,6 @@
         }
       },
       {
-        "Sid": "EcsModifyAccessATS",
         "Effect": "Allow",
         "Action": [
           "ecs:UpdateService",
@@ -273,7 +296,6 @@
         }
       },
       {
-        "Sid": "EcsReadTaskDefinitionAccess",
         "Effect": "Allow",
         "Action": [
           "ecs:DescribeTaskDefinition"
@@ -286,7 +308,6 @@
         }
       },
       {
-        "Sid": "EcsExecuteCommandInSidecar",
         "Effect": "Allow",
         "Action": [
           "ecs:ExecuteCommand"
@@ -299,7 +320,6 @@
         }
       },
       {
-        "Sid": "EcsExecuteCommandInSidecarATS",
         "Effect": "Allow",
         "Action": [
           "ecs:ExecuteCommand"
@@ -312,7 +332,6 @@
         }
       },
       {
-        "Sid": "CreateEcsServiceLinkedRoleAccess",
         "Effect": "Allow",
         "Action": "iam:CreateServiceLinkedRole",
         "Resource": "arn:aws:iam::*:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
@@ -323,7 +342,6 @@
         }
       },
       {
-        "Sid": "CloudwatchCreateAccess",
         "Effect": "Allow",
         "Action": [
           "logs:CreateLogGroup",
@@ -346,7 +364,6 @@
         }
       },
       {
-        "Sid": "CloudwatchCreateAccessATS",
         "Effect": "Allow",
         "Action": [
           "logs:CreateLogGroup",
@@ -368,7 +385,6 @@
         }
       },
       {
-        "Sid": "CloudwatchGetAccess",
         "Effect": "Allow",
         "Action": [
           "logs:GetLogEvents"
@@ -385,7 +401,6 @@
         }
       },
       {
-        "Sid": "CloudwatchGetAccessATS",
         "Effect": "Allow",
         "Action": [
           "logs:GetLogEvents"
@@ -401,7 +416,6 @@
         }
       },
       {
-        "Sid": "SsmParameterAccess",
         "Effect": "Allow",
         "Action": [
           "ssm:AddTagsToResource",
@@ -412,7 +426,6 @@
         "Resource": "arn:aws:ssm:*:*:parameter/a2c-generated-check-ecs-slr-*"
       },
       {
-        "Sid": "SsmMessagesAccess",
         "Effect": "Allow",
         "Action": [
           "ssm:DescribeSessions",
@@ -424,7 +437,6 @@
         "Resource": "*"
       },
       {
-        "Sid": "S3ObjectAccess",
         "Effect": "Allow",
         "Action": [
           "s3:DeleteObject",
@@ -438,7 +450,6 @@
         ]
       },
       {
-        "Sid": "S3ListAccess",
         "Effect": "Allow",
         "Action": [
           "s3:ListBucket"
@@ -454,7 +465,6 @@
         }
       },
       {
-        "Sid": "ReadOnlyAccess",
         "Effect": "Allow",
         "Action": [
           "cloudformation:DescribeStacks",
@@ -490,13 +500,11 @@
         "Resource": "*"
       },
       {
-        "Sid": "GetECSSLR",
         "Effect": "Allow",
         "Action": "iam:GetRole",
         "Resource": "arn:aws:iam::*:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
       },
       {
-        "Sid": "PortingAssistantFullAccess",
         "Effect": "Allow",
         "Action": [
           "s3:GetObject"
@@ -507,7 +515,6 @@
         ]
       },
       {
-        "Sid": "ApplicationTransformationAccess",
         "Effect": "Allow",
         "Action": [
           "application-transformation:StartPortingCompatibilityAssessment",
@@ -524,7 +531,6 @@
         "Resource": "*"
       },
       {
-        "Sid": "KmsAccess",
         "Effect": "Allow",
         "Action": [
           "kms:Decrypt",
@@ -540,7 +546,6 @@
         }
       },
       {
-        "Sid": "EcrPushAccess",
         "Effect": "Allow",
         "Action": [
           "ecr:InitiateLayerUpload",
@@ -558,7 +563,6 @@
         }
       },
       {
-        "Sid": "EcrAuthAccess",
         "Effect": "Allow",
         "Action": [
           "ecr:GetAuthorizationToken"
@@ -566,7 +570,6 @@
         "Resource": "*"
       },
       {
-        "Sid": "KmsCreateGrantAccess",
         "Effect": "Allow",
         "Action": [
           "kms:CreateGrant"
@@ -583,7 +586,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-25T18:43:14+00:00"
+  "CreateDate": "2025-04-09T20:22:06+00:00"
 }
