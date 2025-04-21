@@ -32,13 +32,15 @@
           "aps:CreateLoggingConfiguration",
           "aps:UpdateLoggingConfiguration",
           "aps:DeleteLoggingConfiguration",
-          "aps:DescribeLoggingConfiguration"
+          "aps:DescribeLoggingConfiguration",
+          "aps:UpdateWorkspaceConfiguration",
+          "aps:DescribeWorkspaceConfiguration"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-10-24T22:25:39+00:00"
+  "CreateDate": "2025-04-17T16:22:06+00:00"
 }

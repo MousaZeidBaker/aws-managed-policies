@@ -1,0 +1,43 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "GitLabDuoUsagePermissions",
+        "Effect": "Allow",
+        "Action": [
+          "q:SendEvent",
+          "q:CreateAuthGrant",
+          "q:UpdateAuthGrant",
+          "q:GenerateCodeRecommendations",
+          "q:SendMessage",
+          "q:ListPlugins",
+          "q:VerifyOAuthAppConnection"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "GitLabDuoManagementPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "q:CreateOAuthAppConnection",
+          "q:DeleteOAuthAppConnection"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "GitLabDuoPluginPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "q:CreatePlugin",
+          "q:DeletePlugin",
+          "q:GetPlugin"
+        ],
+        "Resource": "arn:aws:qdeveloper:*:*:plugin/GitLabDuoWithAmazonQ/*"
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2025-04-16T16:37:07+00:00"
+}

@@ -79,37 +79,10 @@
         "Resource": [
           "arn:aws:s3:::*"
         ]
-      },
-      {
-        "Sid": "MPViewAccessStatement",
-        "Effect": "Allow",
-        "Action": [
-          "aws-marketplace:ViewSubscriptions"
-        ],
-        "Resource": [
-          "*"
-        ]
-      },
-      {
-        "Sid": "MPSubscriptionAccessStatement",
-        "Effect": "Allow",
-        "Action": [
-          "aws-marketplace:Subscribe"
-        ],
-        "Resource": [
-          "*"
-        ],
-        "Condition": {
-          "ForAnyValue:StringEquals": {
-            "aws-marketplace:ProductId": [
-              "prod-xcc5llpq4vlbc"
-            ]
-          }
-        }
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v1",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-17T18:22:07+00:00"
+  "CreateDate": "2025-04-17T17:52:07+00:00"
 }
