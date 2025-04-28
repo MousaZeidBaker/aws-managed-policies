@@ -32,7 +32,10 @@
           "s3:ListBucket",
           "s3:ListBucketVersions",
           "s3-outposts:ListAccessPoints",
-          "s3-outposts:ListRegionalBuckets"
+          "s3-outposts:ListRegionalBuckets",
+          "secretsmanager:ListSecrets",
+          "kms:ListAliases",
+          "kms:DescribeKey"
         ],
         "Resource": "*"
       },
@@ -64,7 +67,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-18T20:07:03+00:00"
+  "CreateDate": "2025-04-23T20:07:06+00:00"
 }

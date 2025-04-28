@@ -19,7 +19,9 @@
           "account:PutContactInformation",
           "account:ListRegions",
           "account:EnableRegion",
-          "account:DisableRegion"
+          "account:DisableRegion",
+          "account:PutAccountName",
+          "account:GetAccountInformation"
         ],
         "Resource": "*"
       },
@@ -36,7 +38,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-02-06T17:49:01+00:00"
+  "CreateDate": "2025-04-22T20:37:06+00:00"
 }

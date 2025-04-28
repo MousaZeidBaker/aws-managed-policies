@@ -16829,7 +16829,10 @@
             "s3:ListBucket",
             "s3:ListBucketVersions",
             "s3-outposts:ListAccessPoints",
-            "s3-outposts:ListRegionalBuckets"
+            "s3-outposts:ListRegionalBuckets",
+            "secretsmanager:ListSecrets",
+            "kms:ListAliases",
+            "kms:DescribeKey"
           ],
           "Resource": "*"
         },
@@ -16861,9 +16864,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-10-18T20:07:03+00:00"
+    "CreateDate": "2025-04-23T20:07:06+00:00"
   },
   "AWSDataSyncReadOnlyAccess": {
     "Document": {
@@ -33940,7 +33943,9 @@
             "account:PutContactInformation",
             "account:ListRegions",
             "account:EnableRegion",
-            "account:DisableRegion"
+            "account:DisableRegion",
+            "account:PutAccountName",
+            "account:GetAccountInformation"
           ],
           "Resource": "*"
         },
@@ -33957,9 +33962,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-02-06T17:49:01+00:00"
+    "CreateDate": "2025-04-22T20:37:06+00:00"
   },
   "AWSOrganizationsReadOnlyAccess": {
     "Document": {
@@ -38737,7 +38742,8 @@
           "Effect": "Allow",
           "Action": [
             "iam:CreateRole",
-            "iam:GetRole"
+            "iam:GetRole",
+            "iam:TagRole"
           ],
           "Resource": [
             "arn:aws:iam::*:role/SSM-JustInTimeAccessTokenRole"
@@ -38768,9 +38774,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-17T21:37:05+00:00"
+    "CreateDate": "2025-04-23T15:37:06+00:00"
   },
   "AWSQuickSetupManagedInstanceProfileExecutionPolicy": {
     "Document": {
@@ -51227,6 +51233,185 @@
     "IsDefaultVersion": true,
     "CreateDate": "2022-11-17T02:11:44+00:00"
   },
+  "AWSSystemsManagerJustInTimeAccessServicePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowOpsItemReplication",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:CreateOpsItem"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:opsitem/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:RequestTag/SystemsManagerJustInTimeNodeAccessManaged": "Replica"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "SystemsManagerJustInTimeNodeAccessManaged"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllowOpsItemReplicationTagging",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:AddTagsToResource"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:opsitem/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/SystemsManagerJustInTimeNodeAccessManaged": "Replica"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "SystemsManagerJustInTimeNodeAccessManaged"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllowOpsItemManagement",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetOpsItem",
+            "ssm:UpdateOpsItem"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:opsitem/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "AllowRetrieveDocument",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetDocument",
+            "ssm:DescribeDocument"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:document/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ssm:DocumentType": [
+                "ManualApprovalPolicy",
+                "AutoApprovalPolicy"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "AllowDescriptions",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:DescribeOpsItems",
+            "ssm:DescribeSessions",
+            "ssm:ListDocuments"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "AllowListTagsForManagedInstances",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:ListTagsForResource"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:managed-instance/*"
+          ]
+        },
+        {
+          "Sid": "AllowListSSMGUIConnections",
+          "Effect": "Allow",
+          "Action": [
+            "ssm-guiconnect:ListConnections"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "AllowIdentityStoreActions",
+          "Effect": "Allow",
+          "Action": [
+            "identitystore:ListGroupMembershipsForMember",
+            "identitystore:DescribeUser",
+            "identitystore:GetGroupId",
+            "identitystore:GetUserId"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "AllowSSODirectoryActions",
+          "Effect": "Allow",
+          "Action": [
+            "sso-directory:DescribeUsers",
+            "sso-directory:IsMemberInGroup"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "AllowSSOInstanceActions",
+          "Effect": "Allow",
+          "Action": [
+            "sso:ListInstances",
+            "sso:DescribeRegisteredRegions",
+            "sso:ListDirectoryAssociations"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "AllowDescribingEC2Tags",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeTags"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "AllowPublishingCloudWatchMetrics",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": "AWS/SSM/JustInTimeAccess"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-04-21T20:07:07+00:00"
+  },
   "AWSSystemsManagerJustInTimeAccessTokenPolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -51455,6 +51640,184 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2025-04-17T20:52:07+00:00"
+  },
+  "AWSSystemsManagerJustInTimeNodeAccessRolePropagationPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "QuickSetupPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ssm-quicksetup:ListConfigurationManagers",
+            "ssm-quicksetup:GetConfigurationManager",
+            "cloudformation:ListStackSets"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "QuickSetupOrganizationsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:ListDelegatedAdministrators"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "organizations:ServicePrincipal": "ssm-quicksetup.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "QuickSetupSLRPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/ssm-quicksetup.amazonaws.com/AWSServiceRoleForSSMQuickSetup"
+          ]
+        },
+        {
+          "Sid": "OrganizationsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeOrganization",
+            "organizations:DescribeOrganizationalUnit"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "SSMDocumentPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetDocument",
+            "ssm:DescribeDocument",
+            "ssm:ListTagsForResource",
+            "ssm:PutResourcePolicy",
+            "ssm:DeleteResourcePolicy",
+            "ssm:GetResourcePolicies"
+          ],
+          "Resource": "arn:aws:ssm:*:*:document/SSM-JustInTimeAccessDenyAccessOrgPolicy",
+          "Condition": {
+            "StringEquals": {
+              "ssm:DocumentType": "AutoApprovalPolicy"
+            }
+          }
+        },
+        {
+          "Sid": "SSMDocumentCreateReplicaPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:CreateDocument"
+          ],
+          "Resource": "arn:aws:ssm:*:*:document/SSM-JustInTimeAccessDenyAccessOrgPolicy",
+          "Condition": {
+            "StringEquals": {
+              "ssm:DocumentType": "AutoApprovalPolicy",
+              "aws:RequestTag/SystemsManagerJustInTimeNodeAccessManaged": "true"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "SystemsManagerJustInTimeNodeAccessManaged"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "SSMDocumentUpdateReplicaPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:UpdateDocument",
+            "ssm:UpdateDocumentDefaultVersion",
+            "ssm:UpdateDocumentMetadata",
+            "ssm:DeleteDocument",
+            "ssm:AddTagsToResource",
+            "ssm:RemoveTagsFromResource"
+          ],
+          "Resource": "arn:aws:ssm:*:*:document/SSM-JustInTimeAccessDenyAccessOrgPolicy",
+          "Condition": {
+            "StringEquals": {
+              "ssm:DocumentType": "AutoApprovalPolicy",
+              "aws:ResourceTag/SystemsManagerJustInTimeNodeAccessManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "RAMReadPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ram:GetResourceShares",
+            "ram:GetResourceShareAssociations"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "RAMCreatePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ram:CreateResourceShare"
+          ],
+          "Resource": "arn:aws:ram:*:*:resource-share/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/SystemsManagerJustInTimeNodeAccessManaged": "true"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "SystemsManagerJustInTimeNodeAccessManaged"
+              ]
+            },
+            "StringEqualsIfExists": {
+              "ram:RequestedResourceType": "ssm:Document"
+            },
+            "ArnLikeIfExists": {
+              "ram:ResourceArn": "arn:aws:ssm:*:*:document/SSM-JustInTimeAccessDenyAccessOrgPolicy"
+            }
+          }
+        },
+        {
+          "Sid": "RAMTaggingPermissions",
+          "Effect": "Allow",
+          "Action": "ram:TagResource",
+          "Resource": "arn:aws:ram:*:*:resource-share/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/SystemsManagerJustInTimeNodeAccessManaged": "true"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "SystemsManagerJustInTimeNodeAccessManaged"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "RAMModificationPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ram:AssociateResourceShare",
+            "ram:DisassociateResourceShare"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ram:ResourceShareName": "SSMJustInTimeNodeAccessManagedResourceShare",
+              "aws:ResourceTag/SystemsManagerJustInTimeNodeAccessManaged": "true"
+            },
+            "StringEqualsIfExists": {
+              "ram:RequestedResourceType": "ssm:Document"
+            },
+            "ArnLikeIfExists": {
+              "ram:ResourceArn": "arn:aws:ssm:*:*:document/SSM-JustInTimeAccessDenyAccessOrgPolicy"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v2",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-04-23T21:07:06+00:00"
   },
   "AWSSystemsManagerNotificationsServicePolicy": {
     "Document": {
@@ -111958,7 +112321,8 @@
           "Action": "iam:PassRole",
           "Resource": [
             "arn:aws:iam::*:role/datazone_usr_role_*",
-            "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole"
+            "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole",
+            "arn:aws:iam::*:role/service-role/AmazonSageMakerQueryExecution"
           ],
           "Condition": {
             "StringEquals": {
@@ -112525,7 +112889,10 @@
           "Action": [
             "iam:GetRole"
           ],
-          "Resource": "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole",
+          "Resource": [
+            "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole",
+            "arn:aws:iam::*:role/service-role/AmazonSageMakerQueryExecution"
+          ],
           "Effect": "Allow"
         },
         {
@@ -114033,12 +114400,31 @@
               "aws:TagKeys": "AmazonDataZone*"
             }
           }
+        },
+        {
+          "Sid": "EventBridgeScheduleDeleteAction",
+          "Effect": "Allow",
+          "Action": [
+            "scheduler:DeleteSchedule"
+          ],
+          "Resource": [
+            "arn:aws:scheduler:*:*:schedule/SageMakerUnifiedStudio-*-*/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
+            },
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "false"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v13",
+    "VersionId": "v14",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-09T21:22:07+00:00"
+    "CreateDate": "2025-04-23T20:07:07+00:00"
   },
   "SageMakerStudioProjectRoleMachineLearningPolicy": {
     "Document": {
