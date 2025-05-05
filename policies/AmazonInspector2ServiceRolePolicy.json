@@ -12,8 +12,10 @@
           "directconnect:DescribeDirectConnectGateways",
           "directconnect:DescribeVirtualGateways",
           "directconnect:DescribeVirtualInterfaces",
+          "ec2:DescribeAddresses",
           "ec2:DescribeAvailabilityZones",
           "ec2:DescribeCustomerGateways",
+          "ec2:DescribeEgressOnlyInternetGateways",
           "ec2:DescribeInstances",
           "ec2:DescribeInternetGateways",
           "ec2:DescribeManagedPrefixLists",
@@ -105,7 +107,6 @@
         "Action": [
           "ssm:CreateAssociation",
           "ssm:StartAssociationsOnce",
-          "ssm:DeleteAssociation",
           "ssm:UpdateAssociation"
         ],
         "Resource": [
@@ -113,6 +114,16 @@
           "arn:aws:ssm:*:*:document/AmazonInspector2-*",
           "arn:aws:ssm:*:*:document/AWS-GatherSoftwareInventory",
           "arn:aws:ssm:*:*:managed-instance/*",
+          "arn:aws:ssm:*:*:association/*"
+        ]
+      },
+      {
+        "Sid": "GatherInventoryDeleteAssociation",
+        "Effect": "Allow",
+        "Action": [
+          "ssm:DeleteAssociation"
+        ],
+        "Resource": [
           "arn:aws:ssm:*:*:association/*"
         ]
       },
@@ -304,7 +315,7 @@
       }
     ]
   },
-  "VersionId": "v15",
+  "VersionId": "v16",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-03-28T20:07:06+00:00"
+  "CreateDate": "2025-04-29T17:37:06+00:00"
 }

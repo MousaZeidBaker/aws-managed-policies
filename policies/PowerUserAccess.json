@@ -20,13 +20,14 @@
           "iam:CreateServiceLinkedRole",
           "iam:DeleteServiceLinkedRole",
           "iam:ListRoles",
+          "organizations:DescribeEffectivePolicy",
           "organizations:DescribeOrganization"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-08-19T16:12:55+00:00"
+  "CreateDate": "2025-04-29T19:07:07+00:00"
 }

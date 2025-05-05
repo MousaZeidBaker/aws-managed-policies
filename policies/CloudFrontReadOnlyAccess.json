@@ -6,6 +6,7 @@
         "Sid": "cfReadOnly",
         "Effect": "Allow",
         "Action": [
+          "acm:DescribeCertificate",
           "acm:ListCertificates",
           "cloudfront:Describe*",
           "cloudfront:Get*",
@@ -24,7 +25,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-01-04T16:55:27+00:00"
+  "CreateDate": "2025-04-28T17:07:06+00:00"
 }

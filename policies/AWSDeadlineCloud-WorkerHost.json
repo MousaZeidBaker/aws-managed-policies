@@ -15,10 +15,38 @@
             "aws:PrincipalAccount": "${aws:ResourceAccount}"
           }
         }
+      },
+      {
+        "Sid": "TagWorkerPermission",
+        "Effect": "Allow",
+        "Action": [
+          "deadline:TagResource"
+        ],
+        "Resource": "arn:aws:deadline:*:*:farm/*/fleet/*/worker/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalAccount": "${aws:ResourceAccount}",
+            "deadline:CalledAction": "CreateWorker"
+          }
+        }
+      },
+      {
+        "Sid": "ListFleetTagsPermission",
+        "Effect": "Allow",
+        "Action": [
+          "deadline:ListTagsForResource"
+        ],
+        "Resource": "arn:aws:deadline:*:*:farm/*/fleet/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalAccount": "${aws:ResourceAccount}",
+            "deadline:CalledAction": "CreateWorker"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-04-01T17:28:28+00:00"
+  "CreateDate": "2025-04-30T17:07:07+00:00"
 }
