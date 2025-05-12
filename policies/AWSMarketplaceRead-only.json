@@ -21,8 +21,6 @@
       {
         "Effect": "Allow",
         "Action": [
-          "aws-marketplace:ListBuilds",
-          "aws-marketplace:DescribeBuilds",
           "iam:ListRoles",
           "iam:ListInstanceProfiles",
           "sns:GetTopicAttributes",
@@ -47,7 +45,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-20T18:14:55+00:00"
+  "CreateDate": "2025-05-07T20:07:07+00:00"
 }

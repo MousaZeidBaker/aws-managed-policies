@@ -119,13 +119,29 @@
         ],
         "Resource": [
           "arn:aws:ec2:*:*:instance/*",
-          "arn:aws:ec2:*:*:volume/*"
+          "arn:aws:ec2:*:*:volume/*",
+          "arn:aws:ec2:*:*:network-interface/*"
         ],
         "Condition": {
           "StringEquals": {
             "ec2:CreateAction": [
               "RunInstances"
             ]
+          }
+        }
+      },
+      {
+        "Sid": "CreateTagsCAPAControllerReconcileNetworkInterface",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:CreateTags"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:network-interface/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:RequestTag/red-hat-managed": "true"
           }
         }
       },
@@ -240,7 +256,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-05-02T14:01:47+00:00"
+  "CreateDate": "2025-05-05T16:37:06+00:00"
 }
