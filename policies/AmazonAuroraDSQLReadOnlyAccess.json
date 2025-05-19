@@ -7,6 +7,7 @@
         "Effect": "Allow",
         "Action": [
           "dsql:GetCluster",
+          "dsql:GetVpcEndpointServiceName",
           "dsql:ListClusters",
           "dsql:ListTagsForResource"
         ],
@@ -22,7 +23,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-03T15:21:07+00:00"
+  "CreateDate": "2025-05-14T19:22:07+00:00"
 }

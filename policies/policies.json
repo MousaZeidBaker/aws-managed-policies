@@ -41008,6 +41008,44 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-10-30T17:57:43+00:00"
   },
+  "AWSQuickSightSecretsManagerWritePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:PutResourcePolicy"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:quicksight!*",
+          "Condition": {
+            "StringEquals": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "quicksight",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:CreateSecret"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:quicksight!*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "StringLike": {
+              "secretsmanager:Name": "quicksight!*"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-05-12T19:22:07+00:00"
+  },
   "AWSQuickSightTimestreamPolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -45209,6 +45247,31 @@
     "VersionId": "v2",
     "IsDefaultVersion": true,
     "CreateDate": "2024-05-03T17:12:41+00:00"
+  },
+  "AWSServiceRoleForAWSTransform": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PublishCloudWatchMetrics",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": [
+                "AWS/Transform"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-05-15T13:37:07+00:00"
   },
   "AWSServiceRoleForAmazonEKSNodegroup": {
     "Document": {
@@ -53703,12 +53766,41 @@
             "acm-pca:DescribeCertificateAuthority"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "VpnConnectionSecretsManagement",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:DeleteSecret",
+            "secretsmanager:PutSecretValue",
+            "secretsmanager:UpdateSecret",
+            "secretsmanager:GetSecretValue"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:s2svpn!*",
+          "Condition": {
+            "StringEquals": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "s2svpn",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "VpnConnectionSecretsCreation",
+          "Effect": "Allow",
+          "Action": "secretsmanager:CreateSecret",
+          "Resource": "arn:aws:secretsmanager:*:*:secret:s2svpn!*",
+          "Condition": {
+            "StringLike": {
+              "secretsmanager:Name": "s2svpn!*"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2019-08-06T14:13:58+00:00"
+    "CreateDate": "2025-05-15T16:52:07+00:00"
   },
   "AWSVPCTransitGatewayServiceRolePolicy": {
     "Document": {
@@ -56889,6 +56981,7 @@
             "iam:ListUsers",
             "iam:ListRoleTags",
             "iam:ListUserTags",
+            "iam:GetAccountAuthorizationDetails",
             "iam:GetUser",
             "iam:GetGroup",
             "iam:GenerateServiceLastAccessedDetails",
@@ -56966,9 +57059,9 @@
         }
       ]
     },
-    "VersionId": "v16",
+    "VersionId": "v17",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-01T15:52:07+00:00"
+    "CreateDate": "2025-05-12T15:52:06+00:00"
   },
   "AdministratorAccess-AWSElasticBeanstalk": {
     "Document": {
@@ -58815,7 +58908,12 @@
             "dsql:UntagResource",
             "dsql:ListTagsForResource",
             "dsql:DbConnectAdmin",
-            "dsql:DbConnect"
+            "dsql:DbConnect",
+            "dsql:PutMultiRegionProperties",
+            "dsql:PutWitnessRegion",
+            "dsql:AddPeerCluster",
+            "dsql:RemovePeerCluster",
+            "dsql:GetVpcEndpointServiceName"
           ],
           "Resource": "*"
         },
@@ -58842,9 +58940,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-03T15:36:07+00:00"
+    "CreateDate": "2025-05-14T19:37:06+00:00"
   },
   "AmazonAuroraDSQLFullAccess": {
     "Document": {
@@ -58865,7 +58963,12 @@
             "dsql:UntagResource",
             "dsql:ListTagsForResource",
             "dsql:DbConnectAdmin",
-            "dsql:DbConnect"
+            "dsql:DbConnect",
+            "dsql:PutMultiRegionProperties",
+            "dsql:PutWitnessRegion",
+            "dsql:AddPeerCluster",
+            "dsql:RemovePeerCluster",
+            "dsql:GetVpcEndpointServiceName"
           ],
           "Resource": "*"
         },
@@ -58890,9 +58993,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-03T15:36:07+00:00"
+    "CreateDate": "2025-05-14T19:37:06+00:00"
   },
   "AmazonAuroraDSQLReadOnlyAccess": {
     "Document": {
@@ -58903,6 +59006,7 @@
           "Effect": "Allow",
           "Action": [
             "dsql:GetCluster",
+            "dsql:GetVpcEndpointServiceName",
             "dsql:ListClusters",
             "dsql:ListTagsForResource"
           ],
@@ -58918,9 +59022,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-03T15:21:07+00:00"
+    "CreateDate": "2025-05-14T19:22:07+00:00"
   },
   "AmazonBedrockFullAccess": {
     "Document": {
@@ -62038,12 +62142,80 @@
               "aws:ResourceTag/AmazonDataZoneProject": "true"
             }
           }
+        },
+        {
+          "Sid": "BedrockCreateSessionWithTagsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "bedrock:CreateSession",
+            "bedrock:TagResource"
+          ],
+          "Resource": "arn:aws:bedrock:*:*:session/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:RequestTag/AmazonDataZoneUser": "${datazone:userId}",
+              "aws:ResourceTag/AmazonDataZoneUser": "${datazone:userId}",
+              "aws:RequestTag/AmazonDataZoneDomain": "${datazone:domainId}",
+              "aws:ResourceTag/AmazonDataZoneDomain": "${datazone:domainId}"
+            },
+            "StringNotEquals": {
+              "aws:RequestTag/AmazonDataZoneUser": "",
+              "aws:ResourceTag/AmazonDataZoneUser": "",
+              "aws:RequestTag/AmazonDataZoneDomain": "",
+              "aws:ResourceTag/AmazonDataZoneDomain": ""
+            },
+            "ForAllValues:StringLike": {
+              "aws:TagKeys": "AmazonDataZone*"
+            },
+            "Null": {
+              "aws:RequestTag/AmazonDataZoneProject": "true",
+              "aws:ResourceTag/AmazonDataZoneProject": "true"
+            }
+          }
+        },
+        {
+          "Sid": "BedrockSessionPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "bedrock:GetSession",
+            "bedrock:UpdateSession",
+            "bedrock:DeleteSession",
+            "bedrock:EndSession",
+            "bedrock:CreateInvocation",
+            "bedrock:ListInvocations",
+            "bedrock:PutInvocationStep",
+            "bedrock:GetInvocationStep",
+            "bedrock:ListInvocationSteps",
+            "bedrock:ListTagsForResource"
+          ],
+          "Resource": "arn:aws:bedrock:*:*:session/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "aws:ResourceTag/AmazonDataZoneUser": "${datazone:userId}",
+              "aws:ResourceTag/AmazonDataZoneDomain": "${datazone:domainId}"
+            },
+            "StringNotEquals": {
+              "aws:ResourceTag/AmazonDataZoneUser": "",
+              "aws:ResourceTag/AmazonDataZoneDomain": ""
+            },
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "true"
+            }
+          }
+        },
+        {
+          "Sid": "BedrockListSessionsPermissions",
+          "Effect": "Allow",
+          "Action": "bedrock:ListSessions",
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-11-12T22:15:08+00:00"
+    "CreateDate": "2025-05-13T21:37:06+00:00"
   },
   "AmazonDataZoneBedrockModelManagementPolicy": {
     "Document": {
@@ -72323,6 +72495,92 @@
     "IsDefaultVersion": true,
     "CreateDate": "2018-10-03T03:32:56+00:00"
   },
+  "AmazonEVSServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DescribeNetworkStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeNetworkInterfaces"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CreateEniInSubnetStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ]
+        },
+        {
+          "Sid": "CreateEniWithTagStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/AmazonEVSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "TagOnCreateNetworkInterface",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "Null": {
+              "aws:RequestTag/AmazonEVSManaged": "false"
+            },
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "CreateNetworkInterface"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ManageEniStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterfacePermission",
+            "ec2:DeleteNetworkInterface",
+            "ec2:ModifyNetworkInterfaceAttribute",
+            "ec2:AssignIpv6Addresses"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonEVSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "UpdateSecurityGroupStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyNetworkInterfaceAttribute"
+          ],
+          "Resource": "arn:aws:ec2:*:*:security-group/*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-05-16T23:37:06+00:00"
+  },
   "AmazonElastiCacheFullAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -73761,9 +74019,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-10T18:37:25+00:00"
+    "CreateDate": "2025-05-16T19:22:05+00:00"
   },
   "AmazonEventBridgeSchedulerReadOnlyAccess": {
     "Document": {
@@ -73782,9 +74040,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-10T18:50:12+00:00"
+    "CreateDate": "2025-05-16T16:22:06+00:00"
   },
   "AmazonEventBridgeSchemasFullAccess": {
     "Document": {
@@ -81304,6 +81562,8 @@
             "q:SendMessage",
             "q:GetConversation",
             "q:ListConversations",
+            "q:UpdateConversation",
+            "q:DeleteConversation",
             "q:PassRequest",
             "q:StartTroubleshootingAnalysis",
             "q:StartTroubleshootingResolutionExplanation",
@@ -81334,9 +81594,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-11-13T21:30:27+00:00"
+    "CreateDate": "2025-05-12T20:22:06+00:00"
   },
   "AmazonQFullAccess": {
     "Document": {
@@ -81350,6 +81610,8 @@
             "q:SendMessage",
             "q:GetConversation",
             "q:ListConversations",
+            "q:UpdateConversation",
+            "q:DeleteConversation",
             "q:PassRequest",
             "q:StartTroubleshootingAnalysis",
             "q:GetTroubleshootingResults",
@@ -81406,9 +81668,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-02T18:22:06+00:00"
+    "CreateDate": "2025-05-12T20:22:07+00:00"
   },
   "AmazonQLDBConsoleFullAccess": {
     "Document": {
@@ -85969,18 +86231,25 @@
             "route53:*",
             "route53domains:*",
             "cloudfront:ListDistributions",
-            "elasticloadbalancing:DescribeLoadBalancers",
-            "elasticbeanstalk:DescribeEnvironments",
-            "s3:ListBucket",
-            "s3:GetBucketLocation",
-            "s3:GetBucketWebsite",
+            "cloudfront:GetDistributionTenantByDomain",
+            "cloudfront:GetConnectionGroup",
+            "cloudwatch:DescribeAlarms",
+            "cloudwatch:GetMetricStatistics",
+            "cloudwatch:GetMetricData",
             "ec2:DescribeVpcs",
             "ec2:DescribeVpcEndpoints",
             "ec2:DescribeRegions",
+            "elasticloadbalancing:DescribeLoadBalancers",
+            "elasticbeanstalk:DescribeEnvironments",
+            "es:ListDomainNames",
+            "es:DescribeDomains",
+            "lightsail:GetContainerServices",
+            "s3:ListBucket",
+            "s3:GetBucketLocation",
+            "s3:GetBucketWebsite",
             "sns:ListTopics",
             "sns:ListSubscriptionsByTopic",
-            "cloudwatch:DescribeAlarms",
-            "cloudwatch:GetMetricStatistics"
+            "tag:GetResources"
           ],
           "Resource": "*"
         },
@@ -85991,9 +86260,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2018-12-20T21:42:00+00:00"
+    "CreateDate": "2025-05-15T18:07:06+00:00"
   },
   "AmazonRoute53ProfilesFullAccess": {
     "Document": {
@@ -97786,6 +98055,81 @@
     "IsDefaultVersion": true,
     "CreateDate": "2015-02-06T18:39:57+00:00"
   },
+  "CloudTrailEventContext": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "CloudTrailEventContextPermissionForTag",
+          "Effect": "Allow",
+          "Action": "tag:GetResources",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "AllowEventBridgeRuleCreation",
+          "Effect": "Allow",
+          "Action": "events:PutRule",
+          "Resource": "arn:aws:events:*:*:rule/CloudTrailEventContext*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "events:source": "aws.tag"
+            },
+            "StringEquals": {
+              "events:creatorAccount": "${aws:PrincipalAccount}",
+              "events:detail-type": "Tag Change on Resource",
+              "events:ManagedBy": "context.cloudtrail.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowEventBridgeRuleWrite",
+          "Effect": "Allow",
+          "Action": [
+            "events:PutTargets",
+            "events:DeleteRule",
+            "events:RemoveTargets"
+          ],
+          "Resource": "arn:aws:events:*:*:rule/CloudTrailEventContext*",
+          "Condition": {
+            "StringEquals": {
+              "events:creatorAccount": "${aws:PrincipalAccount}",
+              "events:ManagedBy": "context.cloudtrail.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowEventBridgeRuleRead",
+          "Effect": "Allow",
+          "Action": [
+            "events:DescribeRule",
+            "events:ListTargetsByRule"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "events:creatorAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": "arn:aws:events:*:*:rule/CloudTrailEventContext*"
+        },
+        {
+          "Sid": "AllowEventBridgeRuleList",
+          "Effect": "Allow",
+          "Action": [
+            "events:ListRules"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-05-15T13:52:06+00:00"
+  },
   "CloudTrailServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -101370,9 +101714,182 @@
             "ec2:DescribeVpcs",
             "ec2:DescribeInstances",
             "ec2:DescribeLaunchTemplates",
-            "ec2:DescribeTags"
+            "ec2:DescribeTags",
+            "ec2:DescribeAvailabilityZones",
+            "ec2:DescribeAccountAttributes"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "EC2CreateVPC",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVpc"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "EC2 Fast Launch"
+            },
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "EC2ModifyDeleteVPC",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteVpc",
+            "ec2:CreateSubnet",
+            "ec2:ModifyVpcAttribute",
+            "ec2:CreateSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:ResourceTag/CreatedBy": "EC2 Fast Launch"
+            },
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "EC2CreateSubnet",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSubnet"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "EC2 Fast Launch"
+            },
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "EC2DeleteSubnet",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteSubnet"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:ResourceTag/CreatedBy": "EC2 Fast Launch"
+            },
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "EC2CreateSecurityGroup",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "EC2 Fast Launch"
+            },
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "EC2ManageSecurityGroupEgress",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AuthorizeSecurityGroupEgress",
+            "ec2:RevokeSecurityGroupEgress"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:ResourceTag/CreatedBy": "EC2 Fast Launch"
+            },
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "EC2DeleteSecurityGroup",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:ResourceTag/CreatedBy": "EC2 Fast Launch"
+            },
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "CloudFormation",
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:DescribeStacks",
+            "cloudformation:CreateStack",
+            "cloudformation:UpdateStack",
+            "cloudformation:RollbackStack",
+            "cloudformation:DeleteStack",
+            "cloudformation:UpdateTerminationProtection",
+            "cloudformation:DescribeStackEvents",
+            "cloudformation:DescribeStackResource",
+            "cloudformation:DescribeStackResources"
+          ],
+          "Resource": [
+            "arn:aws:cloudformation:*:*:stack/EC2FastLaunch*/*"
+          ],
+          "Condition": {
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "EC2LaunchTemplateModify",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyLaunchTemplate",
+            "ec2:CreateLaunchTemplate",
+            "ec2:CreateLaunchTemplateVersion"
+          ],
+          "Resource": "arn:aws:ec2:*:*:launch-template/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "EC2 Fast Launch"
+            },
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
+            }
+          }
         },
         {
           "Sid": "EC2LaunchInstance",
@@ -101386,7 +101903,8 @@
             "arn:aws:ec2:*::image/*",
             "arn:aws:ec2:*:*:key-pair/*",
             "arn:aws:ec2:*:*:security-group/*",
-            "arn:aws:ec2:*:*:launch-template/*"
+            "arn:aws:ec2:*:*:launch-template/*",
+            "arn:aws:license-manager:*:*:license-configuration:*"
           ]
         },
         {
@@ -101412,14 +101930,30 @@
           "Resource": [
             "arn:aws:ec2:*:*:volume/*",
             "arn:aws:ec2:*:*:instance/*",
-            "arn:aws:ec2:*:*:snapshot/*",
+            "arn:aws:ec2:*:*:snapshot/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "RunInstances"
+            }
+          }
+        },
+        {
+          "Sid": "EC2ManageTags",
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group/*",
             "arn:aws:ec2:*:*:launch-template/*",
             "arn:aws:ec2:*:*:vpc/*",
             "arn:aws:ec2:*:*:subnet/*"
           ],
           "Condition": {
             "StringEquals": {
-              "ec2:CreateAction": "RunInstances"
+              "aws:RequestTag/CreatedBy": "EC2 Fast Launch"
+            },
+            "ForAnyValue:StringLike": {
+              "aws:CalledVia": "ec2fastlaunch.amazonaws.com"
             }
           }
         },
@@ -101453,15 +101987,16 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-13T22:45:26+00:00"
+    "CreateDate": "2025-05-14T16:37:05+00:00"
   },
   "EC2FastLaunchServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "AllowRunInstances",
           "Effect": "Allow",
           "Action": [
             "ec2:RunInstances"
@@ -101472,10 +102007,12 @@
             "arn:aws:ec2:*::image/*",
             "arn:aws:ec2:*:*:key-pair/*",
             "arn:aws:ec2:*:*:security-group/*",
-            "arn:aws:ec2:*:*:launch-template/*"
+            "arn:aws:ec2:*:*:launch-template/*",
+            "arn:aws:license-manager:*:*:license-configuration:*"
           ]
         },
         {
+          "Sid": "AllowRunInstancesOnFastLaunchCreatedResources",
           "Effect": "Allow",
           "Action": [
             "ec2:RunInstances"
@@ -101491,6 +102028,7 @@
           }
         },
         {
+          "Sid": "AllowPassRole",
           "Effect": "Allow",
           "Action": "iam:PassRole",
           "Resource": "*",
@@ -101504,6 +102042,7 @@
           }
         },
         {
+          "Sid": "AllowStopAndTerminateInstances",
           "Effect": "Allow",
           "Action": [
             "ec2:StopInstances",
@@ -101519,6 +102058,7 @@
           }
         },
         {
+          "Sid": "AllowCreateSnapshot",
           "Effect": "Allow",
           "Action": "ec2:CreateSnapshot",
           "Resource": [
@@ -101553,6 +102093,7 @@
           }
         },
         {
+          "Sid": "AllowCreateLaunchTemplate",
           "Effect": "Allow",
           "Action": "ec2:CreateLaunchTemplate",
           "Resource": "arn:aws:ec2:*:*:launch-template/*",
@@ -101563,6 +102104,7 @@
           }
         },
         {
+          "Sid": "AllowCreateTags",
           "Effect": "Allow",
           "Action": "ec2:CreateTags",
           "Resource": [
@@ -101582,6 +102124,7 @@
           }
         },
         {
+          "Sid": "AllowDeleteSnapshots",
           "Effect": "Allow",
           "Action": [
             "ec2:DeleteSnapshot"
@@ -101596,6 +102139,7 @@
           }
         },
         {
+          "Sid": "AllowDescribeActions",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeImages",
@@ -101606,11 +102150,13 @@
             "ec2:DescribeInstances",
             "ec2:DescribeInstanceTypeOfferings",
             "ec2:DescribeLaunchTemplateVersions",
-            "ec2:DescribeLaunchTemplates"
+            "ec2:DescribeLaunchTemplates",
+            "cloudformation:DescribeStacks"
           ],
           "Resource": "*"
         },
         {
+          "Sid": "AllowPutMetricData",
           "Effect": "Allow",
           "Action": "cloudwatch:PutMetricData",
           "Resource": "*",
@@ -101619,12 +102165,60 @@
               "cloudwatch:namespace": "AWS/EC2"
             }
           }
+        },
+        {
+          "Sid": "AllowEventsRuleMutations",
+          "Effect": "Allow",
+          "Action": [
+            "events:DeleteRule",
+            "events:RemoveTargets",
+            "events:PutRule",
+            "events:PutTargets"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "events:ManagedBy": "ec2fastlaunch.amazonaws.com"
+            }
+          },
+          "Resource": [
+            "arn:aws:events:*:*:rule/FastLaunch*"
+          ]
+        },
+        {
+          "Sid": "AllowEventsRuleNonMutations",
+          "Effect": "Allow",
+          "Action": [
+            "events:ListTargetsByRule",
+            "events:DescribeRule"
+          ],
+          "Resource": [
+            "arn:aws:events:*:*:rule/FastLaunch*"
+          ]
+        },
+        {
+          "Sid": "AllowKMSActions",
+          "Effect": "Allow",
+          "Action": "kms:ListRetirableGrants",
+          "Resource": "*"
+        },
+        {
+          "Sid": "AllowDeleteFastLaunchLaunchTemplates",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteLaunchTemplate"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/CreatedBy": "EC2 Fast Launch"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-01-10T13:08:21+00:00"
+    "CreateDate": "2025-05-14T17:07:07+00:00"
   },
   "EC2FleetTimeShiftableServiceRolePolicy": {
     "Document": {
@@ -124163,6 +124757,11 @@
             "resource-explorer-2:ListSupportedResourceTypes",
             "resource-explorer-2:ListTagsForResource",
             "resource-explorer-2:ListViews",
+            "rolesanywhere:ListCrls",
+            "rolesanywhere:ListProfiles",
+            "rolesanywhere:ListSubjects",
+            "rolesanywhere:ListTagsForResource",
+            "rolesanywhere:ListTrustAnchors",
             "route53:Get*",
             "route53:List*",
             "route53domains:List*",
@@ -124259,9 +124858,9 @@
         }
       ]
     },
-    "VersionId": "v23",
+    "VersionId": "v24",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-19T22:52:06+00:00"
+    "CreateDate": "2025-05-12T20:07:07+00:00"
   },
   "WAFLoggingServiceRolePolicy": {
     "Document": {

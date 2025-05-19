@@ -28,6 +28,7 @@
           "iam:ListUsers",
           "iam:ListRoleTags",
           "iam:ListUserTags",
+          "iam:GetAccountAuthorizationDetails",
           "iam:GetUser",
           "iam:GetGroup",
           "iam:GenerateServiceLastAccessedDetails",
@@ -105,7 +106,7 @@
       }
     ]
   },
-  "VersionId": "v16",
+  "VersionId": "v17",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-01T15:52:07+00:00"
+  "CreateDate": "2025-05-12T15:52:06+00:00"
 }
