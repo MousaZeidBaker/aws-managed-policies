@@ -5989,12 +5989,22 @@
             "ram:GetResourceShareAssociations"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "DSQLDescribePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "dsql:GetCluster",
+            "dsql:ListClusters",
+            "dsql:ListTagsForResource"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v19",
+    "VersionId": "v20",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-03-27T21:52:06+00:00"
+    "CreateDate": "2025-05-22T00:37:07+00:00"
   },
   "AWSBackupGatewayServiceRolePolicyForVirtualMachineMetadataSync": {
     "Document": {
@@ -6378,12 +6388,22 @@
             "ram:GetResourceShareAssociations"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "DSQLDescribePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "dsql:GetCluster",
+            "dsql:ListClusters",
+            "dsql:ListTagsForResource"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v17",
+    "VersionId": "v18",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-03-27T21:52:05+00:00"
+    "CreateDate": "2025-05-22T00:37:07+00:00"
   },
   "AWSBackupOrganizationAdminAccess": {
     "Document": {
@@ -6970,12 +6990,21 @@
               "aws:PrincipalAccount": "${aws:ResourceAccount}"
             }
           }
+        },
+        {
+          "Sid": "DSQLListPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "dsql:ListClusters",
+            "dsql:ListTagsForResource"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v18",
+    "VersionId": "v19",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-03-21T23:22:06+00:00"
+    "CreateDate": "2025-05-22T00:37:07+00:00"
   },
   "AWSBackupServiceLinkedRolePolicyForBackupTest": {
     "Document": {
@@ -7263,10 +7292,12 @@
           }
         },
         {
-          "Sid": "KMSDataKeyEC2Permissions",
+          "Sid": "KMSEC2Permissions",
           "Effect": "Allow",
           "Action": [
-            "kms:GenerateDataKeyWithoutPlaintext"
+            "kms:GenerateDataKeyWithoutPlaintext",
+            "kms:ReEncryptTo",
+            "kms:ReEncryptFrom"
           ],
           "Resource": "arn:aws:kms:*:*:key/*",
           "Condition": {
@@ -7274,6 +7305,9 @@
               "kms:ViaService": [
                 "ec2.*.amazonaws.com"
               ]
+            },
+            "ForAnyValue:StringEquals": {
+              "kms:EncryptionContextKeys": "aws:ebs:id"
             }
           }
         },
@@ -7544,12 +7578,45 @@
               "aws:PrincipalAccount": "${aws:ResourceAccount}"
             }
           }
+        },
+        {
+          "Sid": "DSQLResourcePermissionsForBackup",
+          "Effect": "Allow",
+          "Action": [
+            "dsql:StartBackupJob",
+            "dsql:GetBackupJob",
+            "dsql:StopBackupJob",
+            "dsql:GetCluster",
+            "dsql:ListClusters",
+            "dsql:ListTagsForResource"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "KMSDSQLPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": [
+                "dsql.*.amazonaws.com"
+              ]
+            },
+            "ForAnyValue:StringEquals": {
+              "kms:EncryptionContextKeys": "aws:dsql:ClusterId"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v21",
+    "VersionId": "v22",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-03-27T21:52:06+00:00"
+    "CreateDate": "2025-05-22T00:37:06+00:00"
   },
   "AWSBackupServiceRolePolicyForIndexing": {
     "Document": {
@@ -7732,9 +7799,23 @@
             "ec2:DescribeSubnets",
             "ec2:DescribeVpcs",
             "ec2:DescribeInternetGateways",
-            "ec2:DescribeSnapshotTierStatus"
+            "ec2:DescribeSnapshotTierStatus",
+            "ec2:DescribeRouteTables"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "CreateTagsPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:route-table/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonFSx": "ManagedByAmazonFSx"
+            }
+          }
         },
         {
           "Sid": "StorageGatewayVolumePermissions",
@@ -7805,6 +7886,22 @@
           "Resource": "*"
         },
         {
+          "Sid": "DSQLResourcePermissionsForRestore",
+          "Effect": "Allow",
+          "Action": [
+            "dsql:StartRestoreJob",
+            "dsql:GetRestoreJob",
+            "dsql:StopRestoreJob",
+            "dsql:TagResource",
+            "dsql:CreateCluster",
+            "dsql:PutMultiRegionProperties",
+            "dsql:PutWitnessRegion"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
           "Sid": "KMSPermissions",
           "Effect": "Allow",
           "Action": [
@@ -7813,7 +7910,8 @@
             "kms:GenerateDataKey",
             "kms:ReEncryptTo",
             "kms:ReEncryptFrom",
-            "kms:GenerateDataKeyWithoutPlaintext"
+            "kms:GenerateDataKeyWithoutPlaintext",
+            "kms:DescribeKey"
           ],
           "Resource": "*",
           "Condition": {
@@ -7824,6 +7922,7 @@
                 "elasticfilesystem.*.amazonaws.com",
                 "rds.*.amazonaws.com",
                 "redshift.*.amazonaws.com",
+                "dsql.*.amazonaws.com",
                 "redshift-serverless.*.amazonaws.com"
               ]
             }
@@ -8140,9 +8239,9 @@
         }
       ]
     },
-    "VersionId": "v22",
+    "VersionId": "v23",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-03-27T21:52:06+00:00"
+    "CreateDate": "2025-05-22T00:37:06+00:00"
   },
   "AWSBackupServiceRolePolicyForS3Backup": {
     "Document": {
@@ -13772,7 +13871,14 @@
             "batch:DescribeSchedulingPolicies",
             "batch:ListSchedulingPolicies",
             "batch:ListTagsForResource",
+            "bedrock:GetGuardrail",
+            "bedrock:GetInferenceProfile",
+            "bedrock:GetKnowledgeBase",
             "bedrock:ListAgents",
+            "bedrock:ListGuardrails",
+            "bedrock:ListInferenceProfiles",
+            "bedrock:ListKnowledgeBases",
+            "bedrock:ListTagsForResource",
             "billingconductor:ListAccountAssociations",
             "billingconductor:ListBillingGroups",
             "billingconductor:ListCustomLineItems",
@@ -15206,9 +15312,9 @@
         }
       ]
     },
-    "VersionId": "v57",
+    "VersionId": "v58",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-08T21:52:06+00:00"
+    "CreateDate": "2025-05-23T17:52:07+00:00"
   },
   "AWSConfigUserAccess": {
     "Document": {
@@ -16863,13 +16969,27 @@
           }
         },
         {
-          "Sid": "DataSyncSecretsManagerWriteAccess",
+          "Sid": "DataSyncSecretsManagerCreateAccess",
           "Effect": "Allow",
           "Action": [
-            "secretsmanager:CreateSecret",
-            "secretsmanager:PutSecretValue",
+            "secretsmanager:CreateSecret"
+          ],
+          "Resource": [
+            "arn:*:secretsmanager:*:*:secret:aws-datasync!*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "DataSyncSecretsManagerAccess",
+          "Effect": "Allow",
+          "Action": [
             "secretsmanager:DeleteSecret",
-            "secretsmanager:UpdateSecret"
+            "secretsmanager:UpdateSecret",
+            "secretsmanager:PutSecretValue"
           ],
           "Resource": [
             "arn:*:secretsmanager:*:*:secret:aws-datasync!*"
@@ -16883,9 +17003,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-07T19:37:06+00:00"
+    "CreateDate": "2025-05-20T19:07:07+00:00"
   },
   "AWSDataSyncReadOnlyAccess": {
     "Document": {
@@ -36886,6 +37006,25 @@
     "IsDefaultVersion": true,
     "CreateDate": "2023-02-14T18:33:44+00:00"
   },
+  "AWSPrivateCAConnectorForKubernetesPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm-pca:DescribeCertificateAuthority",
+            "acm-pca:GetCertificate",
+            "acm-pca:IssueCertificate"
+          ],
+          "Resource": "arn:aws:acm-pca:*:*:certificate-authority/*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-05-19T19:22:05+00:00"
+  },
   "AWSPrivateCAFullAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -41007,6 +41146,44 @@
     "VersionId": "v3",
     "IsDefaultVersion": true,
     "CreateDate": "2023-10-30T17:57:43+00:00"
+  },
+  "AWSQuickSightSecretsManagerWriteAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:PutResourcePolicy"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:quicksight!*",
+          "Condition": {
+            "StringEquals": {
+              "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "quicksight",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:CreateSecret"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:quicksight!*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "StringLike": {
+              "secretsmanager:Name": "quicksight!*"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-05-22T01:22:05+00:00"
   },
   "AWSQuickSightSecretsManagerWritePolicy": {
     "Document": {
@@ -55520,7 +55697,14 @@
             "batch:DescribeSchedulingPolicies",
             "batch:ListSchedulingPolicies",
             "batch:ListTagsForResource",
+            "bedrock:GetGuardrail",
+            "bedrock:GetInferenceProfile",
+            "bedrock:GetKnowledgeBase",
             "bedrock:ListAgents",
+            "bedrock:ListGuardrails",
+            "bedrock:ListInferenceProfiles",
+            "bedrock:ListKnowledgeBases",
+            "bedrock:ListTagsForResource",
             "billingconductor:ListAccountAssociations",
             "billingconductor:ListBillingGroups",
             "billingconductor:ListCustomLineItems",
@@ -56921,9 +57105,9 @@
         }
       ]
     },
-    "VersionId": "v36",
+    "VersionId": "v37",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-08T21:52:06+00:00"
+    "CreateDate": "2025-05-23T17:22:07+00:00"
   },
   "AWSrePostPrivateCloudWatchAccess": {
     "Document": {
@@ -58902,8 +59086,6 @@
             "dsql:UpdateCluster",
             "dsql:DeleteCluster",
             "dsql:ListClusters",
-            "dsql:CreateMultiRegionClusters",
-            "dsql:DeleteMultiRegionClusters",
             "dsql:TagResource",
             "dsql:UntagResource",
             "dsql:ListTagsForResource",
@@ -58913,7 +59095,13 @@
             "dsql:PutWitnessRegion",
             "dsql:AddPeerCluster",
             "dsql:RemovePeerCluster",
-            "dsql:GetVpcEndpointServiceName"
+            "dsql:GetVpcEndpointServiceName",
+            "dsql:StartBackupJob",
+            "dsql:GetBackupJob",
+            "dsql:StopBackupJob",
+            "dsql:StartRestoreJob",
+            "dsql:GetRestoreJob",
+            "dsql:StopRestoreJob"
           ],
           "Resource": "*"
         },
@@ -58923,9 +59111,34 @@
           "Action": [
             "tag:GetTagKeys",
             "tag:GetTagValues",
-            "cloudwatch:GetMetricData"
+            "cloudwatch:GetMetricData",
+            "ec2:DescribeVpcEndpoints",
+            "kms:ListAliases",
+            "kms:DescribeKey"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "KMSCryptographicPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt",
+            "kms:Encrypt",
+            "kms:GenerateDataKey",
+            "kms:ReEncryptTo",
+            "kms:ReEncryptFrom"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": [
+                "dsql.*.amazonaws.com"
+              ]
+            },
+            "ForAnyValue:StringEquals": {
+              "kms:EncryptionContextKeys": "aws:dsql:ClusterId"
+            }
+          }
         },
         {
           "Sid": "CreateDsqlServiceLinkedRole",
@@ -58940,9 +59153,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-14T19:37:06+00:00"
+    "CreateDate": "2025-05-21T21:22:07+00:00"
   },
   "AmazonAuroraDSQLFullAccess": {
     "Document": {
@@ -58957,8 +59170,6 @@
             "dsql:UpdateCluster",
             "dsql:DeleteCluster",
             "dsql:ListClusters",
-            "dsql:CreateMultiRegionClusters",
-            "dsql:DeleteMultiRegionClusters",
             "dsql:TagResource",
             "dsql:UntagResource",
             "dsql:ListTagsForResource",
@@ -58968,7 +59179,13 @@
             "dsql:PutWitnessRegion",
             "dsql:AddPeerCluster",
             "dsql:RemovePeerCluster",
-            "dsql:GetVpcEndpointServiceName"
+            "dsql:GetVpcEndpointServiceName",
+            "dsql:StartBackupJob",
+            "dsql:GetBackupJob",
+            "dsql:StopBackupJob",
+            "dsql:StartRestoreJob",
+            "dsql:GetRestoreJob",
+            "dsql:StopRestoreJob"
           ],
           "Resource": "*"
         },
@@ -58990,12 +59207,49 @@
               "iam:AWSServiceName": "dsql.amazonaws.com"
             }
           }
+        },
+        {
+          "Sid": "KMSDescribePermission",
+          "Effect": "Allow",
+          "Action": [
+            "kms:DescribeKey"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": [
+                "dsql.*.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "KMSCryptographicPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt",
+            "kms:Encrypt",
+            "kms:GenerateDataKey",
+            "kms:ReEncryptTo",
+            "kms:ReEncryptFrom"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": [
+                "dsql.*.amazonaws.com"
+              ]
+            },
+            "ForAnyValue:StringEquals": {
+              "kms:EncryptionContextKeys": "aws:dsql:ClusterId"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-14T19:37:06+00:00"
+    "CreateDate": "2025-05-21T21:22:07+00:00"
   },
   "AmazonAuroraDSQLReadOnlyAccess": {
     "Document": {
@@ -61432,7 +61686,9 @@
             "profile:GetSegmentEstimate",
             "profile:BatchGetProfile",
             "profile:BatchGetCalculatedAttributeForProfile",
-            "profile:GetSegmentMembership"
+            "profile:GetSegmentMembership",
+            "profile:ListDomainLayouts",
+            "profile:GetSimilarProfiles"
           ],
           "Resource": "arn:aws:profile:*:*:domains/amazon-connect-*"
         },
@@ -61447,6 +61703,19 @@
           ],
           "Resource": [
             "arn:aws:profile:*:*:domains/amazon-connect-*/event-triggers/*"
+          ]
+        },
+        {
+          "Sid": "AllowCustomerProfilesDomainLayoutsForConnectDomain",
+          "Effect": "Allow",
+          "Action": [
+            "profile:CreateDomainLayout",
+            "profile:UpdateDomainLayout",
+            "profile:DeleteDomainLayout",
+            "profile:GetDomainLayout"
+          ],
+          "Resource": [
+            "arn:aws:profile:*:*:domains/amazon-connect-*/layouts/*"
           ]
         },
         {
@@ -61759,9 +62028,9 @@
         }
       ]
     },
-    "VersionId": "v24",
+    "VersionId": "v25",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-03-12T20:22:06+00:00"
+    "CreateDate": "2025-05-23T21:07:07+00:00"
   },
   "AmazonConnectSynchronizationServiceRolePolicy": {
     "Document": {
@@ -63136,6 +63405,22 @@
           "Resource": "*"
         },
         {
+          "Sid": "RamAssociateResourceSharePermissionStatement",
+          "Effect": "Allow",
+          "Action": "ram:AssociateResourceSharePermission",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ram:PermissionArn": [
+                "arn:aws:ram::aws:permission/AWSRAMDefaultPermissionAmazonDataZoneDomain",
+                "arn:aws:ram::aws:permission/AWSRAMPermissionAmazonDataZoneDomainFullAccessWithPortalAccess",
+                "arn:aws:ram::aws:permission/AWSRAMPermissionsAmazonDatazoneDomainExtendedServiceAccess",
+                "arn:aws:ram::aws:permission/AWSRAMPermissionsAmazonDatazoneDomainExtendedServiceWithPortalAccess"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "IAMPassRoleStatement",
           "Effect": "Allow",
           "Action": "iam:PassRole",
@@ -63381,9 +63666,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-11-21T20:36:06+00:00"
+    "CreateDate": "2025-05-22T18:07:07+00:00"
   },
   "AmazonDataZoneFullUserAccess": {
     "Document": {
@@ -68119,6 +68404,150 @@
     "VersionId": "v15",
     "IsDefaultVersion": true,
     "CreateDate": "2021-01-29T17:38:30+00:00"
+  },
+  "AmazonDynamoDBFullAccess_v2": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DDBAndDAXFullAccess",
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:*",
+            "dax:*"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "KMSIntegration",
+          "Effect": "Allow",
+          "Action": [
+            "kms:DescribeKey",
+            "kms:ListAliases"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "LambdaIntegration",
+          "Effect": "Allow",
+          "Action": [
+            "lambda:ListEventSourceMappings",
+            "lambda:ListFunctions"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "DaxSNSIntegration",
+          "Effect": "Allow",
+          "Action": [
+            "sns:ListTopics"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ApplicationAutoscalingIntegration",
+          "Effect": "Allow",
+          "Action": [
+            "application-autoscaling:DeleteScalingPolicy",
+            "application-autoscaling:DeregisterScalableTarget",
+            "application-autoscaling:PutScalingPolicy",
+            "application-autoscaling:RegisterScalableTarget"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "application-autoscaling:service-namespace": "dynamodb"
+            }
+          }
+        },
+        {
+          "Sid": "ApplicationAutoscalingDescribeActions",
+          "Effect": "Allow",
+          "Action": [
+            "application-autoscaling:DescribeScalableTargets",
+            "application-autoscaling:DescribeScalingActivities",
+            "application-autoscaling:DescribeScalingPolicies"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "TagManagement",
+          "Effect": "Allow",
+          "Action": [
+            "tag:GetResources"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudwatchMonitoring",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:DescribeAlarms",
+            "cloudwatch:GetMetricStatistics",
+            "cloudwatch:GetMetricData"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ListKinesisResources",
+          "Effect": "Allow",
+          "Action": [
+            "kinesis:ListStreams",
+            "kinesis:DescribeStream",
+            "kinesis:DescribeStreamSummary"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ListEC2ResourcesForDaxClusterCreation",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVpcs",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CloudwatchInsightsRules",
+          "Effect": "Allow",
+          "Action": "cloudwatch:GetInsightRuleReport",
+          "Resource": "arn:aws:cloudwatch:*:*:insight-rule/DynamoDBContributorInsights*"
+        },
+        {
+          "Sid": "ServiceRoleCreation",
+          "Effect": "Allow",
+          "Action": [
+            "iam:CreateServiceLinkedRole"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": [
+                "replication.dynamodb.amazonaws.com",
+                "dax.amazonaws.com",
+                "dynamodb.application-autoscaling.amazonaws.com",
+                "contributorinsights.dynamodb.amazonaws.com",
+                "kinesisreplication.dynamodb.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "IamIntegration",
+          "Effect": "Allow",
+          "Action": [
+            "iam:ListRoles"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-05-22T14:52:06+00:00"
   },
   "AmazonDynamoDBFullAccesswithDataPipeline": {
     "Document": {
@@ -81357,15 +81786,19 @@
             "aps:DeleteLoggingConfiguration",
             "aps:DescribeLoggingConfiguration",
             "aps:UpdateWorkspaceConfiguration",
-            "aps:DescribeWorkspaceConfiguration"
+            "aps:DescribeWorkspaceConfiguration",
+            "aps:CreateQueryLoggingConfiguration",
+            "aps:UpdateQueryLoggingConfiguration",
+            "aps:DeleteQueryLoggingConfiguration",
+            "aps:DescribeQueryLoggingConfiguration"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-17T16:22:06+00:00"
+    "CreateDate": "2025-05-22T17:07:06+00:00"
   },
   "AmazonPrometheusFullAccess": {
     "Document": {
@@ -99395,15 +99828,16 @@
           "Effect": "Allow",
           "Action": [
             "logs:*",
-            "cloudwatch:GenerateQuery"
+            "cloudwatch:GenerateQuery",
+            "cloudwatch:GenerateQueryResultsSummary"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-26T18:12:09+00:00"
+    "CreateDate": "2025-05-20T17:07:06+00:00"
   },
   "CloudWatchLogsReadOnlyAccess": {
     "Document": {
@@ -99422,15 +99856,16 @@
             "logs:FilterLogEvents",
             "logs:StartLiveTail",
             "logs:StopLiveTail",
-            "cloudwatch:GenerateQuery"
+            "cloudwatch:GenerateQuery",
+            "cloudwatch:GenerateQueryResultsSummary"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-11-26T18:11:33+00:00"
+    "CreateDate": "2025-05-20T16:52:06+00:00"
   },
   "CloudWatchNetworkFlowMonitorAgentPublishPolicy": {
     "Document": {
@@ -102445,7 +102880,11 @@
           "Action": [
             "s3:GetObject"
           ],
-          "Resource": "arn:aws:s3:::*/*.ISO",
+          "Resource": [
+            "arn:aws:s3:::*/*.ISO",
+            "arn:aws:s3:::*/*.iso",
+            "arn:aws:s3:::*/*.Iso"
+          ],
           "Condition": {
             "StringEquals": {
               "s3:ResourceAccount": "${aws:PrincipalAccount}"
@@ -102493,9 +102932,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-26T23:52:07+00:00"
+    "CreateDate": "2025-05-19T20:37:07+00:00"
   },
   "EC2InstanceProfileForImageBuilderECRContainerBuilds": {
     "Document": {
@@ -103135,7 +103574,9 @@
             "cloudfront:UpdateDistribution",
             "cloudfront:ListDistributionsByWebACLId",
             "cloudfront:ListDistributions",
-            "cloudfront:ListTagsForResource"
+            "cloudfront:ListTagsForResource",
+            "cloudfront:AssociateDistributionWebACL",
+            "cloudfront:DisassociateDistributionWebACL"
           ],
           "Resource": "*"
         },
@@ -103750,9 +104191,9 @@
         }
       ]
     },
-    "VersionId": "v31",
+    "VersionId": "v32",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-02-11T21:37:06+00:00"
+    "CreateDate": "2025-05-21T18:22:07+00:00"
   },
   "FSxDeleteServiceLinkedRoleAccess": {
     "Document": {
@@ -106650,6 +107091,7 @@
           ],
           "Resource": [
             "arn:aws:s3:::*-image-registry-${aws:RequestedRegion}-*",
+            "arn:aws:s3:::*-image-registry-${aws:RequestedRegion}?",
             "arn:aws:s3:::*-image-registry-${aws:RequestedRegion}"
           ]
         },
@@ -106671,9 +107113,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-17T20:22:07+00:00"
+    "CreateDate": "2025-05-19T18:22:06+00:00"
   },
   "ROSAIngressOperatorPolicy": {
     "Document": {
@@ -112750,6 +113192,22 @@
           "Resource": "*"
         },
         {
+          "Sid": "RamAssociateResourceSharePermissionStatement",
+          "Effect": "Allow",
+          "Action": "ram:AssociateResourceSharePermission",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "ram:PermissionArn": [
+                "arn:aws:ram::aws:permission/AWSRAMDefaultPermissionAmazonDataZoneDomain",
+                "arn:aws:ram::aws:permission/AWSRAMPermissionAmazonDataZoneDomainFullAccessWithPortalAccess",
+                "arn:aws:ram::aws:permission/AWSRAMPermissionsAmazonDatazoneDomainExtendedServiceAccess",
+                "arn:aws:ram::aws:permission/AWSRAMPermissionsAmazonDatazoneDomainExtendedServiceWithPortalAccess"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "IAMPassRoleStatement",
           "Effect": "Allow",
           "Action": "iam:PassRole",
@@ -112997,9 +113455,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-21T22:52:06+00:00"
+    "CreateDate": "2025-05-22T17:52:06+00:00"
   },
   "SageMakerStudioProjectProvisioningRolePolicy": {
     "Document": {

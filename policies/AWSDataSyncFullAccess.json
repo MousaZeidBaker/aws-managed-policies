@@ -66,13 +66,27 @@
         }
       },
       {
-        "Sid": "DataSyncSecretsManagerWriteAccess",
+        "Sid": "DataSyncSecretsManagerCreateAccess",
         "Effect": "Allow",
         "Action": [
-          "secretsmanager:CreateSecret",
-          "secretsmanager:PutSecretValue",
+          "secretsmanager:CreateSecret"
+        ],
+        "Resource": [
+          "arn:*:secretsmanager:*:*:secret:aws-datasync!*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "DataSyncSecretsManagerAccess",
+        "Effect": "Allow",
+        "Action": [
           "secretsmanager:DeleteSecret",
-          "secretsmanager:UpdateSecret"
+          "secretsmanager:UpdateSecret",
+          "secretsmanager:PutSecretValue"
         ],
         "Resource": [
           "arn:*:secretsmanager:*:*:secret:aws-datasync!*"
@@ -86,7 +100,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-07T19:37:06+00:00"
+  "CreateDate": "2025-05-20T19:07:07+00:00"
 }

@@ -392,10 +392,19 @@
             "aws:PrincipalAccount": "${aws:ResourceAccount}"
           }
         }
+      },
+      {
+        "Sid": "DSQLListPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "dsql:ListClusters",
+          "dsql:ListTagsForResource"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v18",
+  "VersionId": "v19",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-03-21T23:22:06+00:00"
+  "CreateDate": "2025-05-22T00:37:07+00:00"
 }

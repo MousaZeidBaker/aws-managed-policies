@@ -58,7 +58,11 @@
         "Action": [
           "s3:GetObject"
         ],
-        "Resource": "arn:aws:s3:::*/*.ISO",
+        "Resource": [
+          "arn:aws:s3:::*/*.ISO",
+          "arn:aws:s3:::*/*.iso",
+          "arn:aws:s3:::*/*.Iso"
+        ],
         "Condition": {
           "StringEquals": {
             "s3:ResourceAccount": "${aws:PrincipalAccount}"
@@ -106,7 +110,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-26T23:52:07+00:00"
+  "CreateDate": "2025-05-19T20:37:07+00:00"
 }

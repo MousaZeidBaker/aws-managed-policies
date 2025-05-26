@@ -34,13 +34,17 @@
           "aps:DeleteLoggingConfiguration",
           "aps:DescribeLoggingConfiguration",
           "aps:UpdateWorkspaceConfiguration",
-          "aps:DescribeWorkspaceConfiguration"
+          "aps:DescribeWorkspaceConfiguration",
+          "aps:CreateQueryLoggingConfiguration",
+          "aps:UpdateQueryLoggingConfiguration",
+          "aps:DeleteQueryLoggingConfiguration",
+          "aps:DescribeQueryLoggingConfiguration"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-17T16:22:06+00:00"
+  "CreateDate": "2025-05-22T17:07:06+00:00"
 }

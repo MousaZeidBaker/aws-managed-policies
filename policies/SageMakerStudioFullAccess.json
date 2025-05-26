@@ -121,6 +121,22 @@
         "Resource": "*"
       },
       {
+        "Sid": "RamAssociateResourceSharePermissionStatement",
+        "Effect": "Allow",
+        "Action": "ram:AssociateResourceSharePermission",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "ram:PermissionArn": [
+              "arn:aws:ram::aws:permission/AWSRAMDefaultPermissionAmazonDataZoneDomain",
+              "arn:aws:ram::aws:permission/AWSRAMPermissionAmazonDataZoneDomainFullAccessWithPortalAccess",
+              "arn:aws:ram::aws:permission/AWSRAMPermissionsAmazonDatazoneDomainExtendedServiceAccess",
+              "arn:aws:ram::aws:permission/AWSRAMPermissionsAmazonDatazoneDomainExtendedServiceWithPortalAccess"
+            ]
+          }
+        }
+      },
+      {
         "Sid": "IAMPassRoleStatement",
         "Effect": "Allow",
         "Action": "iam:PassRole",
@@ -368,7 +384,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-21T22:52:06+00:00"
+  "CreateDate": "2025-05-22T17:52:06+00:00"
 }

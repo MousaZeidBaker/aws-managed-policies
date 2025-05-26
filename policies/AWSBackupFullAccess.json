@@ -472,10 +472,20 @@
           "ram:GetResourceShareAssociations"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "DSQLDescribePermissions",
+        "Effect": "Allow",
+        "Action": [
+          "dsql:GetCluster",
+          "dsql:ListClusters",
+          "dsql:ListTagsForResource"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v19",
+  "VersionId": "v20",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-03-27T21:52:06+00:00"
+  "CreateDate": "2025-05-22T00:37:07+00:00"
 }

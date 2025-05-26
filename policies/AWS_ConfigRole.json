@@ -159,7 +159,14 @@
           "batch:DescribeSchedulingPolicies",
           "batch:ListSchedulingPolicies",
           "batch:ListTagsForResource",
+          "bedrock:GetGuardrail",
+          "bedrock:GetInferenceProfile",
+          "bedrock:GetKnowledgeBase",
           "bedrock:ListAgents",
+          "bedrock:ListGuardrails",
+          "bedrock:ListInferenceProfiles",
+          "bedrock:ListKnowledgeBases",
+          "bedrock:ListTagsForResource",
           "billingconductor:ListAccountAssociations",
           "billingconductor:ListBillingGroups",
           "billingconductor:ListCustomLineItems",
@@ -1560,7 +1567,7 @@
       }
     ]
   },
-  "VersionId": "v36",
+  "VersionId": "v37",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-08T21:52:06+00:00"
+  "CreateDate": "2025-05-23T17:22:07+00:00"
 }

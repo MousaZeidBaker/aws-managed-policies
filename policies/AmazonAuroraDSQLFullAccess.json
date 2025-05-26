@@ -11,8 +11,6 @@
           "dsql:UpdateCluster",
           "dsql:DeleteCluster",
           "dsql:ListClusters",
-          "dsql:CreateMultiRegionClusters",
-          "dsql:DeleteMultiRegionClusters",
           "dsql:TagResource",
           "dsql:UntagResource",
           "dsql:ListTagsForResource",
@@ -22,7 +20,13 @@
           "dsql:PutWitnessRegion",
           "dsql:AddPeerCluster",
           "dsql:RemovePeerCluster",
-          "dsql:GetVpcEndpointServiceName"
+          "dsql:GetVpcEndpointServiceName",
+          "dsql:StartBackupJob",
+          "dsql:GetBackupJob",
+          "dsql:StopBackupJob",
+          "dsql:StartRestoreJob",
+          "dsql:GetRestoreJob",
+          "dsql:StopRestoreJob"
         ],
         "Resource": "*"
       },
@@ -44,10 +48,47 @@
             "iam:AWSServiceName": "dsql.amazonaws.com"
           }
         }
+      },
+      {
+        "Sid": "KMSDescribePermission",
+        "Effect": "Allow",
+        "Action": [
+          "kms:DescribeKey"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": [
+              "dsql.*.amazonaws.com"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "KMSCryptographicPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt",
+          "kms:Encrypt",
+          "kms:GenerateDataKey",
+          "kms:ReEncryptTo",
+          "kms:ReEncryptFrom"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": [
+              "dsql.*.amazonaws.com"
+            ]
+          },
+          "ForAnyValue:StringEquals": {
+            "kms:EncryptionContextKeys": "aws:dsql:ClusterId"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-14T19:37:06+00:00"
+  "CreateDate": "2025-05-21T21:22:07+00:00"
 }

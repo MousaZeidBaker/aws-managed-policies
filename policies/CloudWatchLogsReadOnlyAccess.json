@@ -15,13 +15,14 @@
           "logs:FilterLogEvents",
           "logs:StartLiveTail",
           "logs:StopLiveTail",
-          "cloudwatch:GenerateQuery"
+          "cloudwatch:GenerateQuery",
+          "cloudwatch:GenerateQueryResultsSummary"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-26T18:11:33+00:00"
+  "CreateDate": "2025-05-20T16:52:06+00:00"
 }
