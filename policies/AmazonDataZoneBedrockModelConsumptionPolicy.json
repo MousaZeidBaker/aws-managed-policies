@@ -21,6 +21,14 @@
         }
       },
       {
+        "Sid": "ListFoundationModels",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock:ListFoundationModels"
+        ],
+        "Resource": "*"
+      },
+      {
         "Sid": "BedrockCreateSessionWithTagsPermissions",
         "Effect": "Allow",
         "Action": [
@@ -90,7 +98,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-13T21:37:06+00:00"
+  "CreateDate": "2025-05-28T18:52:08+00:00"
 }
