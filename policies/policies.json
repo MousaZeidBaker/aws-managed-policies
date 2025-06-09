@@ -15493,12 +15493,49 @@
             "securityhub:GetEnabledStandards"
           ],
           "Resource": "arn:aws:securityhub:*:*:hub/default"
+        },
+        {
+          "Sid": "AllowDeleteConfigRule",
+          "Effect": "Allow",
+          "Action": [
+            "config:DeleteConfigRule"
+          ],
+          "Resource": "arn:aws:config:*:*:config-rule/aws-service-rule/controltower.*/*"
+        },
+        {
+          "Sid": "AllowPutConfigRule",
+          "Effect": "Allow",
+          "Action": [
+            "config:PutConfigRule"
+          ],
+          "Resource": "arn:aws:config:*:*:config-rule/aws-service-rule/controltower.*/*"
+        },
+        {
+          "Sid": "AllowConfigTagResource",
+          "Effect": "Allow",
+          "Action": [
+            "config:TagResource"
+          ],
+          "Resource": "arn:aws:config:*:*:config-rule/aws-service-rule/controltower.*/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/aws-control-tower": "managed-by-control-tower"
+            }
+          }
+        },
+        {
+          "Sid": "AllowConfigRulesDescribe",
+          "Effect": "Allow",
+          "Action": [
+            "config:DescribeConfigRules"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-06-05T22:04:50+00:00"
+    "CreateDate": "2025-06-03T17:07:06+00:00"
   },
   "AWSControlTowerServiceRolePolicy": {
     "Document": {
@@ -44805,10 +44842,12 @@
             "guardduty:ArchiveFindings",
             "guardduty:CreateFilter",
             "guardduty:DescribeMalwareScans",
+            "guardduty:GetAdministratorAccount",
             "guardduty:GetDetector",
             "guardduty:GetFilter",
             "guardduty:GetFindings",
             "guardduty:ListDetectors",
+            "guardduty:ListFilters",
             "guardduty:StartMalwareScan",
             "guardduty:UpdateFindingsFeedback"
           ],
@@ -44832,18 +44871,44 @@
             "security-ir:CreateCase",
             "security-ir:TagResource"
           ],
+          "Resource": "*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "SecurityIncidentResponseManaged"
+              ]
+            },
+            "StringEquals": {
+              "aws:RequestTag/SecurityIncidentResponseManaged": "true",
+              "aws:ResourceTag/SecurityIncidentResponseManaged": "true"
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "security-ir:UpdateCase"
+          ],
+          "Resource": "*",
           "Condition": {
             "StringEquals": {
-              "aws:RequestTag/SecurityIncidentResponseManaged": "true"
+              "aws:ResourceTag/SecurityIncidentResponseManaged": "true"
             }
-          },
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "security-ir:GetMembership",
+            "security-ir:ListMemberships"
+          ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-01T16:36:07+00:00"
+    "CreateDate": "2025-06-02T18:22:06+00:00"
   },
   "AWSServiceCatalogAdminFullAccess": {
     "Document": {
@@ -75659,6 +75724,85 @@
     "IsDefaultVersion": true,
     "CreateDate": "2024-06-10T22:50:31+00:00"
   },
+  "AmazonGuardDutyFullAccess_v2": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "GuardDutyFullAccess",
+          "Effect": "Allow",
+          "Action": "guardduty:*",
+          "Resource": "*"
+        },
+        {
+          "Sid": "CreateGuardDutyServiceLinkedRole",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": [
+                "guardduty.amazonaws.com",
+                "malware-protection.guardduty.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "GuardDutyOrganizationsReadOnly",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:ListAWSServiceAccessForOrganization",
+            "organizations:DescribeOrganizationalUnit",
+            "organizations:DescribeAccount",
+            "organizations:DescribeOrganization",
+            "organizations:ListAccounts"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "GuardDutyOrganizationsAdminAccess",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:EnableAWSServiceAccess",
+            "organizations:DisableAWSServiceAccess",
+            "organizations:RegisterDelegatedAdministrator",
+            "organizations:DeregisterDelegatedAdministrator",
+            "organizations:ListDelegatedAdministrators"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "organizations:ServicePrincipal": [
+                "guardduty.amazonaws.com",
+                "malware-protection.guardduty.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "GuardDutyIamRoleAccess",
+          "Effect": "Allow",
+          "Action": "iam:GetRole",
+          "Resource": "arn:aws:iam::*:role/*AWSServiceRoleForAmazonGuardDutyMalwareProtection"
+        },
+        {
+          "Sid": "PassRoleToMalwareProtectionPlan",
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": "arn:aws:iam::*:role/*",
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "malware-protection-plan.guardduty.amazonaws.com"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-06-04T20:22:07+00:00"
+  },
   "AmazonGuardDutyMalwareProtectionServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -91740,6 +91884,71 @@
     "VersionId": "v3",
     "IsDefaultVersion": true,
     "CreateDate": "2023-02-17T21:28:19+00:00"
+  },
+  "AmazonSageMakerQuickSightVPCPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ManageQuickSightVPCConnection",
+          "Effect": "Allow",
+          "Action": [
+            "quicksight:CreateVPCConnection",
+            "quicksight:DescribeVPCConnection",
+            "quicksight:DeleteVPCConnection",
+            "quicksight:ListVPCConnections",
+            "quicksight:UpdateVPCConnection"
+          ],
+          "Resource": "arn:aws:quicksight:*:*:vpcconnection/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "false"
+            }
+          }
+        },
+        {
+          "Sid": "DescribeQuickSightVPCConnectionEC2Resources",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVpcs",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeNetworkAcls",
+            "ec2:DescribeRouteTables"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "ManageQuickSightEC2NetworkInterface",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateNetworkInterface",
+            "ec2:DeleteNetworkInterface"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*",
+            "arn:aws:ec2:*:*:network-interface/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-06-03T17:37:06+00:00"
   },
   "AmazonSageMakerReadOnly": {
     "Document": {
@@ -108288,7 +108497,7 @@
       "Version": "2012-10-17",
       "Statement": [
         {
-          "Sid": "ReadOnlyActions",
+          "Sid": "ReadOnlyActionsGroup1",
           "Effect": "Allow",
           "Action": [
             "a4b:Get*",
@@ -108372,8 +108581,8 @@
             "appconfig:GetHostedConfigurationVersion",
             "appconfig:ListApplications",
             "appconfig:ListConfigurationProfiles",
-            "appconfig:ListDeployments",
             "appconfig:ListDeploymentStrategies",
+            "appconfig:ListDeployments",
             "appconfig:ListEnvironments",
             "appconfig:ListExtensions",
             "appconfig:ListHostedConfigurationVersions",
@@ -108447,9 +108656,9 @@
             "apptest:ListTagsForResource",
             "apptest:ListTestCases",
             "apptest:ListTestConfigurations",
-            "apptest:ListTestRuns",
             "apptest:ListTestRunSteps",
             "apptest:ListTestRunTestCases",
+            "apptest:ListTestRuns",
             "apptest:ListTestSuites",
             "aps:DescribeAlertManagerDefinition",
             "aps:DescribeLoggingConfiguration",
@@ -108557,14 +108766,14 @@
             "bedrock:ListAgentAliases",
             "bedrock:ListAgentCollaborators",
             "bedrock:ListAgentKnowledgeBases",
-            "bedrock:ListAgents",
             "bedrock:ListAgentVersions",
+            "bedrock:ListAgents",
             "bedrock:ListCustomModels",
             "bedrock:ListDataSources",
             "bedrock:ListEvaluationJobs",
             "bedrock:ListFlowAliases",
-            "bedrock:ListFlows",
             "bedrock:ListFlowVersions",
+            "bedrock:ListFlows",
             "bedrock:ListFoundationModelAgreementOffers",
             "bedrock:ListFoundationModels",
             "bedrock:ListGuardrails",
@@ -108591,8 +108800,8 @@
             "billingconductor:ListAccountAssociations",
             "billingconductor:ListBillingGroupCostReports",
             "billingconductor:ListBillingGroups",
-            "billingconductor:ListCustomLineItems",
             "billingconductor:ListCustomLineItemVersions",
+            "billingconductor:ListCustomLineItems",
             "billingconductor:ListPricingPlans",
             "billingconductor:ListPricingPlansAssociatedWithPricingRule",
             "billingconductor:ListPricingRules",
@@ -108684,8 +108893,8 @@
             "cleanrooms:ListCollaborationAnalysisTemplates",
             "cleanrooms:ListCollaborationConfiguredAudienceModelAssociations",
             "cleanrooms:ListCollaborationIdNamespaceAssociations",
-            "cleanrooms:ListCollaborationPrivacyBudgets",
             "cleanrooms:ListCollaborationPrivacyBudgetTemplates",
+            "cleanrooms:ListCollaborationPrivacyBudgets",
             "cleanrooms:ListCollaborations",
             "cleanrooms:ListConfiguredAudienceModelAssociations",
             "cleanrooms:ListConfiguredTableAssociations",
@@ -108694,8 +108903,8 @@
             "cleanrooms:ListIdNamespaceAssociations",
             "cleanrooms:ListMembers",
             "cleanrooms:ListMemberships",
-            "cleanrooms:ListPrivacyBudgets",
             "cleanrooms:ListPrivacyBudgetTemplates",
+            "cleanrooms:ListPrivacyBudgets",
             "cleanrooms:ListProtectedQueries",
             "cleanrooms:ListSchemas",
             "cleanrooms:ListTagsForResource",
@@ -108741,10 +108950,10 @@
             "codeartifact:GetRepositoryEndpoint",
             "codeartifact:GetRepositoryPermissionsPolicy",
             "codeartifact:ListDomains",
-            "codeartifact:ListPackages",
             "codeartifact:ListPackageVersionAssets",
             "codeartifact:ListPackageVersionDependencies",
             "codeartifact:ListPackageVersions",
+            "codeartifact:ListPackages",
             "codeartifact:ListRepositories",
             "codeartifact:ListRepositoriesInDomain",
             "codeartifact:ListTagsForResource",
@@ -108787,11 +108996,11 @@
             "codestar-connections:ListRepositorySyncDefinitions",
             "codestar-connections:ListSyncConfigurations",
             "codestar-connections:ListTagsForResource",
+            "codestar-notifications:ListTargets",
             "codestar-notifications:describeNotificationRule",
             "codestar-notifications:listEventTypes",
             "codestar-notifications:listNotificationRules",
             "codestar-notifications:listTagsForResource",
-            "codestar-notifications:ListTargets",
             "codestar:Describe*",
             "codestar:Get*",
             "codestar:List*",
@@ -108866,8 +109075,8 @@
             "cost-optimization-hub:GetPreferences",
             "cost-optimization-hub:GetRecommendation",
             "cost-optimization-hub:ListEnrollmentStatuses",
-            "cost-optimization-hub:ListRecommendations",
             "cost-optimization-hub:ListRecommendationSummaries",
+            "cost-optimization-hub:ListRecommendations",
             "cur:GetClassicReport",
             "cur:GetClassicReportPreferences",
             "cur:GetUsageReport",
@@ -108884,8 +109093,8 @@
             "databrew:ListJobRuns",
             "databrew:ListJobs",
             "databrew:ListProjects",
-            "databrew:ListRecipes",
             "databrew:ListRecipeVersions",
+            "databrew:ListRecipes",
             "databrew:ListRulesets",
             "databrew:ListSchedules",
             "databrew:ListTagsForResource",
@@ -108934,12 +109143,12 @@
             "datazone:ListDataSourceRunActivities",
             "datazone:ListDataSourceRuns",
             "datazone:ListDataSources",
-            "datazone:ListDomains",
             "datazone:ListDomainUnitsForParent",
+            "datazone:ListDomains",
             "datazone:ListEntityOwners",
             "datazone:ListEnvironmentActions",
-            "datazone:ListEnvironmentBlueprintConfigurations",
             "datazone:ListEnvironmentBlueprintConfigurationSummaries",
+            "datazone:ListEnvironmentBlueprintConfigurations",
             "datazone:ListEnvironmentBlueprints",
             "datazone:ListEnvironmentProfiles",
             "datazone:ListEnvironments",
@@ -108952,8 +109161,8 @@
             "datazone:ListProjects",
             "datazone:ListSubscriptionGrants",
             "datazone:ListSubscriptionRequests",
-            "datazone:ListSubscriptions",
             "datazone:ListSubscriptionTargets",
+            "datazone:ListSubscriptions",
             "datazone:ListTagsForResource",
             "datazone:ListTimeSeriesDataPoints",
             "datazone:Search",
@@ -109101,8 +109310,8 @@
             "ec2:SearchTransitGatewayRoutes",
             "ec2messages:Get*",
             "ecr-public:BatchCheckLayerAvailability",
-            "ecr-public:DescribeImages",
             "ecr-public:DescribeImageTags",
+            "ecr-public:DescribeImages",
             "ecr-public:DescribeRegistries",
             "ecr-public:DescribeRepositories",
             "ecr-public:GetAuthorizationToken",
@@ -109119,10 +109328,6 @@
             "ecs:List*",
             "eks:Describe*",
             "eks:List*",
-            "elastic-inference:DescribeAcceleratorOfferings",
-            "elastic-inference:DescribeAccelerators",
-            "elastic-inference:DescribeAcceleratorTypes",
-            "elastic-inference:ListTagsForResource",
             "elasticache:Describe*",
             "elasticache:List*",
             "elasticbeanstalk:Check*",
@@ -109187,9 +109392,9 @@
             "fis:GetTargetResourceType",
             "fis:ListActions",
             "fis:ListExperimentResolvedTargets",
-            "fis:ListExperiments",
             "fis:ListExperimentTargetAccountConfigurations",
             "fis:ListExperimentTemplates",
+            "fis:ListExperiments",
             "fis:ListTagsForResource",
             "fis:ListTargetAccountConfigurations",
             "fis:ListTargetResourceTypes",
@@ -109244,8 +109449,8 @@
             "frauddetector:GetBatchImportJobs",
             "frauddetector:GetBatchPredictionJobs",
             "frauddetector:GetDeleteEventsByEventTypeStatus",
-            "frauddetector:GetDetectors",
             "frauddetector:GetDetectorVersion",
+            "frauddetector:GetDetectors",
             "frauddetector:GetEntityTypes",
             "frauddetector:GetEvent",
             "frauddetector:GetEventPredictionMetadata",
@@ -109255,8 +109460,8 @@
             "frauddetector:GetLabels",
             "frauddetector:GetListElements",
             "frauddetector:GetListsMetadata",
-            "frauddetector:GetModels",
             "frauddetector:GetModelVersion",
+            "frauddetector:GetModels",
             "frauddetector:GetOutcomes",
             "frauddetector:GetRules",
             "frauddetector:GetVariables",
@@ -109292,9 +109497,9 @@
             "glue:GetCrawler",
             "glue:GetCrawlerMetrics",
             "glue:GetCrawlers",
+            "glue:GetDataCatalogEncryptionSettings",
             "glue:GetDatabase",
             "glue:GetDatabases",
-            "glue:GetDataCatalogEncryptionSettings",
             "glue:GetDataflowGraph",
             "glue:GetDevEndpoint",
             "glue:GetDevEndpoints",
@@ -109303,11 +109508,11 @@
             "glue:GetJobRun",
             "glue:GetJobRuns",
             "glue:GetJobs",
-            "glue:GetMapping",
             "glue:GetMLTaskRun",
             "glue:GetMLTaskRuns",
             "glue:GetMLTransform",
             "glue:GetMLTransforms",
+            "glue:GetMapping",
             "glue:GetPartition",
             "glue:GetPartitions",
             "glue:GetPlan",
@@ -109323,9 +109528,9 @@
             "glue:GetStatement",
             "glue:GetTable",
             "glue:GetTableOptimizer",
-            "glue:GetTables",
             "glue:GetTableVersion",
             "glue:GetTableVersions",
+            "glue:GetTables",
             "glue:GetTags",
             "glue:GetTrigger",
             "glue:GetTriggers",
@@ -109341,8 +109546,8 @@
             "glue:ListJobs",
             "glue:ListMLTransforms",
             "glue:ListRegistries",
-            "glue:ListSchemas",
             "glue:ListSchemaVersions",
+            "glue:ListSchemas",
             "glue:ListSessions",
             "glue:ListStatements",
             "glue:ListTableOptimizerRuns",
@@ -109412,10 +109617,6 @@
             "imagebuilder:List*",
             "importexport:Get*",
             "importexport:List*",
-            "inspector:Describe*",
-            "inspector:Get*",
-            "inspector:List*",
-            "inspector:Preview*",
             "inspector2:BatchGetAccountStatus",
             "inspector2:BatchGetFreeTrialInfo",
             "inspector2:DescribeOrganizationConfiguration",
@@ -109433,6 +109634,10 @@
             "inspector2:ListMembers",
             "inspector2:ListTagsForResource",
             "inspector2:ListUsageTotals",
+            "inspector:Describe*",
+            "inspector:Get*",
+            "inspector:List*",
+            "inspector:Preview*",
             "internetmonitor:GetHealthEvent",
             "internetmonitor:GetInternetEvent",
             "internetmonitor:GetMonitor",
@@ -109443,9 +109648,6 @@
             "invoicing:GetInvoiceEmailDeliveryPreferences",
             "invoicing:GetInvoicePDF",
             "invoicing:ListInvoiceSummaries",
-            "iot:Describe*",
-            "iot:Get*",
-            "iot:List*",
             "iot1click:DescribeDevice",
             "iot1click:DescribePlacement",
             "iot1click:DescribeProject",
@@ -109456,6 +109658,9 @@
             "iot1click:ListPlacements",
             "iot1click:ListProjects",
             "iot1click:ListTagsForResource",
+            "iot:Describe*",
+            "iot:Get*",
+            "iot:List*",
             "iotanalytics:Describe*",
             "iotanalytics:Get*",
             "iotanalytics:List*",
@@ -109466,11 +109671,11 @@
             "iotevents:DescribeDetectorModel",
             "iotevents:DescribeInput",
             "iotevents:DescribeLoggingOptions",
-            "iotevents:ListAlarmModels",
             "iotevents:ListAlarmModelVersions",
+            "iotevents:ListAlarmModels",
             "iotevents:ListAlarms",
-            "iotevents:ListDetectorModels",
             "iotevents:ListDetectorModelVersions",
+            "iotevents:ListDetectorModels",
             "iotevents:ListDetectors",
             "iotevents:ListInputs",
             "iotevents:ListTagsForResource",
@@ -109487,8 +109692,8 @@
             "iotfleetwise:GetVehicleStatus",
             "iotfleetwise:ListCampaigns",
             "iotfleetwise:ListDecoderManifestNetworkInterfaces",
-            "iotfleetwise:ListDecoderManifests",
             "iotfleetwise:ListDecoderManifestSignals",
+            "iotfleetwise:ListDecoderManifests",
             "iotfleetwise:ListFleets",
             "iotfleetwise:ListFleetsForVehicle",
             "iotfleetwise:ListModelManifestNodes",
@@ -109552,8 +109757,8 @@
             "iotwireless:ListTagsForResource",
             "iotwireless:ListWirelessDeviceImportTasks",
             "iotwireless:ListWirelessDevices",
-            "iotwireless:ListWirelessGateways",
             "iotwireless:ListWirelessGatewayTaskDefinitions",
+            "iotwireless:ListWirelessGateways",
             "ivs:BatchGetChannel",
             "ivs:GetChannel",
             "ivs:GetComposition",
@@ -109579,18 +109784,25 @@
             "ivs:ListPlaybackRestrictionPolicies",
             "ivs:ListPublicKeys",
             "ivs:ListRecordingConfigurations",
-            "ivs:ListStages",
             "ivs:ListStageSessions",
+            "ivs:ListStages",
             "ivs:ListStorageConfigurations",
             "ivs:ListStreamKeys",
-            "ivs:ListStreams",
             "ivs:ListStreamSessions",
+            "ivs:ListStreams",
             "ivs:ListTagsForResource",
             "ivschat:GetLoggingConfiguration",
             "ivschat:GetRoom",
             "ivschat:ListLoggingConfigurations",
             "ivschat:ListRooms",
-            "ivschat:ListTagsForResource",
+            "ivschat:ListTagsForResource"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ReadOnlyActionsGroup2",
+          "Effect": "Allow",
+          "Action": [
             "kafka:Describe*",
             "kafka:DescribeCluster",
             "kafka:DescribeClusterOperation",
@@ -109626,8 +109838,8 @@
             "kendra:DescribeThesaurus",
             "kendra:GetQuerySuggestions",
             "kendra:GetSnapshots",
-            "kendra:ListDataSources",
             "kendra:ListDataSourceSyncJobs",
+            "kendra:ListDataSources",
             "kendra:ListEntityPersonas",
             "kendra:ListExperienceEntities",
             "kendra:ListExperiences",
@@ -109704,21 +109916,21 @@
             "lex:DescribeSlot",
             "lex:DescribeSlotType",
             "lex:Get*",
-            "lex:ListBotAliases",
             "lex:ListBotAliasReplicas",
+            "lex:ListBotAliases",
             "lex:ListBotChannels",
             "lex:ListBotLocales",
             "lex:ListBotReplicas",
-            "lex:ListBots",
             "lex:ListBotVersionReplicas",
             "lex:ListBotVersions",
+            "lex:ListBots",
             "lex:ListBuiltInIntents",
             "lex:ListBuiltInSlotTypes",
             "lex:ListExports",
             "lex:ListImports",
             "lex:ListIntents",
-            "lex:ListSlots",
             "lex:ListSlotTypes",
+            "lex:ListSlots",
             "lex:ListTagsForResource",
             "license-manager:Get*",
             "license-manager:List*",
@@ -109740,9 +109952,9 @@
             "lightsail:GetContainerServicePowers",
             "lightsail:GetContainerServices",
             "lightsail:GetDisk",
-            "lightsail:GetDisks",
             "lightsail:GetDiskSnapshot",
             "lightsail:GetDiskSnapshots",
+            "lightsail:GetDisks",
             "lightsail:GetDistributionBundles",
             "lightsail:GetDistributionLatestCacheReset",
             "lightsail:GetDistributionMetricData",
@@ -109753,16 +109965,16 @@
             "lightsail:GetInstance",
             "lightsail:GetInstanceMetricData",
             "lightsail:GetInstancePortStates",
-            "lightsail:GetInstances",
             "lightsail:GetInstanceSnapshot",
             "lightsail:GetInstanceSnapshots",
             "lightsail:GetInstanceState",
+            "lightsail:GetInstances",
             "lightsail:GetKeyPair",
             "lightsail:GetKeyPairs",
             "lightsail:GetLoadBalancer",
             "lightsail:GetLoadBalancerMetricData",
-            "lightsail:GetLoadBalancers",
             "lightsail:GetLoadBalancerTlsCertificates",
+            "lightsail:GetLoadBalancers",
             "lightsail:GetOperation",
             "lightsail:GetOperations",
             "lightsail:GetOperationsForResource",
@@ -109775,18 +109987,18 @@
             "lightsail:GetRelationalDatabaseLogStreams",
             "lightsail:GetRelationalDatabaseMetricData",
             "lightsail:GetRelationalDatabaseParameters",
-            "lightsail:GetRelationalDatabases",
             "lightsail:GetRelationalDatabaseSnapshot",
             "lightsail:GetRelationalDatabaseSnapshots",
+            "lightsail:GetRelationalDatabases",
             "lightsail:GetStaticIp",
             "lightsail:GetStaticIps",
             "lightsail:Is*",
             "logs:Describe*",
             "logs:FilterLogEvents",
             "logs:Get*",
-            "logs:ListIntegrations",
             "logs:ListAnomalies",
             "logs:ListEntitiesForLogGroup",
+            "logs:ListIntegrations",
             "logs:ListLogAnomalyDetectors",
             "logs:ListLogDeliveries",
             "logs:ListLogGroupsForEntity",
@@ -109814,8 +110026,8 @@
             "lookoutequipment:ListInferenceSchedulers",
             "lookoutequipment:ListLabelGroups",
             "lookoutequipment:ListLabels",
-            "lookoutequipment:ListModels",
             "lookoutequipment:ListModelVersions",
+            "lookoutequipment:ListModels",
             "lookoutequipment:ListRetrainingSchedulers",
             "lookoutequipment:ListSensorStatistics",
             "lookoutequipment:ListTagsForResource",
@@ -109838,8 +110050,8 @@
             "m2:GetDataSetImportTask",
             "m2:GetDeployment",
             "m2:GetEnvironment",
-            "m2:ListApplications",
             "m2:ListApplicationVersions",
+            "m2:ListApplications",
             "m2:ListBatchJobDefinitions",
             "m2:ListBatchJobExecutions",
             "m2:ListDataSetImportHistory",
@@ -109861,10 +110073,10 @@
             "macie2:GetClassificationExportConfiguration",
             "macie2:GetClassificationScope",
             "macie2:GetCustomDataIdentifier",
+            "macie2:GetFindingStatistics",
             "macie2:GetFindings",
             "macie2:GetFindingsFilter",
             "macie2:GetFindingsPublicationConfiguration",
-            "macie2:GetFindingStatistics",
             "macie2:GetInvitationsCount",
             "macie2:GetMacieSession",
             "macie2:GetMember",
@@ -109897,8 +110109,8 @@
             "managedblockchain:ListMembers",
             "managedblockchain:ListNetworks",
             "managedblockchain:ListNodes",
-            "managedblockchain:ListProposals",
             "managedblockchain:ListProposalVotes",
+            "managedblockchain:ListProposals",
             "managedblockchain:ListTagsForResource",
             "mediaconnect:DescribeFlow",
             "mediaconnect:DescribeOffering",
@@ -109931,12 +110143,12 @@
             "medialive:ListCloudWatchAlarmTemplates",
             "medialive:ListEventBridgeRuleTemplateGroups",
             "medialive:ListEventBridgeRuleTemplates",
-            "medialive:ListInputDevices",
             "medialive:ListInputDeviceTransfers",
-            "medialive:ListInputs",
+            "medialive:ListInputDevices",
             "medialive:ListInputSecurityGroups",
-            "medialive:ListMultiplexes",
+            "medialive:ListInputs",
             "medialive:ListMultiplexPrograms",
+            "medialive:ListMultiplexes",
             "medialive:ListOfferings",
             "medialive:ListReservations",
             "medialive:ListSignalMaps",
@@ -110004,13 +110216,13 @@
             "network-firewall:ListFirewallPolicies",
             "network-firewall:ListFirewalls",
             "network-firewall:ListRuleGroups",
-            "network-firewall:ListTagsForResource",
             "network-firewall:ListTLSInspectionConfigurations",
+            "network-firewall:ListTagsForResource",
             "networkmanager:DescribeGlobalNetworks",
             "networkmanager:GetConnectAttachment",
-            "networkmanager:GetConnections",
             "networkmanager:GetConnectPeer",
             "networkmanager:GetConnectPeerAssociations",
+            "networkmanager:GetConnections",
             "networkmanager:GetCoreNetwork",
             "networkmanager:GetCoreNetworkChangeEvents",
             "networkmanager:GetCoreNetworkChangeSet",
@@ -110026,8 +110238,8 @@
             "networkmanager:GetNetworkTelemetry",
             "networkmanager:GetResourcePolicy",
             "networkmanager:GetRouteAnalysis",
-            "networkmanager:GetSites",
             "networkmanager:GetSiteToSiteVpnAttachment",
+            "networkmanager:GetSites",
             "networkmanager:GetTransitGatewayConnectPeerAssociations",
             "networkmanager:GetTransitGatewayPeering",
             "networkmanager:GetTransitGatewayRegistrations",
@@ -110069,8 +110281,8 @@
             "notifications:GetManagedNotificationConfiguration",
             "notifications:GetManagedNotificationEvent",
             "notifications:GetNotificationConfiguration",
-            "notifications:GetNotificationsAccessForOrganization",
             "notifications:GetNotificationEvent",
+            "notifications:GetNotificationsAccessForOrganization",
             "notifications:List*",
             "oam:GetLink",
             "oam:GetSink",
@@ -110174,11 +110386,11 @@
             "proton:GetServiceTemplateVersion",
             "proton:ListDeployments",
             "proton:ListEnvironmentAccountConnections",
-            "proton:ListEnvironments",
             "proton:ListEnvironmentTemplates",
+            "proton:ListEnvironments",
             "proton:ListServiceInstances",
-            "proton:ListServices",
             "proton:ListServiceTemplates",
+            "proton:ListServices",
             "proton:ListTagsForResource",
             "purchase-orders:GetPurchaseOrder",
             "purchase-orders:ListPurchaseOrderInvoices",
@@ -110194,8 +110406,8 @@
             "qbusiness:GetUser",
             "qbusiness:GetWebExperience",
             "qbusiness:ListApplications",
-            "qbusiness:ListDataSources",
             "qbusiness:ListDataSourceSyncJobs",
+            "qbusiness:ListDataSources",
             "qbusiness:ListGroups",
             "qbusiness:ListIndices",
             "qbusiness:ListPlugins",
@@ -110253,15 +110465,15 @@
             "refactor-spaces:GetRoute",
             "refactor-spaces:GetService",
             "refactor-spaces:ListApplications",
-            "refactor-spaces:ListEnvironments",
             "refactor-spaces:ListEnvironmentVpcs",
+            "refactor-spaces:ListEnvironments",
             "refactor-spaces:ListRoutes",
             "refactor-spaces:ListServices",
             "refactor-spaces:ListTagsForResource",
             "rekognition:CompareFaces",
             "rekognition:DescribeDataset",
-            "rekognition:DescribeProjects",
             "rekognition:DescribeProjectVersions",
+            "rekognition:DescribeProjects",
             "rekognition:DescribeStreamProcessor",
             "rekognition:Detect*",
             "rekognition:GetCelebrityInfo",
@@ -110294,11 +110506,11 @@
             "resiliencehub:ListAppComponentCompliances",
             "resiliencehub:ListAppComponentRecommendations",
             "resiliencehub:ListAppInputSources",
-            "resiliencehub:ListApps",
             "resiliencehub:ListAppVersionAppComponents",
             "resiliencehub:ListAppVersionResourceMappings",
             "resiliencehub:ListAppVersionResources",
             "resiliencehub:ListAppVersions",
+            "resiliencehub:ListApps",
             "resiliencehub:ListMetrics",
             "resiliencehub:ListRecommendationTemplates",
             "resiliencehub:ListResiliencyPolicies",
@@ -110448,8 +110660,8 @@
             "servicediscovery:DiscoverInstancesRevision",
             "servicediscovery:Get*",
             "servicediscovery:List*",
-            "servicequotas:GetAssociationForServiceQuotaTemplate",
             "servicequotas:GetAWSDefaultServiceQuota",
+            "servicequotas:GetAssociationForServiceQuotaTemplate",
             "servicequotas:GetRequestedServiceQuotaChange",
             "servicequotas:GetServiceQuota",
             "servicequotas:GetServiceQuotaIncreaseRequestFromTemplate",
@@ -110479,8 +110691,8 @@
             "sms-voice:DescribeAccountLimits",
             "sms-voice:DescribeConfigurationSets",
             "sms-voice:DescribeKeywords",
-            "sms-voice:DescribeOptedOutNumbers",
             "sms-voice:DescribeOptOutLists",
+            "sms-voice:DescribeOptedOutNumbers",
             "sms-voice:DescribePhoneNumbers",
             "sms-voice:DescribePools",
             "sms-voice:DescribeSenderIds",
@@ -110517,6 +110729,13 @@
             "ssm-incidents:ListResponsePlans",
             "ssm-incidents:ListTagsForResource",
             "ssm-incidents:ListTimelineEvents",
+            "ssm-quicksetup:GetConfiguration",
+            "ssm-quicksetup:GetConfigurationManager",
+            "ssm-quicksetup:GetServiceSettings",
+            "ssm-quicksetup:ListConfigurationManagers",
+            "ssm-quicksetup:ListConfigurations",
+            "ssm-quicksetup:ListQuickSetupTypes",
+            "ssm-quicksetup:ListTagsForResource",
             "ssm-sap:GetApplication",
             "ssm-sap:GetComponent",
             "ssm-sap:GetDatabase",
@@ -110528,13 +110747,6 @@
             "ssm-sap:ListOperationEvents",
             "ssm-sap:ListOperations",
             "ssm-sap:ListTagsForResource",
-            "ssm-quicksetup:GetConfiguration",
-            "ssm-quicksetup:GetConfigurationManager",
-            "ssm-quicksetup:GetServiceSettings",
-            "ssm-quicksetup:ListConfigurationManagers",
-            "ssm-quicksetup:ListConfigurations",
-            "ssm-quicksetup:ListQuickSetupTypes",
-            "ssm-quicksetup:ListTagsForResource",
             "ssm:Describe*",
             "ssm:Get*",
             "ssm:List*",
@@ -110563,12 +110775,12 @@
             "support:DescribeIssueTypes",
             "support:DescribeServices",
             "support:DescribeSeverityLevels",
-            "support:DescribeSupportedLanguages",
             "support:DescribeSupportLevel",
+            "support:DescribeSupportedLanguages",
             "support:DescribeTrustedAdvisorCheckRefreshStatuses",
             "support:DescribeTrustedAdvisorCheckResult",
-            "support:DescribeTrustedAdvisorChecks",
             "support:DescribeTrustedAdvisorCheckSummaries",
+            "support:DescribeTrustedAdvisorChecks",
             "support:SearchForCases",
             "supportplans:GetSupportPlan",
             "supportplans:GetSupportPlanUpdateStatus",
@@ -110660,9 +110872,9 @@
             "vpc-lattice:ListAccessLogSubscriptions",
             "vpc-lattice:ListListeners",
             "vpc-lattice:ListRules",
-            "vpc-lattice:ListServiceNetworks",
             "vpc-lattice:ListServiceNetworkServiceAssociations",
             "vpc-lattice:ListServiceNetworkVpcAssociations",
+            "vpc-lattice:ListServiceNetworks",
             "vpc-lattice:ListServices",
             "vpc-lattice:ListTagsForResource",
             "vpc-lattice:ListTargetGroups",
@@ -110721,9 +110933,9 @@
         }
       ]
     },
-    "VersionId": "v128",
+    "VersionId": "v129",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-23T12:37:06+00:00"
+    "CreateDate": "2025-06-03T19:07:07+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
@@ -113124,7 +113336,8 @@
             "bedrock:ListInferenceProfiles",
             "bedrock:ListFoundationModels",
             "bedrock:ListTagsForResource",
-            "aoss:ListSecurityPolicies"
+            "aoss:ListSecurityPolicies",
+            "quicksight:DescribeAccountSubscription"
           ],
           "Resource": [
             "*"
@@ -113470,19 +113683,30 @@
               "aws:ResourceTag/AmazonDataZoneDomain": "false"
             }
           }
+        },
+        {
+          "Sid": "ModelAccessUseCaseStatement",
+          "Effect": "Allow",
+          "Action": [
+            "bedrock:GetUseCaseForModelAccess",
+            "bedrock:PutUseCaseForModelAccess"
+          ],
+          "Resource": [
+            "*"
+          ]
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-22T17:52:06+00:00"
+    "CreateDate": "2025-06-06T19:07:07+00:00"
   },
   "SageMakerStudioProjectProvisioningRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
       "Statement": [
         {
-          "Sid": "CloudFormationStackCreationAndTagging",
+          "Sid": "CfnCreate",
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateStack",
@@ -113507,7 +113731,7 @@
           }
         },
         {
-          "Sid": "CloudFormationStackManagement",
+          "Sid": "CfnManage",
           "Effect": "Allow",
           "Action": [
             "cloudformation:DescribeStacks",
@@ -113527,24 +113751,10 @@
           }
         },
         {
-          "Sid": "CloudFormationStackDeletion",
+          "Sid": "CfnDelete",
           "Effect": "Allow",
           "Action": [
-            "cloudformation:DeleteStack"
-          ],
-          "Resource": [
-            "arn:aws:cloudformation:*:*:stack/DataZone*"
-          ],
-          "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            }
-          }
-        },
-        {
-          "Sid": "CloudFormationListStacks",
-          "Effect": "Allow",
-          "Action": [
+            "cloudformation:DeleteStack",
             "cloudformation:DescribeStacks"
           ],
           "Resource": [
@@ -113557,21 +113767,14 @@
           }
         },
         {
-          "Sid": "LakeFormationPermissionsForDataLakeValidation",
+          "Sid": "LFManage",
           "Effect": "Allow",
           "Action": [
             "lakeformation:GetDataLakeSettings",
             "lakeformation:PutDataLakeSettings",
             "lakeformation:RevokePermissions",
             "lakeformation:BatchRevokePermissions",
-            "lakeformation:ListPermissions"
-          ],
-          "Resource": "*"
-        },
-        {
-          "Sid": "LakeFormationPermissionsForDataLakeResourceGrant",
-          "Effect": "Allow",
-          "Action": [
+            "lakeformation:ListPermissions",
             "lakeformation:RegisterResource",
             "lakeformation:DeregisterResource",
             "lakeformation:GrantPermissions",
@@ -113582,7 +113785,7 @@
           "Resource": "*"
         },
         {
-          "Sid": "PermissionsToGetBlueprintTemplates",
+          "Sid": "GetDataZoneTemplate",
           "Effect": "Allow",
           "Action": "s3:GetObject",
           "Resource": "*",
@@ -113596,7 +113799,7 @@
           }
         },
         {
-          "Sid": "CodeCommitCreationAndTagging",
+          "Sid": "CodeCommitCreate",
           "Effect": "Allow",
           "Action": [
             "codecommit:CreateRepository",
@@ -113655,7 +113858,7 @@
           }
         },
         {
-          "Sid": "CodeCommitListRepositories",
+          "Sid": "CodeCommitList",
           "Effect": "Allow",
           "Action": [
             "codecommit:ListRepositories"
@@ -113663,7 +113866,7 @@
           "Resource": "*"
         },
         {
-          "Sid": "CodeCommitKmsPermissions",
+          "Sid": "CodeCommitKms",
           "Effect": "Allow",
           "Action": [
             "kms:Decrypt",
@@ -113699,13 +113902,12 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             }
           }
         },
         {
-          "Sid": "IAMRoleAndPolicyManagement",
+          "Sid": "IAMManage",
           "Effect": "Allow",
           "Action": [
             "iam:CreateRole",
@@ -113724,7 +113926,6 @@
           "Condition": {
             "StringEquals": {
               "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PermissionsBoundary": "arn:aws:iam::aws:policy/SageMakerStudioProjectUserRolePermissionsBoundary"
             },
             "Null": {
@@ -113733,7 +113934,7 @@
           }
         },
         {
-          "Sid": "IAMRoleAndPolicyManagementFromDataZone",
+          "Sid": "IAMManageFromDataZone",
           "Effect": "Allow",
           "Action": [
             "iam:DeleteRolePolicy",
@@ -113744,7 +113945,6 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PermissionsBoundary": "arn:aws:iam::aws:policy/SageMakerStudioProjectUserRolePermissionsBoundary"
             },
             "Null": {
@@ -113764,8 +113964,7 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false"
@@ -113784,8 +113983,7 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false"
@@ -113813,8 +114011,7 @@
           "Resource": "arn:aws:iam::*:role/AmazonBedrock*",
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false"
@@ -113837,7 +114034,10 @@
         {
           "Sid": "IAMRoleTagging",
           "Effect": "Allow",
-          "Action": "iam:TagRole",
+          "Action": [
+            "iam:TagRole",
+            "iam:UntagRole"
+          ],
           "Resource": [
             "arn:aws:iam::*:role/datazone_usr_role_*",
             "arn:aws:iam::*:role/datazone-partner-apps-*",
@@ -113848,8 +114048,7 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false",
@@ -113879,12 +114078,14 @@
         {
           "Sid": "IAMRoleTaggingForBedrock",
           "Effect": "Allow",
-          "Action": "iam:TagRole",
+          "Action": [
+            "iam:TagRole",
+            "iam:UntagRole"
+          ],
           "Resource": "arn:aws:iam::*:role/AmazonBedrock*",
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false"
@@ -113915,9 +114116,6 @@
             "arn:aws:iam::*:role/datazone_usr_role_*"
           ],
           "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false",
               "aws:TagKeys": "false"
@@ -113932,15 +114130,17 @@
         {
           "Sid": "IAMRoleTaggingForEmr",
           "Effect": "Allow",
-          "Action": "iam:TagRole",
+          "Action": [
+            "iam:TagRole",
+            "iam:UntagRole"
+          ],
           "Resource": [
             "arn:aws:iam::*:role/datazone_emr_service_role_*",
             "arn:aws:iam::*:role/datazone_emr_ec2_instance_role_*"
           ],
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false",
@@ -113965,8 +114165,7 @@
           "Resource": "arn:aws:iam::*:role/datazone_usr_role_*",
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false"
@@ -113992,8 +114191,7 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false"
@@ -114014,9 +114212,6 @@
             "arn:aws:iam::*:role/AmazonBedrock*"
           ],
           "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            },
             "Null": {
               "aws:ResourceTag/AmazonDataZoneProject": "false"
             }
@@ -114033,7 +114228,6 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PermissionsBoundary": "arn:aws:iam::aws:policy/SageMakerStudioProjectUserRolePermissionsBoundary"
             }
           }
@@ -114045,13 +114239,9 @@
             "iam:DetachRolePolicy"
           ],
           "Resource": [
-            "arn:aws:iam::*:role/datazone*"
-          ],
-          "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            }
-          }
+            "arn:aws:iam::*:role/datazone*",
+            "arn:aws:iam::*:role/AmazonBedrock*"
+          ]
         },
         {
           "Sid": "IAMPolicyManagementFromService",
@@ -114070,15 +114260,10 @@
             "arn:aws:iam::*:policy/datazone*",
             "arn:aws:iam::*:policy/connector-manage-access-policy*",
             "arn:aws:iam::*:policy/SageMakerStudioQueryExecutionRolePolicy"
-          ],
-          "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            }
-          }
+          ]
         },
         {
-          "Sid": "IAMPolicyManagementWithoutRequiredResources",
+          "Sid": "IAMListPolicy",
           "Effect": "Allow",
           "Action": [
             "iam:ListPolicies"
@@ -114086,7 +114271,7 @@
           "Resource": "*"
         },
         {
-          "Sid": "GlueConnectionTypeUnrestrictedAccess",
+          "Sid": "GlueConnection",
           "Effect": "Allow",
           "Action": [
             "glue:ListConnectionTypes",
@@ -114095,7 +114280,7 @@
           "Resource": "*"
         },
         {
-          "Sid": "IAMInstanceProfileManagement",
+          "Sid": "IAMInstanceProfile",
           "Effect": "Allow",
           "Action": [
             "iam:GetInstanceProfile",
@@ -114107,8 +114292,7 @@
           "Resource": "arn:aws:iam::*:instance-profile/datazone_emr_ec2_instance_profile_*",
           "Condition": {
             "StringEquals": {
-              "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+              "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             }
           }
         },
@@ -114126,7 +114310,6 @@
                 "cloudformation.amazonaws.com",
                 "glue.amazonaws.com"
               ],
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PassedToService": [
                 "glue.amazonaws.com",
                 "lakeformation.amazonaws.com",
@@ -114147,7 +114330,6 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PassedToService": [
                 "sagemaker.amazonaws.com",
                 "redshift-serverless.amazonaws.com",
@@ -114167,7 +114349,6 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PassedToService": [
                 "glue.amazonaws.com",
                 "lakeformation.amazonaws.com"
@@ -114185,7 +114366,6 @@
           "Condition": {
             "StringEquals": {
               "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PassedToService": [
                 "elasticmapreduce.amazonaws.com"
               ]
@@ -114202,7 +114382,6 @@
           "Condition": {
             "StringEquals": {
               "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PassedToService": [
                 "ec2.amazonaws.com"
               ]
@@ -114220,7 +114399,6 @@
           "Condition": {
             "StringEquals": {
               "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PassedToService": "bedrock.amazonaws.com"
             }
           }
@@ -114236,20 +114414,18 @@
           "Condition": {
             "StringEquals": {
               "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PassedToService": "lambda.amazonaws.com"
             }
           }
         },
         {
-          "Sid": "IamCreateServiceLinkedRoleForAoss",
+          "Sid": "IamCreateSLRForAoss",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": "arn:aws:iam::*:role/aws-service-role/observability.aoss.amazonaws.com/AWSServiceRoleForAmazonOpenSearchServerless",
           "Condition": {
             "StringEquals": {
               "aws:CalledViaFirst": "cloudformation.amazonaws.com",
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:AWSServiceName": "observability.aoss.amazonaws.com"
             }
           }
@@ -114272,14 +114448,13 @@
           }
         },
         {
-          "Sid": "GlueDatabaseCreationFromCloudFormation",
+          "Sid": "GlueDbCreateFromCfn",
           "Effect": "Allow",
           "Action": [
             "glue:CreateDatabase"
           ],
           "Resource": [
-            "arn:aws:glue:*:*:database/*",
-            "arn:aws:glue:*:*:catalog"
+            "arn:aws:glue:*:*:database/*"
           ],
           "Condition": {
             "StringEquals": {
@@ -114373,7 +114548,7 @@
           }
         },
         {
-          "Sid": "FederatedDataGlueConnectionPermissions",
+          "Sid": "FederatedGlueConnection",
           "Action": [
             "glue:PassConnection",
             "glue:GetConnections",
@@ -114391,11 +114566,11 @@
           }
         },
         {
-          "Sid": "FederatedDataAthenaConnectionPermissions",
+          "Sid": "FederatedAthenaConnection",
           "Action": [
             "athena:CreateDataCatalog"
           ],
-          "Resource": "arn:aws:athena:*:*:datacatalog/*",
+          "Resource": "*",
           "Effect": "Allow",
           "Condition": {
             "Null": {
@@ -114404,7 +114579,7 @@
           }
         },
         {
-          "Sid": "FederatedDataGetConnectionPermissions",
+          "Sid": "FederatedGetConnection",
           "Effect": "Allow",
           "Action": [
             "glue:GetConnection"
@@ -114415,7 +114590,7 @@
           ]
         },
         {
-          "Sid": "FederatedDataConnectionTaggingPermissions",
+          "Sid": "FederatedConnectionTag",
           "Effect": "Allow",
           "Action": [
             "athena:TagResource"
@@ -114435,7 +114610,7 @@
           }
         },
         {
-          "Sid": "FederatedDataConnectionGlueCreateConnection",
+          "Sid": "FederatedConnectionCreate",
           "Effect": "Allow",
           "Action": [
             "glue:CreateConnection"
@@ -114454,7 +114629,7 @@
           }
         },
         {
-          "Sid": "FederatedDataConnectionGlueManageConnection",
+          "Sid": "FederatedConnectionManage",
           "Effect": "Allow",
           "Action": [
             "glue:DeleteConnection",
@@ -114473,7 +114648,7 @@
           }
         },
         {
-          "Sid": "FederatedDataConnectionGlueManageConnectionOnCatalog",
+          "Sid": "FederatedConnectionManageCatalog",
           "Effect": "Allow",
           "Action": [
             "glue:DeleteConnection",
@@ -114489,7 +114664,7 @@
           }
         },
         {
-          "Sid": "GlueKmsPermissions",
+          "Sid": "GlueKms",
           "Effect": "Allow",
           "Action": [
             "kms:Decrypt"
@@ -114508,7 +114683,7 @@
           }
         },
         {
-          "Sid": "FederatedDBAthenaServerlessPermission",
+          "Sid": "FederatedDBAthenaServerless",
           "Effect": "Allow",
           "Action": [
             "serverlessrepo:GetCloudFormationTemplate",
@@ -114519,7 +114694,7 @@
           ]
         },
         {
-          "Sid": "FederatedDBECRPermission",
+          "Sid": "FederatedDBECR",
           "Effect": "Allow",
           "Action": [
             "imagebuilder:GetComponent",
@@ -114539,7 +114714,7 @@
           }
         },
         {
-          "Sid": "FederatedDBAthenaCFNPermission",
+          "Sid": "FederatedDBAthenaCFN",
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateChangeSet",
@@ -114555,7 +114730,7 @@
           }
         },
         {
-          "Sid": "FederatedDBAthenaLambdaPermission",
+          "Sid": "FederatedDBAthenaLambda",
           "Effect": "Allow",
           "Action": [
             "lambda:CreateFunction",
@@ -114575,7 +114750,7 @@
           }
         },
         {
-          "Sid": "FederatedDBAthenaGetFunctionLambdaPermission",
+          "Sid": "FederatedDBAthenaGetFunctionLambda",
           "Effect": "Allow",
           "Action": [
             "lambda:GetFunction"
@@ -114594,7 +114769,7 @@
           }
         },
         {
-          "Sid": "FederatedDBAthenaUpdateLambdaPermission",
+          "Sid": "FederatedDBAthenaUpdateLambda",
           "Effect": "Allow",
           "Action": [
             "lambda:GetFunctionConfiguration",
@@ -114613,7 +114788,7 @@
           }
         },
         {
-          "Sid": "FederatedDBAthenaLambdaTaggingPermission",
+          "Sid": "FederatedDBAthenaLambdaTagging",
           "Effect": "Allow",
           "Action": [
             "lambda:TagResource"
@@ -114641,7 +114816,7 @@
           }
         },
         {
-          "Sid": "FederatedDBAthenaS3Permission",
+          "Sid": "FederatedDBAthenaS3",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject"
@@ -114658,7 +114833,7 @@
           }
         },
         {
-          "Sid": "FederatedDBGlueS3Permission",
+          "Sid": "FederatedDBGlueS3",
           "Effect": "Allow",
           "Action": [
             "s3:ListBucket"
@@ -114679,7 +114854,7 @@
           }
         },
         {
-          "Sid": "FederatedDBAthenaCommonPermission",
+          "Sid": "FederatedDBAthenaCommon",
           "Effect": "Allow",
           "Action": [
             "cloudformation:CreateStack",
@@ -114695,7 +114870,7 @@
           }
         },
         {
-          "Sid": "DataCatalogAccessForFederatedDatabase",
+          "Sid": "FederatedDBAthenaCatalog",
           "Effect": "Allow",
           "Action": [
             "athena:DeleteDataCatalog",
@@ -114710,7 +114885,7 @@
           }
         },
         {
-          "Sid": "IamPassProjectRoleToLambdaForFederatedDataConnection",
+          "Sid": "FederatedDBPassRole",
           "Effect": "Allow",
           "Action": "iam:PassRole",
           "Resource": [
@@ -114718,7 +114893,6 @@
           ],
           "Condition": {
             "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PassedToService": [
                 "lambda.amazonaws.com"
               ]
@@ -114726,7 +114900,7 @@
           }
         },
         {
-          "Sid": "IamGetRoleProvisioningRoleForFederatedDataConnection",
+          "Sid": "FederatedDBGetRole",
           "Action": [
             "iam:GetRole"
           ],
@@ -114776,14 +114950,16 @@
           }
         },
         {
-          "Sid": "RedShiftPermissionsForGlueCatalogs",
+          "Sid": "RedshiftManage",
           "Effect": "Allow",
           "Action": [
             "redshift-serverless:CreateNamespace",
             "redshift-serverless:CreateWorkgroup",
             "redshift-serverless:DeleteNamespace",
             "redshift-serverless:DeleteWorkgroup",
-            "redshift-serverless:ListTagsForResource"
+            "redshift-serverless:ListTagsForResource",
+            "redshift-serverless:GetNamespace",
+            "redshift-serverless:GetWorkgroup"
           ],
           "Resource": [
             "arn:aws:redshift-serverless:*:*:namespace/*",
@@ -114796,7 +114972,7 @@
           }
         },
         {
-          "Sid": "RedShiftDataSharePermissionsForGlueCatalogs",
+          "Sid": "RedshiftDataShare",
           "Effect": "Allow",
           "Action": [
             "redshift:AssociateDataShareConsumer",
@@ -114818,7 +114994,7 @@
           }
         },
         {
-          "Sid": "RedShiftStagingBucketCreation",
+          "Sid": "RedshiftBucket",
           "Effect": "Allow",
           "Action": [
             "s3:CreateBucket",
@@ -114837,7 +115013,7 @@
           }
         },
         {
-          "Sid": "RedshiftServerlessTaggingForGlueCatalog",
+          "Sid": "RedshiftTag",
           "Effect": "Allow",
           "Action": [
             "redshift-serverless:TagResource"
@@ -114862,7 +115038,7 @@
           }
         },
         {
-          "Sid": "SecurityGroupCreation",
+          "Sid": "CreateSG",
           "Effect": "Allow",
           "Action": [
             "ec2:CreateSecurityGroup"
@@ -114881,7 +115057,7 @@
           }
         },
         {
-          "Sid": "SecurityGroupAuthorize",
+          "Sid": "SGAuth",
           "Effect": "Allow",
           "Action": [
             "ec2:AuthorizeSecurityGroupEgress",
@@ -114901,7 +115077,7 @@
           }
         },
         {
-          "Sid": "SecurityGroupManagement",
+          "Sid": "SGManage",
           "Effect": "Allow",
           "Action": [
             "ec2:DeleteSecurityGroup",
@@ -114918,7 +115094,7 @@
           }
         },
         {
-          "Sid": "SecurityGroupIngressRevokeForEMR",
+          "Sid": "SGRevoke",
           "Effect": "Allow",
           "Action": [
             "ec2:RevokeSecurityGroupIngress"
@@ -114957,14 +115133,16 @@
           }
         },
         {
-          "Sid": "DescribeNetworksPermissions",
+          "Sid": "EC2Describe",
           "Effect": "Allow",
           "Action": [
             "ec2:DescribeVpcs",
             "ec2:DescribeSecurityGroups",
             "ec2:DescribeNatGateways",
             "ec2:DescribeRouteTables",
-            "ec2:DescribeSubnets"
+            "ec2:DescribeSubnets",
+            "ec2:DescribeAccountAttributes",
+            "ec2:DescribeAvailabilityZones"
           ],
           "Resource": "*"
         },
@@ -115050,7 +115228,7 @@
           }
         },
         {
-          "Sid": "AthenaWorkgroupCreationAndTagging",
+          "Sid": "AthenaManage",
           "Effect": "Allow",
           "Action": [
             "athena:CreateWorkGroup",
@@ -115092,7 +115270,7 @@
           }
         },
         {
-          "Sid": "RedshiftServerlessCreationAndTagging",
+          "Sid": "RedshiftCreate",
           "Effect": "Allow",
           "Action": [
             "redshift-serverless:CreateNamespace",
@@ -115153,7 +115331,7 @@
           }
         },
         {
-          "Sid": "AllowDescribeSecretPerProject",
+          "Sid": "DescribeSecret",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:DescribeSecret"
@@ -115166,7 +115344,7 @@
           }
         },
         {
-          "Sid": "AllowDescribeSecretTaggedForAllProjects",
+          "Sid": "DescribeAllSecrets",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:DescribeSecret"
@@ -115222,7 +115400,7 @@
           }
         },
         {
-          "Sid": "ServiceLinkedRoleCreation",
+          "Sid": "CreateSLR",
           "Effect": "Allow",
           "Action": "iam:CreateServiceLinkedRole",
           "Resource": [
@@ -115234,7 +115412,7 @@
           ]
         },
         {
-          "Sid": "RedshiftServerlessCreationPermissions",
+          "Sid": "RedshiftList",
           "Effect": "Allow",
           "Action": [
             "redshift-serverless:ListNamespaces",
@@ -115247,15 +115425,6 @@
               "aws:CalledViaFirst": "cloudformation.amazonaws.com"
             }
           }
-        },
-        {
-          "Sid": "EC2PermissionsForGlueCatalog",
-          "Effect": "Allow",
-          "Action": [
-            "ec2:DescribeAccountAttributes",
-            "ec2:DescribeAvailabilityZones"
-          ],
-          "Resource": "*"
         },
         {
           "Sid": "RedshiftServerlessCreateDatabaseRole",
@@ -115279,42 +115448,18 @@
           }
         },
         {
-          "Sid": "RedshiftDataDescribeStatement",
+          "Sid": "RedshiftData",
           "Effect": "Allow",
           "Action": [
             "redshift-data:DescribeStatement",
-            "redshift-data:GetStatementResult"
-          ],
-          "Resource": "*"
-        },
-        {
-          "Sid": "RedshiftDatashareDescribe",
-          "Effect": "Allow",
-          "Action": [
+            "redshift-data:GetStatementResult",
             "redshift:DescribeDataSharesForConsumer",
             "redshift:DescribeDataShares"
           ],
           "Resource": "*"
         },
         {
-          "Sid": "RedshiftServerlessValidation",
-          "Effect": "Allow",
-          "Action": [
-            "redshift-serverless:GetNamespace",
-            "redshift-serverless:GetWorkgroup"
-          ],
-          "Resource": [
-            "arn:aws:redshift-serverless:*:*:namespace/*",
-            "arn:aws:redshift-serverless:*:*:workgroup/*"
-          ],
-          "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            }
-          }
-        },
-        {
-          "Sid": "RedshiftServerlessManagement",
+          "Sid": "RedshiftManagement",
           "Effect": "Allow",
           "Action": [
             "redshift-serverless:UpdateNamespace",
@@ -115336,7 +115481,7 @@
           }
         },
         {
-          "Sid": "RedshiftKmsPermissions",
+          "Sid": "RedshiftKms",
           "Effect": "Allow",
           "Action": [
             "kms:Decrypt",
@@ -115370,7 +115515,7 @@
           }
         },
         {
-          "Sid": "ManageSecretPermissionsForBedrockApp",
+          "Sid": "BedrockSecret",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:DescribeSecret",
@@ -115394,7 +115539,7 @@
           }
         },
         {
-          "Sid": "ManagedRedshiftAdminSecretPermissions",
+          "Sid": "RedshiftSecret",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:CreateSecret",
@@ -115414,7 +115559,7 @@
           }
         },
         {
-          "Sid": "ManagedRedshiftAdminSecretTaggingPermissions",
+          "Sid": "TagRedshiftSecret",
           "Effect": "Allow",
           "Action": [
             "secretsmanager:TagResource"
@@ -115536,14 +115681,14 @@
           }
         },
         {
-          "Sid": "EMRServerlessApplicationCreationAndTagging",
+          "Sid": "EmrSCreate",
           "Effect": "Allow",
           "Action": [
             "emr-serverless:CreateApplication",
             "emr-serverless:TagResource"
           ],
           "Resource": [
-            "arn:aws:emr-serverless:*:*:*"
+            "*"
           ],
           "Condition": {
             "StringEquals": {
@@ -115562,14 +115707,14 @@
           }
         },
         {
-          "Sid": "EMRServerlessApplicationManagement",
+          "Sid": "EmrSManage",
           "Effect": "Allow",
           "Action": [
             "emr-serverless:UpdateApplication",
             "emr-serverless:DeleteApplication"
           ],
           "Resource": [
-            "arn:aws:emr-serverless:*:*:/applications/*"
+            "*"
           ],
           "Condition": {
             "StringEquals": {
@@ -115582,11 +115727,11 @@
           }
         },
         {
-          "Sid": "EMRServerlessGetApplication",
+          "Sid": "EmrSGet",
           "Effect": "Allow",
           "Action": "emr-serverless:GetApplication",
           "Resource": [
-            "arn:aws:emr-serverless:*:*:/applications/*"
+            "*"
           ],
           "Condition": {
             "StringEquals": {
@@ -115598,7 +115743,7 @@
           }
         },
         {
-          "Sid": "CreateNetworkInterfaceForEMRServerless",
+          "Sid": "EmrSEc2Eni",
           "Effect": "Allow",
           "Action": "ec2:CreateNetworkInterface",
           "Resource": [
@@ -115612,7 +115757,7 @@
           }
         },
         {
-          "Sid": "CreateNetworkInterfaceForEMRServerlessSharedVPC",
+          "Sid": "EmrSEc2Subnet",
           "Effect": "Allow",
           "Action": "ec2:CreateNetworkInterface",
           "Resource": [
@@ -115665,7 +115810,7 @@
           }
         },
         {
-          "Sid": "ManageAossAccessPoliciesForBedrock",
+          "Sid": "ManageAossAccessPolicies",
           "Effect": "Allow",
           "Action": [
             "aoss:GetAccessPolicy",
@@ -115685,7 +115830,7 @@
           }
         },
         {
-          "Sid": "ManageAossSecurityPoliciesForBedrock",
+          "Sid": "ManageAossSecurityPolicies",
           "Effect": "Allow",
           "Action": [
             "aoss:GetSecurityPolicy",
@@ -115704,7 +115849,7 @@
           }
         },
         {
-          "Sid": "GetAossCollectionsForBedrock",
+          "Sid": "GetAossCollections",
           "Effect": "Allow",
           "Action": "aoss:BatchGetCollection",
           "Resource": "*",
@@ -115716,7 +115861,7 @@
           }
         },
         {
-          "Sid": "ManageAossCollectionsForBedrock",
+          "Sid": "ManageAossCollections",
           "Effect": "Allow",
           "Action": [
             "aoss:CreateCollection",
@@ -115736,7 +115881,7 @@
           }
         },
         {
-          "Sid": "GetBedrockCfnResourceDefinitionS3Permissions",
+          "Sid": "GetBedrockCfnResourceDefinitionS3",
           "Effect": "Allow",
           "Action": [
             "s3:GetObject",
@@ -115855,13 +116000,13 @@
           }
         },
         {
-          "Sid": "ListBedrockEvaluationJobsFromServicePermissions",
+          "Sid": "ListBedrockJobs",
           "Effect": "Allow",
           "Action": "bedrock:ListEvaluationJobs",
           "Resource": "*"
         },
         {
-          "Sid": "ManageBedrockEvaluationJobsFromServicePermissions",
+          "Sid": "ManageBedrockEvaluationJobs",
           "Effect": "Allow",
           "Action": "bedrock:BatchDeleteEvaluationJob",
           "Resource": "*",
@@ -115875,7 +116020,7 @@
           }
         },
         {
-          "Sid": "CreateFunctionPermissionsForBedrockApp",
+          "Sid": "BedrockLambda",
           "Effect": "Allow",
           "Action": [
             "lambda:CreateFunction",
@@ -115902,7 +116047,7 @@
           }
         },
         {
-          "Sid": "ManageFunctionPermissionsForBedrockApp",
+          "Sid": "ManageBedrockLambda",
           "Effect": "Allow",
           "Action": [
             "lambda:GetFunction",
@@ -115972,7 +116117,7 @@
           }
         },
         {
-          "Sid": "AirflowEnvironmentActionsWithoutRestrictions",
+          "Sid": "AirflowGetEnvironment",
           "Effect": "Allow",
           "Action": [
             "airflow:GetEnvironment"
@@ -116053,7 +116198,7 @@
           }
         },
         {
-          "Sid": "IamRolePermissionsForSageMakerStudioQueryExecutionRoleWithBoundary",
+          "Sid": "QueryRoleManage",
           "Effect": "Allow",
           "Action": [
             "iam:GetRole",
@@ -116065,26 +116210,20 @@
           "Resource": "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole",
           "Condition": {
             "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}",
               "iam:PermissionsBoundary": "arn:aws:iam::aws:policy/SageMakerStudioProjectUserRolePermissionsBoundary"
             }
           }
         },
         {
-          "Sid": "IamRolePermissionsForCreatingSageMakerStudioQueryExecutionRole",
+          "Sid": "QueryRoleCreate",
           "Effect": "Allow",
           "Action": [
             "iam:CreateRole"
           ],
-          "Resource": "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole",
-          "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            }
-          }
+          "Resource": "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole"
         },
         {
-          "Sid": "IamRolePermissionsForSageMakerStudioQueryExecutionRole",
+          "Sid": "QueryRolePolicy",
           "Effect": "Allow",
           "Action": [
             "iam:DetachRolePolicy",
@@ -116092,9 +116231,6 @@
           ],
           "Resource": "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole",
           "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            },
             "ArnEquals": {
               "iam:PolicyARN": [
                 "arn:aws:iam::aws:policy/service-role/SageMakerStudioQueryExecutionRolePolicy"
@@ -116103,14 +116239,11 @@
           }
         },
         {
-          "Sid": "IamTagRolePermissionsForSageMakerStudioQueryExecutionRole",
+          "Sid": "TagQueryRole",
           "Effect": "Allow",
           "Action": "iam:TagRole",
           "Resource": "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole",
           "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            },
             "ForAllValues:StringLike": {
               "aws:TagKeys": [
                 "CreatedForUseWithSageMakerStudio",
@@ -116120,17 +116253,12 @@
           }
         },
         {
-          "Sid": "IamListAttachedPoliciesForSageMakerStudioQueryExecutionRole",
+          "Sid": "ListQueryPolicy",
           "Effect": "Allow",
           "Action": [
             "iam:ListAttachedRolePolicies"
           ],
-          "Resource": "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole",
-          "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            }
-          }
+          "Resource": "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole"
         },
         {
           "Sid": "SecurityGroupCleanUpForEMR",
@@ -116167,12 +116295,7 @@
             "iam:RemoveRoleFromInstanceProfile",
             "iam:DeleteInstanceProfile"
           ],
-          "Resource": "arn:aws:iam::*:instance-profile/datazone_emr_ec2_instance_profile_*",
-          "Condition": {
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            }
-          }
+          "Resource": "arn:aws:iam::*:instance-profile/datazone_emr_ec2_instance_profile_*"
         },
         {
           "Sid": "EventBridgeViewScheduleGroupActions",
@@ -116260,12 +116383,167 @@
               "aws:ResourceTag/AmazonDataZoneProject": "false"
             }
           }
+        },
+        {
+          "Sid": "ManageQuickSightFolder",
+          "Effect": "Allow",
+          "Action": [
+            "quicksight:CreateDataSource",
+            "quicksight:CreateFolder",
+            "quicksight:CreateFolderMembership",
+            "quicksight:CreateVPCConnection",
+            "quicksight:DeleteDataSource",
+            "quicksight:DeleteFolder",
+            "quicksight:DescribeDataSource",
+            "quicksight:DescribeFolderPermissions",
+            "quicksight:DescribeDataSourcePermissions",
+            "quicksight:DeleteVPCConnection",
+            "quicksight:ListFolderMembers",
+            "quicksight:ListTagsForResource",
+            "quicksight:UpdateDataSource",
+            "quicksight:UpdateDataSourcePermissions",
+            "quicksight:UpdateFolder",
+            "quicksight:UpdateFolderPermissions",
+            "quicksight:UpdateVPCConnection"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "false"
+            }
+          }
+        },
+        {
+          "Sid": "ManageQuickSightOtherResourcesPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "quicksight:DescribeAccountSubscription",
+            "quicksight:DescribeDataSet",
+            "quicksight:DescribeDashboard",
+            "quicksight:DescribeDashboardPermissions",
+            "quicksight:DescribeFolder",
+            "quicksight:DescribeGroup",
+            "quicksight:DescribeGroupMembership",
+            "quicksight:DescribeUser",
+            "quicksight:DescribeVPCConnection",
+            "quicksight:ListTagsForResource",
+            "quicksight:UpdateDashboardPermissions"
+          ],
+          "Resource": [
+            "arn:aws:quicksight:*:*:*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "ManageQuickSightTagCreationPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "quicksight:TagResource"
+          ],
+          "Resource": [
+            "arn:aws:quicksight:*:*:*"
+          ],
+          "Condition": {
+            "ForAllValues:StringLike": {
+              "aws:TagKeys": [
+                "AmazonDataZone*"
+              ]
+            },
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "PermissionsToIAMPassRoleForQuickSight",
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/service-role/AmazonSageMakerQuickSightVPC",
+            "arn:aws:iam::*:role/datazone_usr_role_*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "quicksight.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowPutRuleOnSpecificSourcesAndDetailTypes",
+          "Effect": "Allow",
+          "Action": "events:PutRule",
+          "Resource": "arn:aws:events:*:*:rule/Managed.SageMaker*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "events:source": [
+                "aws.quicksight",
+                "aws.codecommit"
+              ]
+            },
+            "Null": {
+              "events:source": "false",
+              "events:detail-type": "false"
+            },
+            "StringEquals": {
+              "events:ManagedBy": "datazone.amazonaws.com",
+              "events:detail-type": [
+                "AWS Service Event via CloudTrail",
+                "CodeCommit Repository State Change"
+              ],
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "AllowOtherOperationsOnRulesManagedBySMUS",
+          "Effect": "Allow",
+          "Action": [
+            "events:DeleteRule",
+            "events:DisableRule",
+            "events:EnableRule",
+            "events:PutTargets",
+            "events:RemoveTargets"
+          ],
+          "Resource": "arn:aws:events:*:*:rule/Managed.SageMaker*",
+          "Condition": {
+            "StringEquals": {
+              "events:ManagedBy": "datazone.amazonaws.com",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "GetRedshiftAdminSecretPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:GetSecretValue"
+          ],
+          "Resource": "arn:aws:secretsmanager:*:*:secret:*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "Null": {
+              "aws:ResourceTag/AmazonDataZoneProject": "false"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-23T20:07:07+00:00"
+    "CreateDate": "2025-06-03T22:52:07+00:00"
   },
   "SageMakerStudioProjectRoleMachineLearningPolicy": {
     "Document": {
@@ -121010,7 +121288,7 @@
           "Resource": "*"
         },
         {
-          "Sid": "RedshiftServerlessGetCredentialsOnlyForDbUser",
+          "Sid": "RedshiftGetCredentials",
           "Effect": "Allow",
           "Action": [
             "redshift-serverless:GetCredentials",
@@ -121020,13 +121298,6 @@
           "Condition": {
             "StringEquals": {
               "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
-            },
-            "StringLike": {
-              "aws:PrincipalTag/RedshiftDbUser": [
-                "user-${aws:PrincipalTag/datazone:userId}*",
-                "user-project@${aws:PrincipalTag/AmazonDataZoneProject}",
-                "user-*@*"
-              ]
             }
           }
         },
@@ -121194,7 +121465,9 @@
                 "sagemaker.*.amazonaws.com",
                 "bedrock.*.amazonaws.com",
                 "s3.*.amazonaws.com",
-                "scheduler.*.amazonaws.com"
+                "scheduler.*.amazonaws.com",
+                "glue.*.amazonaws.com",
+                "secretsmanager.*.amazonaws.com"
               ]
             },
             "StringEquals": {
@@ -122178,12 +122451,96 @@
               "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
             }
           }
+        },
+        {
+          "Sid": "ManageQuickSightFolderAndDataSourceResources",
+          "Effect": "Allow",
+          "Action": [
+            "quicksight:DescribeDataSource",
+            "quicksight:DescribeFolder",
+            "quicksight:DescribeFolderPermissions",
+            "quicksight:ListFolderMembers"
+          ],
+          "Resource": [
+            "arn:aws:quicksight:*:*:folder/*",
+            "arn:aws:quicksight:*:*:datasource/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
+            }
+          }
+        },
+        {
+          "Sid": "ManageQuickSightOtherResources",
+          "Effect": "Allow",
+          "Action": [
+            "quicksight:DescribeDataSet",
+            "quicksight:DescribeAccountSubscription",
+            "quicksight:DescribeUser",
+            "quicksight:DescribeGroup"
+          ],
+          "Resource": [
+            "arn:aws:quicksight:*:*:*"
+          ]
+        },
+        {
+          "Sid": "ManagePassDataSourcePermissions",
+          "Effect": "Allow",
+          "Action": [
+            "quicksight:PassDataSource"
+          ],
+          "Resource": "arn:aws:quicksight:*:*:datasource/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
+            }
+          }
+        },
+        {
+          "Sid": "ManageCreateDataSetPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "quicksight:CreateDataSet",
+            "quicksight:TagResource"
+          ],
+          "Resource": "arn:aws:quicksight:*:*:dataset/*",
+          "Condition": {
+            "Null": {
+              "aws:TagKeys": "false"
+            },
+            "ForAllValues:StringLike": {
+              "aws:TagKeys": [
+                "AmazonDataZone*"
+              ]
+            },
+            "StringEquals": {
+              "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
+            },
+            "StringEqualsIfExists": {
+              "aws:RequestTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
+            }
+          }
+        },
+        {
+          "Sid": "CreateFolderMembership",
+          "Effect": "Allow",
+          "Action": [
+            "quicksight:CreateFolderMembership"
+          ],
+          "Resource": "arn:aws:quicksight:*:*:folder/sagemaker-*-assets",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}",
+              "aws:ResourceTag/AmazonDataZoneAssetsFolder": "true"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-28T18:37:07+00:00"
+    "CreateDate": "2025-06-04T00:07:07+00:00"
   },
   "SageMakerStudioQueryExecutionRolePolicy": {
     "Document": {

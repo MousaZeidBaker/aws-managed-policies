@@ -65,10 +65,47 @@
           "securityhub:GetEnabledStandards"
         ],
         "Resource": "arn:aws:securityhub:*:*:hub/default"
+      },
+      {
+        "Sid": "AllowDeleteConfigRule",
+        "Effect": "Allow",
+        "Action": [
+          "config:DeleteConfigRule"
+        ],
+        "Resource": "arn:aws:config:*:*:config-rule/aws-service-rule/controltower.*/*"
+      },
+      {
+        "Sid": "AllowPutConfigRule",
+        "Effect": "Allow",
+        "Action": [
+          "config:PutConfigRule"
+        ],
+        "Resource": "arn:aws:config:*:*:config-rule/aws-service-rule/controltower.*/*"
+      },
+      {
+        "Sid": "AllowConfigTagResource",
+        "Effect": "Allow",
+        "Action": [
+          "config:TagResource"
+        ],
+        "Resource": "arn:aws:config:*:*:config-rule/aws-service-rule/controltower.*/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:RequestTag/aws-control-tower": "managed-by-control-tower"
+          }
+        }
+      },
+      {
+        "Sid": "AllowConfigRulesDescribe",
+        "Effect": "Allow",
+        "Action": [
+          "config:DescribeConfigRules"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-06-05T22:04:50+00:00"
+  "CreateDate": "2025-06-03T17:07:06+00:00"
 }
