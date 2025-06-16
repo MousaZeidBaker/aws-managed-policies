@@ -806,22 +806,6 @@
         "Resource": "*"
       },
       {
-        "Sid": "DataLakeEC2Permissions",
-        "Effect": "Allow",
-        "Action": [
-          "ec2:AuthorizeSecurityGroupEgress",
-          "ec2:AuthorizeSecurityGroupIngress",
-          "ec2:RevokeSecurityGroupEgress",
-          "ec2:RevokeSecurityGroupIngress"
-        ],
-        "Resource": "*",
-        "Condition": {
-          "StringEquals": {
-            "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
-          }
-        }
-      },
-      {
         "Sid": "DataLakeAthenaPermissions",
         "Effect": "Allow",
         "Action": [
@@ -871,21 +855,6 @@
             "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}"
           }
         }
-      },
-      {
-        "Sid": "DefaultAthenaDataCatalogPermissions",
-        "Effect": "Allow",
-        "Action": [
-          "athena:GetDatabase",
-          "athena:GetDataCatalog",
-          "athena:GetTableMetadata",
-          "athena:ListDatabases",
-          "athena:ListTableMetadata"
-        ],
-        "Resource": [
-          "arn:aws:athena:*:*:datacatalog/AwsDataCatalog",
-          "arn:aws:athena:*:*:datacatalog/awsdatacatalog"
-        ]
       },
       {
         "Sid": "AthenaListPermissions",
@@ -1476,7 +1445,6 @@
           "elasticmapreduce:ListInstanceFleets",
           "elasticmapreduce:ListInstanceGroups",
           "elasticmapreduce:ListBootstrapActions",
-          "elasticmapreduce:TerminateJobFlows",
           "elasticmapreduce:GetManagedScalingPolicy",
           "elasticmapreduce:GetOnClusterAppUIPresignedURL"
         ],
@@ -1948,7 +1916,8 @@
         "Effect": "Allow",
         "Action": [
           "bedrock:ListEvaluationJobs",
-          "bedrock:RetrieveAndGenerate"
+          "bedrock:RetrieveAndGenerate",
+          "bedrock:ListFoundationModels"
         ],
         "Resource": "*",
         "Condition": {
@@ -2626,7 +2595,7 @@
       }
     ]
   },
-  "VersionId": "v11",
+  "VersionId": "v13",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-06-04T00:07:07+00:00"
+  "CreateDate": "2025-06-13T22:22:06+00:00"
 }
