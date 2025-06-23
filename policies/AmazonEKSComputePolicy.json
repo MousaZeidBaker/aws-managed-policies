@@ -9,6 +9,7 @@
           "ec2:RunInstances"
         ],
         "Resource": [
+          "arn:aws:ec2:*:*:capacity-reservation/*",
           "arn:aws:ec2:*::image/*",
           "arn:aws:ec2:*:*:security-group/*",
           "arn:aws:ec2:*:*:subnet/*"
@@ -84,10 +85,24 @@
             ]
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "iam:CreateServiceLinkedRole"
+        ],
+        "Resource": [
+          "arn:aws:iam::*:role/aws-service-role/spot.amazonaws.com/AWSServiceRoleForEC2Spot"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "iam:AWSServiceName": "spot.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-07T21:21:18+00:00"
+  "CreateDate": "2025-06-20T21:07:07+00:00"
 }

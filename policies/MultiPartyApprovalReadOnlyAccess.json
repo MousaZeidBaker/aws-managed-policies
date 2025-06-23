@@ -1,0 +1,41 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "MpaReadAccess",
+        "Effect": "Allow",
+        "Action": [
+          "mpa:Get*",
+          "mpa:List*"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "OrganizationsAccess",
+        "Effect": "Allow",
+        "Action": [
+          "organizations:ListDelegatedAdministrators",
+          "organizations:DescribeOrganization"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "SSOManagementAccess",
+        "Effect": "Allow",
+        "Action": [
+          "sso:DescribeInstance",
+          "sso:ListInstances",
+          "sso:DescribeRegisteredRegions",
+          "sso:GetSharedSsoConfiguration",
+          "sso-directory:DescribeUsers",
+          "sso-directory:SearchUsers"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2025-06-18T20:07:07+00:00"
+}

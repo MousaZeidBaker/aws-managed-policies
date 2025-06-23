@@ -20,6 +20,7 @@
           "ec2:DescribeAccountAttributes",
           "ec2:DescribeAddresses",
           "ec2:DescribeAvailabilityZones",
+          "ec2:DescribeCapacityReservations",
           "ec2:DescribeCoipPools",
           "ec2:DescribeInstances",
           "ec2:DescribeInstanceTypeOfferings",
@@ -316,7 +317,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-14T20:52:07+00:00"
+  "CreateDate": "2025-06-20T21:07:07+00:00"
 }

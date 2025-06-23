@@ -45,6 +45,20 @@
         }
       },
       {
+        "Sid": "GlueConnection",
+        "Effect": "Allow",
+        "Action": "glue:GetConnection",
+        "Resource": [
+          "arn:aws:glue:*:*:connection/*",
+          "arn:aws:glue:*:*:catalog"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
         "Sid": "GlueTableDatabaseCatalog",
         "Effect": "Allow",
         "Action": [
@@ -319,7 +333,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-08T21:22:06+00:00"
+  "CreateDate": "2025-06-19T19:37:07+00:00"
 }

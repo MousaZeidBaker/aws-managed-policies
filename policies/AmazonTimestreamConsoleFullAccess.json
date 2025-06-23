@@ -23,7 +23,9 @@
         "Action": [
           "kms:CreateGrant"
         ],
-        "Resource": "*",
+        "Resource": [
+          "arn:aws:kms:*:*:key/*"
+        ],
         "Condition": {
           "ForAnyValue:StringEquals": {
             "kms:EncryptionContextKeys": "aws:timestream:database-name"
@@ -33,6 +35,9 @@
           },
           "StringLike": {
             "kms:ViaService": "timestream.*.amazonaws.com"
+          },
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
       },
@@ -65,10 +70,17 @@
           "iam:ListRoles"
         ],
         "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "pricing:GetProducts"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-02-01T21:37:31+00:00"
+  "CreateDate": "2025-06-17T13:37:06+00:00"
 }
