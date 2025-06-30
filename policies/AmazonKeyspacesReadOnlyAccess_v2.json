@@ -5,7 +5,11 @@
       {
         "Effect": "Allow",
         "Action": [
-          "cassandra:Select"
+          "cassandra:Select",
+          "cassandra:ListStreams",
+          "cassandra:GetStream",
+          "cassandra:GetShardIterator",
+          "cassandra:GetRecords"
         ],
         "Resource": "*"
       },
@@ -33,7 +37,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-09-12T17:01:45+00:00"
+  "CreateDate": "2025-06-27T22:22:06+00:00"
 }

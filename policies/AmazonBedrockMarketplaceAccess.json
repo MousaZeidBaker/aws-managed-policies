@@ -3,29 +3,14 @@
     "Version": "2012-10-17",
     "Statement": [
       {
-        "Sid": "BedrockAll",
+        "Sid": "BedrockMarketplaceAPIs",
         "Effect": "Allow",
         "Action": [
-          "bedrock:*"
-        ],
-        "Resource": "*"
-      },
-      {
-        "Sid": "DescribeKey",
-        "Effect": "Allow",
-        "Action": [
-          "kms:DescribeKey"
-        ],
-        "Resource": "arn:*:kms:*:::*"
-      },
-      {
-        "Sid": "APIsWithAllResourceAccess",
-        "Effect": "Allow",
-        "Action": [
-          "iam:ListRoles",
-          "ec2:DescribeVpcs",
-          "ec2:DescribeSubnets",
-          "ec2:DescribeSecurityGroups"
+          "bedrock:CreateMarketplaceModelEndpoint",
+          "bedrock:DeleteMarketplaceModelEndpoint",
+          "bedrock:DeregisterMarketplaceModelEndpoint",
+          "bedrock:RegisterMarketplaceModelEndpoint",
+          "bedrock:UpdateMarketplaceModelEndpoint"
         ],
         "Resource": "*"
       },
@@ -193,25 +178,10 @@
             ]
           }
         }
-      },
-      {
-        "Sid": "MarketplaceOperationsFromBedrockFor3pModels",
-        "Effect": "Allow",
-        "Action": [
-          "aws-marketplace:Subscribe",
-          "aws-marketplace:ViewSubscriptions",
-          "aws-marketplace:Unsubscribe"
-        ],
-        "Resource": "*",
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaLast": "bedrock.amazonaws.com"
-          }
-        }
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v1",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-06-29T22:22:06+00:00"
+  "CreateDate": "2025-06-29T22:22:07+00:00"
 }

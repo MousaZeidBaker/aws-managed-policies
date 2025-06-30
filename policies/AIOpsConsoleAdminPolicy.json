@@ -232,10 +232,18 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "CreateAIOpsCrossAccountAssistantPolicy",
+        "Effect": "Allow",
+        "Action": [
+          "iam:CreatePolicy"
+        ],
+        "Resource": "arn:aws:iam::*:policy/AIOpsCrossAccountAssistantPolicy*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-02T23:51:06+00:00"
+  "CreateDate": "2025-06-24T00:52:06+00:00"
 }

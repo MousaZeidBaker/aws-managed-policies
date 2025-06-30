@@ -48,7 +48,13 @@
           "lex:UpdateCustomVocabulary",
           "lex:DeleteCustomVocabulary",
           "lex:DeleteBotChannel",
-          "lex:DeleteResourcePolicy"
+          "lex:ListTagsForResource",
+          "lex:TagResource",
+          "lex:UntagResource",
+          "lex:CreateResourcePolicy",
+          "lex:DeleteResourcePolicy",
+          "lex:DescribeResourcePolicy",
+          "lex:UpdateResourcePolicy"
         ],
         "Resource": [
           "arn:aws:lex:*:*:bot/*",
@@ -89,7 +95,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-08T17:11:32+00:00"
+  "CreateDate": "2025-06-24T21:52:07+00:00"
 }

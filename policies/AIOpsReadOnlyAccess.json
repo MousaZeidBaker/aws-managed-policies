@@ -7,7 +7,8 @@
         "Effect": "Allow",
         "Action": [
           "aiops:Get*",
-          "aiops:List*"
+          "aiops:List*",
+          "aiops:ValidateInvestigationGroup"
         ],
         "Resource": "*"
       },
@@ -23,7 +24,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-02T23:51:07+00:00"
+  "CreateDate": "2025-06-24T00:22:07+00:00"
 }

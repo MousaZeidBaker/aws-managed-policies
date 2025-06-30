@@ -19,6 +19,7 @@
           "fsx:CancelDataRepositoryTask",
           "fsx:CopyBackup",
           "fsx:CopySnapshotAndUpdateVolume",
+          "fsx:CreateAndAttachS3AccessPoint",
           "fsx:CreateBackup",
           "fsx:CreateDataRepositoryAssociation",
           "fsx:CreateDataRepositoryTask",
@@ -29,6 +30,7 @@
           "fsx:CreateStorageVirtualMachine",
           "fsx:CreateVolume",
           "fsx:CreateVolumeFromBackup",
+          "fsx:DetachAndDeleteS3AccessPoint",
           "fsx:DeleteBackup",
           "fsx:DeleteDataRepositoryAssociation",
           "fsx:DeleteFileCache",
@@ -43,6 +45,7 @@
           "fsx:DescribeFileCaches",
           "fsx:DescribeFileSystemAliases",
           "fsx:DescribeFileSystems",
+          "fsx:DescribeS3AccessPointAttachments",
           "fsx:DescribeSharedVpcConfiguration",
           "fsx:DescribeSnapshots",
           "fsx:DescribeStorageVirtualMachines",
@@ -171,7 +174,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-01-10T20:16:00+00:00"
+  "CreateDate": "2025-06-25T17:52:07+00:00"
 }

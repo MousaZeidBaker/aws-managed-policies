@@ -13,7 +13,8 @@
           "aiops:Get*",
           "aiops:List*",
           "aiops:UpdateInvestigation",
-          "aiops:UpdateInvestigationEvent"
+          "aiops:UpdateInvestigationEvent",
+          "aiops:ValidateInvestigationGroup"
         ],
         "Resource": "*"
       },
@@ -106,7 +107,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-02T23:51:07+00:00"
+  "CreateDate": "2025-06-24T00:52:06+00:00"
 }
