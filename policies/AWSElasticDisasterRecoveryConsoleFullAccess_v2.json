@@ -453,7 +453,8 @@
           "arn:aws:ssm:*:*:document/AWSMigration-ValidateDiskSpace",
           "arn:aws:ssm:*:*:document/AWSMigration-VerifyProcessIsRunning",
           "arn:aws:ssm:*:*:document/AWSMigration-LinuxTimeSyncSetting",
-          "arn:aws:ssm:*:*:document/AWSEC2-ApplicationInsightsCloudwatchAgentInstallAndConfigure"
+          "arn:aws:ssm:*:*:document/AWSEC2-ApplicationInsightsCloudwatchAgentInstallAndConfigure",
+          "arn:aws:ssm:*:*:automation-execution/*"
         ],
         "Condition": {
           "ForAnyValue:StringEquals": {
@@ -665,7 +666,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-05T15:22:06+00:00"
+  "CreateDate": "2025-07-02T15:37:06+00:00"
 }

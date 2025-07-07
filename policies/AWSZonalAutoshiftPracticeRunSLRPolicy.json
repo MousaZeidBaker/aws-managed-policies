@@ -12,6 +12,17 @@
         "Resource": "*"
       },
       {
+        "Sid": "AutoshiftPracticeCheckPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "autoscaling:DescribeAutoScalingGroups",
+          "ec2:DescribeInstances",
+          "elasticloadbalancing:DescribeTargetHealth",
+          "elasticloadbalancing:DescribeTargetGroups"
+        ],
+        "Resource": "*"
+      },
+      {
         "Sid": "ZonalShiftManagementPermissions",
         "Effect": "Allow",
         "Action": [
@@ -24,7 +35,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-11-29T17:34:54+00:00"
+  "CreateDate": "2025-06-30T17:07:07+00:00"
 }
