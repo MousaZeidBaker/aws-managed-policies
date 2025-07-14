@@ -164,6 +164,15 @@
           "rds:Describe*",
           "rds:ListTagsForResource",
           "redshift:Describe*",
+          "rolesanywhere:GetCrl",
+          "rolesanywhere:GetProfile",
+          "rolesanywhere:GetSubject",
+          "rolesanywhere:GetTrustAnchor",
+          "rolesanywhere:ListCrls",
+          "rolesanywhere:ListProfiles",
+          "rolesanywhere:ListSubjects",
+          "rolesanywhere:ListTagsForResource",
+          "rolesanywhere:ListTrustAnchors",
           "route53:Get*",
           "route53:List*",
           "route53domains:CheckDomainAvailability",
@@ -210,7 +219,7 @@
       }
     ]
   },
-  "VersionId": "v8",
+  "VersionId": "v9",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-08-25T18:40:27+00:00"
+  "CreateDate": "2025-07-10T17:07:07+00:00"
 }

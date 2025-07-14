@@ -9,7 +9,12 @@
           "s3:GetObject",
           "s3:ListBucket"
         ],
-        "Resource": "arn:aws:s3:::amazon-braket-*"
+        "Resource": "arn:aws:s3:::amazon-braket-*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
       },
       {
         "Effect": "Allow",
@@ -20,11 +25,16 @@
           "logs:CreateLogGroup",
           "logs:DescribeLogGroups"
         ],
-        "Resource": "arn:aws:logs:*:*:log-group:/aws/braket:*"
+        "Resource": "arn:aws:logs:*:*:log-group:/aws/braket:*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2020-08-06T20:10:42+00:00"
+  "CreateDate": "2025-07-11T21:37:07+00:00"
 }
