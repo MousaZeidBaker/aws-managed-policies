@@ -148,7 +148,11 @@
           "dsql:TagResource",
           "dsql:CreateCluster",
           "dsql:PutMultiRegionProperties",
-          "dsql:PutWitnessRegion"
+          "dsql:PutWitnessRegion",
+          "dsql:UpdateCluster",
+          "dsql:AddPeerCluster",
+          "dsql:RemovePeerCluster",
+          "dsql:GetCluster"
         ],
         "Resource": [
           "*"
@@ -492,7 +496,7 @@
       }
     ]
   },
-  "VersionId": "v23",
+  "VersionId": "v24",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-22T00:37:06+00:00"
+  "CreateDate": "2025-07-14T22:22:07+00:00"
 }

@@ -24,6 +24,23 @@
       {
         "Effect": "Allow",
         "Action": [
+          "ssm:PutInventory"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "ForAllValues:StringEquals": {
+            "ssm:InventoryTypeName": [
+              "AWS:ComplianceItem",
+              "AWS:PatchSummary"
+            ]
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
           "ssm:UpdateServiceSetting",
           "ssm:GetServiceSetting"
         ],
@@ -222,7 +239,7 @@
       }
     ]
   },
-  "VersionId": "v15",
+  "VersionId": "v16",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-15T14:08:27+00:00"
+  "CreateDate": "2025-07-15T17:22:08+00:00"
 }

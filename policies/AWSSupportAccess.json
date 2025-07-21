@@ -5,13 +5,14 @@
       {
         "Effect": "Allow",
         "Action": [
-          "support:*"
+          "support:*",
+          "support-console:*"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2015-02-06T18:41:11+00:00"
+  "CreateDate": "2025-07-18T13:52:07+00:00"
 }

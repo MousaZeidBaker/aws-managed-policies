@@ -146,6 +146,36 @@
         }
       },
       {
+        "Sid": "AllowDeleteVolumes",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DeleteVolume"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:volume/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/CreatedBy": "EC2 Fast Launch"
+          }
+        }
+      },
+      {
+        "Sid": "AllowDeleteNetworkInterfaces",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DeleteNetworkInterface"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:network-interface/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/CreatedBy": "EC2 Fast Launch"
+          }
+        }
+      },
+      {
         "Sid": "AllowDescribeActions",
         "Effect": "Allow",
         "Action": [
@@ -158,6 +188,8 @@
           "ec2:DescribeInstanceTypeOfferings",
           "ec2:DescribeLaunchTemplateVersions",
           "ec2:DescribeLaunchTemplates",
+          "ec2:DescribeVolumes",
+          "ec2:DescribeNetworkInterfaces",
           "cloudformation:DescribeStacks"
         ],
         "Resource": "*"
@@ -223,7 +255,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-14T17:07:07+00:00"
+  "CreateDate": "2025-07-18T00:37:06+00:00"
 }
