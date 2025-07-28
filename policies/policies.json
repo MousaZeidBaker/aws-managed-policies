@@ -43094,6 +43094,18 @@
       "Version": "2012-10-17",
       "Statement": [
         {
+          "Sid": "ResourceExplorerAccess",
+          "Effect": "Allow",
+          "Action": [
+            "resource-explorer-2:UpdateIndexType",
+            "resource-explorer-2:CreateIndex",
+            "resource-explorer-2:CreateView",
+            "resource-explorer-2:AssociateDefaultView",
+            "resource-explorer-2:DeleteIndex"
+          ],
+          "Resource": "*"
+        },
+        {
           "Sid": "CloudTrailEventsAccess",
           "Effect": "Allow",
           "Action": [
@@ -43785,9 +43797,9 @@
         }
       ]
     },
-    "VersionId": "v14",
+    "VersionId": "v15",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-23T10:07:07+00:00"
+    "CreateDate": "2025-07-23T15:22:07+00:00"
   },
   "AWSResourceGroupsReadOnlyAccess": {
     "Document": {
@@ -47331,12 +47343,27 @@
           "Resource": [
             "arn:aws:events:*:*:rule/ImageBuilder-*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetParameter",
+            "ssm:PutParameter"
+          ],
+          "Resource": "arn:aws:ssm:*:*:parameter/imagebuilder/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetParameter"
+          ],
+          "Resource": "arn:aws:ssm:*::parameter/aws/service/*"
         }
       ]
     },
-    "VersionId": "v20",
+    "VersionId": "v21",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-26T23:52:06+00:00"
+    "CreateDate": "2025-07-23T16:52:07+00:00"
   },
   "AWSServiceRoleForIoTSiteWise": {
     "Document": {
@@ -65261,8 +65288,8 @@
               ]
             },
             "StringLike": {
-              "aws:RequestTag/AmazonDataZoneDomain": "dzd_*",
-              "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*"
+              "aws:RequestTag/AmazonDataZoneDomain": "dzd*",
+              "aws:ResourceTag/AmazonDataZoneDomain": "dzd*"
             }
           }
         },
@@ -65280,8 +65307,8 @@
               ]
             },
             "StringLike": {
-              "aws:RequestTag/AmazonDataZoneDomain": "dzd_*",
-              "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*"
+              "aws:RequestTag/AmazonDataZoneDomain": "dzd*",
+              "aws:ResourceTag/AmazonDataZoneDomain": "dzd*"
             }
           }
         },
@@ -65294,7 +65321,7 @@
           "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonDataZone-*",
           "Condition": {
             "StringLike": {
-              "aws:RequestTag/AmazonDataZoneDomain": "dzd_*"
+              "aws:RequestTag/AmazonDataZoneDomain": "dzd*"
             }
           }
         },
@@ -65469,9 +65496,9 @@
         }
       ]
     },
-    "VersionId": "v6",
+    "VersionId": "v7",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-22T18:07:07+00:00"
+    "CreateDate": "2025-07-23T19:22:08+00:00"
   },
   "AmazonDataZoneFullUserAccess": {
     "Document": {
@@ -71577,9 +71604,20 @@
           "Effect": "Allow",
           "Action": [
             "elasticloadbalancing:DescribeListeners",
-            "elasticloadbalancing:DescribeRules"
+            "elasticloadbalancing:DescribeRules",
+            "elasticloadbalancing:DescribeTargetGroups",
+            "elasticloadbalancing:DescribeTargetHealth"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "TargetGroupOperations",
+          "Effect": "Allow",
+          "Action": [
+            "elasticloadbalancing:RegisterTargets",
+            "elasticloadbalancing:DeregisterTargets"
+          ],
+          "Resource": "arn:aws:elasticloadbalancing:*:*:targetgroup/*/*"
         },
         {
           "Sid": "ALBModifyListeners",
@@ -71607,9 +71645,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-17T16:37:07+00:00"
+    "CreateDate": "2025-07-25T20:22:06+00:00"
   },
   "AmazonECSInfrastructureRolePolicyForServiceConnectTransportLayerSecurity": {
     "Document": {
@@ -77039,8 +77077,10 @@
           "Sid": "ManageNetworkInterface",
           "Effect": "Allow",
           "Action": [
+            "ec2:AssignIpv6Addresses",
             "ec2:AssignPrivateIpAddresses",
             "ec2:ModifyNetworkInterfaceAttribute",
+            "ec2:UnassignIpv6Addresses",
             "ec2:UnassignPrivateIpAddresses"
           ],
           "Resource": [
@@ -77091,9 +77131,9 @@
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-01-10T20:53:47+00:00"
+    "CreateDate": "2025-07-22T18:07:07+00:00"
   },
   "AmazonForecastFullAccess": {
     "Document": {
@@ -107807,6 +107847,7 @@
             "ivs:ListEncoderConfigurations",
             "ivs:ListIngestConfigurations",
             "ivs:ListParticipants",
+            "ivs:ListParticipantReplicas",
             "ivs:ListParticipantEvents",
             "ivs:ListPlaybackKeyPairs",
             "ivs:ListPlaybackRestrictionPolicies",
@@ -107824,9 +107865,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-09-17T20:42:06+00:00"
+    "CreateDate": "2025-07-24T20:22:07+00:00"
   },
   "IVSRecordToS3": {
     "Document": {
@@ -112251,6 +112292,10 @@
             "dms:Describe*",
             "dms:List*",
             "dms:Test*",
+            "docdb-elastic:ListClusters",
+            "docdb-elastic:ListClusterSnapshots",
+            "docdb-elastic:ListPendingMaintenanceActions",
+            "docdb-elastic:ListTagsForResource",
             "drs:DescribeJobLogItems",
             "drs:DescribeJobs",
             "drs:DescribeLaunchConfigurationTemplates",
@@ -113969,9 +114014,9 @@
         }
       ]
     },
-    "VersionId": "v130",
+    "VersionId": "v131",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-17T18:22:08+00:00"
+    "CreateDate": "2025-07-24T15:07:06+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
@@ -116455,8 +116500,6 @@
           "Effect": "Allow",
           "Action": [
             "kms:CreateGrant",
-            "kms:ReEncryptFrom",
-            "kms:ReEncryptTo",
             "kms:Decrypt",
             "kms:Encrypt",
             "kms:GenerateDataKeyWithoutPlaintext"
@@ -116488,29 +116531,11 @@
           }
         },
         {
-          "Sid": "AllowEMRForKMSManagement",
+          "Sid": "AllowDescribeKeyForLogPusherCMK",
           "Effect": "Allow",
           "Action": [
-            "kms:ListGrants",
-            "kms:RevokeGrant",
             "kms:DescribeKey"
           ],
-          "Resource": "arn:aws:kms:*:*:key/${aws:PrincipalTag/KmsKeyId}",
-          "Condition": {
-            "StringLike": {
-              "kms:ViaService": [
-                "ec2.*.amazonaws.com"
-              ]
-            },
-            "StringEquals": {
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            }
-          }
-        },
-        {
-          "Sid": "AllowEMRToListKmsAliases",
-          "Effect": "Allow",
-          "Action": "kms:ListAliases",
           "Resource": "arn:aws:kms:*:*:key/${aws:PrincipalTag/KmsKeyId}",
           "Condition": {
             "StringEquals": {
@@ -116520,9 +116545,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-02-27T00:22:06+00:00"
+    "CreateDate": "2025-07-22T16:52:07+00:00"
   },
   "SageMakerStudioFullAccess": {
     "Document": {
@@ -116545,6 +116570,7 @@
             "kms:DescribeKey",
             "kms:ListAliases",
             "iam:ListRoles",
+            "iam:ListPolicies",
             "sso:DescribeRegisteredRegions",
             "s3:ListAllMyBuckets",
             "redshift:DescribeClusters",
@@ -116562,7 +116588,8 @@
             "bedrock:ListFoundationModels",
             "bedrock:ListTagsForResource",
             "aoss:ListSecurityPolicies",
-            "quicksight:DescribeAccountSubscription"
+            "quicksight:DescribeAccountSubscription",
+            "cloudformation:ValidateTemplate"
           ],
           "Resource": [
             "*"
@@ -116573,9 +116600,27 @@
           "Effect": "Allow",
           "Action": [
             "s3:ListBucket",
-            "s3:GetBucketLocation"
+            "s3:GetBucketLocation",
+            "s3:ListBucketVersions"
           ],
           "Resource": "arn:aws:s3:::*"
+        },
+        {
+          "Sid": "ReadManagedBlueprintTemplatesStatement",
+          "Effect": "Allow",
+          "Action": "s3:GetObject",
+          "Resource": [
+            "arn:aws:s3:::default-env-blueprint-*/*",
+            "arn:aws:s3:*:*:accesspoint/env-blueprint-accesspoint*"
+          ],
+          "Condition": {
+            "ArnLike": {
+              "s3:DataAccessPointArn": "arn:aws:s3:*:*:accesspoint/env-blueprint-accesspoint"
+            },
+            "StringNotEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
         },
         {
           "Sid": "CreateBucketStatement",
@@ -116598,6 +116643,22 @@
           ],
           "Resource": [
             "arn:aws:s3:::amazon-sagemaker*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "PutObjectStatement",
+          "Effect": "Allow",
+          "Action": [
+            "s3:PutObject",
+            "s3:GetObject"
+          ],
+          "Resource": [
+            "arn:aws:s3:::amazon-sagemaker*/*"
           ],
           "Condition": {
             "StringEquals": {
@@ -116701,8 +116762,8 @@
               ]
             },
             "StringLike": {
-              "aws:RequestTag/AmazonDataZoneDomain": "dzd_*",
-              "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*"
+              "aws:RequestTag/AmazonDataZoneDomain": "dzd*",
+              "aws:ResourceTag/AmazonDataZoneDomain": "dzd*"
             }
           }
         },
@@ -116720,8 +116781,8 @@
               ]
             },
             "StringLike": {
-              "aws:RequestTag/AmazonDataZoneDomain": "dzd_*",
-              "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*"
+              "aws:RequestTag/AmazonDataZoneDomain": "dzd*",
+              "aws:ResourceTag/AmazonDataZoneDomain": "dzd*"
             }
           }
         },
@@ -116734,7 +116795,7 @@
           "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonDataZone-*",
           "Condition": {
             "StringLike": {
-              "aws:RequestTag/AmazonDataZoneDomain": "dzd_*"
+              "aws:RequestTag/AmazonDataZoneDomain": "dzd*"
             }
           }
         },
@@ -116922,9 +116983,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-06T19:07:07+00:00"
+    "CreateDate": "2025-07-23T19:22:06+00:00"
   },
   "SageMakerStudioProjectProvisioningRolePolicy": {
     "Document": {
@@ -121013,16 +121074,26 @@
           ],
           "Resource": "*",
           "Condition": {
-            "StringEquals": {
+            "StringEqualsIfExists": {
               "ram:RequestedResourceType": [
                 "s3:AccessGrants"
-              ],
-              "aws:ResourceAccount": "${aws:PrincipalAccount}"
-            },
-            "ArnEquals": {
-              "ram:ResourceArn": [
-                "arn:aws:s3:*:*:access-grants/default"
               ]
+            },
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "CrossAccountS3AGResourceSharingPolicyPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "s3:PutAccessGrantsInstanceResourcePolicy"
+          ],
+          "Resource": "arn:aws:s3:*:*:access-grants/default",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
             }
           }
         },
@@ -121056,9 +121127,9 @@
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-14T22:07:08+00:00"
+    "CreateDate": "2025-07-22T20:07:08+00:00"
   },
   "SageMakerStudioProjectUserRolePermissionsBoundary": {
     "Document": {
@@ -126904,6 +126975,15 @@
             "resource-groups:ListGroupResources",
             "robomaker:Describe*",
             "robomaker:List*",
+            "rolesanywhere:GetCrl",
+            "rolesanywhere:GetProfile",
+            "rolesanywhere:GetSubject",
+            "rolesanywhere:GetTrustAnchor",
+            "rolesanywhere:ListCrls",
+            "rolesanywhere:ListProfiles",
+            "rolesanywhere:ListSubjects",
+            "rolesanywhere:ListTagsForResource",
+            "rolesanywhere:ListTrustAnchors",
             "route53:Get*",
             "route53:List*",
             "route53domains:GetDomainDetail",
@@ -126937,12 +127017,14 @@
             "s3:GetMultiRegionAccessPointPolicy",
             "s3:GetMultiRegionAccessPointPolicyStatus",
             "s3:GetObjectAcl",
+            "s3:GetObjectTagging",
             "s3:GetObjectVersionAcl",
             "s3:GetReplicationConfiguration",
             "s3:GetStorageLensGroup",
             "s3:GetStorageLensConfiguration",
             "s3:ListAccessPoints",
             "s3:ListAllMyBuckets",
+            "s3:ListBucket",
             "s3:ListMultiRegionAccessPoints",
             "s3:ListAccessPointsForObjectLambda",
             "s3:ListStorageLensGroups",
@@ -127054,7 +127136,6 @@
             "ssm:ListTagsForResource",
             "sso:DescribeAccountAssignmentCreationStatus",
             "sso:DescribePermissionSet",
-            "sso:DescribePermissionsPolicies",
             "sso:DescribeAccountAssignmentDeletionStatus",
             "sso:DescribeApplication",
             "sso:DescribeApplicationAssignment",
@@ -127229,9 +127310,9 @@
         }
       ]
     },
-    "VersionId": "v52",
+    "VersionId": "v54",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-02T18:37:08+00:00"
+    "CreateDate": "2025-07-24T15:07:07+00:00"
   },
   "SecurityLakeResourceManagementServiceRolePolicy": {
     "Document": {
@@ -128623,6 +128704,17 @@
             "logs:*",
             "rds:Describe*",
             "rds:ListTagsForResource",
+            "rolesanywhere:GetCrl",
+            "rolesanywhere:GetProfile",
+            "rolesanywhere:GetSubject",
+            "rolesanywhere:GetTrustAnchor",
+            "rolesanywhere:ListCrls",
+            "rolesanywhere:ListProfiles",
+            "rolesanywhere:ListSubjects",
+            "rolesanywhere:ListTagsForResource",
+            "rolesanywhere:ListTrustAnchors",
+            "rolesanywhere:PutNotificationSettings",
+            "rolesanywhere:ResetNotificationSettings",
             "route53:*",
             "route53domains:*",
             "ses:*",
@@ -128726,9 +128818,9 @@
       ],
       "Version": "2012-10-17"
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-02-11T22:07:07+00:00"
+    "CreateDate": "2025-07-24T12:22:07+00:00"
   },
   "TranslateFullAccess": {
     "Document": {

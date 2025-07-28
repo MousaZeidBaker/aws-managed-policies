@@ -26,6 +26,7 @@
           "ivs:ListEncoderConfigurations",
           "ivs:ListIngestConfigurations",
           "ivs:ListParticipants",
+          "ivs:ListParticipantReplicas",
           "ivs:ListParticipantEvents",
           "ivs:ListPlaybackKeyPairs",
           "ivs:ListPlaybackRestrictionPolicies",
@@ -43,7 +44,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-09-17T20:42:06+00:00"
+  "CreateDate": "2025-07-24T20:22:07+00:00"
 }

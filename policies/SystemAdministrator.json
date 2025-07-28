@@ -154,6 +154,17 @@
           "logs:*",
           "rds:Describe*",
           "rds:ListTagsForResource",
+          "rolesanywhere:GetCrl",
+          "rolesanywhere:GetProfile",
+          "rolesanywhere:GetSubject",
+          "rolesanywhere:GetTrustAnchor",
+          "rolesanywhere:ListCrls",
+          "rolesanywhere:ListProfiles",
+          "rolesanywhere:ListSubjects",
+          "rolesanywhere:ListTagsForResource",
+          "rolesanywhere:ListTrustAnchors",
+          "rolesanywhere:PutNotificationSettings",
+          "rolesanywhere:ResetNotificationSettings",
           "route53:*",
           "route53domains:*",
           "ses:*",
@@ -257,7 +268,7 @@
     ],
     "Version": "2012-10-17"
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-11T22:07:07+00:00"
+  "CreateDate": "2025-07-24T12:22:07+00:00"
 }

@@ -573,6 +573,15 @@
           "resource-groups:ListGroupResources",
           "robomaker:Describe*",
           "robomaker:List*",
+          "rolesanywhere:GetCrl",
+          "rolesanywhere:GetProfile",
+          "rolesanywhere:GetSubject",
+          "rolesanywhere:GetTrustAnchor",
+          "rolesanywhere:ListCrls",
+          "rolesanywhere:ListProfiles",
+          "rolesanywhere:ListSubjects",
+          "rolesanywhere:ListTagsForResource",
+          "rolesanywhere:ListTrustAnchors",
           "route53:Get*",
           "route53:List*",
           "route53domains:GetDomainDetail",
@@ -606,12 +615,14 @@
           "s3:GetMultiRegionAccessPointPolicy",
           "s3:GetMultiRegionAccessPointPolicyStatus",
           "s3:GetObjectAcl",
+          "s3:GetObjectTagging",
           "s3:GetObjectVersionAcl",
           "s3:GetReplicationConfiguration",
           "s3:GetStorageLensGroup",
           "s3:GetStorageLensConfiguration",
           "s3:ListAccessPoints",
           "s3:ListAllMyBuckets",
+          "s3:ListBucket",
           "s3:ListMultiRegionAccessPoints",
           "s3:ListAccessPointsForObjectLambda",
           "s3:ListStorageLensGroups",
@@ -723,7 +734,6 @@
           "ssm:ListTagsForResource",
           "sso:DescribeAccountAssignmentCreationStatus",
           "sso:DescribePermissionSet",
-          "sso:DescribePermissionsPolicies",
           "sso:DescribeAccountAssignmentDeletionStatus",
           "sso:DescribeApplication",
           "sso:DescribeApplicationAssignment",
@@ -898,7 +908,7 @@
       }
     ]
   },
-  "VersionId": "v52",
+  "VersionId": "v54",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-07-02T18:37:08+00:00"
+  "CreateDate": "2025-07-24T15:07:07+00:00"
 }

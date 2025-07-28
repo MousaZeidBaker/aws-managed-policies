@@ -174,8 +174,8 @@
             ]
           },
           "StringLike": {
-            "aws:RequestTag/AmazonDataZoneDomain": "dzd_*",
-            "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*"
+            "aws:RequestTag/AmazonDataZoneDomain": "dzd*",
+            "aws:ResourceTag/AmazonDataZoneDomain": "dzd*"
           }
         }
       },
@@ -193,8 +193,8 @@
             ]
           },
           "StringLike": {
-            "aws:RequestTag/AmazonDataZoneDomain": "dzd_*",
-            "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*"
+            "aws:RequestTag/AmazonDataZoneDomain": "dzd*",
+            "aws:ResourceTag/AmazonDataZoneDomain": "dzd*"
           }
         }
       },
@@ -207,7 +207,7 @@
         "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonDataZone-*",
         "Condition": {
           "StringLike": {
-            "aws:RequestTag/AmazonDataZoneDomain": "dzd_*"
+            "aws:RequestTag/AmazonDataZoneDomain": "dzd*"
           }
         }
       },
@@ -382,7 +382,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-22T18:07:07+00:00"
+  "CreateDate": "2025-07-23T19:22:08+00:00"
 }

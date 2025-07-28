@@ -785,6 +785,10 @@
           "dms:Describe*",
           "dms:List*",
           "dms:Test*",
+          "docdb-elastic:ListClusters",
+          "docdb-elastic:ListClusterSnapshots",
+          "docdb-elastic:ListPendingMaintenanceActions",
+          "docdb-elastic:ListTagsForResource",
           "drs:DescribeJobLogItems",
           "drs:DescribeJobs",
           "drs:DescribeLaunchConfigurationTemplates",
@@ -2503,7 +2507,7 @@
       }
     ]
   },
-  "VersionId": "v130",
+  "VersionId": "v131",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-07-17T18:22:08+00:00"
+  "CreateDate": "2025-07-24T15:07:06+00:00"
 }
