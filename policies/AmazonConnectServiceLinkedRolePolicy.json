@@ -94,7 +94,11 @@
           "profile:CreateUploadJob",
           "profile:ListUploadJobs",
           "profile:DetectProfileObjectType",
-          "profile:GetSimilarProfiles"
+          "profile:GetSimilarProfiles",
+          "profile:GetUploadJob",
+          "profile:GetUploadJobPath",
+          "profile:StartUploadJob",
+          "profile:StopUploadJob"
         ],
         "Resource": "arn:aws:profile:*:*:domains/amazon-connect-*"
       },
@@ -459,7 +463,7 @@
       }
     ]
   },
-  "VersionId": "v27",
+  "VersionId": "v28",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-07-16T19:52:07+00:00"
+  "CreateDate": "2025-07-29T21:22:06+00:00"
 }

@@ -13914,6 +13914,7 @@
             "aps:ListRuleGroupsNamespaces",
             "aps:ListTagsForResource",
             "APS:ListWorkspaces",
+            "arc-zonal-shift:GetAutoshiftObserverNotificationStatus",
             "athena:GetDataCatalog",
             "athena:GetPreparedStatement",
             "athena:GetWorkGroup",
@@ -13979,6 +13980,7 @@
             "bedrock:GetGuardrail",
             "bedrock:GetInferenceProfile",
             "bedrock:GetKnowledgeBase",
+            "bedrock:GetModelInvocationLoggingConfiguration",
             "bedrock:ListAgentActionGroups",
             "bedrock:ListAgentKnowledgeBases",
             "bedrock:ListAgents",
@@ -14041,6 +14043,7 @@
             "cloudfront:ListTagsForResource",
             "cloudtrail:DescribeTrails",
             "cloudTrail:GetChannel",
+            "cloudtrail:GetEventConfiguration",
             "cloudtrail:GetEventDataStore",
             "cloudtrail:GetEventSelectors",
             "cloudtrail:GetInsightSelectors",
@@ -14057,7 +14060,9 @@
             "cloudwatch:ListDashboards",
             "cloudwatch:ListMetricStreams",
             "cloudwatch:ListTagsForResource",
+            "codeartifact:DescribeDomain",
             "codeartifact:DescribeRepository",
+            "codeartifact:GetDomainPermissionsPolicy",
             "codeartifact:GetRepositoryPermissionsPolicy",
             "codeartifact:ListDomains",
             "codeartifact:ListPackages",
@@ -14179,6 +14184,11 @@
             "dax:DescribeParameters",
             "dax:DescribeSubnetGroups",
             "dax:ListTags",
+            "deadline:GetFleet",
+            "deadline:GetQueueFleetAssociation",
+            "deadline:ListFleets",
+            "deadline:ListQueueFleetAssociations",
+            "deadline:ListTagsForResource",
             "detective:ListGraphs",
             "detective:ListTagsForResource",
             "devicefarm:GetInstanceProfile",
@@ -14194,6 +14204,7 @@
             "devops-guru:ListNotificationChannels",
             "directconnect:DescribeConnections",
             "dms:DescribeCertificates",
+            "dms:DescribeDataMigrations",
             "dms:DescribeEndpoints",
             "dms:DescribeEventSubscriptions",
             "dms:DescribeReplicationConfigs",
@@ -14201,6 +14212,7 @@
             "dms:DescribeReplicationSubnetGroups",
             "dms:DescribeReplicationTaskAssessmentRuns",
             "dms:DescribeReplicationTasks",
+            "dms:ListMigrationProjects",
             "dms:ListTagsForResource",
             "ds:DescribeDirectories",
             "ds:DescribeDomainControllers",
@@ -14443,6 +14455,7 @@
             "glue:GetClassifiers",
             "glue:GetCrawler",
             "glue:GetCrawlers",
+            "glue:GetDataCatalogEncryptionSettings",
             "glue:GetDatabase",
             "glue:GetDatabases",
             "glue:GetDevEndpoint",
@@ -14535,6 +14548,7 @@
             "iam:ListMFADevices",
             "iam:ListMFADeviceTags",
             "iam:ListOpenIDConnectProviders",
+            "iam:ListPolicies",
             "iam:ListPolicyVersions",
             "iam:ListRolePolicies",
             "iam:ListRoles",
@@ -14725,7 +14739,12 @@
             "kafka:ListTagsForResource",
             "kafka:ListVpcConnections",
             "kafkaconnect:DescribeConnector",
+            "kafkaconnect:DescribeCustomPlugin",
+            "kafkaconnect:DescribeWorkerConfiguration",
             "kafkaconnect:ListConnectors",
+            "kafkaconnect:ListCustomPlugins",
+            "kafkaconnect:ListTagsForResource",
+            "kafkaconnect:ListWorkerConfigurations",
             "kendra:DescribeIndex",
             "kendra:ListIndices",
             "kendra:ListTagsForResource",
@@ -14749,6 +14768,7 @@
             "kms:ListAliases",
             "kms:ListKeys",
             "kms:ListResourceTags",
+            "lakeformation:DescribeLakeFormationIdentityCenterConfiguration",
             "lakeformation:DescribeResource",
             "lakeformation:GetDataLakeSettings",
             "lakeformation:ListPermissions",
@@ -14802,6 +14822,7 @@
             "lightsail:GetStaticIps",
             "logs:DescribeAccountPolicies",
             "logs:DescribeDestinations",
+            "logs:DescribeIndexPolicies",
             "logs:DescribeLogGroups",
             "logs:DescribeMetricFilters",
             "logs:DescribeResourcePolicies",
@@ -14810,6 +14831,7 @@
             "logs:GetLogDelivery",
             "logs:ListLogAnomalyDetectors",
             "logs:ListLogDeliveries",
+            "logs:ListTagsForResource",
             "logs:ListTagsLogGroup",
             "lookoutequipment:DescribeInferenceScheduler",
             "lookoutequipment:ListTagsForResource",
@@ -14848,12 +14870,16 @@
             "mediaconnect:ListFlows",
             "mediaconnect:ListGateways",
             "mediaconnect:ListTagsForResource",
+            "medialive:DescribeMultiplexProgram",
+            "medialive:ListMultiplexPrograms",
             "mediapackage-vod:DescribePackagingConfiguration",
             "mediapackage-vod:DescribePackagingGroup",
             "mediapackage-vod:ListPackagingConfigurations",
             "mediapackage-vod:ListPackagingGroups",
             "mediapackage-vod:ListTagsForResource",
             "mediapackagev2:GetChannel",
+            "mediapackagev2:GetChannelGroup",
+            "mediapackagev2:ListChannelGroups",
             "mediapackagev2:ListChannels",
             "mediatailor:DescribeChannel",
             "mediatailor:DescribeLiveSource",
@@ -15029,6 +15055,7 @@
             "rds:DescribeDBSnapshots",
             "rds:DescribeDBSubnetGroups",
             "rds:DescribeEngineDefaultClusterParameters",
+            "rds:DescribeEngineDefaultParameters",
             "rds:DescribeEventSubscriptions",
             "rds:DescribeGlobalClusters",
             "rds:DescribeIntegrations",
@@ -15081,6 +15108,11 @@
             "robomaker:DescribeSimulationApplication",
             "robomaker:ListRobotApplications",
             "robomaker:ListSimulationApplications",
+            "rolesanywhere:GetProfile",
+            "rolesanywhere:GetTrustAnchor",
+            "rolesanywhere:ListProfiles",
+            "rolesanywhere:ListTagsForResource",
+            "rolesanywhere:ListTrustAnchors",
             "route53-recovery-control-config:DescribeCluster",
             "route53-recovery-control-config:DescribeControlPanel",
             "route53-recovery-control-config:DescribeRoutingControl",
@@ -15152,6 +15184,7 @@
             "s3-outposts:ListEndpoints",
             "s3-outposts:ListRegionalBuckets",
             "s3:GetAccelerateConfiguration",
+            "s3:GetAccessGrant",
             "s3:GetAccessGrantsInstance",
             "s3:GetAccessGrantsLocation",
             "s3:GetAccessPoint",
@@ -15183,6 +15216,7 @@
             "s3:GetStorageLensConfiguration",
             "s3:GetStorageLensConfigurationTagging",
             "s3:GetStorageLensGroup",
+            "s3:ListAccessGrants",
             "s3:ListAccessGrantsInstances",
             "s3:ListAccessGrantsLocations",
             "s3:ListAccessPoints",
@@ -15264,12 +15298,20 @@
             "schemas:ListSchemas",
             "sdb:GetAttributes",
             "sdb:ListDomains",
+            "secretsmanager:DescribeSecret",
             "secretsmanager:ListSecrets",
             "secretsmanager:ListSecretVersionIds",
             "securityhub:DescribeHub",
             "securityhub:DescribeStandardsControls",
             "securityhub:GetEnabledStandards",
+            "securitylake:ListDataLakeExceptions",
+            "securitylake:ListDataLakes",
+            "securitylake:ListLogSources",
             "serviceCatalog:DescribePortfolioShares",
+            "servicecatalog:GetAttributeGroup",
+            "servicecatalog:ListAttributeGroups",
+            "servicecatalog:ListServiceActions",
+            "servicecatalog:ListServiceActionsForProvisioningArtifact",
             "servicediscovery:GetInstance",
             "servicediscovery:GetNamespace",
             "servicediscovery:GetService",
@@ -15286,13 +15328,16 @@
             "ses:GetDedicatedIps",
             "ses:GetEmailTemplate",
             "ses:GetTemplate",
+            "ses:GetTrafficPolicy",
             "ses:ListConfigurationSets",
             "ses:ListContactLists",
             "ses:ListDedicatedIpPools",
             "ses:ListEmailTemplates",
             "ses:ListReceiptFilters",
             "ses:ListReceiptRuleSets",
+            "ses:ListTagsForResource",
             "ses:ListTemplates",
+            "ses:ListTrafficPolicies",
             "shield:DescribeDRTAccess",
             "shield:DescribeProtection",
             "shield:DescribeSubscription",
@@ -15402,7 +15447,12 @@
             "wafv2:ListTagsForResource",
             "workspaces:DescribeConnectionAliases",
             "workspaces:DescribeTags",
-            "workspaces:DescribeWorkspaces"
+            "workspaces:DescribeWorkspaces",
+            "xray:GetGroup",
+            "xray:GetGroups",
+            "xray:GetSamplingRules",
+            "xray:ListResourcePolicies",
+            "xray:ListTagsForResource"
           ],
           "Resource": "*"
         },
@@ -15428,6 +15478,7 @@
             "apigateway:GET"
           ],
           "Resource": [
+            "arn:aws:apigateway:*::/account",
             "arn:aws:apigateway:*::/apis",
             "arn:aws:apigateway:*::/apis/*",
             "arn:aws:apigateway:*::/apis/*/integrations",
@@ -15444,6 +15495,8 @@
             "arn:aws:apigateway:*::/restapis/*/resources",
             "arn:aws:apigateway:*::/restapis/*/resources/*/methods/*/integration",
             "arn:aws:apigateway:*::/restapis/*/resources/*",
+            "arn:aws:apigateway:*::/usageplans",
+            "arn:aws:apigateway:*::/usageplans/*",
             "arn:aws:apigateway:*::/apis/*/routes/*",
             "arn:aws:apigateway:*::/apis/*/routes",
             "arn:aws:apigateway:*::/v2/apis/*/routes",
@@ -15456,9 +15509,9 @@
         }
       ]
     },
-    "VersionId": "v59",
+    "VersionId": "v60",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-20T17:22:07+00:00"
+    "CreateDate": "2025-07-28T20:37:08+00:00"
   },
   "AWSConfigUserAccess": {
     "Document": {
@@ -31297,7 +31350,7 @@
               "ram:RequestedResourceType": "aws-marketplace:Entity"
             },
             "ArnLike": {
-              "ram:ResourceArn": "arn:aws:aws-marketplace:*:*:AWSMarketplace/ResaleAuthorization/*"
+              "ram:ResourceArn": "arn:aws:aws-marketplace:*:*:*/ResaleAuthorization/*"
             },
             "Null": {
               "ram:Principal": "true"
@@ -31323,10 +31376,11 @@
           }
         },
         {
-          "Sid": "AllowResaleAuthorizationShareActionsRAMAccept",
+          "Sid": "AllowResaleAuthorizationShareActionsRAMAcceptDelete",
           "Effect": "Allow",
           "Action": [
-            "ram:AcceptResourceShareInvitation"
+            "ram:AcceptResourceShareInvitation",
+            "ram:DeleteResourceShare"
           ],
           "Resource": [
             "arn:aws:ram:*:*:*"
@@ -31353,9 +31407,10 @@
           "Effect": "Allow",
           "Action": [
             "aws-marketplace:PutResourcePolicy",
-            "aws-marketplace:GetResourcePolicy"
+            "aws-marketplace:GetResourcePolicy",
+            "aws-marketplace:DeleteResourcePolicy"
           ],
-          "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/ResaleAuthorization/*",
+          "Resource": "arn:aws:aws-marketplace:*:*:*/ResaleAuthorization/*",
           "Condition": {
             "ForAnyValue:StringEquals": {
               "aws:CalledVia": [
@@ -31370,13 +31425,13 @@
           "Action": [
             "aws-marketplace:DescribeEntity"
           ],
-          "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/ResaleAuthorization/*"
+          "Resource": "arn:aws:aws-marketplace:*:*:*/ResaleAuthorization/*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-03-05T18:47:54+00:00"
+    "CreateDate": "2025-08-01T15:19:07+00:00"
   },
   "AWSMarketplaceSellerFullAccess": {
     "Document": {
@@ -34052,6 +34107,172 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2024-11-27T19:36:07+00:00"
+  },
+  "AWSObservabilityAdminTelemetryEnablementServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "TelemetryOperations",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeFlowLogs",
+            "ec2:DescribeVpcs",
+            "logs:DescribeLogGroups",
+            "logs:DescribeResourcePolicies",
+            "logs:ListLogGroups"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "TagOperationForEC2",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CloudWatchTelemetryRuleManaged": "true",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}",
+              "ec2:CreateAction": "CreateFlowLogs"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": "CloudWatchTelemetryRuleManaged"
+            }
+          }
+        },
+        {
+          "Sid": "TagOperationForLogs",
+          "Effect": "Allow",
+          "Action": [
+            "logs:TagResource"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/CloudWatchTelemetryRuleManaged": "true",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": "CloudWatchTelemetryRuleManaged"
+            }
+          }
+        },
+        {
+          "Sid": "TelemetryOperationsForVPCLogs",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateFlowLogs"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "TelemetryOperationsForVPCFlowLogs",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateFlowLogs"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc-flow-log/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CloudWatchTelemetryRuleManaged": "true",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": "CloudWatchTelemetryRuleManaged"
+            }
+          }
+        },
+        {
+          "Sid": "TelemetryOperationsForLogs",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteFlowLogs",
+            "logs:CreateLogGroup",
+            "logs:PutResourcePolicy",
+            "logs:PutRetentionPolicy"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/CloudWatchTelemetryRuleManaged": "true",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "IAMOperationsForConfigServiceLinkedRecorder",
+          "Effect": "Allow",
+          "Action": [
+            "iam:CreateServiceLinkedRole"
+          ],
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/config.amazonaws.com/AWSServiceRoleForConfig"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": [
+                "config.amazonaws.com"
+              ],
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "BoolIfExists": {
+              "aws:ViaAWSService": "true"
+            }
+          }
+        },
+        {
+          "Sid": "ManagementOperationsForServiceLinkedRecorder",
+          "Effect": "Allow",
+          "Action": [
+            "config:PutServiceLinkedConfigurationRecorder",
+            "config:DeleteServiceLinkedConfigurationRecorder",
+            "config:AssociateResourceTypes",
+            "config:DisassociateResourceTypes"
+          ],
+          "Resource": [
+            "arn:aws:config:*:*:configuration-recorder/AWSConfigurationRecorderForObservabilityAdmin_TelemetryEnablement/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        },
+        {
+          "Sid": "ReadOperationsForServiceLinkedRecorder",
+          "Effect": "Allow",
+          "Action": [
+            "config:DescribeConfigurationRecorders"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "config:ConfigurationRecorderServicePrincipal": [
+                "telemetry-enablement.observabilityadmin.amazonaws.com"
+              ],
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-08-01T18:04:06+00:00"
   },
   "AWSOpsWorksCMInstanceProfileRole": {
     "Document": {
@@ -57032,6 +57253,7 @@
             "aps:ListRuleGroupsNamespaces",
             "aps:ListTagsForResource",
             "APS:ListWorkspaces",
+            "arc-zonal-shift:GetAutoshiftObserverNotificationStatus",
             "athena:GetDataCatalog",
             "athena:GetPreparedStatement",
             "athena:GetWorkGroup",
@@ -57097,6 +57319,7 @@
             "bedrock:GetGuardrail",
             "bedrock:GetInferenceProfile",
             "bedrock:GetKnowledgeBase",
+            "bedrock:GetModelInvocationLoggingConfiguration",
             "bedrock:ListAgentActionGroups",
             "bedrock:ListAgentKnowledgeBases",
             "bedrock:ListAgents",
@@ -57159,6 +57382,7 @@
             "cloudfront:ListTagsForResource",
             "cloudtrail:DescribeTrails",
             "cloudTrail:GetChannel",
+            "cloudtrail:GetEventConfiguration",
             "cloudtrail:GetEventDataStore",
             "cloudtrail:GetEventSelectors",
             "cloudtrail:GetInsightSelectors",
@@ -57175,7 +57399,9 @@
             "cloudwatch:ListDashboards",
             "cloudwatch:ListMetricStreams",
             "cloudwatch:ListTagsForResource",
+            "codeartifact:DescribeDomain",
             "codeartifact:DescribeRepository",
+            "codeartifact:GetDomainPermissionsPolicy",
             "codeartifact:GetRepositoryPermissionsPolicy",
             "codeartifact:ListDomains",
             "codeartifact:ListPackages",
@@ -57297,6 +57523,11 @@
             "dax:DescribeParameters",
             "dax:DescribeSubnetGroups",
             "dax:ListTags",
+            "deadline:GetFleet",
+            "deadline:GetQueueFleetAssociation",
+            "deadline:ListFleets",
+            "deadline:ListQueueFleetAssociations",
+            "deadline:ListTagsForResource",
             "detective:ListGraphs",
             "detective:ListTagsForResource",
             "devicefarm:GetInstanceProfile",
@@ -57312,6 +57543,7 @@
             "devops-guru:ListNotificationChannels",
             "directconnect:DescribeConnections",
             "dms:DescribeCertificates",
+            "dms:DescribeDataMigrations",
             "dms:DescribeEndpoints",
             "dms:DescribeEventSubscriptions",
             "dms:DescribeReplicationConfigs",
@@ -57319,6 +57551,7 @@
             "dms:DescribeReplicationSubnetGroups",
             "dms:DescribeReplicationTaskAssessmentRuns",
             "dms:DescribeReplicationTasks",
+            "dms:ListMigrationProjects",
             "dms:ListTagsForResource",
             "ds:DescribeDirectories",
             "ds:DescribeDomainControllers",
@@ -57562,6 +57795,7 @@
             "glue:GetClassifiers",
             "glue:GetCrawler",
             "glue:GetCrawlers",
+            "glue:GetDataCatalogEncryptionSettings",
             "glue:GetDatabase",
             "glue:GetDatabases",
             "glue:GetDevEndpoint",
@@ -57654,6 +57888,7 @@
             "iam:ListMFADevices",
             "iam:ListMFADeviceTags",
             "iam:ListOpenIDConnectProviders",
+            "iam:ListPolicies",
             "iam:ListPolicyVersions",
             "iam:ListRolePolicies",
             "iam:ListRoles",
@@ -57844,7 +58079,12 @@
             "kafka:ListTagsForResource",
             "kafka:ListVpcConnections",
             "kafkaconnect:DescribeConnector",
+            "kafkaconnect:DescribeCustomPlugin",
+            "kafkaconnect:DescribeWorkerConfiguration",
             "kafkaconnect:ListConnectors",
+            "kafkaconnect:ListCustomPlugins",
+            "kafkaconnect:ListTagsForResource",
+            "kafkaconnect:ListWorkerConfigurations",
             "kendra:DescribeIndex",
             "kendra:ListIndices",
             "kendra:ListTagsForResource",
@@ -57868,6 +58108,7 @@
             "kms:ListAliases",
             "kms:ListKeys",
             "kms:ListResourceTags",
+            "lakeformation:DescribeLakeFormationIdentityCenterConfiguration",
             "lakeformation:DescribeResource",
             "lakeformation:GetDataLakeSettings",
             "lakeformation:ListPermissions",
@@ -57921,6 +58162,7 @@
             "lightsail:GetStaticIps",
             "logs:DescribeAccountPolicies",
             "logs:DescribeDestinations",
+            "logs:DescribeIndexPolicies",
             "logs:DescribeLogGroups",
             "logs:DescribeMetricFilters",
             "logs:DescribeResourcePolicies",
@@ -57929,6 +58171,7 @@
             "logs:GetLogDelivery",
             "logs:ListLogAnomalyDetectors",
             "logs:ListLogDeliveries",
+            "logs:ListTagsForResource",
             "logs:ListTagsLogGroup",
             "lookoutequipment:DescribeInferenceScheduler",
             "lookoutequipment:ListTagsForResource",
@@ -57967,12 +58210,16 @@
             "mediaconnect:ListFlows",
             "mediaconnect:ListGateways",
             "mediaconnect:ListTagsForResource",
+            "medialive:DescribeMultiplexProgram",
+            "medialive:ListMultiplexPrograms",
             "mediapackage-vod:DescribePackagingConfiguration",
             "mediapackage-vod:DescribePackagingGroup",
             "mediapackage-vod:ListPackagingConfigurations",
             "mediapackage-vod:ListPackagingGroups",
             "mediapackage-vod:ListTagsForResource",
             "mediapackagev2:GetChannel",
+            "mediapackagev2:GetChannelGroup",
+            "mediapackagev2:ListChannelGroups",
             "mediapackagev2:ListChannels",
             "mediatailor:DescribeChannel",
             "mediatailor:DescribeLiveSource",
@@ -58147,6 +58394,7 @@
             "rds:DescribeDBSnapshots",
             "rds:DescribeDBSubnetGroups",
             "rds:DescribeEngineDefaultClusterParameters",
+            "rds:DescribeEngineDefaultParameters",
             "rds:DescribeEventSubscriptions",
             "rds:DescribeGlobalClusters",
             "rds:DescribeIntegrations",
@@ -58199,6 +58447,11 @@
             "robomaker:DescribeSimulationApplication",
             "robomaker:ListRobotApplications",
             "robomaker:ListSimulationApplications",
+            "rolesanywhere:GetProfile",
+            "rolesanywhere:GetTrustAnchor",
+            "rolesanywhere:ListProfiles",
+            "rolesanywhere:ListTagsForResource",
+            "rolesanywhere:ListTrustAnchors",
             "route53-recovery-control-config:DescribeCluster",
             "route53-recovery-control-config:DescribeControlPanel",
             "route53-recovery-control-config:DescribeRoutingControl",
@@ -58270,6 +58523,7 @@
             "s3-outposts:ListEndpoints",
             "s3-outposts:ListRegionalBuckets",
             "s3:GetAccelerateConfiguration",
+            "s3:GetAccessGrant",
             "s3:GetAccessGrantsInstance",
             "s3:GetAccessGrantsLocation",
             "s3:GetAccessPoint",
@@ -58301,6 +58555,7 @@
             "s3:GetStorageLensConfiguration",
             "s3:GetStorageLensConfigurationTagging",
             "s3:GetStorageLensGroup",
+            "s3:ListAccessGrants",
             "s3:ListAccessGrantsInstances",
             "s3:ListAccessGrantsLocations",
             "s3:ListAccessPoints",
@@ -58382,12 +58637,20 @@
             "schemas:ListSchemas",
             "sdb:GetAttributes",
             "sdb:ListDomains",
+            "secretsmanager:DescribeSecret",
             "secretsmanager:ListSecrets",
             "secretsmanager:ListSecretVersionIds",
             "securityhub:DescribeHub",
             "securityhub:DescribeStandardsControls",
             "securityhub:GetEnabledStandards",
+            "securitylake:ListDataLakeExceptions",
+            "securitylake:ListDataLakes",
+            "securitylake:ListLogSources",
             "serviceCatalog:DescribePortfolioShares",
+            "servicecatalog:GetAttributeGroup",
+            "servicecatalog:ListAttributeGroups",
+            "servicecatalog:ListServiceActions",
+            "servicecatalog:ListServiceActionsForProvisioningArtifact",
             "servicediscovery:GetInstance",
             "servicediscovery:GetNamespace",
             "servicediscovery:GetService",
@@ -58404,13 +58667,16 @@
             "ses:GetDedicatedIps",
             "ses:GetEmailTemplate",
             "ses:GetTemplate",
+            "ses:GetTrafficPolicy",
             "ses:ListConfigurationSets",
             "ses:ListContactLists",
             "ses:ListDedicatedIpPools",
             "ses:ListEmailTemplates",
             "ses:ListReceiptFilters",
             "ses:ListReceiptRuleSets",
+            "ses:ListTagsForResource",
             "ses:ListTemplates",
+            "ses:ListTrafficPolicies",
             "shield:DescribeDRTAccess",
             "shield:DescribeProtection",
             "shield:DescribeSubscription",
@@ -58520,7 +58786,12 @@
             "wafv2:ListTagsForResource",
             "workspaces:DescribeConnectionAliases",
             "workspaces:DescribeTags",
-            "workspaces:DescribeWorkspaces"
+            "workspaces:DescribeWorkspaces",
+            "xray:GetGroup",
+            "xray:GetGroups",
+            "xray:GetSamplingRules",
+            "xray:ListResourcePolicies",
+            "xray:ListTagsForResource"
           ],
           "Resource": "*"
         },
@@ -58541,9 +58812,9 @@
         }
       ]
     },
-    "VersionId": "v38",
+    "VersionId": "v39",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-20T17:22:07+00:00"
+    "CreateDate": "2025-07-28T20:37:07+00:00"
   },
   "AWSrePostPrivateCloudWatchAccess": {
     "Document": {
@@ -63485,7 +63756,11 @@
             "profile:CreateUploadJob",
             "profile:ListUploadJobs",
             "profile:DetectProfileObjectType",
-            "profile:GetSimilarProfiles"
+            "profile:GetSimilarProfiles",
+            "profile:GetUploadJob",
+            "profile:GetUploadJobPath",
+            "profile:StartUploadJob",
+            "profile:StopUploadJob"
           ],
           "Resource": "arn:aws:profile:*:*:domains/amazon-connect-*"
         },
@@ -63850,9 +64125,9 @@
         }
       ]
     },
-    "VersionId": "v27",
+    "VersionId": "v28",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-16T19:52:07+00:00"
+    "CreateDate": "2025-07-29T21:22:06+00:00"
   },
   "AmazonConnectSynchronizationServiceRolePolicy": {
     "Document": {
@@ -101114,6 +101389,23 @@
     "IsDefaultVersion": true,
     "CreateDate": "2025-03-12T18:07:07+00:00"
   },
+  "BudgetsServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "billing:GetBillingViewData"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-07-30T21:07:06+00:00"
+  },
   "CertificateManagerServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -106048,8 +106340,10 @@
                 "InstanceConnectEndpointId"
               ]
             },
-            "Null": {
-              "aws:RequestTag/InstanceConnectEndpointId": "false"
+            "StringLike": {
+              "aws:RequestTag/InstanceConnectEndpointId": [
+                "eice-*"
+              ]
             }
           }
         },
@@ -106060,8 +106354,10 @@
           ],
           "Resource": "arn:aws:ec2:*:*:network-interface/*",
           "Condition": {
-            "Null": {
-              "aws:ResourceTag/InstanceConnectEndpointId": "false"
+            "StringLike": {
+              "aws:ResourceTag/InstanceConnectEndpointId": [
+                "eice-*"
+              ]
             }
           }
         },
@@ -106080,10 +106376,32 @@
                 "InstanceConnectEndpointId"
               ]
             },
-            "Null": {
-              "aws:RequestTag/InstanceConnectEndpointId": "false"
+            "StringLike": {
+              "aws:RequestTag/InstanceConnectEndpointId": [
+                "eice-*"
+              ]
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AssignIpv6Addresses",
+            "ec2:UnassignIpv6Addresses"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringLike": {
+              "aws:ResourceTag/InstanceConnectEndpointId": [
+                "eice-*"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": "ec2:ModifyNetworkInterfaceAttribute",
+          "Resource": "arn:aws:ec2:*:*:security-group/*"
         },
         {
           "Effect": "Allow",
@@ -106101,9 +106419,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-01-24T20:19:21+00:00"
+    "CreateDate": "2025-07-31T17:49:06+00:00"
   },
   "ElastiCacheServiceRolePolicy": {
     "Document": {
@@ -123987,7 +124305,10 @@
             "kms:Encrypt",
             "kms:GenerateDataKey"
           ],
-          "Resource": "arn:aws:kms:*:*:key/${aws:PrincipalTag/KmsKeyId}",
+          "Resource": [
+            "arn:aws:kms:*:*:key/${aws:PrincipalTag/DefaultGlueCatalogKmsKeyId}",
+            "arn:aws:kms:*:*:key/${aws:PrincipalTag/KmsKeyId}"
+          ],
           "Condition": {
             "StringLike": {
               "kms:ViaService": [
@@ -124407,8 +124728,10 @@
             "logs:FilterLogEvents"
           ],
           "Resource": [
-            "arn:aws:logs:*:*:log-group:${aws:PrincipalTag/LogGroupName}/*",
-            "arn:aws:logs:*:*:log-group:${aws:PrincipalTag/LogGroupName}/*:log-stream:*"
+            "arn:aws:logs:*:*:log-group:${aws:PrincipalTag/LogGroupName}/output",
+            "arn:aws:logs:*:*:log-group:${aws:PrincipalTag/LogGroupName}/error",
+            "arn:aws:logs:*:*:log-group:${aws:PrincipalTag/LogGroupName}/output:log-stream:*",
+            "arn:aws:logs:*:*:log-group:${aws:PrincipalTag/LogGroupName}/error:log-stream:*"
           ]
         },
         {
@@ -124805,6 +125128,22 @@
               "aws:CalledVia": [
                 "sqlworkbench.amazonaws.com"
               ]
+            }
+          }
+        },
+        {
+          "Sid": "StsContext",
+          "Effect": "Allow",
+          "Action": "sts:SetContext",
+          "Resource": "*",
+          "Condition": {
+            "ForAllValues:ArnEquals": {
+              "sts:RequestContextProviders": [
+                "arn:aws:iam::aws:contextProvider/IdentityCenter"
+              ]
+            },
+            "Null": {
+              "sts:RequestContextProviders": "false"
             }
           }
         },
@@ -126249,9 +126588,9 @@
         }
       ]
     },
-    "VersionId": "v15",
+    "VersionId": "v16",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-11T17:52:08+00:00"
+    "CreateDate": "2025-07-28T22:22:06+00:00"
   },
   "SageMakerStudioQueryExecutionRolePolicy": {
     "Document": {

@@ -16,7 +16,7 @@
             "ram:RequestedResourceType": "aws-marketplace:Entity"
           },
           "ArnLike": {
-            "ram:ResourceArn": "arn:aws:aws-marketplace:*:*:AWSMarketplace/ResaleAuthorization/*"
+            "ram:ResourceArn": "arn:aws:aws-marketplace:*:*:*/ResaleAuthorization/*"
           },
           "Null": {
             "ram:Principal": "true"
@@ -42,10 +42,11 @@
         }
       },
       {
-        "Sid": "AllowResaleAuthorizationShareActionsRAMAccept",
+        "Sid": "AllowResaleAuthorizationShareActionsRAMAcceptDelete",
         "Effect": "Allow",
         "Action": [
-          "ram:AcceptResourceShareInvitation"
+          "ram:AcceptResourceShareInvitation",
+          "ram:DeleteResourceShare"
         ],
         "Resource": [
           "arn:aws:ram:*:*:*"
@@ -72,9 +73,10 @@
         "Effect": "Allow",
         "Action": [
           "aws-marketplace:PutResourcePolicy",
-          "aws-marketplace:GetResourcePolicy"
+          "aws-marketplace:GetResourcePolicy",
+          "aws-marketplace:DeleteResourcePolicy"
         ],
-        "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/ResaleAuthorization/*",
+        "Resource": "arn:aws:aws-marketplace:*:*:*/ResaleAuthorization/*",
         "Condition": {
           "ForAnyValue:StringEquals": {
             "aws:CalledVia": [
@@ -89,11 +91,11 @@
         "Action": [
           "aws-marketplace:DescribeEntity"
         ],
-        "Resource": "arn:aws:aws-marketplace:*:*:AWSMarketplace/ResaleAuthorization/*"
+        "Resource": "arn:aws:aws-marketplace:*:*:*/ResaleAuthorization/*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-03-05T18:47:54+00:00"
+  "CreateDate": "2025-08-01T15:19:07+00:00"
 }
