@@ -247,10 +247,20 @@
           "datazone:ListProjectProfiles"
         ],
         "Resource": "arn:aws:datazone:*:*:domain/*"
+      },
+      {
+        "Sid": "AccountPoolPermissionsStatement",
+        "Effect": "Allow",
+        "Action": [
+          "datazone:GetAccountPool",
+          "datazone:ListAccountPools",
+          "datazone:ListAccountsInAccountPool"
+        ],
+        "Resource": "arn:aws:datazone:*:*:domain/*"
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-06-17T20:52:07+00:00"
+  "CreateDate": "2025-08-06T22:49:07+00:00"
 }

@@ -35,10 +35,20 @@
             ]
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ecs:ListTagsForResource"
+        ],
+        "Resource": [
+          "arn:aws:ecs:*:*:task/*/*",
+          "arn:aws:ecs:*:*:container-instance/*/*"
+        ]
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-03-06T22:19:04+00:00"
+  "CreateDate": "2025-08-04T18:19:07+00:00"
 }

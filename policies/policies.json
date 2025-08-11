@@ -38691,7 +38691,10 @@
             "arn:aws:ssm:*::document/AWS-GatherSoftwareInventory",
             "arn:aws:ssm:*::document/AWS-RunPatchBaselineAssociation",
             "arn:aws:ssm:*::document/AWS-UpdateSSMAgent",
-            "arn:aws:ssm:*::document/AWSQuickSetupType-ManageInstanceProfile"
+            "arn:aws:ssm:*::document/AWSQuickSetupType-ManageInstanceProfile",
+            "arn:aws:ssm:*::document/AWSQuickSetupType-EnableConfigRecording",
+            "arn:aws:ssm:*::document/AWSQuickSetupType-Scheduler-ChangeCalendarState",
+            "arn:aws:ssm:*::document/AWSQuickSetupType-Scheduler-ApplyInstanceState"
           ]
         },
         {
@@ -38720,6 +38723,9 @@
             "arn:aws:ssm:*::document/AWS-RunPatchBaselineAssociation",
             "arn:aws:ssm:*::document/AWS-UpdateSSMAgent",
             "arn:aws:ssm:*::document/AWSQuickSetupType-ManageInstanceProfile",
+            "arn:aws:ssm:*::document/AWSQuickSetupType-EnableConfigRecording",
+            "arn:aws:ssm:*::document/AWSQuickSetupType-Scheduler-ChangeCalendarState",
+            "arn:aws:ssm:*::document/AWSQuickSetupType-Scheduler-ApplyInstanceState",
             "arn:aws:ec2:*:*:instance/*",
             "arn:aws:ssm:*:*:managed-instance/*",
             "arn:aws:ssm:*:*:association/*"
@@ -38900,7 +38906,9 @@
               "iam:PolicyARN": [
                 "arn:aws:iam::aws:policy/AWSSystemsManagerEnableExplorerExecutionPolicy",
                 "arn:aws:iam::aws:policy/AWSSystemsManagerEnableConfigRecordingExecutionPolicy",
-                "arn:aws:iam::aws:policy/AWSQuickSetupManagedInstanceProfileExecutionPolicy"
+                "arn:aws:iam::aws:policy/AWSQuickSetupManagedInstanceProfileExecutionPolicy",
+                "arn:aws:iam::aws:policy/AWSQuickSetupStartStopInstancesExecutionPolicy",
+                "arn:aws:iam::aws:policy/AWSQuickSetupStartSSMAssociationsExecutionPolicy"
               ]
             },
             "ForAnyValue:StringEquals": {
@@ -38916,9 +38924,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-10T13:22:06+00:00"
+    "CreateDate": "2025-08-08T12:19:06+00:00"
   },
   "AWSQuickSetupDevOpsGuruPermissionsBoundary": {
     "Document": {
@@ -41489,6 +41497,115 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2024-06-26T09:53:37+00:00"
+  },
+  "AWSQuickSetupStartSSMAssociationsExecutionPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:StartAutomationExecution"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:document/AWSQuickSetupType-StartSSMAssociations",
+            "arn:aws:ssm:*:*:automation-execution/*",
+            "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-StartSSMAssociations*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": [
+            "arn:aws:iam::*:role/AWS-QuickSetup*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": [
+                "ssm.amazonaws.com"
+              ]
+            },
+            "ArnLike": {
+              "iam:AssociatedResourceARN": [
+                "arn:aws:ssm:*:*:document/AWSQuickSetupType-StartSSMAssociations",
+                "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-StartSSMAssociations*"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-08-08T12:04:07+00:00"
+  },
+  "AWSQuickSetupStartStopInstancesExecutionPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeInstanceStatus",
+            "ec2:DescribeRegions",
+            "ec2:DescribeTags"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:StartInstances",
+            "ec2:StopInstances"
+          ],
+          "Resource": "arn:aws:ec2:*:*:instance/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetCalendarState"
+          ],
+          "Resource": "arn:aws:ssm:*:*:document/AWSQuickSetup-ChangeCalendar*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:StartAssociationsOnce",
+            "ssm:StartAutomationExecution"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:association/*",
+            "arn:aws:ssm:*:*:document/AWSQuickSetupType-StartAndStopEC2Instances",
+            "arn:aws:ssm:*:*:automation-execution/*",
+            "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-StartAndStopEC2Instances*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": [
+            "arn:aws:iam::*:role/AWS-QuickSetup*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": [
+                "ssm.amazonaws.com"
+              ]
+            },
+            "ArnLike": {
+              "iam:AssociatedResourceARN": [
+                "arn:aws:ssm:*::document/AWSQuickSetupType-StartAndStopEC2Instances",
+                "arn:aws:ssm:*:*:association/*"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-08-08T12:04:07+00:00"
   },
   "AWSQuickSightAssetBundleExportPolicy": {
     "Document": {
@@ -45940,7 +46057,9 @@
           "Effect": "Allow",
           "Action": [
             "organizations:ListAccounts",
-            "organizations:ListChildren"
+            "organizations:ListChildren",
+            "organizations:DescribeAccount",
+            "organizations:ListDelegatedAdministrators"
           ],
           "Resource": "*"
         },
@@ -45966,9 +46085,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-01T16:36:06+00:00"
+    "CreateDate": "2025-08-08T18:49:07+00:00"
   },
   "AWSSecurityIncidentResponseTriageServiceRolePolicy": {
     "Document": {
@@ -71261,12 +71380,22 @@
               ]
             }
           }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecs:ListTagsForResource"
+          ],
+          "Resource": [
+            "arn:aws:ecs:*:*:task/*/*",
+            "arn:aws:ecs:*:*:container-instance/*/*"
+          ]
         }
       ]
     },
-    "VersionId": "v7",
+    "VersionId": "v8",
     "IsDefaultVersion": true,
-    "CreateDate": "2023-03-06T22:19:04+00:00"
+    "CreateDate": "2025-08-04T18:19:07+00:00"
   },
   "AmazonEC2FullAccess": {
     "Document": {
@@ -75215,6 +75344,19 @@
           ]
         },
         {
+          "Sid": "ManageSubnetStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteSubnet"
+          ],
+          "Resource": "arn:aws:ec2:*:*:subnet/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonEVSManaged": "false"
+            }
+          }
+        },
+        {
           "Sid": "CreateEniWithTagStatement",
           "Effect": "Allow",
           "Action": [
@@ -75268,12 +75410,28 @@
             "ec2:ModifyNetworkInterfaceAttribute"
           ],
           "Resource": "arn:aws:ec2:*:*:security-group/*"
+        },
+        {
+          "Sid": "CloudWatchPutMetricDataStatement",
+          "Effect": "Allow",
+          "Action": [
+            "cloudwatch:PutMetricData"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "cloudwatch:namespace": [
+                "AWS/Usage",
+                "AWS/EVS"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-16T23:37:06+00:00"
+    "CreateDate": "2025-08-05T18:34:07+00:00"
   },
   "AmazonElastiCacheFullAccess": {
     "Document": {
@@ -85572,7 +85730,6 @@
           "Sid": "eccSnapshot2",
           "Effect": "Allow",
           "Action": [
-            "ec2:CopySnapshot",
             "ec2:CreateSnapshots"
           ],
           "Resource": "arn:aws:ec2:*::snapshot/*",
@@ -85597,6 +85754,33 @@
           "Condition": {
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
+                "custom-oracle",
+                "custom-sqlserver",
+                "custom-oracle-rac"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "eccSnapshotCopySource",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CopySnapshot"
+          ],
+          "Resource": "arn:aws:ec2:*::snapshot/snap-*"
+        },
+        {
+          "Sid": "eccSnapshotCopyDestination",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CopySnapshot"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*::snapshot/${*}"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/AWSRDSCustom": [
                 "custom-oracle",
                 "custom-sqlserver",
                 "custom-oracle-rac"
@@ -85933,9 +86117,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-03-25T22:22:06+00:00"
+    "CreateDate": "2025-08-07T20:19:07+00:00"
   },
   "AmazonRDSCustomServiceRolePolicy": {
     "Document": {
@@ -86345,7 +86529,6 @@
           "Sid": "eccSnapshot2",
           "Effect": "Allow",
           "Action": [
-            "ec2:CopySnapshot",
             "ec2:CreateSnapshot",
             "ec2:CreateSnapshots"
           ],
@@ -86389,6 +86572,33 @@
             "StringLike": {
               "aws:ResourceTag/AWSRDSCustom": [
                 "custom-sqlserver"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "eccSnapshotCopySource",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CopySnapshot"
+          ],
+          "Resource": "arn:aws:ec2:*::snapshot/snap-*"
+        },
+        {
+          "Sid": "eccSnapshotCopyDestination",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CopySnapshot"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*::snapshot/${*}"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/AWSRDSCustom": [
+                "custom-oracle",
+                "custom-sqlserver",
+                "custom-oracle-rac"
               ]
             }
           }
@@ -86738,9 +86948,9 @@
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-03-25T23:22:06+00:00"
+    "CreateDate": "2025-08-07T20:49:07+00:00"
   },
   "AmazonRDSDataFullAccess": {
     "Document": {
@@ -96157,7 +96367,8 @@
           "Effect": "Allow",
           "Action": [
             "sagemaker:CreateTrainingPlan",
-            "sagemaker:CreateReservedCapacity"
+            "sagemaker:CreateReservedCapacity",
+            "sagemaker:DescribeReservedCapacity"
           ],
           "Resource": [
             "arn:aws:sagemaker:*:*:training-plan/*",
@@ -96165,7 +96376,7 @@
           ]
         },
         {
-          "Sid": "AggTagsToTrainingPlanPermissions",
+          "Sid": "AddTagsToTrainingPlanPermissions",
           "Effect": "Allow",
           "Action": [
             "sagemaker:AddTags"
@@ -96199,12 +96410,20 @@
             "sagemaker:ListTrainingPlans"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "ListUltraServersByReservedCapacityPermissions",
+          "Effect": "Allow",
+          "Action": "sagemaker:ListUltraServersByReservedCapacity",
+          "Resource": [
+            "arn:aws:sagemaker:*:*:reserved-capacity/*"
+          ]
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-12-04T13:21:07+00:00"
+    "CreateDate": "2025-08-08T21:19:07+00:00"
   },
   "AmazonSecurityLakeAdministrator": {
     "Document": {
@@ -116585,12 +116804,22 @@
             "datazone:ListProjectProfiles"
           ],
           "Resource": "arn:aws:datazone:*:*:domain/*"
+        },
+        {
+          "Sid": "AccountPoolPermissionsStatement",
+          "Effect": "Allow",
+          "Action": [
+            "datazone:GetAccountPool",
+            "datazone:ListAccountPools",
+            "datazone:ListAccountsInAccountPool"
+          ],
+          "Resource": "arn:aws:datazone:*:*:domain/*"
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-17T20:52:07+00:00"
+    "CreateDate": "2025-08-06T22:49:07+00:00"
   },
   "SageMakerStudioDomainServiceRolePolicy": {
     "Document": {

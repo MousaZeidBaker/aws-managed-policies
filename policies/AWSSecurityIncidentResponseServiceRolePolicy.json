@@ -7,7 +7,9 @@
         "Effect": "Allow",
         "Action": [
           "organizations:ListAccounts",
-          "organizations:ListChildren"
+          "organizations:ListChildren",
+          "organizations:DescribeAccount",
+          "organizations:ListDelegatedAdministrators"
         ],
         "Resource": "*"
       },
@@ -33,7 +35,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-01T16:36:06+00:00"
+  "CreateDate": "2025-08-08T18:49:07+00:00"
 }

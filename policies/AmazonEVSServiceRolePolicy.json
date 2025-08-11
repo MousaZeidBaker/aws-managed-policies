@@ -24,6 +24,19 @@
         ]
       },
       {
+        "Sid": "ManageSubnetStatement",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DeleteSubnet"
+        ],
+        "Resource": "arn:aws:ec2:*:*:subnet/*",
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/AmazonEVSManaged": "false"
+          }
+        }
+      },
+      {
         "Sid": "CreateEniWithTagStatement",
         "Effect": "Allow",
         "Action": [
@@ -77,10 +90,26 @@
           "ec2:ModifyNetworkInterfaceAttribute"
         ],
         "Resource": "arn:aws:ec2:*:*:security-group/*"
+      },
+      {
+        "Sid": "CloudWatchPutMetricDataStatement",
+        "Effect": "Allow",
+        "Action": [
+          "cloudwatch:PutMetricData"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "cloudwatch:namespace": [
+              "AWS/Usage",
+              "AWS/EVS"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-16T23:37:06+00:00"
+  "CreateDate": "2025-08-05T18:34:07+00:00"
 }
