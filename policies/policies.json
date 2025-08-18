@@ -9609,6 +9609,8 @@
             "cleanrooms:UpdateAnalysisTemplate",
             "cleanrooms:UpdateCollaboration",
             "cleanrooms:UpdateConfiguredTable",
+            "cleanrooms:UpdateConfiguredTableReference",
+            "cleanrooms:UpdateConfiguredTableAllowedColumns",
             "cleanrooms:UpdateConfiguredTableAnalysisRule",
             "cleanrooms:UpdateConfiguredTableAssociation",
             "cleanrooms:UpdateMembership",
@@ -9766,9 +9768,9 @@
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-05-14T18:31:21+00:00"
+    "CreateDate": "2025-08-13T17:19:07+00:00"
   },
   "AWSCleanRoomsMLFullAccess": {
     "Document": {
@@ -30786,6 +30788,143 @@
     "IsDefaultVersion": true,
     "CreateDate": "2025-01-08T21:22:06+00:00"
   },
+  "AWSManagementConsoleAdministratorAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "uxc:GetAccountColor",
+            "uxc:PutAccountColor",
+            "uxc:DeleteAccountColor",
+            "ec2:DescribeRegions",
+            "notifications:GetFeatureOptInStatus",
+            "notifications:AssociateChannel",
+            "notifications:AssociateManagedNotificationAccountContact",
+            "notifications:AssociateManagedNotificationAdditionalChannel",
+            "notifications:CreateEventRule",
+            "notifications:CreateNotificationConfiguration",
+            "notifications:DeleteEventRule",
+            "notifications:DeleteNotificationConfiguration",
+            "notifications:DeregisterNotificationHub",
+            "notifications:DisableNotificationsAccessForOrganization",
+            "notifications:DisassociateChannel",
+            "notifications:DisassociateManagedNotificationAccountContact",
+            "notifications:DisassociateManagedNotificationAdditionalChannel",
+            "notifications:EnableNotificationsAccessForOrganization",
+            "notifications:GetEventRule",
+            "notifications:GetManagedNotificationChildEvent",
+            "notifications:GetManagedNotificationConfiguration",
+            "notifications:GetManagedNotificationEvent",
+            "notifications:GetNotificationConfiguration",
+            "notifications:GetNotificationEvent",
+            "notifications:GetNotificationsAccessForOrganization",
+            "notifications:ListChannels",
+            "notifications:ListEventRules",
+            "notifications:ListManagedNotificationChannelAssociations",
+            "notifications:ListManagedNotificationChildEvents",
+            "notifications:ListManagedNotificationConfigurations",
+            "notifications:ListManagedNotificationEvents",
+            "notifications:ListNotificationConfigurations",
+            "notifications:ListNotificationEvents",
+            "notifications:ListNotificationHubs",
+            "notifications:ListTagsForResource",
+            "notifications:RegisterNotificationHub",
+            "notifications:TagResource",
+            "notifications:UntagResource",
+            "notifications:UpdateEventRule",
+            "notifications:UpdateNotificationConfiguration",
+            "cloudshell:CreateEnvironment",
+            "cloudshell:CreateSession",
+            "cloudshell:GetEnvironmentStatus",
+            "cloudshell:DeleteEnvironment",
+            "cloudshell:GetFileDownloadUrls",
+            "cloudshell:GetFileUploadUrls",
+            "cloudshell:DescribeEnvironments",
+            "cloudshell:PutCredentials",
+            "cloudshell:StartEnvironment",
+            "cloudshell:StopEnvironment",
+            "cloudshell:ApproveCommand",
+            "q:StartConversation",
+            "q:SendMessage",
+            "q:ListConversations",
+            "q:GetConversation",
+            "q:PassRequest",
+            "resource-explorer-2:AssociateDefaultView",
+            "resource-explorer-2:BatchGetView",
+            "resource-explorer-2:CreateIndex",
+            "resource-explorer-2:CreateView",
+            "resource-explorer-2:DeleteIndex",
+            "resource-explorer-2:DeleteView",
+            "resource-explorer-2:DisassociateDefaultView",
+            "resource-explorer-2:GetAccountLevelServiceConfiguration",
+            "resource-explorer-2:GetDefaultView",
+            "resource-explorer-2:GetIndex",
+            "resource-explorer-2:GetManagedView",
+            "resource-explorer-2:GetView",
+            "resource-explorer-2:ListIndexes",
+            "resource-explorer-2:ListIndexesForMembers",
+            "resource-explorer-2:ListManagedViews",
+            "resource-explorer-2:ListSupportedResourceTypes",
+            "resource-explorer-2:ListTagsForResource",
+            "resource-explorer-2:ListViews",
+            "resource-explorer-2:Search",
+            "resource-explorer-2:TagResource",
+            "resource-explorer-2:UntagResource",
+            "resource-explorer-2:UpdateIndexType",
+            "resource-explorer-2:UpdateView"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-08-14T21:19:07+00:00"
+  },
+  "AWSManagementConsoleBasicUserAccess": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "uxc:GetAccountColor",
+            "ec2:DescribeRegions",
+            "notifications:GetFeatureOptInStatus",
+            "notifications:ListManagedNotificationEvents",
+            "notifications:ListNotificationConfigurations",
+            "notifications:ListNotificationEvents",
+            "notifications:ListNotificationHubs",
+            "notifications:GetManagedNotificationChildEvent",
+            "notifications:GetManagedNotificationEvent",
+            "notifications:GetNotificationEvent",
+            "notifications:ListManagedNotificationChildEvents",
+            "cloudshell:CreateEnvironment",
+            "cloudshell:CreateSession",
+            "cloudshell:GetEnvironmentStatus",
+            "cloudshell:StartEnvironment",
+            "cloudshell:DeleteEnvironment",
+            "cloudshell:PutCredentials",
+            "cloudshell:StopEnvironment",
+            "cloudshell:ApproveCommand",
+            "q:StartConversation",
+            "q:SendMessage",
+            "q:ListConversations",
+            "q:GetConversation",
+            "q:PassRequest",
+            "resource-explorer-2:ListIndexes",
+            "resource-explorer-2:Search"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-08-14T20:34:08+00:00"
+  },
   "AWSMarketplaceAmiIngestion": {
     "Document": {
       "Version": "2012-10-17",
@@ -44727,6 +44866,7 @@
             "ec2:DescribeVolumes",
             "ec2:DescribeInstanceAttribute",
             "ec2:DescribeSnapshots",
+            "ec2:DescribeVpcs",
             "ssm:GetCommandInvocation",
             "ssm:DescribeInstanceInformation"
           ],
@@ -45079,9 +45219,9 @@
         }
       ]
     },
-    "VersionId": "v12",
+    "VersionId": "v13",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-08T23:37:07+00:00"
+    "CreateDate": "2025-08-12T23:04:07+00:00"
   },
   "AWSSSMOpsInsightsServiceRolePolicy": {
     "Document": {
@@ -75404,6 +75544,61 @@
           }
         },
         {
+          "Sid": "ManageInstanceStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:TerminateInstances",
+            "ec2:ModifyInstanceAttribute",
+            "ec2:DescribeInstanceAttribute"
+          ],
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonEVSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "DescribeInstanceAndVolumeStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeVolumes"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ManageVolumeStatement",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteVolume",
+            "ec2:DetachVolume"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:volume/*"
+          ],
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonEVSManaged": "false"
+            }
+          }
+        },
+        {
+          "Sid": "ManageSecretStatement",
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:DeleteSecret"
+          ],
+          "Resource": [
+            "arn:aws:secretsmanager:*:*:secret:*"
+          ],
+          "Condition": {
+            "Null": {
+              "aws:ResourceTag/AmazonEVSManaged": "false"
+            }
+          }
+        },
+        {
           "Sid": "UpdateSecurityGroupStatement",
           "Effect": "Allow",
           "Action": [
@@ -75429,9 +75624,9 @@
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-08-05T18:34:07+00:00"
+    "CreateDate": "2025-08-14T16:04:06+00:00"
   },
   "AmazonElastiCacheFullAccess": {
     "Document": {
@@ -110951,6 +111146,7 @@
             "ec2:DescribeVpcAttribute",
             "ec2:DescribeVpcs",
             "ec2:DescribeInstanceTypeOfferings",
+            "ec2:DescribeCapacityReservations",
             "elasticloadbalancing:DescribeAccountLimits",
             "elasticloadbalancing:DescribeLoadBalancers",
             "iam:GetOpenIDConnectProvider",
@@ -110966,13 +111162,13 @@
         },
         {
           "Sid": "PassRoleToEC2",
-          "Effect": "Allow",
           "Action": [
             "iam:PassRole"
           ],
           "Resource": [
             "arn:*:iam::*:role/*-ROSA-Worker-Role"
           ],
+          "Effect": "Allow",
           "Condition": {
             "StringEquals": {
               "iam:PassedToService": [
@@ -111256,6 +111452,26 @@
           }
         },
         {
+          "Sid": "DeleteTagsK8sSubnet",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteTags"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*"
+          ],
+          "Condition": {
+            "Null": {
+              "aws:TagKeys": "false"
+            },
+            "ForAllValues:StringLike": {
+              "aws:TagKeys": [
+                "kubernetes.io/cluster/*"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "ListPoliciesAttachedToRoles",
           "Effect": "Allow",
           "Action": [
@@ -111271,9 +111487,9 @@
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-10T23:52:06+00:00"
+    "CreateDate": "2025-08-11T17:34:06+00:00"
   },
   "ROSAKMSProviderPolicy": {
     "Document": {
@@ -111994,6 +112210,221 @@
     "VersionId": "v4",
     "IsDefaultVersion": true,
     "CreateDate": "2025-04-10T23:52:07+00:00"
+  },
+  "ROSASharedVPCEndpointPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ReadPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVpcEndpoints",
+            "ec2:DescribeVpcs",
+            "ec2:DescribeSecurityGroups"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "CreateSecurityGroups",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group*/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "DeleteSecurityGroup",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group*/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "SecurityGroupIngressEgress",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:AuthorizeSecurityGroupIngress",
+            "ec2:AuthorizeSecurityGroupEgress",
+            "ec2:RevokeSecurityGroupIngress",
+            "ec2:RevokeSecurityGroupEgress"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group*/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "CreateSecurityGroupsVPCNoCondition",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateSecurityGroup"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc/*"
+          ]
+        },
+        {
+          "Sid": "VPCEndpointWithCondition",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVpcEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc-endpoint/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "VPCEndpointResourceTagCondition",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVpcEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:security-group*/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "VPCEndpointNoCondition",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateVpcEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc/*",
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:route-table/*"
+          ]
+        },
+        {
+          "Sid": "ManageVPCEndpointWithCondition",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyVpcEndpoint",
+            "ec2:DeleteVpcEndpoints"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc-endpoint/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/red-hat-managed": "true"
+            }
+          }
+        },
+        {
+          "Sid": "ModifyVPCEndpoingNoCondition",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:ModifyVpcEndpoint"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*"
+          ]
+        },
+        {
+          "Sid": "CreateTagsRestrictedActions",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags"
+          ],
+          "Resource": [
+            "arn:aws:ec2:*:*:vpc-endpoint/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": [
+                "CreateVpcEndpoint",
+                "CreateSecurityGroup"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-08-11T17:19:07+00:00"
+  },
+  "ROSASharedVPCRoute53Policy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ReadPermissions",
+          "Effect": "Allow",
+          "Action": [
+            "route53:GetHostedZone",
+            "route53:ListResourceRecordSets",
+            "route53:ListHostedZones",
+            "tag:GetResources"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Sid": "ChangeResourceRecordSetsRestrictedRecordNames",
+          "Effect": "Allow",
+          "Action": [
+            "route53:ChangeResourceRecordSets"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Condition": {
+            "ForAllValues:StringLike": {
+              "route53:ChangeResourceRecordSetsNormalizedRecordNames": [
+                "*.hypershift.local",
+                "*.openshiftapps.com",
+                "*.devshift.org",
+                "*.openshiftusgov.com",
+                "*.devshiftusgov.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "ChangeTagsForResourceNoCondition",
+          "Effect": "Allow",
+          "Action": [
+            "route53:ChangeTagsForResource"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-08-11T17:19:07+00:00"
   },
   "ROSAWorkerInstancePolicy": {
     "Document": {
@@ -117672,6 +118103,7 @@
           "Effect": "Allow",
           "Action": [
             "codecommit:DeleteRepository",
+            "codecommit:UntagResource",
             "codecommit:UpdateRepositoryEncryptionKey",
             "codecommit:PutRepositoryTriggers"
           ],
@@ -118072,6 +118504,7 @@
           "Effect": "Allow",
           "Action": [
             "iam:DeleteRole",
+            "iam:DeleteRolePolicy",
             "iam:ListRolePolicies",
             "iam:GetRolePolicy",
             "iam:ListAttachedRolePolicies"
@@ -119131,6 +119564,7 @@
           "Effect": "Allow",
           "Action": [
             "logs:DeleteLogGroup",
+            "logs:UntagResource",
             "logs:DeleteRetentionPolicy",
             "logs:GetDataProtectionPolicy",
             "logs:PutDataProtectionPolicy",
@@ -119182,6 +119616,8 @@
           "Effect": "Allow",
           "Action": [
             "athena:DeleteWorkGroup",
+            "athena:UpdateWorkGroup",
+            "athena:UntagResource",
             "athena:GetWorkGroup"
           ],
           "Resource": "arn:aws:athena:*:*:workgroup/*",
@@ -120251,7 +120687,10 @@
         {
           "Sid": "EMRCleanup",
           "Effect": "Allow",
-          "Action": "ec2:DeleteSecurityGroup",
+          "Action": [
+            "ec2:DeleteSecurityGroup",
+            "ec2:DeleteTags"
+          ],
           "Resource": "arn:aws:ec2:*:*:security-group/*",
           "Condition": {
             "Null": {
@@ -120303,7 +120742,10 @@
         {
           "Sid": "ScheduleGroup",
           "Effect": "Allow",
-          "Action": "scheduler:DeleteScheduleGroup",
+          "Action": [
+            "scheduler:DeleteScheduleGroup",
+            "scheduler:UntagResource"
+          ],
           "Resource": "arn:aws:scheduler:*:*:schedule-group/*",
           "Condition": {
             "StringEquals": {
@@ -120543,9 +120985,9 @@
         }
       ]
     },
-    "VersionId": "v17",
+    "VersionId": "v18",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-15T16:22:08+00:00"
+    "CreateDate": "2025-08-13T23:49:07+00:00"
   },
   "SageMakerStudioProjectRoleMachineLearningPolicy": {
     "Document": {

@@ -84,6 +84,61 @@
         }
       },
       {
+        "Sid": "ManageInstanceStatement",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:TerminateInstances",
+          "ec2:ModifyInstanceAttribute",
+          "ec2:DescribeInstanceAttribute"
+        ],
+        "Resource": "arn:aws:ec2:*:*:instance/*",
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/AmazonEVSManaged": "false"
+          }
+        }
+      },
+      {
+        "Sid": "DescribeInstanceAndVolumeStatement",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DescribeInstances",
+          "ec2:DescribeVolumes"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "ManageVolumeStatement",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DeleteVolume",
+          "ec2:DetachVolume"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:volume/*"
+        ],
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/AmazonEVSManaged": "false"
+          }
+        }
+      },
+      {
+        "Sid": "ManageSecretStatement",
+        "Effect": "Allow",
+        "Action": [
+          "secretsmanager:DeleteSecret"
+        ],
+        "Resource": [
+          "arn:aws:secretsmanager:*:*:secret:*"
+        ],
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/AmazonEVSManaged": "false"
+          }
+        }
+      },
+      {
         "Sid": "UpdateSecurityGroupStatement",
         "Effect": "Allow",
         "Action": [
@@ -109,7 +164,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-08-05T18:34:07+00:00"
+  "CreateDate": "2025-08-14T16:04:06+00:00"
 }

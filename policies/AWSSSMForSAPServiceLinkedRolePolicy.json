@@ -12,6 +12,7 @@
           "ec2:DescribeVolumes",
           "ec2:DescribeInstanceAttribute",
           "ec2:DescribeSnapshots",
+          "ec2:DescribeVpcs",
           "ssm:GetCommandInvocation",
           "ssm:DescribeInstanceInformation"
         ],
@@ -364,7 +365,7 @@
       }
     ]
   },
-  "VersionId": "v12",
+  "VersionId": "v13",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-07-08T23:37:07+00:00"
+  "CreateDate": "2025-08-12T23:04:07+00:00"
 }
