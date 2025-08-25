@@ -26,7 +26,8 @@
           "dsql:StopBackupJob",
           "dsql:StartRestoreJob",
           "dsql:GetRestoreJob",
-          "dsql:StopRestoreJob"
+          "dsql:StopRestoreJob",
+          "dsql:InjectError"
         ],
         "Resource": "*"
       },
@@ -88,7 +89,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-21T21:22:07+00:00"
+  "CreateDate": "2025-08-22T19:04:07+00:00"
 }

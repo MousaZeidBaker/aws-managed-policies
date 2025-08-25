@@ -10,6 +10,7 @@
           "datazone:AcceptSubscriptionRequest",
           "datazone:AddEntityOwner",
           "datazone:AddPolicyGrant",
+          "datazone:AssociateGovernedTerms",
           "datazone:CancelMetadataGenerationRun",
           "datazone:CancelSubscription",
           "datazone:CreateAsset",
@@ -52,6 +53,7 @@
           "datazone:DeleteSubscriptionRequest",
           "datazone:DeleteSubscriptionTarget",
           "datazone:DeleteTimeSeriesDataPoints",
+          "datazone:DisassociateGovernedTerms",
           "datazone:GetAsset",
           "datazone:GetAssetFilter",
           "datazone:GetAssetType",
@@ -260,7 +262,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-08-06T22:49:07+00:00"
+  "CreateDate": "2025-08-20T17:34:07+00:00"
 }

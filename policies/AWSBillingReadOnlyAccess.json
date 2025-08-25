@@ -30,6 +30,8 @@
           "ce:ListCostAllocationTagBackfillHistory",
           "ce:GetTags",
           "ce:GetDimensionValues",
+          "ce:GetCostAndUsageComparisons",
+          "ce:GetCostComparisonDrivers",
           "consolidatedbilling:ListLinkedAccounts",
           "consolidatedbilling:GetAccountBillingRole",
           "cur:GetClassicReport",
@@ -79,7 +81,7 @@
       }
     ]
   },
-  "VersionId": "v11",
+  "VersionId": "v12",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-07-10T21:07:07+00:00"
+  "CreateDate": "2025-08-21T21:34:07+00:00"
 }
