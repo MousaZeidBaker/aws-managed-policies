@@ -38,6 +38,7 @@
       {
         "Effect": "Allow",
         "Action": [
+          "ec2:ModifyVpcEndpoint",
           "ec2:DeleteVpcEndpoints"
         ],
         "Resource": [
@@ -73,7 +74,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-11-18T16:49:50+00:00"
+  "CreateDate": "2025-08-28T18:19:07+00:00"
 }

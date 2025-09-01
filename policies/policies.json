@@ -46926,12 +46926,24 @@
               ]
             }
           }
+        },
+        {
+          "Sid": "UserManagementPolicy",
+          "Effect": "Allow",
+          "Action": [
+            "sso:DescribeApplication",
+            "sso:GetApplicationAssignmentConfiguration",
+            "sso:ListApplicationAssignmentsForPrincipal"
+          ],
+          "Resource": [
+            "*"
+          ]
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-15T13:37:07+00:00"
+    "CreateDate": "2025-08-29T17:49:08+00:00"
   },
   "AWSServiceRoleForAmazonEKSNodegroup": {
     "Document": {
@@ -53395,6 +53407,26 @@
           }
         },
         {
+          "Sid": "AllowAutomationExecutionTagging",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:AddTagsToResource"
+          ],
+          "Resource": [
+            "arn:aws:ssm:*:*:automation-execution/*"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/SystemsManagerJustInTimeNodeAccessManaged": "true"
+            },
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "SystemsManagerJustInTimeNodeAccessManaged"
+              ]
+            }
+          }
+        },
+        {
           "Sid": "AllowOpsItemManagement",
           "Effect": "Allow",
           "Action": [
@@ -53524,9 +53556,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-04-21T20:07:07+00:00"
+    "CreateDate": "2025-08-25T20:49:06+00:00"
   },
   "AWSSystemsManagerJustInTimeAccessTokenPolicy": {
     "Document": {
@@ -55439,6 +55471,230 @@
     "VersionId": "v1",
     "IsDefaultVersion": true,
     "CreateDate": "2020-08-27T17:54:51+00:00"
+  },
+  "AWSTransformApplicationDeploymentPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:DescribeStacks",
+            "cloudformation:DescribeStackEvents"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": [
+            "arn:aws:cloudformation:*:*:stack/AWSTransform-Deploy-Infra-stack*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:CreateStack"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "AWSTransform",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": "arn:aws:cloudformation:*:*:stack/AWSTransform-Deploy-Infra-stack*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:UpdateStack"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:RequestTag/CreatedBy": "AWSTransform",
+              "aws:ResourceTag/CreatedBy": "AWSTransform",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": "arn:aws:cloudformation:*:*:stack/AWSTransform-Deploy-Infra-stack*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeVpcs",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeImages",
+            "ec2:DescribeInstances"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Deny",
+          "Action": [
+            "ec2:CreateTags",
+            "ec2:DeleteTags"
+          ],
+          "Resource": "arn:aws:ec2:*:*:instance/*",
+          "Condition": {
+            "ForAnyValue:StringNotEquals": {
+              "aws:TagKeys": [
+                "CreatedBy",
+                "ApplicationName",
+                "TransformationType",
+                "aws:cloudformation:stack-name",
+                "aws:cloudformation:logical-id",
+                "aws:cloudformation:stack-id"
+              ]
+            }
+          }
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:CreateTags",
+            "ec2:DeleteTags"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cloudformation.amazonaws.com"
+            },
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": "arn:aws:ec2:*:*:instance/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:RunInstances"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cloudformation.amazonaws.com"
+            }
+          },
+          "Resource": [
+            "arn:aws:ec2:*::image/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:RunInstances"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cloudformation.amazonaws.com"
+            },
+            "StringEquals": {
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": [
+            "arn:aws:ec2:*:*:network-interface/*",
+            "arn:aws:ec2:*:*:instance/*",
+            "arn:aws:ec2:*:*:volume/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:RunInstances"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cloudformation.amazonaws.com"
+            },
+            "StringEquals": {
+              "aws:ResourceTag/CreatedFor": "AWSTransform",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": [
+            "arn:aws:ec2:*:*:subnet/*",
+            "arn:aws:ec2:*:*:security-group/*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetRole",
+            "iam:GetInstanceProfile"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/CreatedFor": "AWSTransform",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": [
+            "arn:aws:iam::*:role/AWSTransform-Deploy-EC2-Instance-Role",
+            "arn:aws:iam::*:instance-profile/AWSTransform-Deploy-EC2-Instance-Profile"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "iam:PassRole"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "iam:PassedToService": "ec2.amazonaws.com",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": [
+            "arn:aws:iam::*:role/AWSTransform-Deploy-EC2-Instance-Role"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetParameters"
+          ],
+          "Resource": "arn:aws:ssm:*::parameter/aws/service/ami-amazon-linux-latest*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "cloudformation:DeleteStack"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/CreatedBy": "AWSTransform",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            }
+          },
+          "Resource": [
+            "arn:aws:cloudformation:*:*:stack/AWSTransform-Deploy-Infra-stack*"
+          ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:TerminateInstances",
+            "ec2:StopInstances",
+            "ec2:StartInstances",
+            "ec2:ModifyInstanceAttribute"
+          ],
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/CreatedBy": "AWSTransform",
+              "aws:ResourceAccount": "${aws:PrincipalAccount}"
+            },
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": "cloudformation.amazonaws.com"
+            }
+          },
+          "Resource": "arn:aws:ec2:*:*:instance/*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-08-28T06:34:07+00:00"
   },
   "AWSTrustedAdvisorPriorityFullAccess": {
     "Document": {
@@ -71588,6 +71844,42 @@
     "IsDefaultVersion": true,
     "CreateDate": "2018-11-27T02:16:56+00:00"
   },
+  "AmazonEC2ImageReferencesAccessPolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": "ec2:DescribeImageReferences",
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeLaunchTemplates",
+            "ec2:DescribeLaunchTemplateVersions",
+            "ssm:DescribeParameters",
+            "ssm:GetParameters",
+            "imagebuilder:ListImageRecipes",
+            "imagebuilder:ListContainerRecipes",
+            "imagebuilder:GetContainerRecipe"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "ec2-images.amazonaws.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-08-26T19:19:07+00:00"
+  },
   "AmazonEC2ReadOnlyAccess": {
     "Document": {
       "Version": "2012-10-17",
@@ -74430,7 +74722,8 @@
                 "arn:aws:eks::aws:cluster-access-policy/AmazonEKSLoadBalancingClusterPolicy",
                 "arn:aws:eks::aws:cluster-access-policy/AmazonEKSBlockStoragePolicy",
                 "arn:aws:eks::aws:cluster-access-policy/AmazonEKSBlockStorageClusterPolicy",
-                "arn:aws:eks::aws:cluster-access-policy/AmazonEKSHybridPolicy"
+                "arn:aws:eks::aws:cluster-access-policy/AmazonEKSHybridPolicy",
+                "arn:aws:eks::aws:cluster-access-policy/AmazonEKSEventPolicy"
               ]
             }
           }
@@ -74496,7 +74789,10 @@
             "ec2:DeleteLaunchTemplate",
             "ec2:TerminateInstances"
           ],
-          "Resource": "*",
+          "Resource": [
+            "arn:aws:ec2:*:*:launch-template/*",
+            "arn:aws:ec2:*:*:instance/*"
+          ],
           "Condition": {
             "StringLike": {
               "aws:ResourceTag/eks:eks-cluster-name": "*"
@@ -74562,9 +74858,9 @@
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-20T21:07:07+00:00"
+    "CreateDate": "2025-08-26T22:49:07+00:00"
   },
   "AmazonEKSVPCResourceController": {
     "Document": {
@@ -84142,6 +84438,7 @@
         {
           "Effect": "Allow",
           "Action": [
+            "ec2:ModifyVpcEndpoint",
             "ec2:DeleteVpcEndpoints"
           ],
           "Resource": [
@@ -84177,9 +84474,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-18T16:49:50+00:00"
+    "CreateDate": "2025-08-28T18:19:07+00:00"
   },
   "AmazonOpenSearchServerlessServiceRolePolicy": {
     "Document": {
@@ -99116,12 +99413,23 @@
             "appstream:DescribeStacks"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AllowCreateServiceLinkedRole",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": "arn:aws:iam::*:role/aws-service-role/monitoring.thinclient.amazonaws.com/AWSServiceRoleForAmazonWorkSpacesThinClientMonitoring",
+          "Condition": {
+            "StringEquals": {
+              "iam:AWSServiceName": "monitoring.thinclient.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-09T16:52:06+00:00"
+    "CreateDate": "2025-08-26T17:34:07+00:00"
   },
   "AmazonWorkSpacesThinClientMonitoringServiceRolePolicy": {
     "Document": {
@@ -115966,6 +116274,21 @@
           "Resource": "*"
         },
         {
+          "Sid": "CreateSLR",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/neptune-graph.amazonaws.com/AWSServiceRoleForNeptuneGraph",
+            "arn:aws:iam::*:role/aws-service-role/redshift.amazonaws.com/AWSServiceRoleForRedshift",
+            "arn:aws:iam::*:role/aws-service-role/sagemaker.amazonaws.com/AWSServiceRoleForAmazonSageMakerNotebooks",
+            "arn:aws:iam::*:role/aws-service-role/ops.emr-serverless.amazonaws.com/AWSServiceRoleForAmazonEMRServerless",
+            "arn:aws:iam::*:role/aws-service-role/airflow.amazonaws.com/AWSServiceRoleForAmazonMWAA",
+            "arn:aws:iam::*:role/aws-service-role/elasticmapreduce.amazonaws.com/AWSServiceRoleForEMRCleanup",
+            "arn:aws:iam::*:role/aws-service-role/sagemaker.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_SageMakerEndpoint",
+            "arn:aws:iam::*:role/aws-service-role/observability.aoss.amazonaws.com/AWSServiceRoleForAmazonOpenSearchServerless"
+          ]
+        },
+        {
           "Sid": "TagRoleAndSession",
           "Effect": "Allow",
           "Action": [
@@ -116013,7 +116336,7 @@
           "Effect": "Allow",
           "Action": "iam:PassRole",
           "Resource": [
-            "arn:aws:iam::*:role/service-role/AmazonSageMakerExpressExecutionRole*",
+            "arn:aws:iam::*:role/service-role/AmazonSageMaker*",
             "arn:aws:iam::*:role/${aws:PrincipalTag/AmazonDataZonePassedRolePath}"
           ],
           "Condition": {
@@ -116095,6 +116418,7 @@
           "Effect": "Allow",
           "Action": [
             "s3:CreateBucket",
+            "s3:DeleteBucketPolicy",
             "s3:Get*",
             "s3:Put*"
           ],
@@ -116364,9 +116688,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-08-18T17:19:07+00:00"
+    "CreateDate": "2025-08-26T21:34:08+00:00"
   },
   "SageMakerStudioAdminIAMPermissiveExecutionPolicy": {
     "Document": {
@@ -116428,6 +116752,21 @@
           "Resource": "*"
         },
         {
+          "Sid": "CreateSLR",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/neptune-graph.amazonaws.com/AWSServiceRoleForNeptuneGraph",
+            "arn:aws:iam::*:role/aws-service-role/redshift.amazonaws.com/AWSServiceRoleForRedshift",
+            "arn:aws:iam::*:role/aws-service-role/sagemaker.amazonaws.com/AWSServiceRoleForAmazonSageMakerNotebooks",
+            "arn:aws:iam::*:role/aws-service-role/ops.emr-serverless.amazonaws.com/AWSServiceRoleForAmazonEMRServerless",
+            "arn:aws:iam::*:role/aws-service-role/airflow.amazonaws.com/AWSServiceRoleForAmazonMWAA",
+            "arn:aws:iam::*:role/aws-service-role/elasticmapreduce.amazonaws.com/AWSServiceRoleForEMRCleanup",
+            "arn:aws:iam::*:role/aws-service-role/sagemaker.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_SageMakerEndpoint",
+            "arn:aws:iam::*:role/aws-service-role/observability.aoss.amazonaws.com/AWSServiceRoleForAmazonOpenSearchServerless"
+          ]
+        },
+        {
           "Sid": "TagRoleAndSession",
           "Effect": "Allow",
           "Action": [
@@ -116464,7 +116803,7 @@
           "Effect": "Allow",
           "Action": "iam:PassRole",
           "Resource": [
-            "arn:aws:iam::*:role/service-role/AmazonSageMakerExpressExecutionRole*",
+            "arn:aws:iam::*:role/service-role/AmazonSageMaker*",
             "arn:aws:iam::*:role/${aws:PrincipalTag/AmazonDataZonePassedRolePath}"
           ],
           "Condition": {
@@ -116604,9 +116943,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-08-18T17:19:07+00:00"
+    "CreateDate": "2025-08-26T21:34:08+00:00"
   },
   "SageMakerStudioAdminProjectUserRolePolicy": {
     "Document": {
@@ -121746,9 +122085,9 @@
         }
       ]
     },
-    "VersionId": "v18",
+    "VersionId": "v20",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-08-13T23:49:07+00:00"
+    "CreateDate": "2025-08-27T21:04:07+00:00"
   },
   "SageMakerStudioProjectRoleMachineLearningPolicy": {
     "Document": {
@@ -128191,6 +128530,21 @@
           "Resource": "*"
         },
         {
+          "Sid": "CreateSLR",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/neptune-graph.amazonaws.com/AWSServiceRoleForNeptuneGraph",
+            "arn:aws:iam::*:role/aws-service-role/redshift.amazonaws.com/AWSServiceRoleForRedshift",
+            "arn:aws:iam::*:role/aws-service-role/sagemaker.amazonaws.com/AWSServiceRoleForAmazonSageMakerNotebooks",
+            "arn:aws:iam::*:role/aws-service-role/ops.emr-serverless.amazonaws.com/AWSServiceRoleForAmazonEMRServerless",
+            "arn:aws:iam::*:role/aws-service-role/airflow.amazonaws.com/AWSServiceRoleForAmazonMWAA",
+            "arn:aws:iam::*:role/aws-service-role/elasticmapreduce.amazonaws.com/AWSServiceRoleForEMRCleanup",
+            "arn:aws:iam::*:role/aws-service-role/sagemaker.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_SageMakerEndpoint",
+            "arn:aws:iam::*:role/aws-service-role/observability.aoss.amazonaws.com/AWSServiceRoleForAmazonOpenSearchServerless"
+          ]
+        },
+        {
           "Sid": "TagSession",
           "Effect": "Allow",
           "Action": "sts:TagSession",
@@ -128584,9 +128938,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-08-18T17:19:07+00:00"
+    "CreateDate": "2025-08-26T21:34:06+00:00"
   },
   "SageMakerStudioUserIAMPermissiveExecutionPolicy": {
     "Document": {
@@ -128653,6 +129007,21 @@
           "Resource": "*"
         },
         {
+          "Sid": "CreateSLR",
+          "Effect": "Allow",
+          "Action": "iam:CreateServiceLinkedRole",
+          "Resource": [
+            "arn:aws:iam::*:role/aws-service-role/neptune-graph.amazonaws.com/AWSServiceRoleForNeptuneGraph",
+            "arn:aws:iam::*:role/aws-service-role/redshift.amazonaws.com/AWSServiceRoleForRedshift",
+            "arn:aws:iam::*:role/aws-service-role/sagemaker.amazonaws.com/AWSServiceRoleForAmazonSageMakerNotebooks",
+            "arn:aws:iam::*:role/aws-service-role/ops.emr-serverless.amazonaws.com/AWSServiceRoleForAmazonEMRServerless",
+            "arn:aws:iam::*:role/aws-service-role/airflow.amazonaws.com/AWSServiceRoleForAmazonMWAA",
+            "arn:aws:iam::*:role/aws-service-role/elasticmapreduce.amazonaws.com/AWSServiceRoleForEMRCleanup",
+            "arn:aws:iam::*:role/aws-service-role/sagemaker.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_SageMakerEndpoint",
+            "arn:aws:iam::*:role/aws-service-role/observability.aoss.amazonaws.com/AWSServiceRoleForAmazonOpenSearchServerless"
+          ]
+        },
+        {
           "Sid": "TagSession",
           "Effect": "Allow",
           "Action": "sts:TagSession",
@@ -128670,7 +129039,7 @@
           "Effect": "Allow",
           "Action": "iam:PassRole",
           "Resource": [
-            "arn:aws:iam::*:role/service-role/AmazonSageMakerExpressExecutionRole*"
+            "arn:aws:iam::*:role/service-role/AmazonSageMaker*"
           ],
           "Condition": {
             "StringEquals": {
@@ -128776,9 +129145,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-08-18T17:19:08+00:00"
+    "CreateDate": "2025-08-26T21:34:07+00:00"
   },
   "SecretsManagerReadWrite": {
     "Document": {

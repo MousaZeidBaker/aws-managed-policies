@@ -44,6 +44,26 @@
         }
       },
       {
+        "Sid": "AllowAutomationExecutionTagging",
+        "Effect": "Allow",
+        "Action": [
+          "ssm:AddTagsToResource"
+        ],
+        "Resource": [
+          "arn:aws:ssm:*:*:automation-execution/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:RequestTag/SystemsManagerJustInTimeNodeAccessManaged": "true"
+          },
+          "ForAllValues:StringEquals": {
+            "aws:TagKeys": [
+              "SystemsManagerJustInTimeNodeAccessManaged"
+            ]
+          }
+        }
+      },
+      {
         "Sid": "AllowOpsItemManagement",
         "Effect": "Allow",
         "Action": [
@@ -173,7 +193,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-21T20:07:07+00:00"
+  "CreateDate": "2025-08-25T20:49:06+00:00"
 }

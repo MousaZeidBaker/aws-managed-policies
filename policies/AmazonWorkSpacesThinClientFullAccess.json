@@ -36,10 +36,21 @@
           "appstream:DescribeStacks"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "AllowCreateServiceLinkedRole",
+        "Effect": "Allow",
+        "Action": "iam:CreateServiceLinkedRole",
+        "Resource": "arn:aws:iam::*:role/aws-service-role/monitoring.thinclient.amazonaws.com/AWSServiceRoleForAmazonWorkSpacesThinClientMonitoring",
+        "Condition": {
+          "StringEquals": {
+            "iam:AWSServiceName": "monitoring.thinclient.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-09T16:52:06+00:00"
+  "CreateDate": "2025-08-26T17:34:07+00:00"
 }
