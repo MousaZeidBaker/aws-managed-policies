@@ -290,6 +290,13 @@
           "route53:Get*",
           "route53:List*",
           "route53domains:List*",
+          "route53profiles:GetProfile",
+          "route53profiles:GetProfileAssociation",
+          "route53profiles:GetProfileResourceAssociation",
+          "route53profiles:ListProfileAssociations",
+          "route53profiles:ListProfileResourceAssociations",
+          "route53profiles:ListProfiles",
+          "route53profiles:ListTagsForResource",
           "route53resolver:Get*",
           "route53resolver:List*",
           "s3:ListAllMyBuckets",
@@ -383,7 +390,7 @@
       }
     ]
   },
-  "VersionId": "v25",
+  "VersionId": "v26",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-28T16:22:06+00:00"
+  "CreateDate": "2025-09-03T16:34:07+00:00"
 }

@@ -39,10 +39,37 @@
           "organizations:ListParents"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "OrganizationsAdminDataAccess",
+        "Effect": "Allow",
+        "Action": [
+          "organizations:ListDelegatedAdministrators"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "organizations:ServicePrincipal": [
+              "notifications.amazonaws.com"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "OrganizationNotificationConfigurationDistribution",
+        "Effect": "Allow",
+        "Action": [
+          "notifications:CreateNotificationConfiguration",
+          "notifications:DeleteNotificationConfiguration",
+          "notifications:CreateEventRule",
+          "notifications:UpdateEventRule",
+          "notifications:DeleteEventRule"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-14T23:37:06+00:00"
+  "CreateDate": "2025-09-02T20:49:07+00:00"
 }

@@ -43585,6 +43585,20 @@
           "Resource": "*"
         },
         {
+          "Sid": "OrganizationsAccess",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribeAccount",
+            "organizations:DescribeOrganization",
+            "organizations:ListAWSServiceAccessForOrganization",
+            "organizations:ListAccounts",
+            "organizations:ListDelegatedAdministrators",
+            "organizations:ListOrganizationalUnitsForParent",
+            "organizations:ListRoots"
+          ],
+          "Resource": "*"
+        },
+        {
           "Sid": "CloudTrailEventsAccess",
           "Effect": "Allow",
           "Action": [
@@ -43618,11 +43632,8 @@
             "acm:ListCertificates",
             "airflow:ListEnvironments",
             "amplify:ListApps",
-            "amplify:ListBackendEnvironments",
             "amplify:ListBranches",
             "amplify:ListDomainAssociations",
-            "amplifyuibuilder:ListComponents",
-            "amplifyuibuilder:ListThemes",
             "app-integrations:ListEventIntegrations",
             "appconfig:ListApplications",
             "appconfig:ListDeploymentStrategies",
@@ -43654,15 +43665,12 @@
             "backup-gateway:ListHypervisors",
             "backup:ListBackupPlans",
             "backup:ListBackupVaults",
-            "backup:ListFrameworks",
             "backup:ListReportPlans",
             "batch:DescribeComputeEnvironments",
             "batch:DescribeJobDefinitions",
             "batch:DescribeJobQueues",
             "batch:ListSchedulingPolicies",
             "bedrock:ListAgents",
-            "bedrock:ListBlueprints",
-            "bedrock:ListCustomModels",
             "bedrock:ListDataAutomationProjects",
             "bedrock:ListFlows",
             "bedrock:ListGuardrails",
@@ -43740,10 +43748,6 @@
             "detective:ListGraphs",
             "devicefarm:ListProjects",
             "devicefarm:ListTestGridProjects",
-            "directconnect:DescribeConnections",
-            "directconnect:DescribeDirectConnectGateways",
-            "directconnect:DescribeLags",
-            "directconnect:DescribeVirtualInterfaces",
             "dms:DescribeCertificates",
             "dms:DescribeEndpoints",
             "dms:DescribeEventSubscriptions",
@@ -43751,7 +43755,6 @@
             "dms:DescribeReplicationSubnetGroups",
             "dms:DescribeReplicationTasks",
             "ds:DescribeDirectories",
-            "dynamodb:ListStreams",
             "dynamodb:ListTables",
             "ec2:DescribeAddresses",
             "ec2:DescribeCapacityReservationFleets",
@@ -43761,17 +43764,12 @@
             "ec2:DescribeCustomerGateways",
             "ec2:DescribeDhcpOptions",
             "ec2:DescribeEgressOnlyInternetGateways",
-            "ec2:DescribeElasticGpus",
-            "ec2:DescribeExportImageTasks",
-            "ec2:DescribeExportTasks",
             "ec2:DescribeFleets",
             "ec2:DescribeFlowLogs",
             "ec2:DescribeFpgaImages",
             "ec2:DescribeHostReservations",
             "ec2:DescribeHosts",
             "ec2:DescribeImages",
-            "ec2:DescribeImportImageTasks",
-            "ec2:DescribeImportSnapshotTasks",
             "ec2:DescribeInstanceEventWindows",
             "ec2:DescribeInstances",
             "ec2:DescribeInternetGateways",
@@ -43815,7 +43813,7 @@
             "ec2:DescribeVerifiedAccessInstances",
             "ec2:DescribeVerifiedAccessTrustProviders",
             "ec2:DescribeVolumes",
-            "ec2:DescribeVpcEndpointServices",
+            "ec2:DescribeVpcEndpointServiceConfigurations",
             "ec2:DescribeVpcEndpoints",
             "ec2:DescribeVpcPeeringConnections",
             "ec2:DescribeVpcs",
@@ -43830,18 +43828,11 @@
             "ecs:ListContainerInstances",
             "ecs:ListServices",
             "ecs:ListTaskDefinitions",
-            "ecs:ListTasks",
-            "eks:ListAccessEntries",
-            "eks:ListAddons",
             "eks:ListClusters",
             "eks:ListEksAnywhereSubscriptions",
-            "eks:ListFargateProfiles",
-            "eks:ListIdentityProviderConfigs",
-            "eks:ListNodegroups",
             "eks:ListPodIdentityAssociations",
             "elasticache:DescribeCacheClusters",
             "elasticache:DescribeCacheParameterGroups",
-            "elasticache:DescribeCacheSecurityGroups",
             "elasticache:DescribeCacheSubnetGroups",
             "elasticache:DescribeGlobalReplicationGroups",
             "elasticache:DescribeReplicationGroups",
@@ -43878,8 +43869,6 @@
             "finspace:ListEnvironments",
             "firehose:ListDeliveryStreams",
             "fis:ListExperimentTemplates",
-            "fms:ListPolicies",
-            "fms:ListProtocolsLists",
             "forecast:ListDatasetGroups",
             "forecast:ListDatasetImportJobs",
             "forecast:ListDatasets",
@@ -43896,8 +43885,6 @@
             "frauddetector:GetOutcomes",
             "frauddetector:GetVariables",
             "fsx:DescribeFileSystems",
-            "fsx:DescribeStorageVirtualMachines",
-            "fsx:DescribeVolumes",
             "gamelift:DescribeGameSessionQueues",
             "gamelift:DescribeMatchmakingConfigurations",
             "gamelift:DescribeMatchmakingRuleSets",
@@ -43998,8 +43985,6 @@
             "iotsitewise:ListProjects",
             "iottwinmaker:ListComponentTypes",
             "iottwinmaker:ListEntities",
-            "iottwinmaker:ListScenes",
-            "iottwinmaker:ListSyncJobs",
             "iottwinmaker:ListWorkspaces",
             "iotwireless:ListDestinations",
             "iotwireless:ListDeviceProfiles",
@@ -44026,36 +44011,24 @@
             "kendra:ListIndices",
             "kendra:ListQuerySuggestionsBlockLists",
             "kendra:ListThesauri",
-            "kinesis:ListStreamConsumers",
             "kinesis:ListStreams",
             "kinesisanalytics:ListApplications",
             "kinesisvideo:ListSignalingChannels",
             "kinesisvideo:ListStreams",
-            "kms:ListAliases",
             "kms:ListKeys",
-            "lambda:ListAliases",
             "lambda:ListCodeSigningConfigs",
             "lambda:ListEventSourceMappings",
             "lambda:ListFunctions",
-            "lambda:ListLayerVersions",
-            "lambda:ListLayers",
             "lex:ListBotAliases",
             "lex:ListBots",
             "license-manager:ListDistributedGrants",
-            "lightsail:GetBuckets",
-            "lightsail:GetCertificates",
-            "lightsail:GetContainerServices",
             "lightsail:GetDisks",
             "logs:DescribeDestinations",
             "logs:DescribeLogGroups",
-            "logs:DescribeLogStreams",
             "lookoutmetrics:ListAlerts",
             "lookoutmetrics:ListAnomalyDetectors",
             "lookoutvision:ListProjects",
             "m2:ListEnvironments",
-            "macie2:ListAllowLists",
-            "macie2:ListCustomDataIdentifiers",
-            "macie2:ListFindingsFilters",
             "managedblockchain:ListAccessors",
             "mediapackage-vod:ListAssets",
             "mediapackage-vod:ListPackagingConfigurations",
@@ -44090,13 +44063,6 @@
             "omics:ListReferenceStores",
             "omics:ListRunGroups",
             "omics:ListWorkflows",
-            "organizations:DescribeAccount",
-            "organizations:DescribeOrganization",
-            "organizations:ListAWSServiceAccessForOrganization",
-            "organizations:ListAccounts",
-            "organizations:ListDelegatedAdministrators",
-            "organizations:ListOrganizationalUnitsForParent",
-            "organizations:ListRoots",
             "outposts:ListSites",
             "panorama:ListPackages",
             "personalize:ListDatasetGroups",
@@ -44140,7 +44106,6 @@
             "redshift:DescribeClusters",
             "redshift:DescribeEventSubscriptions",
             "redshift:DescribeHsmClientCertificates",
-            "redshift:DescribeScheduledActions",
             "redshift:DescribeSnapshotCopyGrants",
             "redshift:DescribeSnapshotSchedules",
             "redshift:DescribeUsageLimits",
@@ -44149,14 +44114,10 @@
             "refactor-spaces:ListRoutes",
             "refactor-spaces:ListServices",
             "rekognition:DescribeProjects",
-            "resiliencehub:ListApps",
             "resiliencehub:ListResiliencyPolicies",
             "resource-explorer-2:GetIndex",
-            "resource-explorer-2:ListIndexes",
             "resource-explorer-2:ListViews",
             "resource-groups:ListGroups",
-            "robomaker:ListRobotApplications",
-            "robomaker:ListSimulationApplications",
             "route53-recovery-control-config:ListClusters",
             "route53-recovery-control-config:ListControlPanels",
             "route53-recovery-control-config:ListSafetyRules",
@@ -44187,7 +44148,6 @@
             "sagemaker:ListClusters",
             "sagemaker:ListCodeRepositories",
             "sagemaker:ListContexts",
-            "sagemaker:ListDataQualityJobDefinitions",
             "sagemaker:ListDomains",
             "sagemaker:ListEndpointConfigs",
             "sagemaker:ListEndpoints",
@@ -44201,15 +44161,11 @@
             "sagemaker:ListInferenceComponents",
             "sagemaker:ListInferenceExperiments",
             "sagemaker:ListMlflowTrackingServers",
-            "sagemaker:ListModelBiasJobDefinitions",
             "sagemaker:ListModelCardVersions",
             "sagemaker:ListModelCards",
-            "sagemaker:ListModelExplainabilityJobDefinitions",
             "sagemaker:ListModelPackageGroups",
             "sagemaker:ListModelPackages",
-            "sagemaker:ListModelQualityJobDefinitions",
             "sagemaker:ListModels",
-            "sagemaker:ListMonitoringSchedules",
             "sagemaker:ListNotebookInstanceLifecycleConfigs",
             "sagemaker:ListNotebookInstances",
             "sagemaker:ListPipelines",
@@ -44222,7 +44178,6 @@
             "sagemaker:ListWorkforces",
             "sagemaker:ListWorkteams",
             "scheduler:ListScheduleGroups",
-            "scheduler:ListSchedules",
             "schemas:ListDiscoverers",
             "secretsmanager:ListSecrets",
             "servicecatalog:ListApplications",
@@ -44237,26 +44192,20 @@
             "signer:ListSigningProfiles",
             "sns:ListTopics",
             "sqs:ListQueues",
-            "ssm-incidents:ListResponsePlans",
-            "ssm:DescribeAutomationExecutions",
             "ssm:DescribeInstanceInformation",
             "ssm:DescribeMaintenanceWindowTargets",
             "ssm:DescribeMaintenanceWindowTasks",
             "ssm:DescribeMaintenanceWindows",
             "ssm:DescribeParameters",
-            "ssm:DescribePatchBaselines",
             "ssm:DescribeSessions",
             "ssm:ListAssociations",
             "ssm:ListDocuments",
-            "ssm:ListInventoryEntries",
             "ssm:ListResourceDataSync",
             "states:ListActivities",
             "states:ListStateMachines",
             "storagegateway:ListGateways",
             "synthetics:DescribeCanaries",
             "synthetics:ListGroups",
-            "timestream:ListDatabases",
-            "timestream:ListScheduledQueries",
             "transfer:ListAgreements",
             "transfer:ListCertificates",
             "transfer:ListConnectors",
@@ -44266,19 +44215,18 @@
             "transfer:ListWorkflows",
             "wafv2:ListWebACLs",
             "wisdom:ListAssistants",
-            "wisdom:listAssistantAssociations",
-            "wisdom:listKnowledgeBases",
+            "wisdom:ListAssistantAssociations",
+            "wisdom:ListKnowledgeBases",
             "workspaces:DescribeConnectionAliases",
-            "workspaces:DescribeWorkspaces",
-            "xray:GetGroups"
+            "workspaces:DescribeWorkspaces"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v15",
+    "VersionId": "v16",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-23T15:22:07+00:00"
+    "CreateDate": "2025-09-04T01:04:07+00:00"
   },
   "AWSResourceGroupsReadOnlyAccess": {
     "Document": {
@@ -56009,12 +55957,39 @@
             "organizations:ListParents"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "OrganizationsAdminDataAccess",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:ListDelegatedAdministrators"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "organizations:ServicePrincipal": [
+                "notifications.amazonaws.com"
+              ]
+            }
+          }
+        },
+        {
+          "Sid": "OrganizationNotificationConfigurationDistribution",
+          "Effect": "Allow",
+          "Action": [
+            "notifications:CreateNotificationConfiguration",
+            "notifications:DeleteNotificationConfiguration",
+            "notifications:CreateEventRule",
+            "notifications:UpdateEventRule",
+            "notifications:DeleteEventRule"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-14T23:37:06+00:00"
+    "CreateDate": "2025-09-02T20:49:07+00:00"
   },
   "AWSVPCS2SVpnServiceRolePolicy": {
     "Document": {
@@ -97793,12 +97768,43 @@
             "pricing:GetProducts"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AWSMarketplaceViewSubscriptions",
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:ViewSubscriptions"
+          ],
+          "Resource": [
+            "*"
+          ]
+        },
+        {
+          "Sid": "AWSMarketplaceAccess",
+          "Effect": "Allow",
+          "Action": [
+            "aws-marketplace:SearchAgreements",
+            "aws-marketplace:AcceptAgreementRequest",
+            "aws-marketplace:CreateAgreementRequest",
+            "aws-marketplace:ListEntitlementDetails",
+            "aws-marketplace:DescribeAgreement",
+            "aws-marketplace:Subscribe"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws-marketplace:ProductId": [
+                "prod-xcc5llpq4vlbc",
+                "prod-5jijo74ujy36m"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-17T13:37:06+00:00"
+    "CreateDate": "2025-09-04T15:04:08+00:00"
   },
   "AmazonTimestreamFullAccess": {
     "Document": {
@@ -112862,6 +112868,7 @@
             "aiops:ListInvestigationEvents",
             "aiops:ListInvestigationGroups",
             "aiops:ListInvestigations",
+            "aiops:ValidateInvestigationGroup",
             "airflow:ListEnvironments",
             "airflow:ListTagsForResource",
             "amplify:GetApp",
@@ -113006,6 +113013,16 @@
             "aps:ListTagsForResource",
             "aps:ListWorkspaces",
             "aps:QueryMetrics",
+            "arc-region-switch:GetPlan",
+            "arc-region-switch:GetPlanEvaluationStatus",
+            "arc-region-switch:GetPlanExecution",
+            "arc-region-switch:GetPlanInRegion",
+            "arc-region-switch:ListPlanExecutionEvents",
+            "arc-region-switch:ListPlanExecutions",
+            "arc-region-switch:ListPlans",
+            "arc-region-switch:ListPlansInRegion",
+            "arc-region-switch:ListRoute53HealthChecks",
+            "arc-region-switch:ListTagsForResource",
             "arc-zonal-shift:GetAutoshiftObserverNotificationStatus",
             "arc-zonal-shift:GetManagedResource",
             "arc-zonal-shift:ListAutoshifts",
@@ -113082,6 +113099,7 @@
             "bedrock:GetIngestionJob",
             "bedrock:GetKnowledgeBase",
             "bedrock:GetModelCustomizationJob",
+            "bedrock:GetModelInvocationJob",
             "bedrock:GetModelInvocationLoggingConfiguration",
             "bedrock:GetPrompt",
             "bedrock:GetProvisionedModelThroughput",
@@ -113105,6 +113123,7 @@
             "bedrock:ListIngestionJobs",
             "bedrock:ListKnowledgeBases",
             "bedrock:ListModelCustomizationJobs",
+            "bedrock:ListModelInvocationJobs",
             "bedrock:ListPrompts",
             "bedrock:ListProvisionedModelThroughputs",
             "billing:GetBillingData",
@@ -113264,6 +113283,7 @@
             "cloudtrail:LookupEvents",
             "cloudwatch:Describe*",
             "cloudwatch:GenerateQuery",
+            "cloudwatch:GenerateQueryResultsSummary",
             "cloudwatch:Get*",
             "cloudwatch:List*",
             "codeartifact:DescribeDomain",
@@ -113735,6 +113755,7 @@
             "fis:ListTargetAccountConfigurations",
             "fis:ListTargetResourceTypes",
             "fms:GetAdminAccount",
+            "fms:GetAdminScope",
             "fms:GetAppsList",
             "fms:GetComplianceDetail",
             "fms:GetNotificationChannel",
@@ -114048,14 +114069,6 @@
             "iotfleetwise:ListTagsForResource",
             "iotfleetwise:ListVehicles",
             "iotfleetwise:ListVehiclesInFleet",
-            "iotroborunner:GetDestination",
-            "iotroborunner:GetSite",
-            "iotroborunner:GetWorker",
-            "iotroborunner:GetWorkerFleet",
-            "iotroborunner:ListDestinations",
-            "iotroborunner:ListSites",
-            "iotroborunner:ListWorkerFleets",
-            "iotroborunner:ListWorkers",
             "iotsitewise:Describe*",
             "iotsitewise:Get*",
             "iotsitewise:List*",
@@ -115139,7 +115152,6 @@
             "sso:Describe*",
             "sso:Get*",
             "sso:List*",
-            "sso:Search*",
             "states:Describe*",
             "states:GetExecutionHistory",
             "states:List*",
@@ -115324,9 +115336,9 @@
         }
       ]
     },
-    "VersionId": "v131",
+    "VersionId": "v132",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-24T15:07:06+00:00"
+    "CreateDate": "2025-09-02T21:49:07+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
@@ -128399,7 +128411,7 @@
             "s3:GetObject"
           ],
           "Resource": [
-            "arn:aws:s3:::*/dzd_*/*/dev/sys/athena/*"
+            "arn:aws:s3:::*/dzd*/*/dev/sys/athena/*"
           ],
           "Condition": {
             "StringEquals": {
@@ -128436,9 +128448,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-01-31T19:52:07+00:00"
+    "CreateDate": "2025-09-04T17:49:08+00:00"
   },
   "SageMakerStudioUserIAMConsolePolicy": {
     "Document": {
@@ -129295,9 +129307,48 @@
             "backup:ListTags",
             "batch:DescribeComputeEnvironments",
             "batch:DescribeJobDefinitions",
+            "bedrock:GetAgentAlias",
+            "bedrock:GetAgentKnowledgeBase",
             "bedrock:GetCustomModel",
+            "bedrock:GetFlowAlias",
+            "bedrock:GetFoundationModel",
+            "bedrock:GetFoundationModelAvailability",
+            "bedrock:GetImportedModel",
+            "bedrock:GetInferenceProfile",
+            "bedrock:GetIngestionJob",
+            "bedrock:GetKnowledgeBaseDocuments",
+            "bedrock:GetMarketplaceModelEndpoint",
+            "bedrock:GetModelCopyJob",
+            "bedrock:GetModelCustomizationJob",
+            "bedrock:GetModelImportJob",
             "bedrock:GetModelInvocationLoggingConfiguration",
+            "bedrock:GetPromptRouter",
+            "bedrock:GetProvisionedModelThroughput",
+            "bedrock:ListAgentActionGroups",
+            "bedrock:ListAgentAliases",
+            "bedrock:ListAgentKnowledgeBases",
+            "bedrock:ListAgents",
+            "bedrock:ListAgentVersions",
             "bedrock:ListCustomModels",
+            "bedrock:ListDataSources",
+            "bedrock:ListEvaluationJobs",
+            "bedrock:ListFlowAliases",
+            "bedrock:ListFlows",
+            "bedrock:ListFlowVersions",
+            "bedrock:ListFoundationModels",
+            "bedrock:ListGuardrails",
+            "bedrock:ListImportedModels",
+            "bedrock:ListInferenceProfiles",
+            "bedrock:ListIngestionJobs",
+            "bedrock:ListKnowledgeBases",
+            "bedrock:ListMarketplaceModelEndpoints",
+            "bedrock:ListModelCopyJobs",
+            "bedrock:ListModelCustomizationJobs",
+            "bedrock:ListModelImportJobs",
+            "bedrock:ListModelInvocationJobs",
+            "bedrock:ListPromptRouters",
+            "bedrock:ListPrompts",
+            "bedrock:ListProvisionedModelThroughputs",
             "bedrock:ListTagsForResource",
             "braket:SearchJobs",
             "braket:SearchQuantumTasks",
@@ -130129,9 +130180,9 @@
         }
       ]
     },
-    "VersionId": "v54",
+    "VersionId": "v55",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-24T15:07:07+00:00"
+    "CreateDate": "2025-09-05T18:04:08+00:00"
   },
   "SecurityLakeResourceManagementServiceRolePolicy": {
     "Document": {
@@ -132155,6 +132206,13 @@
             "route53:Get*",
             "route53:List*",
             "route53domains:List*",
+            "route53profiles:GetProfile",
+            "route53profiles:GetProfileAssociation",
+            "route53profiles:GetProfileResourceAssociation",
+            "route53profiles:ListProfileAssociations",
+            "route53profiles:ListProfileResourceAssociations",
+            "route53profiles:ListProfiles",
+            "route53profiles:ListTagsForResource",
             "route53resolver:Get*",
             "route53resolver:List*",
             "s3:ListAllMyBuckets",
@@ -132248,9 +132306,9 @@
         }
       ]
     },
-    "VersionId": "v25",
+    "VersionId": "v26",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-28T16:22:06+00:00"
+    "CreateDate": "2025-09-03T16:34:07+00:00"
   },
   "WAFLoggingServiceRolePolicy": {
     "Document": {
