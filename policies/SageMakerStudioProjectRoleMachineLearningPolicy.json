@@ -783,6 +783,20 @@
         }
       },
       {
+        "Sid": "AllowStartSessionForSpaceRemoteConnection",
+        "Effect": "Allow",
+        "Action": [
+          "sagemaker:StartSession"
+        ],
+        "Resource": "arn:aws:sagemaker:*:*:space/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}",
+            "aws:ResourceTag/AmazonDataZoneUser": "${aws:PrincipalTag/datazone:userId}"
+          }
+        }
+      },
+      {
         "Sid": "PublishSagemakerMetric",
         "Effect": "Allow",
         "Action": [
@@ -1125,7 +1139,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-07-22T20:07:08+00:00"
+  "CreateDate": "2025-09-08T18:34:08+00:00"
 }

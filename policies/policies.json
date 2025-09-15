@@ -7024,12 +7024,27 @@
             "dsql:ListTagsForResource"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "OrgsListDelegatedAdmins",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:ListDelegatedAdministrators"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringEquals": {
+              "organizations:ServicePrincipal": [
+                "backup.amazonaws.com"
+              ]
+            }
+          }
         }
       ]
     },
-    "VersionId": "v19",
+    "VersionId": "v20",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-22T00:37:07+00:00"
+    "CreateDate": "2025-09-09T18:49:07+00:00"
   },
   "AWSBackupServiceLinkedRolePolicyForBackupTest": {
     "Document": {
@@ -8835,6 +8850,23 @@
     "VersionId": "v12",
     "IsDefaultVersion": true,
     "CreateDate": "2025-08-21T21:34:07+00:00"
+  },
+  "AWSBillingServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "billing:GetBillingViewData"
+          ],
+          "Resource": "arn:aws:billing::*:billingview/*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-09-11T16:19:07+00:00"
   },
   "AWSBudgetsActionsRolePolicyForResourceAdministrationWithSSM": {
     "Document": {
@@ -35102,7 +35134,8 @@
             "ec2:DescribeSecurityGroups",
             "ec2:DescribeKeyPairs",
             "ec2:DescribeImages",
-            "ec2:DescribeImageAttribute"
+            "ec2:DescribeImageAttribute",
+            "ec2:DescribeCapacityReservations"
           ],
           "Resource": "*"
         },
@@ -35255,9 +35288,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-08-27T16:01:15+00:00"
+    "CreateDate": "2025-09-11T18:49:07+00:00"
   },
   "AWSPanoramaApplianceRolePolicy": {
     "Document": {
@@ -39887,6 +39920,7 @@
           ],
           "Resource": [
             "arn:aws:ssm:*:*:automation-execution/*",
+            "arn:aws:ssm:*:*:document/AWS-AttachIAMToInstance*",
             "arn:aws:ssm:*:*:automation-definition/AWS-AttachIAMToInstance*"
           ],
           "Condition": {
@@ -39956,9 +39990,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-11-15T21:51:23+00:00"
+    "CreateDate": "2025-09-12T15:19:05+00:00"
   },
   "AWSQuickSetupPatchPolicyBaselineAccess": {
     "Document": {
@@ -40653,7 +40687,13 @@
             "arn:aws:ssm:*:*:automation-definition/AWS-RunPatchBaseline*",
             "arn:aws:ssm:*:*:automation-definition/AWS-AttachIAMToInstance*",
             "arn:aws:ssm:*:*:automation-definition/QuickSetup-*",
-            "arn:aws:ssm:*:*:automation-definition/AWSQuickSetup-*"
+            "arn:aws:ssm:*:*:automation-definition/AWSQuickSetup-*",
+            "arn:aws:ssm:*:*:document/AWS-EnableExplorer*",
+            "arn:aws:ssm:*:*:document/AWS-RunPatchBaseline*",
+            "arn:aws:ssm:*:*:document/AWS-AttachIAMToInstance*",
+            "arn:aws:ssm:*:*:document/QuickSetup-*",
+            "arn:aws:ssm:*:*:document/AWSQuickSetup-*",
+            "arn:aws:ssm:*:*:automation-execution/*"
           ]
         },
         {
@@ -40687,9 +40727,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-06-26T09:46:54+00:00"
+    "CreateDate": "2025-09-12T15:34:07+00:00"
   },
   "AWSQuickSetupSSMDeploymentRolePolicy": {
     "Document": {
@@ -41371,6 +41411,7 @@
           ],
           "Resource": [
             "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-SSM-ManageResources*",
+            "arn:aws:ssm:*:*:document/AWSQuickSetupType-SSM-ManageResources*",
             "arn:aws:ssm:*:*:automation-execution/*"
           ],
           "Condition": {
@@ -41382,9 +41423,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-11-15T21:55:57+00:00"
+    "CreateDate": "2025-09-12T15:34:08+00:00"
   },
   "AWSQuickSetupSSMManageResourcesExecutionPolicy": {
     "Document": {
@@ -41649,9 +41690,9 @@
             "ssm:StartAutomationExecution"
           ],
           "Resource": [
-            "arn:aws:ssm:*:*:document/AWSQuickSetupType-StartSSMAssociations",
+            "arn:aws:ssm:*:*:document/AWSQuickSetupType-Scheduler-ChangeCalendarState",
             "arn:aws:ssm:*:*:automation-execution/*",
-            "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-StartSSMAssociations*"
+            "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-Scheduler-ChangeCalendarState*"
           ]
         },
         {
@@ -41668,17 +41709,17 @@
             },
             "ArnLike": {
               "iam:AssociatedResourceARN": [
-                "arn:aws:ssm:*:*:document/AWSQuickSetupType-StartSSMAssociations",
-                "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-StartSSMAssociations*"
+                "arn:aws:ssm:*:*:document/AWSQuickSetupType-Scheduler-ChangeCalendarState",
+                "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-Scheduler-ChangeCalendarState*"
               ]
             }
           }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-08-08T12:04:07+00:00"
+    "CreateDate": "2025-09-12T14:49:07+00:00"
   },
   "AWSQuickSetupStartStopInstancesExecutionPolicy": {
     "Document": {
@@ -41717,9 +41758,9 @@
           ],
           "Resource": [
             "arn:aws:ssm:*:*:association/*",
-            "arn:aws:ssm:*:*:document/AWSQuickSetupType-StartAndStopEC2Instances",
+            "arn:aws:ssm:*:*:document/AWSQuickSetupType-Scheduler-ApplyInstanceState",
             "arn:aws:ssm:*:*:automation-execution/*",
-            "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-StartAndStopEC2Instances*"
+            "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-Scheduler-ApplyInstanceState*"
           ]
         },
         {
@@ -41736,7 +41777,7 @@
             },
             "ArnLike": {
               "iam:AssociatedResourceARN": [
-                "arn:aws:ssm:*::document/AWSQuickSetupType-StartAndStopEC2Instances",
+                "arn:aws:ssm:*::document/AWSQuickSetupType-Scheduler-ApplyInstanceState",
                 "arn:aws:ssm:*:*:association/*"
               ]
             }
@@ -41744,9 +41785,9 @@
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-08-08T12:04:07+00:00"
+    "CreateDate": "2025-09-12T15:19:07+00:00"
   },
   "AWSQuickSightAssetBundleExportPolicy": {
     "Document": {
@@ -90710,12 +90751,21 @@
           "Resource": [
             "arn:aws:sns:*:*:Automation*"
           ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssmmessages:OpenDataChannel"
+          ],
+          "Resource": [
+            "arn:*:ssm:*:*:session/*"
+          ]
         }
       ]
     },
-    "VersionId": "v5",
+    "VersionId": "v6",
     "IsDefaultVersion": true,
-    "CreateDate": "2017-07-24T23:29:12+00:00"
+    "CreateDate": "2025-09-11T17:34:07+00:00"
   },
   "AmazonSSMDirectoryServiceAccess": {
     "Document": {
@@ -109637,12 +109687,44 @@
             "sso:ListInstances"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AllowKmsAccessViaIdentityCenter",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ArnLike": {
+              "kms:EncryptionContext:aws:sso:instance-arn": "arn:*:sso:::instance/*"
+            },
+            "StringLike": {
+              "kms:ViaService": "sso.*.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowKmsAccessViaIdentityStore",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ArnLike": {
+              "kms:EncryptionContext:aws:identitystore:identitystore-arn": "arn:*:identitystore::*:identitystore/*"
+            },
+            "StringLike": {
+              "kms:ViaService": "identitystore.*.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-18T20:22:07+00:00"
+    "CreateDate": "2025-09-08T17:04:06+00:00"
   },
   "MultiPartyApprovalReadOnlyAccess": {
     "Document": {
@@ -109678,12 +109760,44 @@
             "sso-directory:SearchUsers"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AllowKmsAccessViaIdentityCenter",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ArnLike": {
+              "kms:EncryptionContext:aws:sso:instance-arn": "arn:*:sso:::instance/*"
+            },
+            "StringLike": {
+              "kms:ViaService": "sso.*.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowKmsAccessViaIdentityStore",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ArnLike": {
+              "kms:EncryptionContext:aws:identitystore:identitystore-arn": "arn:*:identitystore::*:identitystore/*"
+            },
+            "StringLike": {
+              "kms:ViaService": "identitystore.*.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-06-18T20:07:07+00:00"
+    "CreateDate": "2025-09-08T17:04:08+00:00"
   },
   "NeptuneConsoleFullAccess": {
     "Document": {
@@ -112290,7 +112404,8 @@
             "arn:aws:ec2:*:*:network-interface/*",
             "arn:aws:ec2:*:*:subnet/*",
             "arn:aws:ec2:*:*:security-group/*",
-            "arn:aws:ec2:*:*:volume/*"
+            "arn:aws:ec2:*:*:volume/*",
+            "arn:aws:ec2:*:*:capacity-reservation/*"
           ]
         },
         {
@@ -112346,9 +112461,9 @@
         }
       ]
     },
-    "VersionId": "v3",
+    "VersionId": "v4",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-05-05T16:37:06+00:00"
+    "CreateDate": "2025-09-09T17:04:07+00:00"
   },
   "ROSASRESupportPolicy": {
     "Document": {
@@ -112850,7 +112965,6 @@
             "access-analyzer:ValidatePolicy",
             "account:GetAccountInformation",
             "account:GetAlternateContact",
-            "account:GetChallengeQuestions",
             "account:GetContactInformation",
             "account:GetPrimaryEmail",
             "account:GetRegionOptStatus",
@@ -112861,6 +112975,7 @@
             "acm:Describe*",
             "acm:Get*",
             "acm:List*",
+            "aiops:GetEphemeralInvestigationResults",
             "aiops:GetInvestigation",
             "aiops:GetInvestigationEvent",
             "aiops:GetInvestigationGroup",
@@ -113080,6 +113195,37 @@
             "backup:List*",
             "batch:Describe*",
             "batch:List*",
+            "bedrock-agentcore:GetAgentRuntime",
+            "bedrock-agentcore:GetAgentRuntimeEndpoint",
+            "bedrock-agentcore:GetApiKeyCredentialProvider",
+            "bedrock-agentcore:GetBrowser",
+            "bedrock-agentcore:GetBrowserSession",
+            "bedrock-agentcore:GetCodeInterpreter",
+            "bedrock-agentcore:GetCodeInterpreterSession",
+            "bedrock-agentcore:GetEvent",
+            "bedrock-agentcore:GetGateway",
+            "bedrock-agentcore:GetGatewayTarget",
+            "bedrock-agentcore:GetMemory",
+            "bedrock-agentcore:GetMemoryRecord",
+            "bedrock-agentcore:GetOauth2CredentialProvider",
+            "bedrock-agentcore:GetTokenVault",
+            "bedrock-agentcore:GetWorkloadIdentity",
+            "bedrock-agentcore:ListAgentRuntimeEndpoints",
+            "bedrock-agentcore:ListAgentRuntimes",
+            "bedrock-agentcore:ListAgentRuntimeVersions",
+            "bedrock-agentcore:ListApiKeyCredentialProviders",
+            "bedrock-agentcore:ListBrowsers",
+            "bedrock-agentcore:ListBrowserSessions",
+            "bedrock-agentcore:ListCodeInterpreters",
+            "bedrock-agentcore:ListCodeInterpreterSessions",
+            "bedrock-agentcore:ListEvents",
+            "bedrock-agentcore:ListGateways",
+            "bedrock-agentcore:ListGatewayTargets",
+            "bedrock-agentcore:ListMemories",
+            "bedrock-agentcore:ListMemoryRecords",
+            "bedrock-agentcore:ListOauth2CredentialProviders",
+            "bedrock-agentcore:ListWorkloadIdentities",
+            "bedrock-agentcore:RetrieveMemoryRecords",
             "bedrock:GetAgent",
             "bedrock:GetAgentActionGroup",
             "bedrock:GetAgentAlias",
@@ -114588,6 +114734,10 @@
             "network-firewall:ListRuleGroups",
             "network-firewall:ListTLSInspectionConfigurations",
             "network-firewall:ListTagsForResource",
+            "networkflowmonitor:GetMonitor",
+            "networkflowmonitor:GetScope",
+            "networkflowmonitor:ListMonitors",
+            "networkflowmonitor:ListScopes",
             "networkmanager:DescribeGlobalNetworks",
             "networkmanager:GetConnectAttachment",
             "networkmanager:GetConnectPeer",
@@ -114666,8 +114816,13 @@
             "oam:ListSinks",
             "observabilityadmin:GetTelemetryEvaluationStatus",
             "observabilityadmin:GetTelemetryEvaluationStatusForOrganization",
+            "observabilityadmin:GetTelemetryRule",
+            "observabilityadmin:GetTelemetryRuleForOrganization",
             "observabilityadmin:ListResourceTelemetry",
             "observabilityadmin:ListResourceTelemetryForOrganization",
+            "observabilityadmin:ListTagsForResource",
+            "observabilityadmin:ListTelemetryRules",
+            "observabilityadmin:ListTelemetryRulesForOrganization",
             "omics:Get*",
             "omics:List*",
             "one:GetDeviceConfigurationTemplate",
@@ -114986,13 +115141,6 @@
             "s3:DescribeJob",
             "s3:Get*",
             "s3:List*",
-            "sagemaker-groundtruth-synthetic:GetAccountDetails",
-            "sagemaker-groundtruth-synthetic:GetBatch",
-            "sagemaker-groundtruth-synthetic:GetProject",
-            "sagemaker-groundtruth-synthetic:ListBatchDataTransfers",
-            "sagemaker-groundtruth-synthetic:ListBatchSummaries",
-            "sagemaker-groundtruth-synthetic:ListProjectDataTransfers",
-            "sagemaker-groundtruth-synthetic:ListProjectSummaries",
             "sagemaker:Describe*",
             "sagemaker:GetSearchSuggestions",
             "sagemaker:List*",
@@ -115336,9 +115484,9 @@
         }
       ]
     },
-    "VersionId": "v132",
+    "VersionId": "v133",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-09-02T21:49:07+00:00"
+    "CreateDate": "2025-09-12T16:34:07+00:00"
   },
   "ResourceGroupsServiceRolePolicy": {
     "Document": {
@@ -122886,6 +123034,20 @@
           }
         },
         {
+          "Sid": "AllowStartSessionForSpaceRemoteConnection",
+          "Effect": "Allow",
+          "Action": [
+            "sagemaker:StartSession"
+          ],
+          "Resource": "arn:aws:sagemaker:*:*:space/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonDataZoneProject": "${aws:PrincipalTag/AmazonDataZoneProject}",
+              "aws:ResourceTag/AmazonDataZoneUser": "${aws:PrincipalTag/datazone:userId}"
+            }
+          }
+        },
+        {
           "Sid": "PublishSagemakerMetric",
           "Effect": "Allow",
           "Action": [
@@ -123228,9 +123390,9 @@
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-22T20:07:08+00:00"
+    "CreateDate": "2025-09-08T18:34:08+00:00"
   },
   "SageMakerStudioProjectUserRolePermissionsBoundary": {
     "Document": {
@@ -126727,6 +126889,7 @@
             "glue:GetColumnStatisticsTaskRun",
             "glue:GetColumnStatisticsTaskRuns",
             "glue:GetDatabase",
+            "glue:DeleteDatabase",
             "glue:GetPartition",
             "glue:GetPartitionIndexes",
             "glue:GetPartitions",
@@ -128371,9 +128534,9 @@
         }
       ]
     },
-    "VersionId": "v16",
+    "VersionId": "v17",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-07-28T22:22:06+00:00"
+    "CreateDate": "2025-09-11T17:34:06+00:00"
   },
   "SageMakerStudioQueryExecutionRolePolicy": {
     "Document": {

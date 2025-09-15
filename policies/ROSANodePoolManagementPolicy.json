@@ -200,7 +200,8 @@
           "arn:aws:ec2:*:*:network-interface/*",
           "arn:aws:ec2:*:*:subnet/*",
           "arn:aws:ec2:*:*:security-group/*",
-          "arn:aws:ec2:*:*:volume/*"
+          "arn:aws:ec2:*:*:volume/*",
+          "arn:aws:ec2:*:*:capacity-reservation/*"
         ]
       },
       {
@@ -256,7 +257,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-05T16:37:06+00:00"
+  "CreateDate": "2025-09-09T17:04:07+00:00"
 }

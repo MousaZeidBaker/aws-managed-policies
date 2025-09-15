@@ -401,10 +401,25 @@
           "dsql:ListTagsForResource"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "OrgsListDelegatedAdmins",
+        "Effect": "Allow",
+        "Action": [
+          "organizations:ListDelegatedAdministrators"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "organizations:ServicePrincipal": [
+              "backup.amazonaws.com"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v19",
+  "VersionId": "v20",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-22T00:37:07+00:00"
+  "CreateDate": "2025-09-09T18:49:07+00:00"
 }

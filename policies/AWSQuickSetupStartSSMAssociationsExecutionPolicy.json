@@ -8,9 +8,9 @@
           "ssm:StartAutomationExecution"
         ],
         "Resource": [
-          "arn:aws:ssm:*:*:document/AWSQuickSetupType-StartSSMAssociations",
+          "arn:aws:ssm:*:*:document/AWSQuickSetupType-Scheduler-ChangeCalendarState",
           "arn:aws:ssm:*:*:automation-execution/*",
-          "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-StartSSMAssociations*"
+          "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-Scheduler-ChangeCalendarState*"
         ]
       },
       {
@@ -27,15 +27,15 @@
           },
           "ArnLike": {
             "iam:AssociatedResourceARN": [
-              "arn:aws:ssm:*:*:document/AWSQuickSetupType-StartSSMAssociations",
-              "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-StartSSMAssociations*"
+              "arn:aws:ssm:*:*:document/AWSQuickSetupType-Scheduler-ChangeCalendarState",
+              "arn:aws:ssm:*:*:automation-definition/AWSQuickSetupType-Scheduler-ChangeCalendarState*"
             ]
           }
         }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-08-08T12:04:07+00:00"
+  "CreateDate": "2025-09-12T14:49:07+00:00"
 }
