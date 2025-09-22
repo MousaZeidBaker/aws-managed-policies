@@ -7,13 +7,19 @@
         "Action": [
           "billingconductor:*",
           "organizations:ListAccounts",
-          "pricing:DescribeServices"
+          "pricing:DescribeServices",
+          "pricing:GetAttributeValues",
+          "pricing:GetProducts",
+          "organizations:ListRoots",
+          "organizations:ListOrganizationalUnitsForParent",
+          "organizations:ListChildren",
+          "organizations:DescribeAccount"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-04-13T18:02:29+00:00"
+  "CreateDate": "2025-09-18T00:19:07+00:00"
 }

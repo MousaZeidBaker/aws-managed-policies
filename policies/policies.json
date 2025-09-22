@@ -8735,15 +8735,21 @@
           "Action": [
             "billingconductor:*",
             "organizations:ListAccounts",
-            "pricing:DescribeServices"
+            "pricing:DescribeServices",
+            "pricing:GetAttributeValues",
+            "pricing:GetProducts",
+            "organizations:ListRoots",
+            "organizations:ListOrganizationalUnitsForParent",
+            "organizations:ListChildren",
+            "organizations:DescribeAccount"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-13T18:02:29+00:00"
+    "CreateDate": "2025-09-18T00:19:07+00:00"
   },
   "AWSBillingConductorReadOnlyAccess": {
     "Document": {
@@ -8753,16 +8759,23 @@
           "Effect": "Allow",
           "Action": [
             "billingconductor:List*",
+            "billingconductor:GetBillingGroupCostReport",
             "organizations:ListAccounts",
-            "pricing:DescribeServices"
+            "pricing:DescribeServices",
+            "pricing:GetAttributeValues",
+            "pricing:GetProducts",
+            "organizations:ListRoots",
+            "organizations:ListOrganizationalUnitsForParent",
+            "organizations:ListChildren",
+            "organizations:DescribeAccount"
           ],
           "Resource": "*"
         }
       ]
     },
-    "VersionId": "v1",
+    "VersionId": "v2",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-04-13T18:02:59+00:00"
+    "CreateDate": "2025-09-18T00:34:07+00:00"
   },
   "AWSBillingReadOnlyAccess": {
     "Document": {
@@ -34177,6 +34190,47 @@
     "IsDefaultVersion": true,
     "CreateDate": "2022-07-27T19:41:29+00:00"
   },
+  "AWSObservabilityAdminLogsCentralizationServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:PutLogEvents"
+          ],
+          "Resource": "*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:GenerateDataKey"
+          ],
+          "Condition": {
+            "ForAnyValue:StringEquals": {
+              "aws:CalledVia": [
+                "logs.amazonaws.com"
+              ]
+            },
+            "StringEquals": {
+              "aws:ResourceTag/LogsManaged": "true"
+            },
+            "ArnLike": {
+              "kms:EncryptionContext:aws:logs:arn": "arn:aws:logs:*:*:log-group:*"
+            }
+          },
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-09-15T14:34:06+00:00"
+  },
   "AWSObservabilityAdminServiceRolePolicy": {
     "Document": {
       "Version": "2012-10-17",
@@ -43675,9 +43729,13 @@
             "amplify:ListApps",
             "amplify:ListBranches",
             "amplify:ListDomainAssociations",
+            "aoss:ListCollections",
+            "app-integrations:ListApplications",
             "app-integrations:ListEventIntegrations",
             "appconfig:ListApplications",
             "appconfig:ListDeploymentStrategies",
+            "appconfig:ListEnvironments",
+            "appconfig:ListExtensionAssociations",
             "appflow:ListFlows",
             "appmesh:ListGatewayRoutes",
             "appmesh:ListMeshes",
@@ -43711,6 +43769,7 @@
             "batch:DescribeJobDefinitions",
             "batch:DescribeJobQueues",
             "batch:ListSchedulingPolicies",
+            "bedrock:ListAgentAliases",
             "bedrock:ListAgents",
             "bedrock:ListDataAutomationProjects",
             "bedrock:ListFlows",
@@ -43745,6 +43804,7 @@
             "cloudfront:ListRealtimeLogConfigs",
             "cloudfront:ListResponseHeadersPolicies",
             "cloudtrail:ListChannels",
+            "cloudtrail:ListDashboards",
             "cloudtrail:ListEventDataStores",
             "cloudtrail:ListTrails",
             "cloudwatch:DescribeAlarms",
@@ -43767,12 +43827,19 @@
             "cognito-idp:ListUserPools",
             "comprehend:ListDocumentClassifiers",
             "comprehend:ListEntityRecognizers",
+            "comprehend:ListFlywheels",
             "config:DescribeConfigRules",
+            "connect:ListEvaluationForms",
             "connect:ListHoursOfOperations",
+            "connect:ListInstanceAttributes",
             "connect:ListInstances",
             "connect:ListPhoneNumbersV2",
+            "connect:ListPrompts",
             "connect:ListQuickConnects",
+            "connect:ListRoutingProfileQueues",
+            "connect:ListRoutingProfiles",
             "connect:ListRules",
+            "connect:ListSecurityProfiles",
             "connect:ListTaskTemplates",
             "connect:ListUsers",
             "databrew:ListDatasets",
@@ -43787,8 +43854,10 @@
             "datasync:ListTasks",
             "dax:DescribeClusters",
             "detective:ListGraphs",
+            "devicefarm:ListInstanceProfiles",
             "devicefarm:ListProjects",
             "devicefarm:ListTestGridProjects",
+            "directconnect:DescribeDirectConnectGateways",
             "dms:DescribeCertificates",
             "dms:DescribeEndpoints",
             "dms:DescribeEventSubscriptions",
@@ -43811,6 +43880,7 @@
             "ec2:DescribeHostReservations",
             "ec2:DescribeHosts",
             "ec2:DescribeImages",
+            "ec2:DescribeInstanceConnectEndpoints",
             "ec2:DescribeInstanceEventWindows",
             "ec2:DescribeInstances",
             "ec2:DescribeInternetGateways",
@@ -43854,6 +43924,7 @@
             "ec2:DescribeVerifiedAccessInstances",
             "ec2:DescribeVerifiedAccessTrustProviders",
             "ec2:DescribeVolumes",
+            "ec2:DescribeVpcBlockPublicAccessExclusions",
             "ec2:DescribeVpcEndpointServiceConfigurations",
             "ec2:DescribeVpcEndpoints",
             "ec2:DescribeVpcPeeringConnections",
@@ -43869,8 +43940,18 @@
             "ecs:ListContainerInstances",
             "ecs:ListServices",
             "ecs:ListTaskDefinitions",
+            "eks:DescribeAccessEntry",
+            "eks:DescribeAddon",
+            "eks:DescribeFargateProfile",
+            "eks:DescribeIdentityProviderConfig",
+            "eks:DescribeNodegroup",
+            "eks:ListAccessEntries",
+            "eks:ListAddons",
             "eks:ListClusters",
             "eks:ListEksAnywhereSubscriptions",
+            "eks:ListFargateProfiles",
+            "eks:ListIdentityProviderConfigs",
+            "eks:ListNodegroups",
             "eks:ListPodIdentityAssociations",
             "elasticache:DescribeCacheClusters",
             "elasticache:DescribeCacheParameterGroups",
@@ -43910,6 +43991,8 @@
             "finspace:ListEnvironments",
             "firehose:ListDeliveryStreams",
             "fis:ListExperimentTemplates",
+            "fms:ListPolicies",
+            "fms:ListProtocolsLists",
             "forecast:ListDatasetGroups",
             "forecast:ListDatasetImportJobs",
             "forecast:ListDatasets",
@@ -43925,6 +44008,7 @@
             "frauddetector:GetModels",
             "frauddetector:GetOutcomes",
             "frauddetector:GetVariables",
+            "fsx:DescribeBackups",
             "fsx:DescribeFileSystems",
             "gamelift:DescribeGameSessionQueues",
             "gamelift:DescribeMatchmakingConfigurations",
@@ -43945,7 +44029,9 @@
             "glue:GetJobs",
             "glue:GetTables",
             "glue:GetTriggers",
+            "glue:ListDataQualityRulesets",
             "glue:ListMLTransforms",
+            "glue:ListRegistries",
             "grafana:ListWorkspaces",
             "greengrass:ListComponentVersions",
             "greengrass:ListComponents",
@@ -44026,6 +44112,7 @@
             "iotsitewise:ListProjects",
             "iottwinmaker:ListComponentTypes",
             "iottwinmaker:ListEntities",
+            "iottwinmaker:ListSyncJobs",
             "iottwinmaker:ListWorkspaces",
             "iotwireless:ListDestinations",
             "iotwireless:ListDeviceProfiles",
@@ -44037,8 +44124,12 @@
             "iotwireless:ListWirelessGatewayTaskDefinitions",
             "iotwireless:ListWirelessGateways",
             "ivs:ListChannels",
+            "ivs:ListEncoderConfigurations",
+            "ivs:ListIngestConfigurations",
             "ivs:ListPlaybackKeyPairs",
+            "ivs:ListPlaybackRestrictionPolicies",
             "ivs:ListRecordingConfigurations",
+            "ivs:ListStorageConfigurations",
             "ivs:ListStreamKeys",
             "ivschat:ListLoggingConfigurations",
             "ivschat:ListRooms",
@@ -44063,6 +44154,9 @@
             "lex:ListBotAliases",
             "lex:ListBots",
             "license-manager:ListDistributedGrants",
+            "lightsail:GetBuckets",
+            "lightsail:GetCertificates",
+            "lightsail:GetContainerServices",
             "lightsail:GetDisks",
             "logs:DescribeDestinations",
             "logs:DescribeLogGroups",
@@ -44070,6 +44164,9 @@
             "lookoutmetrics:ListAnomalyDetectors",
             "lookoutvision:ListProjects",
             "m2:ListEnvironments",
+            "macie2:ListAllowLists",
+            "macie2:ListCustomDataIdentifiers",
+            "macie2:ListFindingsFilters",
             "managedblockchain:ListAccessors",
             "mediapackage-vod:ListAssets",
             "mediapackage-vod:ListPackagingConfigurations",
@@ -44081,6 +44178,7 @@
             "mediatailor:ListLiveSources",
             "mediatailor:ListPlaybackConfigurations",
             "mediatailor:ListSourceLocations",
+            "mediatailor:ListVodSources",
             "memorydb:DescribeACLs",
             "memorydb:DescribeClusters",
             "memorydb:DescribeParameterGroups",
@@ -44095,6 +44193,7 @@
             "mq:ListConfigurations",
             "network-firewall:ListFirewallPolicies",
             "network-firewall:ListFirewalls",
+            "network-firewall:ListRuleGroups",
             "networkmanager:DescribeGlobalNetworks",
             "networkmanager:GetDevices",
             "networkmanager:GetLinks",
@@ -44105,13 +44204,21 @@
             "omics:ListRunGroups",
             "omics:ListWorkflows",
             "outposts:ListSites",
+            "organizations:ListPolicies",
             "panorama:ListPackages",
+            "partnercentral:ListEngagementInvitations",
+            "partnercentral:ListEngagements",
+            "partnercentral:ListOpportunities",
+            "partnercentral:ListResourceSnapshotJobs",
+            "partnercentral:ListResourceSnapshots",
             "personalize:ListDatasetGroups",
             "personalize:ListDatasets",
             "personalize:ListSchemas",
             "personalize:ListSolutions",
             "pipes:ListPipes",
             "profile:ListDomains",
+            "profile:ListIntegrations",
+            "profile:ListProfileObjectTypes",
             "proton:ListEnvironmentAccountConnections",
             "proton:ListEnvironmentTemplates",
             "proton:ListServiceTemplates",
@@ -44155,13 +44262,16 @@
             "refactor-spaces:ListRoutes",
             "refactor-spaces:ListServices",
             "rekognition:DescribeProjects",
+            "resiliencehub:ListApps",
             "resiliencehub:ListResiliencyPolicies",
             "resource-explorer-2:GetIndex",
             "resource-explorer-2:ListViews",
             "resource-groups:ListGroups",
             "route53-recovery-control-config:ListClusters",
             "route53-recovery-control-config:ListControlPanels",
+            "route53-recovery-control-config:ListRoutingControls",
             "route53-recovery-control-config:ListSafetyRules",
+            "route53-recovery-readiness:ListCells",
             "route53-recovery-readiness:ListReadinessChecks",
             "route53-recovery-readiness:ListRecoveryGroups",
             "route53-recovery-readiness:ListResourceSets",
@@ -44181,6 +44291,8 @@
             "s3:ListBucket",
             "s3:ListMultiRegionAccessPoints",
             "s3:ListStorageLensConfigurations",
+            "s3:ListStorageLensGroups",
+            "s3express:ListAllMyDirectoryBuckets",
             "sagemaker:ListActions",
             "sagemaker:ListAlgorithms",
             "sagemaker:ListAppImageConfigs",
@@ -44195,6 +44307,7 @@
             "sagemaker:ListExperiments",
             "sagemaker:ListFeatureGroups",
             "sagemaker:ListFlowDefinitions",
+            "sagemaker:ListHubContents",
             "sagemaker:ListHubs",
             "sagemaker:ListHumanTaskUis",
             "sagemaker:ListImageVersions",
@@ -44207,6 +44320,7 @@
             "sagemaker:ListModelPackageGroups",
             "sagemaker:ListModelPackages",
             "sagemaker:ListModels",
+            "sagemaker:ListMonitoringSchedules",
             "sagemaker:ListNotebookInstanceLifecycleConfigs",
             "sagemaker:ListNotebookInstances",
             "sagemaker:ListPipelines",
@@ -44233,6 +44347,7 @@
             "signer:ListSigningProfiles",
             "sns:ListTopics",
             "sqs:ListQueues",
+            "ssm-incidents:ListResponsePlans",
             "ssm:DescribeInstanceInformation",
             "ssm:DescribeMaintenanceWindowTargets",
             "ssm:DescribeMaintenanceWindowTasks",
@@ -44254,10 +44369,21 @@
             "transfer:ListServers",
             "transfer:ListUsers",
             "transfer:ListWorkflows",
+            "verifiedpermissions:ListPolicyStores",
+            "vpc-lattice:ListListeners",
+            "vpc-lattice:ListServiceNetworkServiceAssociations",
+            "vpc-lattice:ListServiceNetworks",
+            "vpc-lattice:ListServices",
+            "vpc-lattice:ListTargetGroups",
+            "wafv2:ListIPSets",
+            "wafv2:ListRegexPatternSets",
+            "wafv2:ListRuleGroups",
             "wafv2:ListWebACLs",
-            "wisdom:ListAssistants",
             "wisdom:ListAssistantAssociations",
+            "wisdom:ListAssistants",
+            "wisdom:ListContents",
             "wisdom:ListKnowledgeBases",
+            "workspaces-web:ListPortals",
             "workspaces:DescribeConnectionAliases",
             "workspaces:DescribeWorkspaces"
           ],
@@ -44265,9 +44391,9 @@
         }
       ]
     },
-    "VersionId": "v16",
+    "VersionId": "v17",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-09-04T01:04:07+00:00"
+    "CreateDate": "2025-09-15T16:19:07+00:00"
   },
   "AWSResourceGroupsReadOnlyAccess": {
     "Document": {
@@ -45261,12 +45387,26 @@
             "sso:ListDirectoryAssociations"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AllowKMSKeyUseViaAWSIdentityStoreService",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": "identitystore.*.amazonaws.com",
+              "kms:EncryptionContext:aws:identitystore:identitystore-arn": "*"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-10-20T20:34:07+00:00"
+    "CreateDate": "2025-09-16T19:49:08+00:00"
   },
   "AWSSSODirectoryReadOnly": {
     "Document": {
@@ -45286,12 +45426,26 @@
             "identitystore-auth:BatchGetSession"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AllowKMSKeyUseViaAWSIdentityStoreService",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": "identitystore.*.amazonaws.com",
+              "kms:EncryptionContext:aws:identitystore:identitystore-arn": "*"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v4",
+    "VersionId": "v5",
     "IsDefaultVersion": true,
-    "CreateDate": "2022-11-16T18:17:48+00:00"
+    "CreateDate": "2025-09-16T19:49:07+00:00"
   },
   "AWSSSOMasterAccountAdministrator": {
     "Document": {
@@ -45372,12 +45526,53 @@
           "Resource": [
             "arn:aws:identity-sync:*:*:profile/*"
           ]
+        },
+        {
+          "Sid": "AllowKMSKeyUseViaAWSIAMIdentityCenterService",
+          "Effect": "Allow",
+          "Action": [
+            "kms:GenerateDataKeyWithoutPlaintext",
+            "kms:Encrypt",
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": "sso.*.amazonaws.com",
+              "kms:EncryptionContext:aws:sso:instance-arn": "*"
+            }
+          }
+        },
+        {
+          "Sid": "AllowKMSKeyUseViaAWSIdentityStoreService",
+          "Effect": "Allow",
+          "Action": [
+            "kms:GenerateDataKeyWithoutPlaintext",
+            "kms:Encrypt",
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": "identitystore.*.amazonaws.com",
+              "kms:EncryptionContext:aws:identitystore:identitystore-arn": "*"
+            }
+          }
+        },
+        {
+          "Sid": "AllowKMSKeyDiscovery",
+          "Effect": "Allow",
+          "Action": [
+            "kms:ListAliases",
+            "kms:DescribeKey"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v10",
+    "VersionId": "v11",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-09-26T17:13:59+00:00"
+    "CreateDate": "2025-09-16T19:49:07+00:00"
   },
   "AWSSSOMemberAccountAdministrator": {
     "Document": {
@@ -45426,12 +45621,53 @@
               "organizations:ServicePrincipal": "sso.amazonaws.com"
             }
           }
+        },
+        {
+          "Sid": "AllowKMSKeyUseViaAWSIAMIdentityCenterService",
+          "Effect": "Allow",
+          "Action": [
+            "kms:GenerateDataKeyWithoutPlaintext",
+            "kms:Encrypt",
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": "sso.*.amazonaws.com",
+              "kms:EncryptionContext:aws:sso:instance-arn": "*"
+            }
+          }
+        },
+        {
+          "Sid": "AllowKMSKeyUseViaAWSIdentityStoreService",
+          "Effect": "Allow",
+          "Action": [
+            "kms:GenerateDataKeyWithoutPlaintext",
+            "kms:Encrypt",
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": "identitystore.*.amazonaws.com",
+              "kms:EncryptionContext:aws:identitystore:identitystore-arn": "*"
+            }
+          }
+        },
+        {
+          "Sid": "AllowKMSKeyDiscovery",
+          "Effect": "Allow",
+          "Action": [
+            "kms:ListAliases",
+            "kms:DescribeKey"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v8",
+    "VersionId": "v9",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-26T00:31:10+00:00"
+    "CreateDate": "2025-09-16T19:49:08+00:00"
   },
   "AWSSSOReadOnly": {
     "Document": {
@@ -45462,12 +45698,35 @@
             "signin:ListTrustedIdentityPropagationApplicationsForConsole"
           ],
           "Resource": "*"
+        },
+        {
+          "Sid": "AllowKMSKeyUseViaAWSIAMIdentityCenterService",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "StringLike": {
+              "kms:ViaService": "sso.*.amazonaws.com",
+              "kms:EncryptionContext:aws:sso:instance-arn": "*"
+            }
+          }
+        },
+        {
+          "Sid": "AllowKMSKeyDiscovery",
+          "Effect": "Allow",
+          "Action": [
+            "kms:ListAliases",
+            "kms:DescribeKey"
+          ],
+          "Resource": "*"
         }
       ]
     },
-    "VersionId": "v9",
+    "VersionId": "v10",
     "IsDefaultVersion": true,
-    "CreateDate": "2024-04-26T00:44:59+00:00"
+    "CreateDate": "2025-09-16T19:49:08+00:00"
   },
   "AWSSSOServiceRolePolicy": {
     "Document": {
@@ -46927,12 +47186,44 @@
           "Resource": [
             "*"
           ]
+        },
+        {
+          "Sid": "AllowKmsAccessViaIdentityCenter",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ArnLike": {
+              "kms:EncryptionContext:aws:sso:instance-arn": "arn:*:sso:::instance/*"
+            },
+            "StringLike": {
+              "kms:ViaService": "sso.*.amazonaws.com"
+            }
+          }
+        },
+        {
+          "Sid": "AllowKmsAccessViaIdentityStore",
+          "Effect": "Allow",
+          "Action": [
+            "kms:Decrypt"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ArnLike": {
+              "kms:EncryptionContext:aws:identitystore:identitystore-arn": "arn:*:identitystore::*:identitystore/*"
+            },
+            "StringLike": {
+              "kms:ViaService": "identitystore.*.amazonaws.com"
+            }
+          }
         }
       ]
     },
-    "VersionId": "v2",
+    "VersionId": "v3",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-08-29T17:49:08+00:00"
+    "CreateDate": "2025-09-18T20:34:07+00:00"
   },
   "AWSServiceRoleForAmazonEKSNodegroup": {
     "Document": {
@@ -102045,6 +102336,90 @@
     "IsDefaultVersion": true,
     "CreateDate": "2025-07-16T13:37:07+00:00"
   },
+  "BedrockAgentCoreNetworkServiceRolePolicy": {
+    "Document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowCreateEniInAnySubnet",
+          "Effect": "Allow",
+          "Action": "ec2:CreateNetworkInterface",
+          "Resource": "arn:aws:ec2:*:*:subnet/*"
+        },
+        {
+          "Sid": "AllowCreateEniWithSecurityGroups",
+          "Effect": "Allow",
+          "Action": "ec2:CreateNetworkInterface",
+          "Resource": "arn:aws:ec2:*:*:security-group/*"
+        },
+        {
+          "Sid": "AllowCreateEniWithBedrockManagedRequestTag",
+          "Effect": "Allow",
+          "Action": "ec2:CreateNetworkInterface",
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "ForAllValues:StringEquals": {
+              "aws:TagKeys": [
+                "AmazonBedrockAgentCoreManaged"
+              ]
+            },
+            "StringEquals": {
+              "aws:RequestTag/AmazonBedrockAgentCoreManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "AllowTagEniOnCreate",
+          "Effect": "Allow",
+          "Action": "ec2:CreateTags",
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "ec2:CreateAction": "CreateNetworkInterface"
+            }
+          }
+        },
+        {
+          "Sid": "AllowManageEniWhenBedrockManaged",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DeleteNetworkInterface",
+            "ec2:AssignPrivateIpAddresses",
+            "ec2:UnassignPrivateIpAddresses",
+            "ec2:CreateNetworkInterfacePermission"
+          ],
+          "Resource": "arn:aws:ec2:*:*:network-interface/*",
+          "Condition": {
+            "StringEquals": {
+              "aws:ResourceTag/AmazonBedrockAgentCoreManaged": "true"
+            }
+          }
+        },
+        {
+          "Sid": "AllowGetSecurityGroupsForVpc",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:GetSecurityGroupsForVPC"
+          ],
+          "Resource": "arn:aws:ec2:*:*:vpc/*"
+        },
+        {
+          "Sid": "AllowDescribeNetworkingResources",
+          "Effect": "Allow",
+          "Action": [
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeVpcs"
+          ],
+          "Resource": "*"
+        }
+      ]
+    },
+    "VersionId": "v1",
+    "IsDefaultVersion": true,
+    "CreateDate": "2025-09-19T22:04:06+00:00"
+  },
   "Billing": {
     "Document": {
       "Version": "2012-10-17",
@@ -126993,7 +127368,8 @@
           "Sid": "LakeFormationPermissionForDataLakeAccess",
           "Effect": "Allow",
           "Action": [
-            "lakeformation:GetDataAccess"
+            "lakeformation:GetDataAccess",
+            "lakeformation:GetResourceLFTags"
           ],
           "Resource": "*"
         },
@@ -128534,9 +128910,9 @@
         }
       ]
     },
-    "VersionId": "v17",
+    "VersionId": "v18",
     "IsDefaultVersion": true,
-    "CreateDate": "2025-09-11T17:34:06+00:00"
+    "CreateDate": "2025-09-17T21:04:07+00:00"
   },
   "SageMakerStudioQueryExecutionRolePolicy": {
     "Document": {

@@ -27,10 +27,33 @@
           "signin:ListTrustedIdentityPropagationApplicationsForConsole"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "AllowKMSKeyUseViaAWSIAMIdentityCenterService",
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": "sso.*.amazonaws.com",
+            "kms:EncryptionContext:aws:sso:instance-arn": "*"
+          }
+        }
+      },
+      {
+        "Sid": "AllowKMSKeyDiscovery",
+        "Effect": "Allow",
+        "Action": [
+          "kms:ListAliases",
+          "kms:DescribeKey"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-04-26T00:44:59+00:00"
+  "CreateDate": "2025-09-16T19:49:08+00:00"
 }

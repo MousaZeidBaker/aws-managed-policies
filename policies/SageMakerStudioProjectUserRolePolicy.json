@@ -1182,7 +1182,8 @@
         "Sid": "LakeFormationPermissionForDataLakeAccess",
         "Effect": "Allow",
         "Action": [
-          "lakeformation:GetDataAccess"
+          "lakeformation:GetDataAccess",
+          "lakeformation:GetResourceLFTags"
         ],
         "Resource": "*"
       },
@@ -2723,7 +2724,7 @@
       }
     ]
   },
-  "VersionId": "v17",
+  "VersionId": "v18",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-09-11T17:34:06+00:00"
+  "CreateDate": "2025-09-17T21:04:07+00:00"
 }

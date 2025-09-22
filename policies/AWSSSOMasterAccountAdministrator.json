@@ -77,10 +77,51 @@
         "Resource": [
           "arn:aws:identity-sync:*:*:profile/*"
         ]
+      },
+      {
+        "Sid": "AllowKMSKeyUseViaAWSIAMIdentityCenterService",
+        "Effect": "Allow",
+        "Action": [
+          "kms:GenerateDataKeyWithoutPlaintext",
+          "kms:Encrypt",
+          "kms:Decrypt"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": "sso.*.amazonaws.com",
+            "kms:EncryptionContext:aws:sso:instance-arn": "*"
+          }
+        }
+      },
+      {
+        "Sid": "AllowKMSKeyUseViaAWSIdentityStoreService",
+        "Effect": "Allow",
+        "Action": [
+          "kms:GenerateDataKeyWithoutPlaintext",
+          "kms:Encrypt",
+          "kms:Decrypt"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": "identitystore.*.amazonaws.com",
+            "kms:EncryptionContext:aws:identitystore:identitystore-arn": "*"
+          }
+        }
+      },
+      {
+        "Sid": "AllowKMSKeyDiscovery",
+        "Effect": "Allow",
+        "Action": [
+          "kms:ListAliases",
+          "kms:DescribeKey"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-09-26T17:13:59+00:00"
+  "CreateDate": "2025-09-16T19:49:07+00:00"
 }
