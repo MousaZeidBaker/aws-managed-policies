@@ -93,10 +93,19 @@
         "Resource": [
           "arn:aws:ssm:*:*:document/*"
         ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ssmmessages:OpenDataChannel"
+        ],
+        "Resource": [
+          "arn:aws:ssm:*:*:session/*"
+        ]
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-27T10:07:06+00:00"
+  "CreateDate": "2025-09-25T11:49:07+00:00"
 }

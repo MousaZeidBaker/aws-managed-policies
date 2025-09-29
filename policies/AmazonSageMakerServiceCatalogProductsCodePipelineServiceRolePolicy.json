@@ -89,7 +89,8 @@
           "codestar-connections:UseConnection"
         ],
         "Resource": [
-          "arn:aws:codestar-connections:*:*:connection/*"
+          "arn:aws:codestar-connections:*:*:connection/*",
+          "arn:aws:codeconnections:*:*:connection/*"
         ],
         "Condition": {
           "StringEqualsIgnoreCase": {
@@ -104,7 +105,8 @@
           "codeconnections:UseConnection"
         ],
         "Resource": [
-          "arn:aws:codeconnections:*:*:connection/*"
+          "arn:aws:codeconnections:*:*:connection/*",
+          "arn:aws:codestar-connections:*:*:connection/*"
         ],
         "Condition": {
           "StringEqualsIgnoreCase": {
@@ -114,7 +116,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-06-11T18:37:51+00:00"
+  "CreateDate": "2025-09-27T04:34:07+00:00"
 }

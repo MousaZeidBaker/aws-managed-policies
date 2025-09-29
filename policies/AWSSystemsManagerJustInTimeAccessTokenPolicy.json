@@ -15,11 +15,12 @@
         ]
       },
       {
-        "Sid": "TerminateAndResumeSession",
+        "Sid": "TerminateAndResumeSessionAndOpenDataChannel",
         "Effect": "Allow",
         "Action": [
           "ssm:TerminateSession",
-          "ssm:ResumeSession"
+          "ssm:ResumeSession",
+          "ssmmessages:OpenDataChannel"
         ],
         "Resource": "arn:aws:ssm:*:*:session/*"
       },
@@ -116,7 +117,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-17T21:07:06+00:00"
+  "CreateDate": "2025-09-25T20:04:08+00:00"
 }
