@@ -83,7 +83,8 @@
           "lakeformation:GrantPermissions",
           "lakeformation:BatchGrantPermissions",
           "lakeformation:ListResources",
-          "lakeformation:DescribeResource"
+          "lakeformation:DescribeResource",
+          "lakeformation:*LakeFormationIdentityCenterConfiguration"
         ],
         "Resource": "*"
       },
@@ -634,7 +635,8 @@
         "Effect": "Allow",
         "Action": [
           "glue:ListConnectionTypes",
-          "glue:DescribeConnectionType"
+          "glue:DescribeConnectionType",
+          "glue:*GlueIdentityCenterConfiguration"
         ],
         "Resource": "*"
       },
@@ -2522,14 +2524,10 @@
         "Effect": "Allow",
         "Action": [
           "elasticmapreduce:CreateSecurityConfiguration",
-          "elasticmapreduce:DeleteSecurityConfiguration"
+          "elasticmapreduce:DeleteSecurityConfiguration",
+          "elasticmapreduce:DescribeSecurityConfiguration"
         ],
-        "Resource": "*",
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          }
-        }
+        "Resource": "*"
       },
       {
         "Sid": "EMRClusterManage",
@@ -3015,10 +3013,36 @@
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
+      },
+      {
+        "Sid": "SSOManage",
+        "Effect": "Allow",
+        "Action": [
+          "sso:CreateApplication",
+          "sso:DeleteApplication",
+          "sso:DescribeApplication",
+          "sso:DescribeInstance",
+          "sso:ListInstances",
+          "sso:PutApplicationAccessScope",
+          "sso:PutApplicationAssignmentConfiguration",
+          "sso:PutApplicationAuthenticationMethod",
+          "sso:PutApplicationGrant"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "ForAnyValue:StringLike": {
+            "aws:CalledVia": [
+              "elasticmapreduce.amazonaws.com",
+              "glue.amazonaws.com",
+              "lakeformation.amazonaws.com",
+              "ops.emr-serverless.amazonaws.com"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v20",
+  "VersionId": "v21",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-08-27T21:04:07+00:00"
+  "CreateDate": "2025-09-29T20:04:07+00:00"
 }

@@ -129,7 +129,7 @@
           "iam:PassRole"
         ],
         "Resource": [
-          "arn:aws:iam::*:role/ecsInstanceProfile*"
+          "arn:aws:iam::*:role/ecsInstanceRole*"
         ],
         "Condition": {
           "StringEquals": {
@@ -165,7 +165,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-09-26T18:04:07+00:00"
+  "CreateDate": "2025-09-29T21:04:07+00:00"
 }

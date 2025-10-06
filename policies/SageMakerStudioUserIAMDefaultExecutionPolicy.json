@@ -137,6 +137,19 @@
         }
       },
       {
+        "Sid": "AllowStartSessionForSpaceRemoteConnection",
+        "Effect": "Allow",
+        "Action": [
+          "sagemaker:StartSession"
+        ],
+        "Resource": "arn:aws:sagemaker:*:*:space/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/AmazonDataZoneUser": "${aws:PrincipalTag/datazone:userId}"
+          }
+        }
+      },
+      {
         "Sid": "ResourceGroupsPermissions",
         "Effect": "Allow",
         "Action": [
@@ -216,6 +229,7 @@
           "glue:StopSession",
           "glue:UseGlueStudio",
           "glue:TagResource",
+          "glue:UntagResource",
           "glue:*Job*"
         ],
         "Resource": "*"
@@ -443,7 +457,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-08-26T21:34:06+00:00"
+  "CreateDate": "2025-10-03T18:04:07+00:00"
 }

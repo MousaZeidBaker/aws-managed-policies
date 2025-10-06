@@ -84,9 +84,12 @@
           "invoicing:GetInvoiceEmailDeliveryPreferences",
           "invoicing:GetInvoicePDF",
           "invoicing:GetInvoiceUnit",
+          "invoicing:GetInvoiceCorrection",
           "invoicing:ListInvoiceSummaries",
           "invoicing:ListInvoiceUnits",
           "invoicing:ListTagsForResource",
+          "invoicing:ListInvoiceCorrections",
+          "invoicing:StartInvoiceCorrection",
           "invoicing:PutInvoiceEmailDeliveryPreferences",
           "invoicing:TagResource",
           "invoicing:UntagResource",
@@ -150,7 +153,7 @@
       }
     ]
   },
-  "VersionId": "v15",
+  "VersionId": "v16",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-03-12T18:07:07+00:00"
+  "CreateDate": "2025-10-02T21:04:07+00:00"
 }
