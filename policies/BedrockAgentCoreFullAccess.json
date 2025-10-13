@@ -231,10 +231,21 @@
             "iam:AWSServiceName": "network.bedrock-agentcore.amazonaws.com"
           }
         }
+      },
+      {
+        "Sid": "CreateBedrockAgentCoreRuntimeIdentityServiceLinkedRolePermissions",
+        "Effect": "Allow",
+        "Action": "iam:CreateServiceLinkedRole",
+        "Resource": "arn:aws:iam::*:role/aws-service-role/runtime-identity.bedrock-agentcore.amazonaws.com/AWSServiceRoleForBedrockAgentCoreRuntimeIdentity",
+        "Condition": {
+          "StringEquals": {
+            "iam:AWSServiceName": "runtime-identity.bedrock-agentcore.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-09-23T00:19:06+00:00"
+  "CreateDate": "2025-10-09T18:19:08+00:00"
 }

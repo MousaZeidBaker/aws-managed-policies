@@ -14,7 +14,11 @@
           "aiops:List*",
           "aiops:UpdateInvestigation",
           "aiops:UpdateInvestigationEvent",
-          "aiops:ValidateInvestigationGroup"
+          "aiops:ValidateInvestigationGroup",
+          "aiops:PutFact",
+          "aiops:UpdateReport",
+          "aiops:GenerateReport",
+          "aiops:CreateReport"
         ],
         "Resource": "*"
       },
@@ -107,7 +111,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-06-24T00:52:06+00:00"
+  "CreateDate": "2025-10-10T21:49:07+00:00"
 }

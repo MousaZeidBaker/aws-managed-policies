@@ -11,6 +11,7 @@
           "application-signals:Get*",
           "application-signals:List*",
           "autoscaling:Describe*",
+          "cloudtrail:ListChannels",
           "cloudwatch:BatchGet*",
           "cloudwatch:Describe*",
           "cloudwatch:GenerateQuery",
@@ -26,6 +27,18 @@
           "logs:StartLiveTail",
           "logs:StopLiveTail",
           "oam:ListSinks",
+          "observabilityadmin:GetCentralizationRuleForOrganization",
+          "observabilityadmin:ListCentralizationRulesForOrganization",
+          "observabilityadmin:GetTelemetryEvaluationStatus",
+          "observabilityadmin:GetTelemetryEvaluationStatusForOrganization",
+          "observabilityadmin:GetTelemetryRule",
+          "observabilityadmin:GetTelemetryRuleForOrganization",
+          "observabilityadmin:ListResourceTelemetry",
+          "observabilityadmin:ListResourceTelemetryForOrganization",
+          "observabilityadmin:ListTelemetryRules",
+          "observabilityadmin:ListTelemetryRulesForOrganization",
+          "observabilityadmin:GetTelemetryEnrichmentStatus",
+          "observabilityadmin:ListTagsForResource",
           "sns:Get*",
           "sns:List*",
           "rum:BatchGet*",
@@ -55,10 +68,36 @@
         "Effect": "Allow",
         "Action": "iam:GetRole",
         "Resource": "arn:aws:iam::*:role/aws-service-role/application-signals.cloudwatch.amazonaws.com/AWSServiceRoleForCloudWatchApplicationSignals"
+      },
+      {
+        "Sid": "CloudWatchCloudTrailPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "cloudtrail:GetChannel"
+        ],
+        "Resource": "arn:aws:cloudtrail:*:*:channel/aws-service-channel/application-signals/*"
+      },
+      {
+        "Sid": "CloudWatchServiceQuotaPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "servicequotas:GetServiceQuota"
+        ],
+        "Resource": [
+          "arn:aws:servicequotas:*:*:s3/*",
+          "arn:aws:servicequotas:*:*:dynamodb/*",
+          "arn:aws:servicequotas:*:*:kinesis/*",
+          "arn:aws:servicequotas:*:*:sns/*",
+          "arn:aws:servicequotas:*:*:bedrock/*",
+          "arn:aws:servicequotas:*:*:lambda/*",
+          "arn:aws:servicequotas:*:*:fargate/*",
+          "arn:aws:servicequotas:*:*:elasticloadbalancing/*",
+          "arn:aws:servicequotas:*:*:ec2/*"
+        ]
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v12",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-21T17:51:05+00:00"
+  "CreateDate": "2025-10-08T17:34:07+00:00"
 }
