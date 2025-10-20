@@ -16,6 +16,7 @@
           "access-analyzer:ListArchiveRules",
           "access-analyzer:ListFindings",
           "access-analyzer:ListTagsForResource",
+          "account:GetAccountInformation",
           "account:GetAlternateContact",
           "account:GetPrimaryEmail",
           "account:GetRegionOptStatus",
@@ -292,17 +293,24 @@
           "dynamodb:ListTables",
           "dynamodb:ListTagsOfResource",
           "ec2:Describe*",
+          "ec2:GetAllowedImagesSettings",
+          "ec2:GetEbsDefaultKmsKeyId",
           "ec2:GetEbsEncryptionByDefault",
           "ec2:GetImageBlockPublicAccessState",
+          "ec2:GetInstanceMetadataDefaults",
           "ec2:GetManagedPrefixListAssociations",
           "ec2:GetManagedPrefixListEntries",
           "ec2:GetNetworkInsightsAccessScopeAnalysisFindings",
           "ec2:GetNetworkInsightsAccessScopeContent",
+          "ec2:GetSerialConsoleAccessStatus",
+          "ec2:GetSnapshotBlockPublicAccessState",
           "ec2:GetTransitGatewayAttachmentPropagations",
           "ec2:GetTransitGatewayMulticastDomainAssociations",
           "ec2:GetTransitGatewayPrefixListReferences",
+          "ec2:GetTransitGatewayPrefixListReferences",
           "ec2:GetTransitGatewayRouteTableAssociations",
           "ec2:GetTransitGatewayRouteTablePropagations",
+          "ec2:SearchTransitGatewayRoutes",
           "ec2:SearchTransitGatewayRoutes",
           "ecr-public:DescribeImages",
           "ecr-public:DescribeImageTags",
@@ -947,7 +955,7 @@
       }
     ]
   },
-  "VersionId": "v55",
+  "VersionId": "v56",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-09-05T18:04:08+00:00"
+  "CreateDate": "2025-10-13T18:19:07+00:00"
 }

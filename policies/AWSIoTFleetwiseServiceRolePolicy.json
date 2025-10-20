@@ -11,14 +11,15 @@
         "Condition": {
           "StringEquals": {
             "cloudwatch:namespace": [
-              "AWS/IoTFleetWise"
+              "AWS/IoTFleetWise",
+              "AWS/Usage"
             ]
           }
         }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2022-09-21T23:27:48+00:00"
+  "CreateDate": "2025-10-16T04:04:07+00:00"
 }

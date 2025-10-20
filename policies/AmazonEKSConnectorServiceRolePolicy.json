@@ -55,7 +55,9 @@
         "Resource": "*",
         "Condition": {
           "StringEquals": {
-            "events:ManagedBy": "eks-connector.amazonaws.com",
+            "events:ManagedBy": "eks-connector.amazonaws.com"
+          },
+          "ForAllValues:StringEquals": {
             "events:source": "aws.ssm"
           }
         }
@@ -70,10 +72,18 @@
             "events:ManagedBy": "eks-connector.amazonaws.com"
           }
         }
+      },
+      {
+        "Sid": "OpenDataChannel",
+        "Effect": "Allow",
+        "Action": [
+          "ssmmessages:OpenDataChannel"
+        ],
+        "Resource": "arn:aws:ssm:*:*:session/*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2021-09-04T20:31:08+00:00"
+  "CreateDate": "2025-10-15T22:34:07+00:00"
 }

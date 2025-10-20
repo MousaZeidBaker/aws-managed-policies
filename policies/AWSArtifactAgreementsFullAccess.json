@@ -58,15 +58,29 @@
         "Sid": "EnableServiceTrust",
         "Effect": "Allow",
         "Action": [
-          "organizations:EnableAWSServiceAccess",
           "organizations:ListAWSServiceAccessForOrganization",
           "organizations:DescribeOrganization"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "EnableServiceTrustForArtifact",
+        "Effect": "Allow",
+        "Action": [
+          "organizations:EnableAWSServiceAccess"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "organizations:ServicePrincipal": [
+              "aws-artifact-account-sync.amazonaws.com"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-22T19:36:07+00:00"
+  "CreateDate": "2025-10-16T20:19:07+00:00"
 }
