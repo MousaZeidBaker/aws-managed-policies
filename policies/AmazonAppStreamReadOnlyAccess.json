@@ -3,17 +3,16 @@
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Effect": "Allow",
         "Action": [
-          "appstream:Get*",
           "appstream:List*",
           "appstream:Describe*"
         ],
-        "Effect": "Allow",
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2016-12-07T21:00:06+00:00"
+  "CreateDate": "2025-10-22T17:04:08+00:00"
 }

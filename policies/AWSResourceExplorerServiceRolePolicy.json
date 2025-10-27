@@ -45,6 +45,7 @@
           "arn:aws:apigateway:*::/restapis",
           "arn:aws:apigateway:*::/restapis/*",
           "arn:aws:apigateway:*::/restapis/*/deployments",
+          "arn:aws:apigateway:*::/restapis/*/deployments/*",
           "arn:aws:apigateway:*::/restapis/*/resources",
           "arn:aws:apigateway:*::/restapis/*/resources/*",
           "arn:aws:apigateway:*::/restapis/*/resources/*/methods/*",
@@ -56,7 +57,9 @@
           "arn:aws:apigateway:*::/apis/*/stages",
           "arn:aws:apigateway:*::/apis/*",
           "arn:aws:apigateway:*::/apis/*/routes/*",
-          "arn:aws:apigateway:*::/apis/*/stages/*"
+          "arn:aws:apigateway:*::/apis/*/stages/*",
+          "arn:aws:apigateway:*::/apis/*/integrations",
+          "arn:aws:apigateway:*::/apis/*/integrations/*"
         ]
       },
       {
@@ -736,6 +739,16 @@
         "Sid": "PermissionsForReadGetResources",
         "Effect": "Allow",
         "Action": [
+          "bedrock:GetAgent",
+          "bedrock:GetAgentActionGroup",
+          "bedrock:GetAgentCollaborator",
+          "bedrock:GetAgentKnowledgeBase",
+          "bedrock:GetGuardrail",
+          "bedrock:GetKnowledgeBase",
+          "bedrock:ListAgentActionGroups",
+          "bedrock:ListAgentCollaborators",
+          "bedrock:ListAgentKnowledgeBases",
+          "bedrock:ListTagsForResource",
           "cloudformation:GetResource",
           "cloudfront:GetDistribution",
           "cloudfront:GetDistributionConfig",
@@ -745,7 +758,10 @@
           "dynamodb:DescribeTable",
           "dynamodb:GetResourcePolicy",
           "dynamodb:ListTagsOfResource",
+          "ecs:DescribeClusters",
+          "ecs:DescribeTaskDefinition",
           "ecs:ListTagsForResource",
+          "eks:DescribeCluster",
           "elasticloadbalancing:DescribeCapacityReservation",
           "elasticloadbalancing:DescribeLoadBalancerAttributes",
           "elasticloadbalancing:DescribeLoadBalancerPolicies",
@@ -755,6 +771,8 @@
           "elasticloadbalancing:DescribeTargetHealth",
           "events:DescribeRule",
           "events:ListTargetsByRule",
+          "iam:GetPolicy",
+          "iam:GetPolicyVersion",
           "iam:GetRole",
           "iam:GetRolePolicy",
           "iam:ListAttachedRolePolicies",
@@ -768,6 +786,9 @@
           "lambda:ListTags",
           "logs:DescribeIndexPolicies",
           "logs:GetDataProtectionPolicy",
+          "route53:GetHostedZone",
+          "route53:ListQueryLoggingConfigs",
+          "route53:ListTagsForResource",
           "s3:GetAccelerateConfiguration",
           "s3:GetAnalyticsConfiguration",
           "s3:GetBucketCORS",
@@ -786,6 +807,8 @@
           "s3:GetLifecycleConfiguration",
           "s3:GetMetricsConfiguration",
           "s3:GetReplicationConfiguration",
+          "sagemaker:DescribeEndpoint",
+          "sagemaker:ListTags",
           "sns:GetDataProtectionPolicy",
           "sns:GetTopicAttributes",
           "sns:ListSubscriptionsByTopic",
@@ -797,7 +820,7 @@
       }
     ]
   },
-  "VersionId": "v19",
+  "VersionId": "v20",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-10-03T16:04:07+00:00"
+  "CreateDate": "2025-10-23T21:49:07+00:00"
 }

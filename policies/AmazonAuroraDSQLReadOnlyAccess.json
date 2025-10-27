@@ -6,6 +6,7 @@
         "Sid": "DsqlReadOnlyPermissions",
         "Effect": "Allow",
         "Action": [
+          "dsql:GetClusterPolicy",
           "dsql:GetCluster",
           "dsql:GetVpcEndpointServiceName",
           "dsql:ListClusters",
@@ -23,7 +24,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-14T19:22:07+00:00"
+  "CreateDate": "2025-10-23T17:49:07+00:00"
 }

@@ -28,7 +28,10 @@
           "organizations:ListDelegatedAdministrators",
           "organizations:ListChildren",
           "organizations:ListParents",
-          "organizations:DescribeOrganizationalUnit"
+          "organizations:DescribeOrganizationalUnit",
+          "cloudfront:ListAnycastIpLists",
+          "cloudfront:ListDistributionsByAnycastIpListId",
+          "cloudfront:ListTagsForResource"
         ],
         "Resource": "*"
       },
@@ -42,10 +45,42 @@
             "cloudwatch:namespace": "AWS/IPAM"
           }
         }
+      },
+      {
+        "Sid": "IPAMAllocationPolicyActions",
+        "Effect": "Allow",
+        "Action": "ec2:AllocateIpamPoolCidr",
+        "Resource": "*"
+      },
+      {
+        "Sid": "PrefixListResolverWriteActions",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:ModifyManagedPrefixList"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:prefix-list/pl-*"
+        ],
+        "Condition": {
+          "Null": {
+            "ec2:Attribute/ExpectedIpamPrefixListResolverTarget": "false"
+          }
+        }
+      },
+      {
+        "Sid": "PrefixListResolverReadActions",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DescribeManagedPrefixLists",
+          "ec2:GetManagedPrefixListEntries"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:prefix-list/pl-*"
+        ]
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-08T16:29:09+00:00"
+  "CreateDate": "2025-10-23T15:19:07+00:00"
 }
