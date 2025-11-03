@@ -45,10 +45,35 @@
           "ecs:ListContainerInstances"
         ],
         "Resource": "arn:aws:ecs:*:*:cluster/MediaConnectGateway"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DeleteNetworkInterface",
+          "ec2:DeleteNetworkInterfacePermission",
+          "ec2:CreateNetworkInterfacePermission"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:network-interface/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/created-for-service": "MediaConnect"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DescribeSecurityGroups",
+          "ec2:DescribeSubnets"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-04-03T22:11:40+00:00"
+  "CreateDate": "2025-10-29T21:34:07+00:00"
 }

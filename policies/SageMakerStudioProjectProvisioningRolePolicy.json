@@ -118,7 +118,6 @@
         "Resource": "arn:aws:codecommit:*:*:datazone*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -144,7 +143,6 @@
         "Resource": "arn:aws:codecommit:*:*:datazone*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -210,12 +208,7 @@
           "arn:aws:iam::*:role/datazone*",
           "arn:aws:iam::*:role/AmazonBedrock*",
           "arn:aws:iam::*:role/BedrockStudio*"
-        ],
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          }
-        }
+        ]
       },
       {
         "Sid": "IAMManage",
@@ -236,7 +229,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "iam:PermissionsBoundary": "arn:aws:iam::aws:policy/SageMakerStudioProjectUserRolePermissionsBoundary"
           },
           "Null": {
@@ -274,9 +266,6 @@
           "arn:aws:iam::*:role/AmazonBedrock*"
         ],
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
           }
@@ -293,9 +282,6 @@
           "arn:aws:iam::*:role/datazone*"
         ],
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
           },
@@ -303,6 +289,8 @@
             "iam:PolicyARN": [
               "arn:aws:iam::aws:policy/SageMakerStudioProjectUserRolePolicy",
               "arn:aws:iam::aws:policy/SageMakerStudioProjectRoleMachineLearningPolicy",
+              "arn:aws:iam::aws:policy/service-role/SageMakerStudioEMRContainersQueryEngineRolePolicy",
+              "arn:aws:iam::aws:policy/service-role/SageMakerStudioEMRContainersSystemNamespaceRolePolicy",
               "arn:aws:iam::aws:policy/service-role/SageMakerStudioEMRServiceRolePolicy",
               "arn:aws:iam::aws:policy/service-role/SageMakerStudioEMRInstanceRolePolicy",
               "arn:aws:iam::aws:policy/service-role/AmazonEMRServicePolicy_v2",
@@ -343,9 +331,6 @@
         ],
         "Resource": "arn:aws:iam::*:role/AmazonBedrock*",
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
           },
@@ -381,9 +366,6 @@
           "arn:aws:iam::*:role/SageMakerStudioQueryExecutionRole"
         ],
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false",
             "aws:TagKeys": "false"
@@ -391,6 +373,7 @@
           "ForAllValues:StringLike": {
             "aws:TagKeys": [
               "AmazonDataZone*",
+              "BootstrappedServices",
               "AmazonBedrockManaged",
               "RedshiftDb*",
               "EnableAmazonBedrockPermissions",
@@ -400,6 +383,7 @@
               "DomainBucketName",
               "KmsKeyId",
               "DomainKmsKeyId",
+              "DefaultGlueCatalogKmsKeyId",
               "LogGroupName",
               "RoleName",
               "vpcArn",
@@ -442,9 +426,6 @@
         ],
         "Resource": "arn:aws:iam::*:role/AmazonBedrock*",
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
           },
@@ -497,9 +478,6 @@
           "arn:aws:iam::*:role/datazone_emr_ec2_instance_role_*"
         ],
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false",
             "aws:TagKeys": "false"
@@ -522,9 +500,6 @@
         "Action": "iam:UntagRole",
         "Resource": "arn:aws:iam::*:role/datazone_usr_role_*",
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
           },
@@ -549,9 +524,6 @@
           "arn:aws:iam::*:role/BedrockStudio*"
         ],
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
           }
@@ -650,12 +622,7 @@
           "iam:RemoveRoleFromInstanceProfile",
           "iam:DeleteInstanceProfile"
         ],
-        "Resource": "arn:aws:iam::*:instance-profile/datazone_emr_ec2_instance_profile_*",
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          }
-        }
+        "Resource": "arn:aws:iam::*:instance-profile/datazone_emr_ec2_instance_profile_*"
       },
       {
         "Sid": "PassRole",
@@ -727,7 +694,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "iam:PassedToService": [
               "elasticmapreduce.amazonaws.com"
             ]
@@ -743,7 +709,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "iam:PassedToService": [
               "ec2.amazonaws.com"
             ]
@@ -760,7 +725,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "iam:PassedToService": "bedrock.amazonaws.com"
           }
         }
@@ -775,7 +739,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "iam:PassedToService": "lambda.amazonaws.com"
           }
         }
@@ -787,7 +750,6 @@
         "Resource": "arn:aws:iam::*:role/aws-service-role/observability.aoss.amazonaws.com/AWSServiceRoleForAmazonOpenSearchServerless",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "iam:AWSServiceName": "observability.aoss.amazonaws.com"
           }
         }
@@ -823,7 +785,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
@@ -869,7 +830,6 @@
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
-            "aws:RequestTag/AmazonDataZoneProject": "false",
             "aws:TagKeys": "false"
           },
           "ForAllValues:StringLike": {
@@ -906,8 +866,7 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}",
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
       },
@@ -1031,7 +990,9 @@
         "Sid": "GlueKms",
         "Effect": "Allow",
         "Action": [
-          "kms:Decrypt"
+          "kms:Decrypt",
+          "kms:Encrypt",
+          "kms:GenerateDataKey"
         ],
         "Resource": "*",
         "Condition": {
@@ -1043,6 +1004,17 @@
             "kms:ViaService": [
               "glue.*.amazonaws.com"
             ]
+          }
+        }
+      },
+      {
+        "Sid": "GetDataCatalogEncSett",
+        "Action": "glue:GetDataCatalogEncryptionSettings",
+        "Effect": "Allow",
+        "Resource": "arn:aws:glue:*:*:catalog",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
       },
@@ -1086,12 +1058,7 @@
         ],
         "Resource": [
           "arn:aws:cloudformation:*:*:transform/Serverless*"
-        ],
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaLast": "cloudformation.amazonaws.com"
-          }
-        }
+        ]
       },
       {
         "Sid": "LambdaManage",
@@ -1105,8 +1072,7 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}",
-            "aws:CalledViaLast": "cloudformation.amazonaws.com"
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
@@ -1162,8 +1128,7 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}",
-            "aws:CalledViaLast": "cloudformation.amazonaws.com"
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false",
@@ -1207,15 +1172,29 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaLast": [
-              "glue.amazonaws.com"
-            ],
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
             "s3:prefix": "true"
           }
         }
+      },
+      {
+        "Sid": "S3Create",
+        "Effect": "Allow",
+        "Action": [
+          "s3:CreateBucket",
+          "s3:PutBucketTagging",
+          "s3:PutEncryptionConfiguration",
+          "s3:PutBucketCORS",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutBucketPolicy",
+          "s3:DeleteBucketPolicy",
+          "s3:GetBucketPolicy"
+        ],
+        "Resource": [
+          "arn:aws:s3:::sagemaker-*"
+        ]
       },
       {
         "Sid": "Cfn",
@@ -1352,12 +1331,14 @@
           "redshift-serverless:DeleteNamespace",
           "redshift-serverless:DeleteWorkgroup",
           "redshift-serverless:ListTagsForResource",
+          "redshift-serverless:ListSnapshotCopyConfigurations",
           "redshift-serverless:GetNamespace",
           "redshift-serverless:GetWorkgroup"
         ],
         "Resource": [
           "arn:aws:redshift-serverless:*:*:namespace/*",
-          "arn:aws:redshift-serverless:*:*:workgroup/*"
+          "arn:aws:redshift-serverless:*:*:workgroup/*",
+          "arn:aws:redshift-serverless:*:*:snapshotcopyconfiguration/*"
         ],
         "Condition": {
           "StringEquals": {
@@ -1421,7 +1402,6 @@
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
-            "aws:RequestTag/AmazonDataZoneProject": "false",
             "aws:TagKeys": "false"
           },
           "ForAllValues:StringLike": {
@@ -1442,9 +1422,6 @@
           "arn:aws:ec2:*:*:vpc/*"
         ],
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:TagKeys": "true"
           }
@@ -1462,7 +1439,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -1480,12 +1456,7 @@
         ],
         "Resource": [
           "arn:aws:ec2:*:*:security-group/*"
-        ],
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          }
-        }
+        ]
       },
       {
         "Sid": "SGRevoke",
@@ -1511,7 +1482,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -1544,12 +1514,7 @@
         "Sid": "DescribeLG",
         "Effect": "Allow",
         "Action": "logs:DescribeLogGroups",
-        "Resource": "*",
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          }
-        }
+        "Resource": "*"
       },
       {
         "Sid": "CreateLG",
@@ -1564,11 +1529,9 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
-            "aws:RequestTag/AmazonDataZoneProject": "false",
             "aws:TagKeys": "false"
           },
           "ForAllValues:StringLike": {
@@ -1589,7 +1552,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
@@ -1614,7 +1576,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -1632,7 +1593,6 @@
         "Resource": "arn:aws:athena:*:*:workgroup/*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -1658,7 +1618,6 @@
         "Resource": "arn:aws:athena:*:*:workgroup/*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -1680,7 +1639,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -1706,7 +1664,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
@@ -1728,10 +1685,11 @@
         }
       },
       {
-        "Sid": "DescribeSecret",
+        "Sid": "SecretProject",
         "Effect": "Allow",
         "Action": [
-          "secretsmanager:DescribeSecret"
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:PutSecretValue"
         ],
         "Resource": "*",
         "Condition": {
@@ -1741,10 +1699,12 @@
         }
       },
       {
-        "Sid": "DescribeSecrets",
+        "Sid": "SecretAll",
         "Effect": "Allow",
         "Action": [
-          "secretsmanager:DescribeSecret"
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:PutSecretValue"
         ],
         "Resource": "*",
         "Condition": {
@@ -1817,12 +1777,7 @@
           "redshift-serverless:ListWorkgroups",
           "redshift:GetResourcePolicy"
         ],
-        "Resource": "*",
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          }
-        }
+        "Resource": "*"
       },
       {
         "Sid": "RssDbRole",
@@ -1870,7 +1825,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -1905,12 +1859,7 @@
         "Sid": "GetRandom",
         "Effect": "Allow",
         "Action": "secretsmanager:GetRandomPassword",
-        "Resource": "*",
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          }
-        }
+        "Resource": "*"
       },
       {
         "Sid": "BRSecret",
@@ -1928,7 +1877,6 @@
         "Resource": "arn:aws:secretsmanager:*:*:secret:amazon-bedrock-ide/*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -1949,9 +1897,6 @@
         "Resource": "arn:aws:secretsmanager:*:*:secret:redshift!*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": [
-              "cloudformation.amazonaws.com"
-            ],
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
@@ -1988,10 +1933,32 @@
           "sagemaker:CreateDomain",
           "sagemaker:AddTags"
         ],
-        "Resource": "arn:aws:sagemaker:*:*:domain/*",
+        "Resource": [
+          "arn:aws:sagemaker:*:*:domain/*",
+          "arn:aws:sagemaker:*:*:mlflow-tracking-server/*"
+        ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          },
+          "Null": {
+            "aws:ResourceTag/AmazonDataZoneProject": "false"
+          }
+        }
+      },
+      {
+        "Sid": "TagSMDForUpdate",
+        "Effect": "Allow",
+        "Action": [
+          "sagemaker:CreateDomain",
+          "sagemaker:AddTags"
+        ],
+        "Resource": [
+          "arn:aws:sagemaker:*:*:domain/*",
+          "arn:aws:sagemaker:*:*:mlflow-tracking-server/*"
+        ],
+        "Condition": {
+          "StringEquals": {
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -2009,7 +1976,6 @@
         "Resource": "arn:aws:sagemaker:*:*:domain/*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -2024,12 +1990,7 @@
           "sagemaker:ListDomains",
           "sagemaker:DescribeDomain"
         ],
-        "Resource": "*",
-        "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          }
-        }
+        "Resource": "*"
       },
       {
         "Sid": "SMAppDelete",
@@ -2090,7 +2051,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -2116,7 +2076,6 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -2221,9 +2180,6 @@
         ],
         "Resource": "*",
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "StringLikeIfExists": {
             "aoss:collection": "bedrock-ide-*",
             "aoss:index": "bedrock-ide-*"
@@ -2241,9 +2197,6 @@
         ],
         "Resource": "*",
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "StringLikeIfExists": {
             "aoss:collection": "bedrock-ide-*"
           }
@@ -2256,7 +2209,6 @@
         "Resource": "*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
@@ -2273,7 +2225,6 @@
         "Resource": "*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -2347,7 +2298,6 @@
         "Resource": "arn:aws:s3:::*/dzd*/*/genAI/*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
@@ -2495,7 +2445,6 @@
         "Resource": "arn:aws:lambda:*:*:function:amazon-bedrock-ide-*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
@@ -2514,7 +2463,6 @@
         "Resource": "arn:aws:lambda:*:*:function:amazon-bedrock-ide-*",
         "Condition": {
           "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com",
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
@@ -2545,9 +2493,6 @@
         ],
         "Resource": "arn:aws:elasticmapreduce:*:*:cluster/*",
         "Condition": {
-          "StringEquals": {
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-          },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
           }
@@ -2765,8 +2710,7 @@
         "Resource": "arn:aws:scheduler:*:*:schedule-group/*",
         "Condition": {
           "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}",
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
       },
@@ -2780,8 +2724,7 @@
         "Resource": "arn:aws:scheduler:*:*:schedule-group/*",
         "Condition": {
           "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}",
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
@@ -2795,8 +2738,7 @@
         "Resource": "arn:aws:scheduler:*:*:schedule-group/*",
         "Condition": {
           "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}",
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
             "aws:RequestTag/AmazonDataZoneProject": "false",
@@ -2814,8 +2756,7 @@
         "Resource": "arn:aws:scheduler:*:*:schedule-group/*",
         "Condition": {
           "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}",
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
             "aws:TagKeys": "false",
@@ -2837,8 +2778,7 @@
         ],
         "Condition": {
           "StringEquals": {
-            "aws:ResourceAccount": "${aws:PrincipalAccount}",
-            "aws:CalledViaFirst": "cloudformation.amazonaws.com"
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           },
           "Null": {
             "aws:ResourceTag/AmazonDataZoneProject": "false"
@@ -3015,6 +2955,31 @@
         }
       },
       {
+        "Sid": "ResourceTagsUnTagPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock:UntagResource",
+          "neptune-graph:UntagResource",
+          "quicksight:UntagResource",
+          "glue:UntagResource",
+          "airflow:UntagResource",
+          "secretsmanager:UntagResource",
+          "lambda:UntagResource",
+          "emr-serverless:UntagResource",
+          "elasticmapreduce:RemoveTags",
+          "sagemaker:DeleteTags"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          },
+          "Null": {
+            "aws:ResourceTag/AmazonDataZoneProject": "false"
+          }
+        }
+      },
+      {
         "Sid": "SSOManage",
         "Effect": "Allow",
         "Action": [
@@ -3026,23 +2991,75 @@
           "sso:PutApplicationAccessScope",
           "sso:PutApplicationAssignmentConfiguration",
           "sso:PutApplicationAuthenticationMethod",
-          "sso:PutApplicationGrant"
+          "sso:PutApplicationGrant",
+          "sso:PutApplicationSessionConfiguration"
         ],
         "Resource": "*",
         "Condition": {
           "ForAnyValue:StringLike": {
             "aws:CalledVia": [
               "elasticmapreduce.amazonaws.com",
+              "emr-containers.amazonaws.com",
               "glue.amazonaws.com",
               "lakeformation.amazonaws.com",
               "ops.emr-serverless.amazonaws.com"
             ]
           }
         }
+      },
+      {
+        "Sid": "EksClusterDiscovery",
+        "Effect": "Allow",
+        "Action": [
+          "eks:DescribeCluster"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "EmrContainersManage",
+        "Effect": "Allow",
+        "Action": [
+          "emr-containers:CreateManagedEndpoint",
+          "emr-containers:CreateSecurityConfiguration",
+          "emr-containers:CreateVirtualCluster",
+          "emr-containers:DeleteManagedEndpoint",
+          "emr-containers:DeleteSecurityConfiguration",
+          "emr-containers:DeleteVirtualCluster",
+          "emr-containers:DescribeSecurityConfiguration",
+          "emr-containers:TagResource"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "Null": {
+            "aws:ResourceTag/AmazonDataZoneProject": "false"
+          }
+        }
+      },
+      {
+        "Sid": "ManageViaEmrContainers",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:CreateSecurityGroup",
+          "ec2:DeleteSecurityGroup",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:RevokeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "eks:DescribeAccessEntry"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "ForAnyValue:StringLike": {
+            "aws:CalledVia": [
+              "emr-containers.amazonaws.com"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v21",
+  "VersionId": "v22",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-09-29T20:04:07+00:00"
+  "CreateDate": "2025-10-30T22:19:07+00:00"
 }
