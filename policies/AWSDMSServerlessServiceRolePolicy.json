@@ -68,7 +68,8 @@
           "s3:PutObjectTagging"
         ],
         "Resource": [
-          "arn:aws:s3:::dms-serverless-premigration-results-*"
+          "arn:aws:s3:::dms-serverless-premigration-results-*",
+          "arn:aws:s3:::dms-premigration-results-*"
         ],
         "Condition": {
           "StringEquals": {
@@ -86,7 +87,8 @@
           "s3:CreateBucket"
         ],
         "Resource": [
-          "arn:aws:s3:::dms-serverless-premigration-results-*"
+          "arn:aws:s3:::dms-serverless-premigration-results-*",
+          "arn:aws:s3:::dms-premigration-results-*"
         ],
         "Condition": {
           "StringEquals": {
@@ -101,17 +103,17 @@
           "dms:StartReplicationTaskAssessmentRun"
         ],
         "Resource": [
-          "*"
+          "arn:aws:dms:*:*:task:*"
         ],
         "Condition": {
-          "StringEqualsIgnoreCase": {
-            "aws:ResourceTag/ResourceCreatedBy": "DMSServerless"
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-07T17:52:06+00:00"
+  "CreateDate": "2025-11-05T14:19:08+00:00"
 }

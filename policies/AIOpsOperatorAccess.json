@@ -18,7 +18,14 @@
           "aiops:PutFact",
           "aiops:UpdateReport",
           "aiops:GenerateReport",
-          "aiops:CreateReport"
+          "aiops:CreateReport",
+          "q:StartConversation",
+          "q:SendMessage",
+          "q:GetConversation",
+          "q:ListConversations",
+          "q:UpdateConversation",
+          "q:DeleteConversation",
+          "q:PassRequest"
         ],
         "Resource": "*"
       },
@@ -111,7 +118,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-10-10T21:49:07+00:00"
+  "CreateDate": "2025-11-07T22:49:10+00:00"
 }

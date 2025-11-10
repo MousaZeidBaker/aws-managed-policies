@@ -19,7 +19,8 @@
           "firehose:ListDeliveryStreams",
           "kms:ListAliases",
           "logs:DescribeLogGroups",
-          "s3:ListBucket"
+          "s3:ListBucket",
+          "secretsmanager:ListSecrets"
         ],
         "Resource": "*"
       },
@@ -146,7 +147,7 @@
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v14",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-06-25T17:52:08+00:00"
+  "CreateDate": "2025-11-05T20:19:08+00:00"
 }

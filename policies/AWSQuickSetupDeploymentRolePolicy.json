@@ -112,6 +112,8 @@
           "arn:aws:ssm:*::document/AWSQuickSetupType-ManageInstanceProfile",
           "arn:aws:ssm:*::document/AWSQuickSetupType-EnableConfigRecording",
           "arn:aws:ssm:*::document/AWSQuickSetupType-Scheduler-ChangeCalendarState",
+          "arn:aws:ssm:*::document/AmazonCloudWatch-ManageAgent",
+          "arn:aws:ssm:*::document/AWSQuickSetupType-InstallAndManageCloudWatchAgent",
           "arn:aws:ssm:*::document/AWSQuickSetupType-Scheduler-ApplyInstanceState"
         ]
       },
@@ -144,6 +146,8 @@
           "arn:aws:ssm:*::document/AWSQuickSetupType-EnableConfigRecording",
           "arn:aws:ssm:*::document/AWSQuickSetupType-Scheduler-ChangeCalendarState",
           "arn:aws:ssm:*::document/AWSQuickSetupType-Scheduler-ApplyInstanceState",
+          "arn:aws:ssm:*::document/AmazonCloudWatch-ManageAgent",
+          "arn:aws:ssm:*::document/AWSQuickSetupType-InstallAndManageCloudWatchAgent",
           "arn:aws:ec2:*:*:instance/*",
           "arn:aws:ssm:*:*:managed-instance/*",
           "arn:aws:ssm:*:*:association/*"
@@ -342,7 +346,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-08-08T12:19:06+00:00"
+  "CreateDate": "2025-11-05T19:19:09+00:00"
 }

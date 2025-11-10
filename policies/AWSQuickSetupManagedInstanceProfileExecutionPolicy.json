@@ -77,7 +77,8 @@
               "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
               "arn:aws:iam::aws:policy/AmazonSSMPatchAssociation",
               "arn:aws:iam::aws:policy/AWSQuickSetupPatchPolicyBaselineAccess",
-              "arn:aws:iam::aws:policy/AmazonElasticFileSystemsUtils"
+              "arn:aws:iam::aws:policy/AmazonElasticFileSystemsUtils",
+              "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
             ]
           }
         },
@@ -141,7 +142,8 @@
               "AWSQuickSetupType-SSM",
               "AWSQuickSetupType-SSMHostMgmt",
               "AWSQuickSetupType-PatchPolicy",
-              "AWSQuickSetupType-Distributor"
+              "AWSQuickSetupType-Distributor",
+              "AWSQuickSetupType-CWASetup"
             ]
           }
         }
@@ -164,14 +166,15 @@
               "AWSQuickSetupType-SSM",
               "AWSQuickSetupType-SSMHostMgmt",
               "AWSQuickSetupType-PatchPolicy",
-              "AWSQuickSetupType-Distributor"
+              "AWSQuickSetupType-Distributor",
+              "AWSQuickSetupType-CWASetup"
             ]
           }
         }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-09-12T15:19:05+00:00"
+  "CreateDate": "2025-11-05T19:19:08+00:00"
 }

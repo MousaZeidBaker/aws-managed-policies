@@ -18,10 +18,19 @@
           "ec2:SearchTransitGatewayRoutes"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "PrefixListStatement",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DescribeManagedPrefixLists",
+          "ec2:GetManagedPrefixListEntries"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-01T22:51:07+00:00"
+  "CreateDate": "2025-11-06T23:19:08+00:00"
 }
