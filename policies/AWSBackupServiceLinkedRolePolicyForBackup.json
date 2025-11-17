@@ -416,10 +416,32 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "EKSClusterConfigurationBackup",
+        "Effect": "Allow",
+        "Action": [
+          "eks:ListClusters",
+          "eks:ListTagsForResource",
+          "eks:DescribeCluster",
+          "eks:ListAddons",
+          "eks:DescribeAddon",
+          "eks:ListNodegroups",
+          "eks:DescribeNodegroup",
+          "eks:ListPodIdentityAssociations",
+          "eks:DescribePodIdentityAssociation",
+          "eks:ListAccessEntries",
+          "eks:DescribeAccessEntry",
+          "eks:ListAssociatedAccessPolicies",
+          "eks:ListFargateProfiles",
+          "eks:DescribeFargateProfile",
+          "ec2:DescribeLaunchTemplateVersions"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v20",
+  "VersionId": "v21",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-09-09T18:49:07+00:00"
+  "CreateDate": "2025-11-10T19:19:07+00:00"
 }

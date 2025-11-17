@@ -67,10 +67,28 @@
           "tag:GetResources"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "DescribeContainerInstances",
+        "Effect": "Allow",
+        "Action": "ecs:DescribeContainerInstances",
+        "Resource": "arn:aws:ecs:*:*:container-instance/*/*"
+      },
+      {
+        "Sid": "DescribeInstances",
+        "Effect": "Allow",
+        "Action": "ec2:DescribeInstances",
+        "Resource": "*"
+      },
+      {
+        "Sid": "DescribeSubnets",
+        "Effect": "Allow",
+        "Action": "ec2:DescribeSubnets",
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-03-07T14:52:07+00:00"
+  "CreateDate": "2025-11-11T09:49:07+00:00"
 }

@@ -57,10 +57,16 @@
         "Effect": "Allow",
         "Action": "ec2:DescribeInstances",
         "Resource": "*"
+      },
+      {
+        "Sid": "DescribeSubnets",
+        "Effect": "Allow",
+        "Action": "ec2:DescribeSubnets",
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-12T10:07:06+00:00"
+  "CreateDate": "2025-11-11T09:49:07+00:00"
 }

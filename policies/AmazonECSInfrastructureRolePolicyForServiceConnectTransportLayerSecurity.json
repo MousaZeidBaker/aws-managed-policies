@@ -42,7 +42,6 @@
         "Sid": "RotateTLSCertificateSecret",
         "Effect": "Allow",
         "Action": [
-          "secretsmanager:DescribeSecret",
           "secretsmanager:UpdateSecret",
           "secretsmanager:GetSecretValue",
           "secretsmanager:PutSecretValue",
@@ -54,6 +53,19 @@
         "Condition": {
           "StringEquals": {
             "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "ecs-sc",
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
+      },
+      {
+        "Sid": "DescribeTLSCertificateSecret",
+        "Effect": "Allow",
+        "Action": [
+          "secretsmanager:DescribeSecret"
+        ],
+        "Resource": "arn:aws:secretsmanager:*:*:secret:ecs-sc!*",
+        "Condition": {
+          "StringEquals": {
             "aws:ResourceAccount": "${aws:PrincipalAccount}"
           }
         }
@@ -89,7 +101,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-01-19T20:08:36+00:00"
+  "CreateDate": "2025-11-13T22:34:08+00:00"
 }

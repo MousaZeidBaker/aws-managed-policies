@@ -55,7 +55,7 @@
         "Action": [
           "organizations:DescribeOrganizationalUnit"
         ],
-        "Resource": "arn:*:organizations::*:ou/o-*/ou-*"
+        "Resource": "arn:aws:organizations::*:ou/o-*/ou-*"
       },
       {
         "Sid": "AllowAccountsBasedAccessToOrganizationApis",
@@ -63,7 +63,7 @@
         "Action": [
           "organizations:DescribeAccount"
         ],
-        "Resource": "arn:*:organizations::*:account/o-*/*"
+        "Resource": "arn:aws:organizations::*:account/o-*/*"
       },
       {
         "Sid": "AllowAccessToOrganizationApis",
@@ -73,10 +73,42 @@
           "organizations:DescribeOrganization"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "AllowListPoliciesForInspectorPolicyType",
+        "Effect": "Allow",
+        "Action": "organizations:ListPolicies",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "organizations:PolicyType": [
+              "INSPECTOR_POLICY"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "AllowDescribeResourcePolicyForDelegation",
+        "Effect": "Allow",
+        "Action": "organizations:DescribeResourcePolicy",
+        "Resource": "*"
+      },
+      {
+        "Sid": "AllowDescribeEffectivePolicyForInspector",
+        "Effect": "Allow",
+        "Action": "organizations:DescribeEffectivePolicy",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "organizations:PolicyType": [
+              "INSPECTOR_POLICY"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-07-03T16:07:07+00:00"
+  "CreateDate": "2025-11-14T23:34:08+00:00"
 }

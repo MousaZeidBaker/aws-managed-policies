@@ -54,10 +54,27 @@
             "secretsmanager:SecretId": "arn:*:secretsmanager:*:*:secret:AmazonMSK_*"
           }
         }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ec2:AssignIpv6Addresses",
+          "ec2:UnassignIpv6Addresses",
+          "ec2:ModifyNetworkInterfaceAttribute"
+        ],
+        "Resource": "arn:*:ec2:*:*:network-interface/*",
+        "Condition": {
+          "StringEquals": {
+            "ec2:ResourceTag/AWSMSKManaged": "true"
+          },
+          "StringLike": {
+            "ec2:ResourceTag/ClusterArn": "*"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-04-28T00:39:35+00:00"
+  "CreateDate": "2025-11-10T23:19:09+00:00"
 }

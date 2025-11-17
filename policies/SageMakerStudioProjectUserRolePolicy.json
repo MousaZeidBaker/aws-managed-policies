@@ -2761,10 +2761,20 @@
             "aws:ResourceTag/AmazonDataZoneAssetsFolder": "true"
           }
         }
+      },
+      {
+        "Sid": "SageMakerUnifiedStudioMcp",
+        "Effect": "Allow",
+        "Action": [
+          "sagemaker-unified-studio-mcp:InvokeMcp",
+          "sagemaker-unified-studio-mcp:CallReadOnlyTool",
+          "sagemaker-unified-studio-mcp:CallPrivilegedTool"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v19",
+  "VersionId": "v20",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-07T17:34:09+00:00"
+  "CreateDate": "2025-11-14T23:04:07+00:00"
 }

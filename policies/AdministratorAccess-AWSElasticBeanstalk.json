@@ -300,7 +300,9 @@
           "s3:CreateBucket",
           "s3:GetBucket*",
           "s3:ListBucket",
-          "s3:PutBucketPolicy"
+          "s3:PutBucketPolicy",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutBucketOwnershipControls"
         ],
         "Resource": "arn:aws:s3:::elasticbeanstalk-*"
       },
@@ -348,7 +350,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-11T14:36:06+00:00"
+  "CreateDate": "2025-11-12T19:34:07+00:00"
 }
