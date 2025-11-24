@@ -26,6 +26,15 @@
       {
         "Effect": "Allow",
         "Action": [
+          "ec2:CopyVolumes"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:volume/vol-*"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
           "ec2:AttachVolume",
           "ec2:DetachVolume"
         ],
@@ -55,7 +64,8 @@
           "StringEquals": {
             "ec2:CreateAction": [
               "CreateVolume",
-              "CreateSnapshot"
+              "CreateSnapshot",
+              "CopyVolumes"
             ]
           }
         }
@@ -73,7 +83,8 @@
       {
         "Effect": "Allow",
         "Action": [
-          "ec2:CreateVolume"
+          "ec2:CreateVolume",
+          "ec2:CopyVolumes"
         ],
         "Resource": "arn:aws:ec2:*:*:volume/*",
         "Condition": {
@@ -85,7 +96,8 @@
       {
         "Effect": "Allow",
         "Action": [
-          "ec2:CreateVolume"
+          "ec2:CreateVolume",
+          "ec2:CopyVolumes"
         ],
         "Resource": "arn:aws:ec2:*:*:volume/*",
         "Condition": {
@@ -180,7 +192,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-07-15T20:37:06+00:00"
+  "CreateDate": "2025-11-17T17:04:07+00:00"
 }

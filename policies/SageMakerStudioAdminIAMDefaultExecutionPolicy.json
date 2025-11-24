@@ -607,7 +607,11 @@
         "Effect": "Allow",
         "Action": [
           "kms:Decrypt",
-          "kms:GenerateDataKey"
+          "kms:GenerateDataKey",
+          "kms:Encrypt",
+          "kms:GenerateDataKeyWithoutPlaintext",
+          "kms:ReEncryptTo",
+          "kms:ReEncryptFrom"
         ],
         "Resource": "*",
         "Condition": {
@@ -645,9 +649,6 @@
         ],
         "Resource": "*",
         "Condition": {
-          "StringLike": {
-            "kms:ViaService": "scheduler.*.amazonaws.com"
-          },
           "Null": {
             "kms:EncryptionContext:aws:scheduler:schedule:arn": "false"
           }
@@ -706,6 +707,32 @@
         }
       },
       {
+        "Sid": "DataZoneCreateGrant",
+        "Effect": "Allow",
+        "Action": [
+          "kms:CreateGrant"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "kms:ViaService": "datazone.*.amazonaws.com"
+          },
+          "ForAllValues:StringEquals": {
+            "kms:GrantOperations": [
+              "Encrypt",
+              "Decrypt",
+              "ReEncryptFrom",
+              "ReEncryptTo",
+              "GenerateDataKeyWithoutPlaintext",
+              "GenerateDataKey",
+              "DescribeKey",
+              "RetireGrant",
+              "CreateGrant"
+            ]
+          }
+        }
+      },
+      {
         "Sid": "GlueKms",
         "Effect": "Allow",
         "Action": [
@@ -758,10 +785,11 @@
           },
           "ForAllValues:StringEquals": {
             "kms:GrantOperations": [
-              "kms:Decrypt",
-              "kms:Encrypt",
-              "kms:GenerateDataKey",
-              "kms:GenerateDataKeyWithoutPlaintext"
+              "Decrypt",
+              "Encrypt",
+              "GenerateDataKey",
+              "GenerateDataKeyWithoutPlaintext",
+              "RetireGrant"
             ]
           }
         }
@@ -777,9 +805,6 @@
         ],
         "Resource": "arn:*:kms:*:*:key/*",
         "Condition": {
-          "StringLike": {
-            "kms:ViaService": "airflow-serverless.*.amazonaws.com"
-          },
           "ForAnyValue:StringEquals": {
             "kms:EncryptionContextKeys": "aws:airflow-serverless:workflow-arn"
           }
@@ -879,7 +904,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-15T03:04:07+00:00"
+  "CreateDate": "2025-11-18T23:34:07+00:00"
 }

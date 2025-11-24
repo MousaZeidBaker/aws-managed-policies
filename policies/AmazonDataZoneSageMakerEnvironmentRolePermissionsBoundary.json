@@ -273,7 +273,7 @@
         "Resource": "*",
         "Condition": {
           "StringLike": {
-            "ram:ResourceShareName": "dzd_*"
+            "ram:ResourceShareName": "dzd*"
           }
         }
       },
@@ -797,8 +797,8 @@
         "Resource": "arn:aws:secretsmanager:*:*:secret:AmazonDataZone-*",
         "Condition": {
           "StringLike": {
-            "aws:ResourceTag/AmazonDataZoneDomain": "dzd_*",
-            "aws:RequestTag/AmazonDataZoneDomain": "dzd_*"
+            "aws:ResourceTag/AmazonDataZoneDomain": "dzd*",
+            "aws:RequestTag/AmazonDataZoneDomain": "dzd*"
           },
           "Null": {
             "aws:TagKeys": "false",
@@ -1029,7 +1029,6 @@
           "ecr:StartImageScan",
           "ecr:TagResource",
           "ecr:UntagResource",
-          "elastic-inference:Connect",
           "elasticfilesystem:DescribeFileSystems",
           "elasticfilesystem:DescribeMountTargets",
           "elasticmapreduce:DescribeCluster",
@@ -1188,7 +1187,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-21T23:06:06+00:00"
+  "CreateDate": "2025-11-17T18:34:06+00:00"
 }

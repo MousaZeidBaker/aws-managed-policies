@@ -1128,6 +1128,7 @@
           "license-manager:ListDistributedGrants",
           "license-manager:ListLicenses",
           "license-manager:ListReceivedGrants",
+          "lightsail:GetActiveNames",
           "lightsail:GetAlarms",
           "lightsail:GetBuckets",
           "lightsail:GetCertificates",
@@ -1145,6 +1146,7 @@
           "lightsail:GetLoadBalancer",
           "lightsail:GetLoadBalancers",
           "lightsail:GetLoadBalancerTlsCertificates",
+          "lightsail:GetOperations",
           "lightsail:GetRelationalDatabase",
           "lightsail:GetRelationalDatabaseParameters",
           "lightsail:GetRelationalDatabases",
@@ -1559,6 +1561,7 @@
           "s3:GetAccessPointPolicyStatus",
           "s3:GetAccessPointPolicyStatusForObjectLambda",
           "s3:GetAccountPublicAccessBlock",
+          "s3:GetBucketAbac",
           "s3:GetBucketAcl",
           "s3:GetBucketCORS",
           "s3:GetBucketLocation",
@@ -1885,7 +1888,7 @@
       }
     ]
   },
-  "VersionId": "v41",
+  "VersionId": "v42",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-12T21:04:10+00:00"
+  "CreateDate": "2025-11-21T17:04:12+00:00"
 }

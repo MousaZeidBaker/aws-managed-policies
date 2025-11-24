@@ -87,6 +87,12 @@
           "invoicing:GetInvoiceCorrection",
           "invoicing:ListInvoiceSummaries",
           "invoicing:ListInvoiceUnits",
+          "invoicing:CreateProcurementPortalPreference",
+          "invoicing:GetProcurementPortalPreference",
+          "invoicing:PutProcurementPortalPreference",
+          "invoicing:UpdateProcurementPortalPreferenceStatus",
+          "invoicing:ListProcurementPortalPreferences",
+          "invoicing:DeleteProcurementPortalPreference",
           "invoicing:ListTagsForResource",
           "invoicing:ListInvoiceCorrections",
           "invoicing:StartInvoiceCorrection",
@@ -153,7 +159,7 @@
       }
     ]
   },
-  "VersionId": "v16",
+  "VersionId": "v17",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-10-02T21:04:07+00:00"
+  "CreateDate": "2025-11-18T21:49:07+00:00"
 }

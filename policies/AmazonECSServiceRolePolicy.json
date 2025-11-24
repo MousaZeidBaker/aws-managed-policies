@@ -214,10 +214,18 @@
             "aws:ResourceTag/AmazonECSManaged": "false"
           }
         }
+      },
+      {
+        "Sid": "ReadOnlyPermissionsForInstanceEventWindows",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DescribeInstanceEventWindows"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v14",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-14T21:04:09+00:00"
+  "CreateDate": "2025-11-20T23:49:10+00:00"
 }

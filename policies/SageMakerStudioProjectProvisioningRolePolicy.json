@@ -3048,7 +3048,12 @@
           "ec2:DescribeNetworkInterfaces",
           "ec2:RevokeSecurityGroupEgress",
           "ec2:RevokeSecurityGroupIngress",
-          "eks:DescribeAccessEntry"
+          "eks:AssociateAccessPolicy",
+          "eks:CreateAccessEntry",
+          "eks:DisassociateAccessPolicy",
+          "eks:DeleteAccessEntry",
+          "eks:DescribeAccessEntry",
+          "eks:ListAssociatedAccessPolicies"
         ],
         "Resource": "*",
         "Condition": {
@@ -3061,7 +3066,7 @@
       }
     ]
   },
-  "VersionId": "v23",
+  "VersionId": "v24",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-11T23:04:09+00:00"
+  "CreateDate": "2025-11-21T00:04:06+00:00"
 }

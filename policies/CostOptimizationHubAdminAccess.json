@@ -12,7 +12,8 @@
           "cost-optimization-hub:UpdatePreferences",
           "cost-optimization-hub:GetRecommendation",
           "cost-optimization-hub:ListRecommendations",
-          "cost-optimization-hub:ListRecommendationSummaries"
+          "cost-optimization-hub:ListRecommendationSummaries",
+          "cost-optimization-hub:ListEfficiencyMetrics"
         ],
         "Resource": "*"
       },
@@ -48,7 +49,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-12-19T00:03:51+00:00"
+  "CreateDate": "2025-11-19T17:19:09+00:00"
 }

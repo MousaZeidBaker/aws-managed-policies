@@ -55,10 +55,21 @@
             "iam:PassedToService": "resource-snapshot-job.partnercentral-selling.amazonaws.com"
           }
         }
+      },
+      {
+        "Sid": "ChannelBillingTransferRoleAccess",
+        "Effect": "Allow",
+        "Action": [
+          "sts:AssumeRole"
+        ],
+        "Resource": [
+          "arn:aws:iam::*:role/PartnerCentralChannelBillingTransferManagement",
+          "arn:aws:iam::*:role/PartnerCentralChannelBillingTransferReadOnly"
+        ]
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-12-10T18:21:17+00:00"
+  "CreateDate": "2025-11-19T16:34:12+00:00"
 }

@@ -50,6 +50,8 @@
           "invoicing:GetInvoiceCorrection",
           "invoicing:ListInvoiceSummaries",
           "invoicing:ListInvoiceUnits",
+          "invoicing:GetProcurementPortalPreference",
+          "invoicing:ListProcurementPortalPreferences",
           "invoicing:ListTagsForResource",
           "invoicing:ListInvoiceCorrections",
           "mapcredits:ListQuarterSpend",
@@ -83,7 +85,7 @@
       }
     ]
   },
-  "VersionId": "v13",
+  "VersionId": "v14",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-10-02T22:19:07+00:00"
+  "CreateDate": "2025-11-18T21:34:07+00:00"
 }

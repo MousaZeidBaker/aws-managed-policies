@@ -7,13 +7,14 @@
         "Action": [
           "groundstation:RegisterAgent",
           "groundstation:UpdateAgentStatus",
-          "groundstation:GetAgentConfiguration"
+          "groundstation:GetAgentConfiguration",
+          "groundstation:GetAgentTaskResponseUrl"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-03-29T15:23:12+00:00"
+  "CreateDate": "2025-11-20T16:19:11+00:00"
 }

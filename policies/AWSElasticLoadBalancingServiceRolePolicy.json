@@ -33,6 +33,7 @@
           "ec2:ReleaseAddress",
           "ec2:UnassignIpv6Addresses",
           "ec2:DescribeVpcPeeringConnections",
+          "ec2:DescribeAvailabilityZones",
           "ec2:AllocateIpamPoolCidr",
           "logs:CreateLogDelivery",
           "logs:GetLogDelivery",
@@ -45,7 +46,7 @@
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v10",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-17T20:22:06+00:00"
+  "CreateDate": "2025-11-17T21:34:08+00:00"
 }

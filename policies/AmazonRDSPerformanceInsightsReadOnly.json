@@ -6,13 +6,29 @@
         "Sid": "AmazonRDSDescribeDBInstances",
         "Effect": "Allow",
         "Action": "rds:DescribeDBInstances",
-        "Resource": "*"
+        "Resource": "arn:aws:rds:*:*:db:*"
       },
       {
         "Sid": "AmazonRDSDescribeDBClusters",
         "Effect": "Allow",
         "Action": "rds:DescribeDBClusters",
-        "Resource": "*"
+        "Resource": "arn:aws:rds:*:*:cluster:*"
+      },
+      {
+        "Sid": "AmazonRDSDescribeDBShardGroups",
+        "Effect": "Allow",
+        "Action": "rds:DescribeDBShardGroups",
+        "Resource": "arn:aws:rds:*:*:shard-group:*"
+      },
+      {
+        "Sid": "AmazonRDSListTagsForResource",
+        "Effect": "Allow",
+        "Action": "rds:ListTagsForResource",
+        "Resource": [
+          "arn:aws:rds:*:*:db:*",
+          "arn:aws:rds:*:*:shard-group:*",
+          "arn:aws:rds:*:*:cluster:*"
+        ]
       },
       {
         "Sid": "AmazonRDSPerformanceInsightsDescribeDimensionKeys",
@@ -70,7 +86,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-23T21:17:06+00:00"
+  "CreateDate": "2025-11-20T22:19:10+00:00"
 }

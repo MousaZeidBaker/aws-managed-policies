@@ -294,7 +294,9 @@
           "wisdom:ListTagsForResource",
           "wisdom:SendMessage",
           "wisdom:GetNextMessage",
-          "wisdom:ListMessages"
+          "wisdom:ListMessages",
+          "wisdom:Retrieve",
+          "wisdom:ListAssistantAssociations"
         ],
         "Resource": "*",
         "Condition": {
@@ -541,7 +543,7 @@
       }
     ]
   },
-  "VersionId": "v30",
+  "VersionId": "v31",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-06T22:49:10+00:00"
+  "CreateDate": "2025-11-18T20:49:06+00:00"
 }

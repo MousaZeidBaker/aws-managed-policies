@@ -11,6 +11,8 @@
           "datazone:AddEntityOwner",
           "datazone:AddPolicyGrant",
           "datazone:AssociateGovernedTerms",
+          "datazone:BatchGetAttributesMetadata",
+          "datazone:BatchPutAttributesMetadata",
           "datazone:CancelMetadataGenerationRun",
           "datazone:CancelSubscription",
           "datazone:CreateAsset",
@@ -262,7 +264,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-08-20T17:34:07+00:00"
+  "CreateDate": "2025-11-18T21:04:07+00:00"
 }

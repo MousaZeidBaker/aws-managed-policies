@@ -492,10 +492,24 @@
           "eks:DescribeCluster"
         ],
         "Resource": "arn:aws:eks:*:*:cluster/*"
+      },
+      {
+        "Sid": "IamPassRolePermissionsForGuardDuty",
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": [
+          "arn:aws:iam::*:role/*AwsBackupGuardDuty*",
+          "arn:aws:iam::*:role/*AWSBackupGuardDuty*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "iam:PassedToService": "malware-protection.guardduty.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v21",
+  "VersionId": "v22",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-10T19:19:06+00:00"
+  "CreateDate": "2025-11-20T03:34:07+00:00"
 }

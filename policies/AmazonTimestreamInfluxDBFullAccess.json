@@ -44,7 +44,8 @@
           "ec2:DescribeSubnets",
           "ec2:DescribeVpcs",
           "ec2:DescribeSecurityGroups",
-          "ec2:DescribeRouteTables"
+          "ec2:DescribeRouteTables",
+          "ec2:DescribeVpcEndpoints"
         ],
         "Resource": "*"
       },
@@ -102,7 +103,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-10-15T21:19:07+00:00"
+  "CreateDate": "2025-11-17T21:49:10+00:00"
 }

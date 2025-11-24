@@ -48,13 +48,15 @@
         "Effect": "Allow",
         "Action": [
           "ec2:DescribeInstances",
-          "ec2:DescribeVolumes"
+          "ec2:DescribeVolumes",
+          "ec2:DescribeNatGateways",
+          "ec2:DescribeRouteTables"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-03T21:37:06+00:00"
+  "CreateDate": "2025-11-19T01:04:07+00:00"
 }

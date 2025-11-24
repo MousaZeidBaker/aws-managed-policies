@@ -87,7 +87,8 @@
         "Sid": "AllowGetActionForCloudFront",
         "Effect": "Allow",
         "Action": [
-          "cloudfront:GetDistributionConfig"
+          "cloudfront:GetDistributionConfig",
+          "cloudfront:GetDistribution"
         ],
         "Resource": "arn:aws:cloudfront::*:distribution/*"
       },
@@ -261,10 +262,35 @@
           "logs:GetQueryResults"
         ],
         "Resource": "arn:aws:logs:*:*:log-group:aws-waf-logs-*"
+      },
+      {
+        "Sid": "AllowListActionsForPricingPlanManager",
+        "Effect": "Allow",
+        "Action": [
+          "pricingplanmanager:GetSubscription"
+        ],
+        "Resource": "arn:aws:pricingplanmanager::*:subscription:*"
+      },
+      {
+        "Sid": "AllowListActionsForRoute53",
+        "Effect": "Allow",
+        "Action": [
+          "route53:ListHostedZones",
+          "route53:GetHostedZone"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "AllowListSubscriptionsForPricingPlanManager",
+        "Effect": "Allow",
+        "Action": [
+          "pricingplanmanager:ListSubscriptions"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v9",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-10-31T21:04:08+00:00"
+  "CreateDate": "2025-11-19T02:34:08+00:00"
 }

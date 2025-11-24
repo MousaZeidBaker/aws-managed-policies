@@ -11,7 +11,10 @@
           "config:DescribeConfigurationRecorderStatus",
           "config:PutServiceLinkedConfigurationRecorder"
         ],
-        "Resource": "arn:aws:config:*:*:configuration-recorder/AWSConfigurationRecorderForSecurityHubAssets/*"
+        "Resource": [
+          "arn:aws:config:*:*:configuration-recorder/AWSConfigurationRecorderForSecurityHubAssets/*",
+          "arn:aws:config:*:*:configuration-recorder/AWSConfigurationRecorderForSecurityHubAssetsGlobal/*"
+        ]
       },
       {
         "Sid": "SecurityHubV2ServiceRoleAssetsIamPermissions",
@@ -83,10 +86,44 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "SecurityHubV2ServiceRoleEcrListingPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "ecr:DescribeImages",
+          "ecr:DescribeRepositories"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "SecurityHubV2ServiceRoleLambdaMetricPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "cloudwatch:GetMetricData"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "SecurityHubV2ServiceRoleLambdaListingPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "lambda:ListFunctions"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "SecurityHubV2ServiceRoleIamListingPermissions",
+        "Effect": "Allow",
+        "Action": [
+          "iam:ListRoles",
+          "iam:GetAccountSummary"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-06-10T17:37:06+00:00"
+  "CreateDate": "2025-11-17T18:19:09+00:00"
 }

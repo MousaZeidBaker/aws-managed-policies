@@ -756,6 +756,7 @@
           "dynamodb:DescribeContributorInsights",
           "dynamodb:DescribeKinesisStreamingDestination",
           "dynamodb:DescribeTable",
+          "dynamodb:DescribeTimeToLive",
           "dynamodb:GetResourcePolicy",
           "dynamodb:ListTagsOfResource",
           "ecs:DescribeClusters",
@@ -783,8 +784,10 @@
           "lambda:GetFunction",
           "lambda:GetFunctionCodeSigningConfig",
           "lambda:GetFunctionRecursionConfig",
+          "lambda:GetRuntimeManagementConfig",
           "lambda:ListTags",
           "logs:DescribeIndexPolicies",
+          "logs:DescribeResourcePolicies",
           "logs:GetDataProtectionPolicy",
           "route53:GetHostedZone",
           "route53:ListQueryLoggingConfigs",
@@ -820,7 +823,7 @@
       }
     ]
   },
-  "VersionId": "v20",
+  "VersionId": "v21",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-10-23T21:49:07+00:00"
+  "CreateDate": "2025-11-17T22:49:09+00:00"
 }
