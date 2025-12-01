@@ -32,7 +32,9 @@
         "Effect": "Allow",
         "Action": [
           "aws-marketplace:ListPrivateMarketplaceRequests",
-          "aws-marketplace:DescribePrivateMarketplaceRequests"
+          "aws-marketplace:DescribePrivateMarketplaceRequests",
+          "aws-marketplace:GetAgreementPaymentRequest",
+          "aws-marketplace:ListAgreementPaymentRequests"
         ],
         "Resource": "*"
       },
@@ -45,7 +47,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-07T20:07:07+00:00"
+  "CreateDate": "2025-12-01T00:34:07+00:00"
 }

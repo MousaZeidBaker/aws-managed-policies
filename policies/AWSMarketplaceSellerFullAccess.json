@@ -141,10 +141,31 @@
             "iam:AWSServiceName": "resale-authorization.marketplace.amazonaws.com"
           }
         }
+      },
+      {
+        "Sid": "AgreementPaymentRequestAccess",
+        "Effect": "Allow",
+        "Action": [
+          "aws-marketplace:SendAgreementPaymentRequest",
+          "aws-marketplace:GetAgreementPaymentRequest",
+          "aws-marketplace:ListAgreementPaymentRequests",
+          "aws-marketplace:CancelAgreementPaymentRequest"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws-marketplace:PartyType": "Proposer"
+          },
+          "ForAllValues:StringEquals": {
+            "aws-marketplace:AgreementType": [
+              "PurchaseAgreement"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v16",
+  "VersionId": "v17",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-01-14T19:52:06+00:00"
+  "CreateDate": "2025-12-01T00:49:11+00:00"
 }

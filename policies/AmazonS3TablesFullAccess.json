@@ -8,25 +8,10 @@
           "s3tables:*"
         ],
         "Resource": "*"
-      },
-      {
-        "Sid": "PassRoleToS3TablesReplication",
-        "Effect": "Allow",
-        "Action": [
-          "iam:PassRole"
-        ],
-        "Resource": "*",
-        "Condition": {
-          "StringEquals": {
-            "iam:PassedToService": [
-              "replication.s3tables.amazonaws.com"
-            ]
-          }
-        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v1",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-22T01:04:08+00:00"
+  "CreateDate": "2024-12-03T15:21:07+00:00"
 }

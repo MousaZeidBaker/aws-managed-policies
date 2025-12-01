@@ -63,10 +63,50 @@
             ]
           }
         }
+      },
+      {
+        "Sid": "LegacyPartnerCentralAccess",
+        "Effect": "Allow",
+        "Action": [
+          "partnercentral-account-management:AccessLegacyPartnerCentral"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "ForAnyValue:StringEquals": {
+            "partnercentral-account-management:LegacyPartnerCentralRole": "ChannelUser"
+          }
+        }
+      },
+      {
+        "Sid": "PartnerDashboardAccess",
+        "Effect": "Allow",
+        "Action": [
+          "partnercentral:GetPartnerDashboard"
+        ],
+        "Resource": [
+          "arn:aws:partnercentral::*:catalog/AWS/ReportingData/Resell_V1/Dashboard/*"
+        ]
+      },
+      {
+        "Sid": "PartnerResourceAccess",
+        "Effect": "Allow",
+        "Action": [
+          "partnercentral:ListPartners",
+          "partnercentral:GetPartner"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "partnercentral:Catalog": [
+              "AWS",
+              "Sandbox"
+            ]
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-19T16:34:09+00:00"
+  "CreateDate": "2025-12-01T00:34:07+00:00"
 }
