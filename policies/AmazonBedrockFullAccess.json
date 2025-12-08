@@ -11,6 +11,14 @@
         "Resource": "*"
       },
       {
+        "Sid": "BedrockMantleAll",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock-mantle:*"
+        ],
+        "Resource": "*"
+      },
+      {
         "Sid": "DescribeKey",
         "Effect": "Allow",
         "Action": [
@@ -211,7 +219,7 @@
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-06-29T22:22:06+00:00"
+  "CreateDate": "2025-12-05T05:34:09+00:00"
 }

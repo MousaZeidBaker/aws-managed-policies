@@ -8,13 +8,16 @@
         "Action": [
           "logs:*",
           "cloudwatch:GenerateQuery",
-          "cloudwatch:GenerateQueryResultsSummary"
+          "cloudwatch:GenerateQueryResultsSummary",
+          "observabilityadmin:GetS3TableIntegration",
+          "observabilityadmin:ListS3TableIntegrations",
+          "observabilityadmin:ListTelemetryPipelines"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-20T17:07:06+00:00"
+  "CreateDate": "2025-12-02T16:34:08+00:00"
 }

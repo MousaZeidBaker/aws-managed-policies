@@ -60,10 +60,36 @@
             "kms:ViaService": "identitystore.*.amazonaws.com"
           }
         }
+      },
+      {
+        "Sid": "SupportCaseManagement",
+        "Effect": "Allow",
+        "Action": [
+          "support:CreateCase",
+          "support:DescribeCases",
+          "support:DescribeCommunications",
+          "support:AddCommunicationToCase",
+          "support:ResolveCase"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "ExternalIdpSecretsAccess",
+        "Effect": "Allow",
+        "Action": [
+          "secretsmanager:GetSecretValue"
+        ],
+        "Resource": "arn:aws:secretsmanager:*:*:secret:transform!*",
+        "Condition": {
+          "StringEquals": {
+            "secretsmanager:ResourceTag/aws:secretsmanager:owningService": "transform",
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v3",
+  "VersionId": "v4",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-09-18T20:34:07+00:00"
+  "CreateDate": "2025-12-01T13:19:12+00:00"
 }

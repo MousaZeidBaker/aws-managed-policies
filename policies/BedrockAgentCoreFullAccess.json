@@ -136,6 +136,16 @@
         ]
       },
       {
+        "Sid": "BedrockAgentCoreGatewayApiGateway",
+        "Effect": "Allow",
+        "Action": [
+          "apigateway:GET"
+        ],
+        "Resource": [
+          "arn:aws:apigateway:*::/restapis/*/stages/*/exports/*"
+        ]
+      },
+      {
         "Sid": "LoggingAccess",
         "Effect": "Allow",
         "Action": [
@@ -338,10 +348,44 @@
         "Resource": [
           "arn:aws:ecr:*:*:repository/*"
         ]
+      },
+      {
+        "Sid": "AgentCoreEvaluationCloudWatchLogCreate",
+        "Effect": "Allow",
+        "Action": [
+          "logs:CreateLogGroup"
+        ],
+        "Resource": [
+          "arn:aws:logs:*:*:log-group:/aws/bedrock-agentcore/evaluations/*"
+        ]
+      },
+      {
+        "Sid": "AgentCoreEvaluationCloudWatchLogIndexAccess",
+        "Effect": "Allow",
+        "Action": [
+          "logs:PutIndexPolicy",
+          "logs:DescribeIndexPolicies"
+        ],
+        "Resource": [
+          "arn:aws:logs:*:*:log-group:aws/spans",
+          "arn:aws:logs:*:*:log-group:aws/spans:*"
+        ]
+      },
+      {
+        "Sid": "AgentCoreEvaluationBedrockInvokeAccess",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock:InvokeModel",
+          "bedrock:InvokeModelWithResponseStream"
+        ],
+        "Resource": [
+          "arn:aws:bedrock:*::foundation-model/*",
+          "arn:aws:bedrock:*:*:inference-profile/*"
+        ]
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-03T21:04:07+00:00"
+  "CreateDate": "2025-12-02T13:34:12+00:00"
 }

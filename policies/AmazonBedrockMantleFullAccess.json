@@ -1,0 +1,18 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "BedrockMantleAll",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock-mantle:*"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2025-12-04T07:19:09+00:00"
+}

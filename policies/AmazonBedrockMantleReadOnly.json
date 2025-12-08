@@ -1,0 +1,27 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "BedrockMantleReadOnly",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock-mantle:Get*",
+          "bedrock-mantle:List*"
+        ],
+        "Resource": "arn:aws:bedrock-mantle:*:*:project/*"
+      },
+      {
+        "Sid": "BedrockMantleCallWithBearerToken",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock-mantle:CallWithBearerToken"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2025-12-04T07:19:12+00:00"
+}

@@ -16,13 +16,16 @@
           "logs:StartLiveTail",
           "logs:StopLiveTail",
           "cloudwatch:GenerateQuery",
-          "cloudwatch:GenerateQueryResultsSummary"
+          "cloudwatch:GenerateQueryResultsSummary",
+          "observabilityadmin:ListS3TableIntegrations",
+          "observabilityadmin:GetS3TableIntegration",
+          "observabilityadmin:ListTelemetryPipelines"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-05-20T16:52:06+00:00"
+  "CreateDate": "2025-12-02T16:34:10+00:00"
 }

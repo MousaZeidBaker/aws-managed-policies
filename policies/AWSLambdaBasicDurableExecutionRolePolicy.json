@@ -1,0 +1,21 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "lambda:CheckpointDurableExecution",
+          "lambda:GetDurableExecutionState"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2025-12-02T15:04:12+00:00"
+}
