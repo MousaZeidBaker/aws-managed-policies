@@ -83,13 +83,15 @@
           "resource-explorer-2:TagResource",
           "resource-explorer-2:UntagResource",
           "resource-explorer-2:UpdateIndexType",
-          "resource-explorer-2:UpdateView"
+          "resource-explorer-2:UpdateView",
+          "action-recommendations:ListRecommendedActions",
+          "account:GetAccountInformation"
         ],
         "Resource": "*"
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-08-14T21:19:07+00:00"
+  "CreateDate": "2025-12-10T00:04:10+00:00"
 }

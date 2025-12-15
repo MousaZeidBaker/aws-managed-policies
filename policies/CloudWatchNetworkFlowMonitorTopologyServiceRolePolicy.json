@@ -27,10 +27,19 @@
           "ec2:GetManagedPrefixListEntries"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "VPCEndpointStatement",
+        "Effect": "Allow",
+        "Action": [
+          "ec2:DescribeVpcEndpoints",
+          "ec2:DescribeVpcEndpointServiceConfigurations"
+        ],
+        "Resource": "*"
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-06T23:19:08+00:00"
+  "CreateDate": "2025-12-10T17:04:09+00:00"
 }

@@ -14,10 +14,23 @@
           "organizations:ListAWSServiceAccessForOrganization"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "OrganizationsDataSyncToServiceCatalogRegions",
+        "Effect": "Allow",
+        "Action": [
+          "account:ListRegions"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceAccount": "${aws:PrincipalAccount}"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-04-10T20:48:28+00:00"
+  "CreateDate": "2025-12-08T19:04:09+00:00"
 }

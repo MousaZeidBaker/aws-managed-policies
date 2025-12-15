@@ -1,0 +1,36 @@
+{
+  "Document": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "account:CloseAccount",
+          "bcm-recommended-actions:ListRecommendedActions",
+          "ce:GetCostAndUsage",
+          "cur:GetUsageReport",
+          "iam:ListSAMLProviders",
+          "freetier:GetFreeTierUsage",
+          "freetier:GetAccountPlanState"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "iam:UpdateSamlProvider",
+          "iam:GetSamlProvider"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:ResourceTag/VercelInstallId": "${aws:PrincipalTag/VercelInstallId}"
+          }
+        }
+      }
+    ]
+  },
+  "VersionId": "v1",
+  "IsDefaultVersion": true,
+  "CreateDate": "2025-12-11T16:34:19+00:00"
+}

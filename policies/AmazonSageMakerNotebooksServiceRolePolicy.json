@@ -153,6 +153,38 @@
         "Resource": "*"
       },
       {
+        "Sid": "AllowKmsAccessViaIdentityCenter",
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "ArnLike": {
+            "kms:EncryptionContext:aws:sso:instance-arn": "arn:*:sso:::instance/*"
+          },
+          "StringLike": {
+            "kms:ViaService": "sso.*.amazonaws.com"
+          }
+        }
+      },
+      {
+        "Sid": "AllowKmsAccessViaIdentityStore",
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "ArnLike": {
+            "kms:EncryptionContext:aws:identitystore:identitystore-arn": "arn:*:identitystore::*:identitystore/*"
+          },
+          "StringLike": {
+            "kms:ViaService": "identitystore.*.amazonaws.com"
+          }
+        }
+      },
+      {
         "Sid": "AllowSagemakerProfileCreation",
         "Effect": "Allow",
         "Action": [
@@ -187,7 +219,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-11-14T20:33:45+00:00"
+  "CreateDate": "2025-12-10T18:34:11+00:00"
 }

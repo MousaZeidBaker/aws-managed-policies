@@ -27,6 +27,7 @@
           "securityagent:BatchGetFindings",
           "securityagent:BatchGetPentestJobs",
           "securityagent:BatchGetPentests",
+          "securityagent:BatchGetSecurityTestContentMetadata",
           "securityagent:BatchGetTasks",
           "securityagent:CreateDocumentReview",
           "securityagent:CreatePentest",
@@ -60,7 +61,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-12-02T15:04:06+00:00"
+  "CreateDate": "2025-12-10T01:04:12+00:00"
 }
