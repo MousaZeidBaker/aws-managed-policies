@@ -22,7 +22,9 @@
           "timestream-influxdb:UpdateDbCluster",
           "timestream-influxdb:DeleteDbCluster",
           "timestream-influxdb:ListDbClusters",
-          "timestream-influxdb:ListDbInstancesForCluster"
+          "timestream-influxdb:ListDbInstancesForCluster",
+          "timestream-influxdb:RebootDbInstance",
+          "timestream-influxdb:RebootDbCluster"
         ],
         "Resource": "arn:aws:timestream-influxdb:*:*:*"
       },
@@ -103,7 +105,7 @@
       }
     ]
   },
-  "VersionId": "v6",
+  "VersionId": "v7",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-17T21:49:10+00:00"
+  "CreateDate": "2025-12-16T20:34:12+00:00"
 }

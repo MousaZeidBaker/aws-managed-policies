@@ -107,10 +107,33 @@
           "dataexchange:GetDataSet"
         ],
         "Resource": "*"
+      },
+      {
+        "Sid": "CustomerProfilesIntegrationReadAccess",
+        "Effect": "Allow",
+        "Action": [
+          "connect:ListInstances",
+          "profile:ListDomains",
+          "profile:GetDomain",
+          "profile:ListIntegrations",
+          "profile:ListAccountIntegrations",
+          "profile:ListProfileObjectTypes"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "CustomerProfilesIntegrationWriteAccess",
+        "Effect": "Allow",
+        "Action": [
+          "profile:PutProfileObjectType"
+        ],
+        "Resource": [
+          "arn:aws:profile:*:*:domains/*/object-types/*"
+        ]
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2023-10-16T18:46:10+00:00"
+  "CreateDate": "2025-12-15T21:19:10+00:00"
 }
