@@ -223,10 +223,46 @@
             "deadline:RequesterPrincipalId": "${deadline:PrincipalId}"
           }
         }
+      },
+      {
+        "Sid": "AllowKmsAccessViaIdentityCenter",
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "ArnLike": {
+            "kms:EncryptionContext:aws:sso:instance-arn": "arn:*:sso:::instance/*"
+          },
+          "StringLike": {
+            "kms:ViaService": "sso.*.amazonaws.com"
+          }
+        }
+      },
+      {
+        "Sid": "AllowKmsAccessViaIdentityStore",
+        "Effect": "Allow",
+        "Action": [
+          "kms:Decrypt"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "ArnLike": {
+            "kms:EncryptionContext:aws:identitystore:identitystore-arn": "arn:*:identitystore::*:identitystore/*"
+          },
+          "StringLike": {
+            "kms:ViaService": "identitystore.*.amazonaws.com"
+          }
+        }
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2024-10-07T17:57:52+00:00"
+  "CreateDate": "2025-12-22T19:34:12+00:00"
 }
