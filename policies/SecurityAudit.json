@@ -336,6 +336,8 @@
           "eks:DescribeCluster",
           "eks:DescribeFargateProfile",
           "eks:DescribeNodeGroup",
+          "eks:ListAccessEntries",
+          "eks:ListAssociatedAccessPolicies",
           "eks:ListClusters",
           "eks:ListFargateProfiles",
           "eks:ListNodeGroups",
@@ -955,7 +957,7 @@
       }
     ]
   },
-  "VersionId": "v56",
+  "VersionId": "v57",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-10-13T18:19:07+00:00"
+  "CreateDate": "2026-01-08T16:49:07+00:00"
 }
