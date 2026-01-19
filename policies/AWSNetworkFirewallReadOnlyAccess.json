@@ -9,17 +9,27 @@
           "network-firewall:ListFirewallPolicies",
           "network-firewall:ListFirewalls",
           "network-firewall:ListFlowOperations",
+          "network-firewall:ListProxies",
+          "network-firewall:ListProxyConfigurations",
+          "network-firewall:ListProxyRuleGroups",
           "network-firewall:ListRuleGroups",
           "network-firewall:ListTagsForResource",
           "network-firewall:ListTLSInspectionConfigurations",
+          "network-firewall:ListVpcEndpointAssociations",
           "network-firewall:DescribeFirewall",
+          "network-firewall:DescribeFirewallMetadata",
           "network-firewall:DescribeFirewallPolicy",
           "network-firewall:DescribeFlowOperation",
           "network-firewall:DescribeLoggingConfiguration",
+          "network-firewall:DescribeProxy",
+          "network-firewall:DescribeProxyConfiguration",
+          "network-firewall:DescribeProxyRule",
+          "network-firewall:DescribeProxyRuleGroup",
           "network-firewall:DescribeResourcePolicy",
           "network-firewall:DescribeRuleGroup",
           "network-firewall:DescribeRuleGroupMetadata",
           "network-firewall:DescribeTLSInspectionConfiguration",
+          "network-firewall:DescribeVpcEndpointAssociation",
           "network-firewall:GetAnalysisReportResults",
           "network-firewall:ListFlowOperationResults"
         ],
@@ -35,7 +45,7 @@
       }
     ]
   },
-  "VersionId": "v1",
+  "VersionId": "v2",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-06-10T21:52:05+00:00"
+  "CreateDate": "2026-01-16T17:19:14+00:00"
 }

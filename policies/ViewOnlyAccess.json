@@ -340,7 +340,14 @@
           "workdocs:DescribeAvailableDirectories",
           "workdocs:DescribeInstances",
           "workmail:Describe*",
-          "workspaces:Describe*"
+          "workspaces:Describe*",
+          "xray:GetEncryptionConfig",
+          "xray:GetGroups",
+          "xray:GetSamplingRules",
+          "xray:GetSamplingStatisticSummaries",
+          "xray:GetSamplingTargets",
+          "xray:GetTraceSegmentDestination",
+          "xray:ListResourcePolicies"
         ],
         "Resource": "*"
       },
@@ -395,7 +402,7 @@
       }
     ]
   },
-  "VersionId": "v28",
+  "VersionId": "v29",
   "IsDefaultVersion": true,
-  "CreateDate": "2026-01-08T16:34:15+00:00"
+  "CreateDate": "2026-01-15T18:34:12+00:00"
 }
