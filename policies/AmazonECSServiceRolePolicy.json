@@ -154,6 +154,21 @@
         ]
       },
       {
+        "Sid": "OpenDataChannel",
+        "Effect": "Allow",
+        "Action": [
+          "ssmmessages:OpenDataChannel"
+        ],
+        "Resource": [
+          "arn:aws:ssm:*:*:session/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalAccount": "${aws:ResourceAccount}"
+          }
+        }
+      },
+      {
         "Sid": "CloudMapResourceCreation",
         "Effect": "Allow",
         "Action": [
@@ -225,7 +240,7 @@
       }
     ]
   },
-  "VersionId": "v14",
+  "VersionId": "v15",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-20T23:49:10+00:00"
+  "CreateDate": "2026-01-21T18:04:08+00:00"
 }
