@@ -207,6 +207,7 @@
           "sagemaker:QueryLineage",
           "sagemaker:*InferenceComponent*",
           "sagemaker:*Job*",
+          "sagemaker:*MlflowApp*",
           "sagemaker:StartMlflowTrackingServer",
           "sagemaker:StopMlflowTrackingServer",
           "sagemaker:CreatePresignedMlflowTrackingServerUrl",
@@ -904,7 +905,7 @@
       }
     ]
   },
-  "VersionId": "v5",
+  "VersionId": "v6",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-11-18T23:34:07+00:00"
+  "CreateDate": "2026-01-27T21:04:11+00:00"
 }

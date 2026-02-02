@@ -292,14 +292,15 @@
           "StringEquals": {
             "ec2:CreateAction": [
               "CreateLaunchTemplate",
-              "RunInstances"
+              "RunInstances",
+              "AllocateAddress"
             ]
           }
         }
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-02-27T16:07:07+00:00"
+  "CreateDate": "2026-01-27T21:19:11+00:00"
 }
