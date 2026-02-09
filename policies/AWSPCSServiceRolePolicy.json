@@ -57,7 +57,8 @@
           "ec2:DescribeKeyPairs",
           "ec2:DescribeImages",
           "ec2:DescribeImageAttribute",
-          "ec2:DescribeCapacityReservations"
+          "ec2:DescribeCapacityReservations",
+          "ec2:DescribeTags"
         ],
         "Resource": "*"
       },
@@ -210,7 +211,7 @@
       }
     ]
   },
-  "VersionId": "v2",
+  "VersionId": "v3",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-09-11T18:49:07+00:00"
+  "CreateDate": "2026-02-04T20:04:07+00:00"
 }

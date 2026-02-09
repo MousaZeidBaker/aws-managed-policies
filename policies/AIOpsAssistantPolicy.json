@@ -50,6 +50,7 @@
           "appsync:GetDomainName",
           "appsync:GetFunction",
           "appsync:GetGraphqlApi",
+          "appsync:GetGraphqlApiEnvironmentVariables",
           "appsync:GetIntrospectionSchema",
           "appsync:GetResolver",
           "appsync:GetSourceApiAssociation",
@@ -130,6 +131,7 @@
           "cloudfront:List*",
           "cloudtrail:Describe*",
           "cloudtrail:GetChannel",
+          "cloudtrail:GetEventConfiguration",
           "cloudtrail:GetEventDataStore",
           "cloudtrail:GetEventSelectors",
           "cloudtrail:GetInsightSelectors",
@@ -445,6 +447,7 @@
           "kms:DescribeKey",
           "kms:ListResourceTags",
           "kms:ListKeys",
+          "kms:GetKeyPolicy",
           "kms:GetKeyRotationStatus",
           "kms:ListAliases",
           "kms:ListKeyRotations",
@@ -683,6 +686,7 @@
           "s3:GetAccessPointPolicyForObjectLambda",
           "s3:GetAccessPointPolicyStatusForObjectLambda",
           "s3:GetAnalyticsConfiguration",
+          "s3:GetBucketAbac",
           "s3:GetBucketAcl",
           "s3:GetBucketCORS",
           "s3:GetBucketLocation",
@@ -900,7 +904,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-12-17T16:49:12+00:00"
+  "CreateDate": "2026-02-06T18:49:11+00:00"
 }

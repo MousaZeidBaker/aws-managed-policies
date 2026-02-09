@@ -241,12 +241,16 @@
       {
         "Effect": "Allow",
         "Action": [
-          "iam:GetInstanceProfile",
           "iam:CreateInstanceProfile",
           "iam:DeleteInstanceProfile",
           "iam:RemoveRoleFromInstanceProfile"
         ],
         "Resource": "arn:aws:iam::*:instance-profile/eks*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": "iam:GetInstanceProfile",
+        "Resource": "arn:aws:iam::*:instance-profile/*"
       },
       {
         "Effect": "Allow",
@@ -323,7 +327,7 @@
       }
     ]
   },
-  "VersionId": "v10",
+  "VersionId": "v11",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-10-22T23:49:06+00:00"
+  "CreateDate": "2026-02-02T22:19:08+00:00"
 }

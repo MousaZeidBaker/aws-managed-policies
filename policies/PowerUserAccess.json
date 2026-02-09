@@ -15,6 +15,7 @@
         "Effect": "Allow",
         "Action": [
           "account:GetAccountInformation",
+          "account:GetGovCloudAccountInformation",
           "account:GetPrimaryEmail",
           "account:ListRegions",
           "iam:CreateServiceLinkedRole",
@@ -27,7 +28,7 @@
       }
     ]
   },
-  "VersionId": "v7",
+  "VersionId": "v8",
   "IsDefaultVersion": true,
-  "CreateDate": "2025-04-29T19:07:07+00:00"
+  "CreateDate": "2026-02-03T22:34:10+00:00"
 }

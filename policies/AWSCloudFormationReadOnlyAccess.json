@@ -6,6 +6,7 @@
         "Effect": "Allow",
         "Action": [
           "cloudformation:Describe*",
+          "cloudformation:BatchDescribe*",
           "cloudformation:EstimateTemplateCost",
           "cloudformation:Get*",
           "cloudformation:List*",
@@ -16,7 +17,7 @@
       }
     ]
   },
-  "VersionId": "v4",
+  "VersionId": "v5",
   "IsDefaultVersion": true,
-  "CreateDate": "2019-11-13T17:40:07+00:00"
+  "CreateDate": "2026-02-02T18:19:11+00:00"
 }
